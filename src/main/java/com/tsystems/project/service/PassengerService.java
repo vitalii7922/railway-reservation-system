@@ -2,9 +2,11 @@ package com.tsystems.project.service;
 
 import com.tsystems.project.dao.PassengerDao;
 import com.tsystems.project.domain.Passenger;
+import com.tsystems.project.domain.Schedule;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
@@ -12,30 +14,24 @@ public class PassengerService {
     @Autowired
     private static PassengerDao passengerDao;
 
-    public PassengerService() {
+    @Transactional
+    public Passenger addPassenger(Passenger passenger) {
+        passengerDao.create(passenger);
+        return passenger;
     }
 
-    public void persist(Passenger entity) {
+    @Transactional
+    public Passenger editPassenger(Passenger passenger) throws RuntimeException {
+        passengerDao.update(passenger);
+        return passengerDao.findOne(passenger.getId());
     }
 
-    public void update(Passenger entity) {
+    @Transactional
+    public void removePassenger(Passenger passenger) {
+        passengerDao.delete(passenger);
     }
 
-    public Passenger findById(long id) {
-        return null;
-    }
-
-    public void delete(long id) {
-    }
-
-    public List<Passenger> findAll() {
-        return null;
-    }
-
-    public void deleteAll() {
-    }
-
-    public PassengerDao passengerDao() {
-        return passengerDao;
+    public List<Schedule> getAllSchedules() {
+        return passengerDao.findAll();
     }
 }
