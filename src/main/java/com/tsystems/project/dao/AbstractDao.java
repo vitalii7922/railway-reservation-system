@@ -2,14 +2,18 @@ package com.tsystems.project.dao;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
 import java.util.List;
 
+@Component
 public abstract class AbstractDao<T extends Serializable> {
 
     private Class<T> clazz;
 
+    @Autowired
     SessionFactory sessionFactory;
 
     public AbstractDao(Class<T> clazz) {
