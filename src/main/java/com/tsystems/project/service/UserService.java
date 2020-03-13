@@ -4,10 +4,12 @@ import com.tsystems.project.dao.UserDao;
 import com.tsystems.project.domain.Ticket;
 import com.tsystems.project.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
 
+@Service
 public class UserService {
     @Autowired
     UserDao userDao;
