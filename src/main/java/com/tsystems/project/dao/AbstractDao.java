@@ -13,7 +13,7 @@ public abstract class AbstractDao<T extends Serializable> {
 
     private Class<T> clazz;
 
-    @Autowired
+
     SessionFactory sessionFactory;
 
     public AbstractDao(Class<T> clazz) {

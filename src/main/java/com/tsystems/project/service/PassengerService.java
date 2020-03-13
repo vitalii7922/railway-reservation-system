@@ -12,7 +12,7 @@ import java.util.List;
 @Service
 public class PassengerService {
     @Autowired
-    private static PassengerDao passengerDao;
+    PassengerDao passengerDao;
 
     @Transactional
     public Passenger addPassenger(Passenger passenger) {
