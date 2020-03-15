@@ -1,0 +1,17 @@
+.line {
+    border-bottom-width: 2px;
+    border-bottom-style: solid;
+    border-bottom-color: black;
+}
+
+.table {
+    border: 1px solid black;
+    margin-bottom: 100px;
+}
+
+.input{
+    width: 120px;
+    text-align: center;
+}
+
+

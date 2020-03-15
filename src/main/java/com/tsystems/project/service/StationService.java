@@ -4,12 +4,14 @@ import com.tsystems.project.dao.StationDao;
 import com.tsystems.project.domain.Station;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
 public class StationService {
+
     @Autowired
     StationDao stationDao;
 
@@ -19,7 +21,7 @@ public class StationService {
         return station;
     }
 
-    @Transactional
+
     public Station editStation(Station station) throws RuntimeException {
         stationDao.update(station);
         return stationDao.findOne(station.getId());

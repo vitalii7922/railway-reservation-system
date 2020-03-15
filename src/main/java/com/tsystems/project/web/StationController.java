@@ -13,12 +13,11 @@ class StationController {
     @Autowired
     StationService stationService;
 
-    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    @RequestMapping(value = "/add", method = {RequestMethod.POST, RequestMethod.GET})
     public String addStation(@RequestParam("station") String stationName){
         Station station = new Station();
         station.setName(stationName);
-        stationService = new StationService();
         stationService.addStation(station);
-        return "Station's been added successfully";
+        return "display.jsp";
     }
 }

@@ -2,15 +2,15 @@ package com.tsystems.project.service;
 
 import com.tsystems.project.dao.ScheduleDao;
 import com.tsystems.project.domain.Schedule;
-import com.tsystems.project.domain.Station;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
 public class ScheduleService {
+
     @Autowired
     ScheduleDao scheduleDao;
 
