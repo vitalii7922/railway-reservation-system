@@ -7,7 +7,7 @@ import java.util.List;
 @Entity
 public class Station implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int id;
 
     @Column(name = "station_name")

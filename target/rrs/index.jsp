@@ -24,7 +24,7 @@
         Choose stations for a trip:
     </p>
     <form>
-    <table class = table align=center style="width:100px">
+    <table class = table align=center>
         <tr>
             <th>From</th>
             <th>To</th>

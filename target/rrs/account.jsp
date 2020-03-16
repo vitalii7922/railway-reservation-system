@@ -7,12 +7,12 @@
     </style>
 </head>
 <body>
-<form method="post">
-    <%--@declare id="psw"--%><div class="container" style="text-align:center;>
+<form action="login" method="post">
+    <div class="container" style="text-align:center;>
     <label for="uname"><b>Username</b></label><br>
     <input type="text" placeholder="Enter Username" name="uname" required><br>
 
-    <label for="psw"><b>Password</b></label><br>
+    <label><b>Password</b></label><br>
     <input type="password" placeholder="Enter Password" name="psw" required><br>
 
     <button type="submit">Login</button>

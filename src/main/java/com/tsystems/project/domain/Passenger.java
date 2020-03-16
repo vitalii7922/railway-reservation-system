@@ -7,7 +7,7 @@ import java.util.List;
 @Entity
 public class Passenger implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private long id;
 
     @Column(name = "first_name")

@@ -3,19 +3,15 @@ package com.tsystems.project.dao;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import java.io.Serializable;
 import java.util.List;
 
-@EnableTransactionManagement
 public abstract class AbstractDao<T extends Serializable> {
-
     private Class<T> clazz;
 
     @Autowired
     SessionFactory sessionFactory;
-
 
     public AbstractDao(Class<T> clazz) {
         this.clazz = clazz;
@@ -26,7 +22,10 @@ public abstract class AbstractDao<T extends Serializable> {
     }
 
     public List findAll() {
-        return  getCurrentSession().createQuery("from " + clazz.getName()).list();
+        getCurrentSession().beginTransaction();
+        List elements = getCurrentSession().createQuery("from " + clazz.getName()).list();
+        getCurrentSession().getTransaction().commit();
+        return  elements;
     }
 
 

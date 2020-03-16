@@ -4,7 +4,6 @@ import com.tsystems.project.dao.StationDao;
 import com.tsystems.project.domain.Station;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -16,18 +15,23 @@ public class StationService {
     StationDao stationDao;
 
     @Transactional
-    public Station addStation(Station station) {
+    public void addStation(Station station) {
         stationDao.create(station);
-        return station;
     }
 
 
+    public Station getStationById(long id){
+        return stationDao.findOne(id);
+    }
+
+
+    @Transactional
     public Station editStation(Station station) throws RuntimeException {
         stationDao.update(station);
         return stationDao.findOne(station.getId());
     }
 
-    @Transactional
+
     public void removeStation(Station station) {
         stationDao.delete(station);
     }
