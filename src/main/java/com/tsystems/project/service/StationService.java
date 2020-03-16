@@ -24,6 +24,9 @@ public class StationService {
         return stationDao.findOne(id);
     }
 
+    public Station getStation(String stationName) {
+       return stationDao.findByName(stationName);
+    }
 
     @Transactional
     public Station editStation(Station station) throws RuntimeException {

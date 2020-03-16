@@ -1,5 +1,4 @@
 package com.tsystems.project.web;
-
 import com.tsystems.project.domain.Station;
 import com.tsystems.project.service.StationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,24 +14,25 @@ import java.util.List;
 
 @Controller
 class StationController {
+
     @Autowired
     StationService stationService;
 
-    @RequestMapping(value = "/add", method = {RequestMethod.POST, RequestMethod.GET})
+    @RequestMapping(value = "/add_stations", method = {RequestMethod.POST, RequestMethod.GET})
     @ResponseBody
     public ModelAndView addStation(@RequestParam("station") String stationName, Model model){
         Station station = new Station();
         station.setName(stationName);
         stationService.addStation(station);
-        model.addAttribute("message", "Station " + stationName + " has been added");
+        model.addAttribute("messageStation", "Station " + stationName + " has been added");
         return new ModelAndView("menu.jsp");
     }
 
-    @RequestMapping(value = "/print", method = {RequestMethod.POST, RequestMethod.GET})
+    @RequestMapping(value = "/get_stations", method = {RequestMethod.POST, RequestMethod.GET})
     @ResponseBody
     public ModelAndView getStations(Model model){
         List<Station> stations = stationService.getAllStations();
         model.addAttribute("listOfParams", stations);
-        return new ModelAndView("menu.jsp");
+        return new ModelAndView("station.jsp");
     }
 }

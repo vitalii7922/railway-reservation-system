@@ -19,10 +19,12 @@ public class Train implements Serializable {
     private List<Schedule> schedules;
 
     @ManyToOne
-    private Station departureStation;
+    private Station originStation;
 
     @ManyToOne
-    private Station originStation;
+    private Station destinationStation;
+
+
 
     public int getId() {
         return id;
@@ -56,12 +58,12 @@ public class Train implements Serializable {
         this.schedules = schedules;
     }
 
-    public Station getDepartureStation() {
-        return departureStation;
+    public Station getDestinationStation() {
+        return destinationStation;
     }
 
-    public void setDepartureStation(Station departureStation) {
-        this.departureStation = departureStation;
+    public void setDestinationStation(Station destinationStation) {
+        this.destinationStation = destinationStation;
     }
 
     public Station getOriginStation() {
@@ -78,7 +80,7 @@ public class Train implements Serializable {
                 "number=" + number +
                 ", seats=" + seats +
                 ", schedules=" + schedules +
-                ", departureStation=" + departureStation +
+                ", departureStation=" + destinationStation +
                 ", originStation=" + originStation +
                 '}';
     }

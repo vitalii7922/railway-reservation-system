@@ -2,21 +2,55 @@
     border-bottom-width: 2px;
     border-bottom-style: solid;
     border-bottom-color: black;
+    font-family: 'Poppins', sans-serif;
 }
 
 .table {
     border: 1px solid black;
     margin-bottom: 100px;
+    font-family: 'Poppins', sans-serif;
 }
 
-.input{
+.table_print {
+    border-left: 1px solid black;
+    font-family: 'Poppins', sans-serif;
+}
+
+.input {
     width: 120px;
     text-align: center;
+    font-family: 'Poppins', sans-serif;
+}
+
+.input_trains {
+    width: 20px;
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+}
+
+input{
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
 }
 
 .style{
     margin-top: 5px;
     width: 215px;
+    font-family: 'Poppins', sans-serif;
 }
 
+.text{
+    font-family: 'Poppins', sans-serif;
+}
+
+button {
+    background-color: #A0A0A0;
+    color: white;
+    width: 100%;
+}
+
+button:hover {
+    opacity: 0.8;
+}
 

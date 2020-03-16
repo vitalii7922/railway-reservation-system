@@ -25,6 +25,7 @@ public abstract class AbstractDao<T extends Serializable> {
         getCurrentSession().beginTransaction();
         List elements = getCurrentSession().createQuery("from " + clazz.getName()).list();
         getCurrentSession().getTransaction().commit();
+        getCurrentSession().close();
         return  elements;
     }
 
@@ -34,6 +35,7 @@ public abstract class AbstractDao<T extends Serializable> {
            getCurrentSession().beginTransaction();
            getCurrentSession().saveOrUpdate(entity);
            getCurrentSession().getTransaction().commit();
+           getCurrentSession().close();
         }
         return entity;
     }
@@ -42,6 +44,7 @@ public abstract class AbstractDao<T extends Serializable> {
         getCurrentSession().beginTransaction();
         T e = (T) getCurrentSession().merge(entity);
         getCurrentSession().getTransaction().commit();
+        getCurrentSession().close();
         return e;
     }
 
@@ -49,6 +52,7 @@ public abstract class AbstractDao<T extends Serializable> {
         getCurrentSession().beginTransaction();
         getCurrentSession().delete(entity);
         getCurrentSession().getTransaction().commit();
+        getCurrentSession().close();
     }
 
     public void deleteById(long entityId) {
@@ -56,6 +60,7 @@ public abstract class AbstractDao<T extends Serializable> {
         T entity = findOne(entityId);
         delete(entity);
         getCurrentSession().getTransaction().commit();
+        getCurrentSession().close();
     }
 
     protected Session getCurrentSession() {
