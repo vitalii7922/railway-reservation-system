@@ -19,6 +19,7 @@ public class TrainController {
 
     @Autowired
     StationService stationService;
+
     @Autowired
     TrainService trainService;
 
@@ -28,13 +29,12 @@ public class TrainController {
                                  @RequestParam("origin_station") String originStation,
                                  @RequestParam("destination_station") String destinationStation,
                                  @RequestParam("number_of_seats") String numberOfSeats, Model model){
-        Train train = new Train();
-        train.setNumber(Integer.parseInt(trainNumber));
-        train.setOriginStation(stationService.getStation(originStation));
-        train.setDestinationStation(stationService.getStation(destinationStation));
-        train.setSeats(Integer.parseInt(numberOfSeats));
-        trainService.addTrain(train);
-        model.addAttribute("messageTrain", "Train number " + trainNumber + " has been added");
+
+        Station from = stationService.getStation(originStation);
+        Station to = stationService.getStation(destinationStation);
+        Train train = trainService.addTrain(trainNumber, from, to, numberOfSeats);
+
+        model.addAttribute("messageTrain", "Train number " + train.getNumber() + " has been added");
         return new ModelAndView("menu.jsp");
     }
 

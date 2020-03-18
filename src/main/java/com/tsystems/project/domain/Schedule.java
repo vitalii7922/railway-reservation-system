@@ -11,7 +11,7 @@ public class Schedule implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
 
-    @Column(name = "arrival_time")
+    @Column(name = "arrive_time")
     private LocalDateTime arrivalTime;
 
     @Column(name = "departure_time")

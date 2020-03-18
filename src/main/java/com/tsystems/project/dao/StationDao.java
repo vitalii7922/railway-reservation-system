@@ -1,9 +1,11 @@
 package com.tsystems.project.dao;
 
 import com.tsystems.project.domain.Station;
+import com.tsystems.project.domain.Train;
 import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -23,10 +25,8 @@ public class StationDao extends AbstractDao<Station> {
         getCurrentSession().close();
         if (stations.isEmpty()) {
             return null;
-
         } else {
             return stations.get(0);
         }
-
     }
 }

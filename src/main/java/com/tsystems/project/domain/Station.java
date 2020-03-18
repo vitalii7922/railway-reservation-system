@@ -13,10 +13,10 @@ public class Station implements Serializable {
     @Column(name = "station_name")
     private String name;
 
-    @OneToMany(mappedBy = "destinationStation")
+    @OneToMany(mappedBy = "originStation")
     private List<Train> trainsDeparture;
 
-    @OneToMany(mappedBy = "originStation")
+    @OneToMany(mappedBy = "destinationStation")
     private List<Train> trainsArrive;
 
     public int getId() {
