@@ -9,7 +9,7 @@ public class Train implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private int id;
+    private long id;
 
     private int number;
 
@@ -18,19 +18,21 @@ public class Train implements Serializable {
     @OneToMany(mappedBy = "train")
     private List<Schedule> schedules;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "originStation_id")
     private Station originStation;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "destinationStation_id")
     private Station destinationStation;
 
 
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -84,4 +86,10 @@ public class Train implements Serializable {
                 ", originStation=" + originStation +
                 '}';
     }
+
+    public long compareTo(Train t)
+    {
+        return this.id - t.id;
+    }
+
 }

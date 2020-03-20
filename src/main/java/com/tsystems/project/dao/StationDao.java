@@ -5,7 +5,6 @@ import com.tsystems.project.domain.Train;
 import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -29,4 +28,20 @@ public class StationDao extends AbstractDao<Station> {
             return stations.get(0);
         }
     }
+
+    public Station findByDestinationStationId(long id) {
+        getCurrentSession().beginTransaction();
+        String queryString = "SELECT t FROM Train t WHERE (t.destinationStation) = :id";
+        Query query = getCurrentSession().createQuery(queryString);
+        query.setParameter("id", id);
+        List<Train> trains = query.getResultList();
+        getCurrentSession().getTransaction().commit();
+        getCurrentSession().close();
+        if (trains.isEmpty()) {
+            return null;
+        } else {
+            return trains.get(0).getDestinationStation();
+        }
+    }
+
 }

@@ -10,6 +10,7 @@ import com.tsystems.project.domain.Train;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,27 +21,26 @@ public class TrainService {
     @Autowired
     TrainDao trainDao;
 
-    @Autowired
-    StationService stationService;
-
     @Transactional
     public Train addTrain(String trainNumber, Station originStation, Station destinationStation, String numberOfSeats) {
-        Train train = new Train();
-        train.setNumber(Integer.parseInt(trainNumber));
-        train.setOriginStation(originStation);
-        train.setDestinationStation(destinationStation);
-        train.setSeats(Integer.parseInt(numberOfSeats));
 
-       /* stationService.editStation(originStation, train);
-        stationService.editStation(destinationStation, train);*/
+        Train trainArrive = trainDao.findByNumber(Integer.parseInt(trainNumber));
+        Train trainDeparture = null;
 
-        return trainDao.create(train);
+        if (trainArrive != null && trainArrive.getDestinationStation().getId() != originStation.getId()) {
+            return null;
+        } else {
+            trainDeparture = new Train();
+            trainDeparture.setNumber(Integer.parseInt(trainNumber));
+            trainDeparture.setOriginStation(originStation);
+            trainDeparture.setDestinationStation(destinationStation);
+            trainDeparture.setSeats(Integer.parseInt(numberOfSeats));
+            return trainDao.create(trainDeparture);
+        }
     }
 
     @Transactional
     public Train editTrain(Train train) throws RuntimeException {
-
-
         trainDao.update(train);
         return trainDao.findOne(train.getId());
     }

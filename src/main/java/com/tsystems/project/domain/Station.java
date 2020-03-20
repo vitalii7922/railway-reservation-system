@@ -8,22 +8,22 @@ import java.util.List;
 public class Station implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private int id;
+    private long id;
 
     @Column(name = "station_name")
     private String name;
 
-    @OneToMany(mappedBy = "originStation")
+    @OneToMany(mappedBy = "originStation", fetch = FetchType.LAZY)
     private List<Train> trainsDeparture;
 
-    @OneToMany(mappedBy = "destinationStation")
+    @OneToMany(mappedBy = "destinationStation", fetch = FetchType.LAZY)
     private List<Train> trainsArrive;
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 

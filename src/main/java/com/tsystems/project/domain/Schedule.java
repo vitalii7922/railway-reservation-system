@@ -1,15 +1,16 @@
 package com.tsystems.project.domain;
 
+
+
 import javax.persistence.*;
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
 public class Schedule implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int id;
+    long id;
 
     @Column(name = "arrive_time")
     private LocalDateTime arrivalTime;
@@ -26,6 +27,7 @@ public class Schedule implements Serializable {
     public LocalDateTime getArrivalTime() {
         return arrivalTime;
     }
+
 
     public void setArrivalTime(LocalDateTime arrivalTime) {
         this.arrivalTime = arrivalTime;
@@ -66,11 +68,11 @@ public class Schedule implements Serializable {
                 '}';
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 }

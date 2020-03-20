@@ -18,7 +18,7 @@ class StationController {
     StationService stationService;
 
     @ResponseBody
-    @RequestMapping(value = "/add_stations")
+    @RequestMapping(value = "/add_station")
     public ModelAndView addStation(@RequestParam("station") String stationName, Model model){
         Station station = new Station();
         station.setName(stationName);
