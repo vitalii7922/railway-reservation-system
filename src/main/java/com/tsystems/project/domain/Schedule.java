@@ -18,10 +18,10 @@ public class Schedule implements Serializable {
     @Column(name = "departure_time")
     private LocalDateTime departureTime;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     Train train;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     Station station;
 
     public LocalDateTime getArrivalTime() {
@@ -57,16 +57,6 @@ public class Schedule implements Serializable {
         this.station = station;
     }
 
-    @Override
-    public String toString() {
-        return "Schedule{" +
-                "id=" + id +
-                ", arrivalTime=" + arrivalTime +
-                ", departureTime=" + departureTime +
-                ", train=" + train +
-                ", station=" + station +
-                '}';
-    }
 
     public long getId() {
         return id;

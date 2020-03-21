@@ -18,21 +18,20 @@ public class Train implements Serializable {
     @OneToMany(mappedBy = "train")
     private List<Schedule> schedules;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "originStation_id")
     private Station originStation;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "destinationStation_id")
     private Station destinationStation;
-
 
 
     public long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -74,22 +73,6 @@ public class Train implements Serializable {
 
     public void setOriginStation(Station originStation) {
         this.originStation = originStation;
-    }
-
-    @Override
-    public String toString() {
-        return "Train{" +
-                "number=" + number +
-                ", seats=" + seats +
-                ", schedules=" + schedules +
-                ", departureStation=" + destinationStation +
-                ", originStation=" + originStation +
-                '}';
-    }
-
-    public long compareTo(Train t)
-    {
-        return this.id - t.id;
     }
 
 }

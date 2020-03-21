@@ -4,9 +4,7 @@ import com.tsystems.project.service.StationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -18,18 +16,20 @@ class StationController {
     StationService stationService;
 
     @ResponseBody
-    @RequestMapping(value = "/add_station")
-    public ModelAndView addStation(@RequestParam("station") String stationName, Model model){
-        Station station = new Station();
-        station.setName(stationName);
-        stationService.addStation(station);
-        model.addAttribute("messageStation", "Station " + stationName + " has been added");
+    @GetMapping(value = "/addStation")
+    public ModelAndView addStation(@RequestParam("station") String stationName, Model model) {
+        Station station = stationService.addStation(stationName);
+        if (station != null) {
+            model.addAttribute("messageStation", "Station " + station.getName() + " has been added");
+        } else {
+            model.addAttribute("Station " + stationName + " exists or you entered empty line");
+        }
         return new ModelAndView("menu.jsp");
     }
 
     @ResponseBody
-    @RequestMapping(value = "/get_stations")
-    public ModelAndView getStations(Model model){
+    @GetMapping(value = "/getStations")
+    public ModelAndView getStations(Model model) {
         List<Station> stations = stationService.getAllStations();
         model.addAttribute("listOfParams", stations);
         return new ModelAndView("station.jsp");

@@ -13,11 +13,14 @@ public class Station implements Serializable {
     @Column(name = "station_name")
     private String name;
 
-    @OneToMany(mappedBy = "originStation", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "originStation", fetch = FetchType.EAGER)
     private List<Train> trainsDeparture;
 
-    @OneToMany(mappedBy = "destinationStation", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "destinationStation")
     private List<Train> trainsArrive;
+
+    @OneToMany(mappedBy = "station")
+    private List<Schedule> schedules;
 
     public long getId() {
         return id;
@@ -51,11 +54,4 @@ public class Station implements Serializable {
         this.trainsArrive = trainsArrive;
     }
 
-    @Override
-    public String toString() {
-        return "Station{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                '}';
-    }
 }

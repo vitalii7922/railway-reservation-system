@@ -6,10 +6,15 @@
         <datasource-map>
           <unit-entry name="getSessionFactory" />
           <unit-entry name="hibernate.cfg.xml" value="0c0a24db-090c-4bae-9e1d-b304fc3af5a0" />
+          <unit-entry name="sessionFactory" />
         </datasource-map>
         <naming-strategy-map />
         <deploymentDescriptor name="hibernate.cfg.xml" url="file://$MODULE_DIR$/src/main/resources/hibernate.cfg.xml" />
       </configuration>
     </facet>
+  </component>
+  <component name="sonarModuleSettings">
+    <option name="localAnalysisScripName" value="&lt;PROJECT&gt;" />
+    <option name="serverName" value="&lt;PROJECT&gt;" />
   </component>
 </module>

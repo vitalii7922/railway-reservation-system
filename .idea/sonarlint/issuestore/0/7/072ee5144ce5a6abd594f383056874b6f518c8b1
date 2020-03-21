@@ -1,0 +1,8 @@
+
+[
+java:S1128"@Remove this unused import 'com.tsystems.project.domain.Station'.(çÿ–Îøÿÿÿÿ
+]
+java:S1854 "@Remove this useless assignment to local variable "trainArrival".(³Äº±8†ñõÎ.
+N
+java:S1481 "1Remove this unused "trainArrival" local variable.(³Äº±8†ñõÎ.
+X	java:S125!"<This block of commented-out lines of code should be removed.(— ¦½8†ñõÎ.

@@ -18,7 +18,11 @@ public abstract class AbstractDao<T extends Serializable> {
     }
 
     public T findOne(long id){
-        return (T) getCurrentSession().get(clazz, id);
+        getCurrentSession().beginTransaction();
+        T e = (T) getCurrentSession().get(clazz, id);
+        getCurrentSession().getTransaction().commit();
+        getCurrentSession().close();
+        return  e;
     }
 
     public List findAll() {
@@ -65,7 +69,7 @@ public abstract class AbstractDao<T extends Serializable> {
 
 
 
-    protected Session getCurrentSession() {
+    public Session getCurrentSession() {
         return sessionFactory.getCurrentSession();
     }
 }

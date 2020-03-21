@@ -1,0 +1,6 @@
+
+`	java:S112 "FDefine and throw a dedicated exception instead of using a generic one.(˜¦™½úÿÿÿÿ
+€
+java:S1130 "eRemove the declaration of thrown exception 'java.lang.RuntimeException' which is a runtime exception.(˜¦™½úÿÿÿÿ
+T
+java:S1128">Remove this unused import 'com.tsystems.project.domain.Train'.(ôËÁ´

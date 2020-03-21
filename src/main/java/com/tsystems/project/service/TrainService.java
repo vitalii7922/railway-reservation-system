@@ -1,20 +1,17 @@
 package com.tsystems.project.service;
 
-import com.tsystems.project.dao.ScheduleDao;
-import com.tsystems.project.dao.StationDao;
 import com.tsystems.project.dao.TrainDao;
-import com.tsystems.project.domain.Schedule;
 import com.tsystems.project.domain.Station;
 import com.tsystems.project.domain.Ticket;
 import com.tsystems.project.domain.Train;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.criteria.CriteriaBuilder;
 import javax.transaction.Transactional;
-import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.concurrent.TransferQueue;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class TrainService {
@@ -22,25 +19,19 @@ public class TrainService {
     TrainDao trainDao;
 
     @Transactional
-    public Train addTrain(String trainNumber, Station originStation, Station destinationStation, String numberOfSeats) {
-
-        Train trainArrive = trainDao.findByNumber(Integer.parseInt(trainNumber));
-        Train trainDeparture = null;
-
-        if (trainArrive != null && trainArrive.getDestinationStation().getId() != originStation.getId()) {
-            return null;
-        } else {
+    public Train addTrain(int trainNumber, Station originStation, Station destinationStation, String numberOfSeats) {
+            Train trainDeparture;
             trainDeparture = new Train();
-            trainDeparture.setNumber(Integer.parseInt(trainNumber));
+            trainDeparture.setNumber(trainNumber);
             trainDeparture.setOriginStation(originStation);
             trainDeparture.setDestinationStation(destinationStation);
             trainDeparture.setSeats(Integer.parseInt(numberOfSeats));
             return trainDao.create(trainDeparture);
-        }
+
     }
 
     @Transactional
-    public Train editTrain(Train train) throws RuntimeException {
+    public Train editTrain(Train train) {
         trainDao.update(train);
         return trainDao.findOne(train.getId());
     }
@@ -50,7 +41,21 @@ public class TrainService {
         trainDao.delete(train);
     }
 
-    public List<Ticket> getAllTrains() {
+    @Transactional
+    public Train getTrainByNumber(int number) {
+        Train train = trainDao.findByNumber(number);
+        return train;
+    }
+
+    @Transactional
+    public List<String> getAllTrainsByNumbers(int trainNumber) {
+        return trainDao.findByNumbers(trainNumber);
+    }
+
+
+    @Transactional
+    public List<Train> getAllTrains() {
         return trainDao.findAll();
     }
+
 }

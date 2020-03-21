@@ -1,7 +1,6 @@
 package com.tsystems.project.dao;
 
 import com.tsystems.project.domain.Schedule;
-import com.tsystems.project.domain.Station;
 import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
 
@@ -25,7 +24,7 @@ public class ScheduleDao extends AbstractDao<Schedule> {
         if (schedules.isEmpty()) {
             return null;
         } else {
-            return schedules.get(0);
+            return schedules.get(schedules.size() - 1);
         }
     }
 }

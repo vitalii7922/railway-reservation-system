@@ -1,18 +1,19 @@
 package com.tsystems.project.service;
 
+import com.mysql.cj.xdevapi.Collection;
 import com.tsystems.project.dao.ScheduleDao;
 import com.tsystems.project.dao.StationDao;
 import com.tsystems.project.dao.TrainDao;
 import com.tsystems.project.domain.Schedule;
-import com.tsystems.project.domain.Station;
 import com.tsystems.project.domain.Train;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 @Service
 public class ScheduleService {
@@ -27,36 +28,28 @@ public class ScheduleService {
     StationDao stationDao;
 
     @Transactional
-    public Schedule addSchedule(Train train, LocalDateTime departureTime, LocalDateTime arrivalTime) {
+    public void addSchedule(Train train, LocalDateTime departureTime, LocalDateTime arrivalTime) {
 
-        Train trainArrival = trainDao.findByNumber(train.getNumber());
-        Schedule schedule = scheduleDao.findByTrainId(trainArrival.getId());
-        Duration duration = null;
+        Schedule scheduleDeparture = null;
+        Schedule scheduleArrival = null;
 
-        if(schedule != null) {
-            duration = Duration.between(schedule.getArrivalTime(), departureTime);
-        }
+        scheduleDeparture = new Schedule();
+        scheduleDeparture.setTrain(train);
+        scheduleDeparture.setDepartureTime(departureTime);
+        scheduleDeparture.setStation(train.getOriginStation());
+        scheduleDao.create(scheduleDeparture);
 
-        if (duration != null && duration.toMinutes() < 5) {
-            trainDao.delete(train);
-            return null;
-        }
+        scheduleArrival = new Schedule();
+        scheduleArrival.setTrain(train);
+        scheduleArrival.setArrivalTime(arrivalTime);
+        scheduleArrival.setStation(train.getDestinationStation());
+        scheduleDao.create(scheduleArrival);
 
-            Schedule scheduleDeparture = new Schedule();
-            scheduleDeparture.setTrain(train);
-            scheduleDeparture.setDepartureTime(departureTime);
-            scheduleDeparture.setStation(train.getOriginStation());
-            scheduleDao.create(scheduleDeparture);
 
-            Schedule scheduleArrival = new Schedule();
-            scheduleArrival.setTrain(train);
-            scheduleArrival.setArrivalTime(arrivalTime);
-            scheduleArrival.setStation(train.getDestinationStation());
-            return scheduleDao.create(scheduleArrival);
     }
 
     @Transactional
-    public Schedule editSchedule(Schedule schedule) throws RuntimeException {
+    public Schedule editSchedule(Schedule schedule) {
         scheduleDao.update(schedule);
         return scheduleDao.findOne(schedule.getId());
     }
@@ -66,7 +59,19 @@ public class ScheduleService {
         scheduleDao.delete(schedule);
     }
 
+    @Transactional
+    public Schedule getScheduleByTrainId(long id) {
+        return scheduleDao.findByTrainId(id);
+    }
+
+
     public List<Schedule> getAllSchedules() {
         return scheduleDao.findAll();
+    }
+
+    public List<Schedule> getSchedulesByTrainsId(List<Train> trains) {
+        return trains.stream()
+                .map(train -> scheduleDao.findByTrainId(train.getId()))
+                .collect(Collectors.toList());
     }
 }

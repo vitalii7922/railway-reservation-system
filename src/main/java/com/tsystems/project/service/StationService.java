@@ -2,7 +2,6 @@ package com.tsystems.project.service;
 
 import com.tsystems.project.dao.StationDao;
 import com.tsystems.project.domain.Station;
-import com.tsystems.project.domain.Train;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,8 +14,15 @@ public class StationService {
     StationDao stationDao;
 
     @Transactional
-    public void addStation(Station station) {
-        stationDao.create(station);
+    public Station addStation(String name) {
+        if (!name.equals("") && stationDao.findByName(name) == null) {
+            Station station = new Station();
+            station.setName(name);
+            stationDao.create(station);
+            return station;
+        } else {
+            return null;
+        }
     }
 
 
