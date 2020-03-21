@@ -14,17 +14,32 @@ public class ScheduleDao extends AbstractDao<Schedule> {
     }
 
     public Schedule findByTrainId(long id) {
-        getCurrentSession().beginTransaction();
+//        getCurrentSession().beginTransaction();
         String queryString = "SELECT s FROM Schedule s WHERE (s.train.id) = :id";
         Query query = getCurrentSession().createQuery(queryString);
         query.setParameter("id", id);
         List<Schedule> schedules = query.getResultList();
-        getCurrentSession().getTransaction().commit();
-        getCurrentSession().close();
+//        getCurrentSession().getTransaction().commit();
+//        getCurrentSession().close();
         if (schedules.isEmpty()) {
             return null;
         } else {
             return schedules.get(schedules.size() - 1);
+        }
+    }
+
+    public Schedule findByTrainDepartureId(long id) {
+//        getCurrentSession().beginTransaction();
+        String queryString = "SELECT s FROM Schedule s WHERE (s.train.id) = :id";
+        Query query = getCurrentSession().createQuery(queryString);
+        query.setParameter("id", id);
+        List<Schedule> schedules = query.getResultList();
+//        getCurrentSession().getTransaction().commit();
+//        getCurrentSession().close();
+        if (schedules.isEmpty()) {
+            return null;
+        } else {
+            return schedules.get(0);
         }
     }
 }

@@ -23,7 +23,7 @@
     <p align=center>
         Choose stations for a trip:
     </p>
-    <form>
+    <form action="getTrips">
     <table class = table align=center>
         <tr align="left">
             <th>From</th>
@@ -32,16 +32,15 @@
             <th>Arrival date</th>
         </tr>
         <tr class=dark>
-                <td><input type="text" id="from" name="from" placeholder="From"></td>
-                <td><input type="text" id="to" name="to" placeholder="To"></td>
-                <td><input type="datetime-local" name=date></td>
-                <td><input type="datetime-local" name=date></td>
-                <td><button type="button" class="">Find</button></td>
+                <td><input type="text" name="from" placeholder="From"></td>
+                <td><input type="text" name="to" placeholder="To"></td>
+                <td><input type="datetime-local" value="2018-06-12T19:30" name=time_departure></td>
+                <td><input type="datetime-local" value="2018-06-132T19:30" name=time_arrival></td>
+                <td><button type="submit">Find</button></td>
         </tr>
     </table>
     </form>
 </div>
-
 </body>
 </html>
 

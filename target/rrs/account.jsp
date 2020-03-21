@@ -14,7 +14,7 @@
     </h1>
 </header>
 
-<form action="login" method="post">
+<form action="login">
     <div class="text" align="center">
         <label><b>Username</b></label><br>
         <input type="text" placeholder="Enter Username" name="uname" required><br>

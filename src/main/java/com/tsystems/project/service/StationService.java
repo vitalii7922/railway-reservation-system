@@ -35,10 +35,9 @@ public class StationService {
     }
 
     @Transactional
-    public Station editStation(Station station) throws RuntimeException {
+    public Station editStation(Station station) {
         return  stationDao.update(station);
     }
-
 
     public void removeStation(Station station) {
         stationDao.delete(station);

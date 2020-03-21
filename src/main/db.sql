@@ -52,4 +52,12 @@ create table user (
 ) engine=InnoDB;
 
 drop table ticket;
-drop table passenger
+drop table passenger;
+
+select   number, originStation_id, destinationStation_id from train
+                                                                  inner join schedule s on train.id = s.train_id
+where train.originStation_id = 1 and s.departure_time > '2018-06-12 16:25:00';
+
+select   number, originStation_id, destinationStation_id from train
+                                                                  inner join schedule s on train.id = s.train_id
+where train.destinationStation_id = 4 and s.arrive_time < '2018-06-15 16:35:00';

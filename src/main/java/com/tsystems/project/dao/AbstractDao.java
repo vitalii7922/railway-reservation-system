@@ -1,5 +1,6 @@
 package com.tsystems.project.dao;
 
+import com.tsystems.project.domain.Schedule;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,4 +73,5 @@ public abstract class AbstractDao<T extends Serializable> {
     public Session getCurrentSession() {
         return sessionFactory.getCurrentSession();
     }
+
 }
