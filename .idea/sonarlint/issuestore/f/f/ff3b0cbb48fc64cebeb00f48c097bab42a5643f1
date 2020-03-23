@@ -1,3 +1,4 @@
 
-
-java:S1488/"]Immediately return this expression instead of assigning it to the temporary variable "train".(æ¤×¤ûÿÿÿÿ8Ê¼¥Ï.
+Z
+java:S1128
+"8Remove this unused import 'javax.persistence.ManyToOne'.(ÇÑ²øÿÿÿÿ8ÄÃğ¡.

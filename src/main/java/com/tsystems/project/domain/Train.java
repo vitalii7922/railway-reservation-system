@@ -5,7 +5,7 @@ import java.io.Serializable;
 import java.util.List;
 
 @Entity
-public class Train implements Serializable {
+public class Train implements Serializable, Comparable<Train> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -75,4 +75,9 @@ public class Train implements Serializable {
         this.originStation = originStation;
     }
 
+
+    @Override
+    public int compareTo(Train o) {
+        return this.number - o.getNumber();
+    }
 }

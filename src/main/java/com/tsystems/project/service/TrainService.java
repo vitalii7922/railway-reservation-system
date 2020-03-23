@@ -2,15 +2,16 @@ package com.tsystems.project.service;
 
 import com.tsystems.project.dao.ScheduleDao;
 import com.tsystems.project.dao.TrainDao;
+import com.tsystems.project.domain.Schedule;
 import com.tsystems.project.domain.Station;
 import com.tsystems.project.domain.Train;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.ManyToOne;
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class TrainService {
@@ -58,34 +59,34 @@ public class TrainService {
     }
 
     @Transactional
-    public List<Train> getTrainsByStations(Station stationA, Station stationB, String timeDeparture, String timeArrival) {
+    public Map<Train, Train> getTrainsByStations(Station stationA, Station stationB, String timeDeparture, String timeArrival) {
         trainDao.getCurrentSession().beginTransaction();
         LocalDateTime departureTime = LocalDateTime.parse(timeDeparture);
         LocalDateTime arrivalTime = LocalDateTime.parse(timeArrival);
+        Map<Train, Train> map = null;
         List<Train> trains = null;
 
         if (departureTime.isAfter(arrivalTime)){
-            return trains;
+            return map;
         }
 
         trains = trainDao.findByStations(stationA.getId(), stationB.getId(), departureTime, arrivalTime);
+        map = new LinkedHashMap<>();
 
-        Iterator<Train> trainIterator = trains.iterator();
-
-        while (trainIterator.hasNext()) {
-            Train t = trainIterator.next();
-            if (t.getOriginStation().getId() == stationA.getId()) {
-                if (departureTime.isBefore(scheduleDao.findByTrainDepartureId(t.getId()).getDepartureTime())) {
-                    trainIterator.remove();
-                }
-                if (arrivalTime.isAfter(scheduleDao.findByTrainId(t.getId()).getArrivalTime())) {
-                    trainIterator.remove();
+        if (trains != null) {
+            for (int i = 0; i < trains.size(); i++) {
+                for (int j = i + 1; j < trains.size(); j++) {
+                    Train departure = trains.get(i);
+                    Train arrive = trains.get(j);
+                    if (departure.getNumber() == arrive.getNumber()) {
+                        map.put(departure, arrive);
+                    }
                 }
             }
         }
+
         trainDao.getCurrentSession().getTransaction().commit();
         trainDao.getCurrentSession().close();
-
-        return trains;
+        return map;
     }
 }

@@ -1,14 +1,16 @@
 package com.tsystems.project.dao;
 
-import com.tsystems.project.domain.Schedule;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
 
 import java.io.Serializable;
 import java.util.List;
 
+@Configuration
 public abstract class AbstractDao<T extends Serializable> {
+
     private Class<T> clazz;
 
     @Autowired

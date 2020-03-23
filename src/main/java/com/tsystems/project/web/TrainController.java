@@ -107,7 +107,7 @@ public class TrainController {
             model.addObject("listOfStations", stationsNames);
             return model;
         }
-//        scheduleService.addSchedule(train, LocalDateTime.parse(departureTime), LocalDateTime.parse(arrivalTime));
+
         Station from = stationService.getStationById(train.getDestinationStation().getId());
         Station to = stationService.getStation(destinationStation);
 

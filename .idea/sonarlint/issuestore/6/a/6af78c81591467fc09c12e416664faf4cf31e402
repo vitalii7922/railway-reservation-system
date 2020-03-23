@@ -1,15 +1,10 @@
 
-]	java:S1251"<This block of commented-out lines of code should be removed.(Ü¡Òöıÿÿÿÿ8İ£Ê.
-U
-java:S1854v"8Remove this useless assignment to local variable "from".(ÈÛÎ8íĞÁÍ.
-W	java:S125&"<This block of commented-out lines of code should be removed.(¨—8İ£Ê.
-F
-java:S1481v")Remove this unused "from" local variable.(ÈÛÎ8íĞÁÍ.
-I
-java:S1481w"'Remove this unused "to" local variable.(ğ‡²´úÿÿÿÿ8íĞÁÍ.
-X
-java:S1854w"6Remove this useless assignment to local variable "to".(ğ‡²´úÿÿÿÿ8íĞÁÍ.
-X	java:S125y"<This block of commented-out lines of code should be removed.(© Ëô8…·ŸÍ.
-Y
-java:S2589}"7Remove this expression which always evaluates to "true"(¸Ñ÷Òøÿÿÿÿ8ñÎøÎ.
-]	java:S125)"<This block of commented-out lines of code should be removed.(²Á×Éøÿÿÿÿ8Å§¥Ê.
+h
+java:S1192#"FDefine a constant instead of duplicating this literal "train" 3 times.(Íº†•şÿÿÿÿ8Å•Õ .
+h
+java:S1192)"KDefine a constant instead of duplicating this literal "trains.jsp" 3 times.(„íûª8Å•Õ .
+l
+java:S1192%"JDefine a constant instead of duplicating this literal "train.jsp" 3 times.(ôÒ®üÿÿÿÿ8Å•Õ .
+q
+java:S1192*"ODefine a constant instead of duplicating this literal "listOfStations" 4 times.(àò¯Éşÿÿÿÿ8Å•Õ .
+]	java:S125n"<This block of commented-out lines of code should be removed.(€Íµøÿÿÿÿ8Å•Õ .

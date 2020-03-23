@@ -66,18 +66,17 @@ public class TrainDao extends AbstractDao<Train> {
     }
 
     public List<Train> findByStations(long fromId, long toId, LocalDateTime departureTime, LocalDateTime arrivalTime) {
-//        getCurrentSession().beginTransaction();
-        String queryString1 = "select t from Train t where t.originStation.id = :fromId";
-        String queryString2 = "select t from Train t where t.destinationStation.id = :toId";
+        String queryString1 = "select t from Train t inner join Schedule s on t.id = s.train.id where t.originStation.id = :fromId and s.departureTime >= :departureTime";
+        String queryString2 = "select t from Train t inner join Schedule s on t.id = s.train.id where t.destinationStation.id = :toId and s.arrivalTime <= :arrivalTime";
         Query query1 = getCurrentSession().createQuery(queryString1);
         Query query2 = getCurrentSession().createQuery(queryString2);
         query1.setParameter("fromId", fromId);
         query2.setParameter("toId", toId);
+        query1.setParameter("departureTime", departureTime);
+        query2.setParameter("arrivalTime", arrivalTime);
         List<Train> trains = query1.getResultList();
         List<Train> trains2 = query2.getResultList();
         trains.addAll(trains2);
-//        getCurrentSession().getTransaction().commit();
-//        getCurrentSession().close();
         if (trains.isEmpty()) {
             return null;
         } else {

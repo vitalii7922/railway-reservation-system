@@ -1,5 +1,6 @@
 package com.tsystems.project.web;
 
+import com.tsystems.project.domain.Schedule;
 import com.tsystems.project.domain.Station;
 import com.tsystems.project.domain.Train;
 import com.tsystems.project.service.ScheduleService;
@@ -12,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.List;
+import java.util.*;
 
 @Controller
 public class TrainScheduleController {
@@ -31,14 +32,28 @@ public class TrainScheduleController {
     public ModelAndView addTrain(@RequestParam("from") String stationNameA,
                                  @RequestParam("to") String stationNameB,
                                  @RequestParam("time_departure") String timeDeparture,
-                                 @RequestParam("time_arrival") String timeArrival) {
+                                 @RequestParam("time_arrival") String timeArrival, ModelAndView model) {
 
         Station stationFrom = stationService.getStation(stationNameA);
         Station stationTo = stationService.getStation(stationNameB);
 
+        Map<Train, Train> trains = null;
+        Map<Schedule, Schedule> schedules = new LinkedHashMap<>();
+
         if (stationFrom != null && stationTo != null) {
-            List<Train> trains = trainService.getTrainsByStations(stationFrom, stationTo, timeDeparture, timeArrival);
+            trains = trainService.getTrainsByStations(stationFrom, stationTo, timeDeparture, timeArrival);
         }
-        return null;
+
+       if (trains != null) {
+           schedules = scheduleService.getSchedulesByTrains(trains);
+       }
+
+        String trip = stationNameA + " - " + stationNameB;
+
+        model.addObject("trip", trip);
+        model.addObject("schedules", schedules);
+        model.setViewName("trips.jsp");
+
+        return model;
     }
 }

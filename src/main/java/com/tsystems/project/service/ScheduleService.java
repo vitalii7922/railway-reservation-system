@@ -1,6 +1,5 @@
 package com.tsystems.project.service;
 
-import com.mysql.cj.xdevapi.Collection;
 import com.tsystems.project.dao.ScheduleDao;
 import com.tsystems.project.dao.StationDao;
 import com.tsystems.project.dao.TrainDao;
@@ -11,8 +10,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.stream.Collector;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -61,7 +61,11 @@ public class ScheduleService {
 
     @Transactional
     public Schedule getScheduleByTrainId(long id) {
-        return scheduleDao.findByTrainId(id);
+        scheduleDao.getCurrentSession().beginTransaction();
+        Schedule schedule = scheduleDao.findByTrainId(id);
+        scheduleDao.getCurrentSession().getTransaction().commit();
+        scheduleDao.getCurrentSession().close();
+        return schedule;
     }
 
 
@@ -69,9 +73,31 @@ public class ScheduleService {
         return scheduleDao.findAll();
     }
 
-    public List<Schedule> getSchedulesByTrainsId(List<Train> trains) {
-        return trains.stream()
-                .map(train -> scheduleDao.findByTrainId(train.getId()))
-                .collect(Collectors.toList());
+    public Schedule getSchedulesByTrainsArriveId(Train train) {
+        scheduleDao.getCurrentSession().beginTransaction();
+        Schedule schedule = scheduleDao.findByTrainArriveId(train.getId());
+        scheduleDao.getCurrentSession().getTransaction().commit();
+        scheduleDao.getCurrentSession().close();
+        return schedule;
+    }
+
+    public Schedule getSchedulesByTrainsDepartureId(Train train) {
+        scheduleDao.getCurrentSession().beginTransaction();
+        Schedule schedule = scheduleDao.findByTrainArriveId(train.getId());
+        scheduleDao.getCurrentSession().getTransaction().commit();
+        scheduleDao.getCurrentSession().close();
+        return schedule;
+    }
+
+    public Map<Schedule, Schedule> getSchedulesByTrains(Map<Train, Train> trains) {
+        scheduleDao.getCurrentSession().beginTransaction();
+        Map<Schedule, Schedule> map = new LinkedHashMap<>();
+        for (Map.Entry<Train, Train> entry : trains.entrySet()) {
+            map.put(scheduleDao.findByTrainDepartureId(entry.getKey().getId()), scheduleDao.findByTrainArriveId(entry.getValue().getId()));
+        }
+        scheduleDao.getCurrentSession().getTransaction().commit();
+        scheduleDao.getCurrentSession().close();
+        return map;
     }
 }
+

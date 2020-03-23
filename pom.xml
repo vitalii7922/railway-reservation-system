@@ -30,35 +30,42 @@
       <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-context</artifactId>
-        <version>4.3.19.RELEASE</version>
+        <version>5.1.6.RELEASE</version>
       </dependency>
 
 
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-core</artifactId>
-      <version>4.3.19.RELEASE</version>
+      <version>5.1.6.RELEASE</version>
     </dependency>
 
       <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-webmvc</artifactId>
-        <version>4.3.19.RELEASE</version>
+        <version>5.1.6.RELEASE</version>
       </dependency>
 
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-orm</artifactId>
-      <version>4.3.19.RELEASE</version>
+      <version>5.1.6.RELEASE</version>
     </dependency>
 
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-tx</artifactId>
-      <version>4.3.19.RELEASE</version>
+      <version>5.1.6.RELEASE</version>
     </dependency>
 
-      <dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-jdbc</artifactId>
+      <version>5.1.6.RELEASE</version>
+    </dependency>
+
+
+    <dependency>
         <groupId>org.hibernate</groupId>
         <artifactId>hibernate-core</artifactId>
         <version>5.4.10.Final</version>

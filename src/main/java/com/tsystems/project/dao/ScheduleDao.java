@@ -42,4 +42,20 @@ public class ScheduleDao extends AbstractDao<Schedule> {
             return schedules.get(0);
         }
     }
+
+
+    public Schedule findByTrainArriveId(long id) {
+//        getCurrentSession().beginTransaction();
+        String queryString = "SELECT s FROM Schedule s WHERE (s.train.id) = :id";
+        Query query = getCurrentSession().createQuery(queryString);
+        query.setParameter("id", id);
+        List<Schedule> schedules = query.getResultList();
+//        getCurrentSession().getTransaction().commit();
+//        getCurrentSession().close();
+        if (schedules.isEmpty()) {
+            return null;
+        } else {
+            return schedules.get(1);
+        }
+    }
 }
