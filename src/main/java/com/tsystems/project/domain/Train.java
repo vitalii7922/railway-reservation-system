@@ -3,9 +3,10 @@ package com.tsystems.project.domain;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
-public class Train implements Serializable, Comparable<Train> {
+public class Train implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -75,9 +76,21 @@ public class Train implements Serializable, Comparable<Train> {
         this.originStation = originStation;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Train train = (Train) o;
+        return id == train.id &&
+                number == train.number &&
+                seats == train.seats &&
+                schedules.equals(train.schedules) &&
+                originStation.equals(train.originStation) &&
+                destinationStation.equals(train.destinationStation);
+    }
 
     @Override
-    public int compareTo(Train o) {
-        return this.number - o.getNumber();
+    public int hashCode() {
+        return Objects.hash(id, number, seats, schedules, originStation, destinationStation);
     }
 }

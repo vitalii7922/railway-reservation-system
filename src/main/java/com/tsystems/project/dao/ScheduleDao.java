@@ -58,4 +58,16 @@ public class ScheduleDao extends AbstractDao<Schedule> {
             return schedules.get(1);
         }
     }
+
+    public List<Schedule> fyndByStationId(long id) {
+        String queryString = "SELECT s FROM Schedule s WHERE (s.station.id) = :id";
+        Query query = getCurrentSession().createQuery(queryString);
+        query.setParameter("id", id);
+        List<Schedule> schedules = query.getResultList();
+        if (schedules.isEmpty()) {
+            return null;
+        } else {
+            return schedules;
+        }
+    }
 }

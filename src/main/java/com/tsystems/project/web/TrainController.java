@@ -2,6 +2,7 @@ package com.tsystems.project.web;
 import com.tsystems.project.domain.Schedule;
 import com.tsystems.project.domain.Station;
 import com.tsystems.project.domain.Train;
+import com.tsystems.project.dto.TrainDto;
 import com.tsystems.project.service.ScheduleService;
 import com.tsystems.project.service.StationService;
 import com.tsystems.project.service.TrainService;
@@ -29,31 +30,30 @@ public class TrainController {
     @ResponseBody
     @GetMapping(value = "/addTrain")
     public ModelAndView addTrain(@RequestParam("train_number") String trainNumber, ModelAndView model) {
-
         int number = Integer.parseInt(trainNumber);
         Train train = trainService.getTrainByNumber(number);
         model.addObject("train", number);
         if (train == null) {
             model.setViewName("train.jsp");
-            return model;
+
         } else {
             List<String> stationsNames = trainService.getAllTrainsByNumbers(number);
             model.setViewName("trains.jsp");
             model.addObject("listOfStations", stationsNames);
-            return model;
         }
+        return model;
     }
 
     @ResponseBody
     @GetMapping(value = "/addTrip")
-    public ModelAndView addTrain(@RequestParam("train_number") String trainNumber,
+    public ModelAndView addTrain(@RequestParam("train_number") int number,
                                  @RequestParam("origin_station") String originStation,
                                  @RequestParam("destination_station") String destinationStation,
                                  @RequestParam("number_of_seats") String numberOfSeats,
-                                 @RequestParam("arrival_time")String departureTime,
-                                 @RequestParam("departure_time")String arrivalTime, ModelAndView model){
+                                 @RequestParam("departure_time")String departureTime,
+                                 @RequestParam("arrival_time")String arrivalTime, ModelAndView model){
 
-        int number = Integer.parseInt(trainNumber);
+//        int number = Integer.parseInt(trainNumber);
         model.addObject("train", number);
         Station from = stationService.getStation(originStation);
         Station to = stationService.getStation(destinationStation);
@@ -85,13 +85,13 @@ public class TrainController {
 
     @ResponseBody
     @GetMapping(value = "/addTrips")
-    public ModelAndView addTrain(@RequestParam("train_number") String trainNumber,
+    public ModelAndView addTrain(@RequestParam("train_number") int number,
                                  @RequestParam("destination_station") String destinationStation,
                                  @RequestParam("number_of_seats") String numberOfSeats,
-                                 @RequestParam("arrival_time")String departureTime,
-                                 @RequestParam("departure_time")String arrivalTime, ModelAndView model){
+                                 @RequestParam("departure_time")String departureTime,
+                                 @RequestParam("arrival_time")String arrivalTime, ModelAndView model){
 
-        int number = Integer.parseInt(trainNumber);
+//        int number = Integer.parseInt(trainNumber);
         Train train = trainService.getTrainByNumber(number);
         LocalDateTime timeArrival = LocalDateTime.parse(arrivalTime);
         LocalDateTime timeDeparture = LocalDateTime.parse(departureTime);
@@ -99,11 +99,11 @@ public class TrainController {
         Schedule schedule = scheduleService.getScheduleByTrainId(train.getId());
         List<String> stationsNames = trainService.getAllTrainsByNumbers(number);
 
-
         model.setViewName("trains.jsp");
         model.addObject("train", number);
 
-        if (schedule.getArrivalTime().isAfter(timeDeparture) || timeArrival.isBefore(timeDeparture)) {
+        LocalDateTime time = schedule.getArrivalTime();
+        if (time.isAfter(timeDeparture) || timeDeparture.isAfter(timeArrival)) {
             model.addObject("listOfStations", stationsNames);
             return model;
         }
@@ -128,7 +128,9 @@ public class TrainController {
     @ResponseBody
     @GetMapping(value = "/getTrains")
     public ModelAndView getTrain(ModelAndView model) {
-        List<Train> trains = trainService.getAllTrains();
+        List<TrainDto> trains = trainService.getAllTrains();
+
+
         model.setViewName("trainsList.jsp");
         model.addObject("trains", trains);
         return model;

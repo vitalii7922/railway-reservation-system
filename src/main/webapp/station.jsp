@@ -14,13 +14,13 @@
 
         <table class = table align=center>
             <tr align="left">
-                <th>id</th>
                 <th>name</th>
+                <th></th>
             </tr>
             <c:forEach items="${listOfParams}" var="station">
             <tr>
-                <td>${station.id}</td>
                 <td>${station.name}</td>
+                <td><a href="getSchedules?stationId=${station.id}">Schedule</a></td>
             </tr>
             </c:forEach>
         </table>

@@ -21,28 +21,28 @@ public abstract class AbstractDao<T extends Serializable> {
     }
 
     public T findOne(long id){
-        getCurrentSession().beginTransaction();
+//        getCurrentSession().beginTransaction();
         T e = (T) getCurrentSession().get(clazz, id);
-        getCurrentSession().getTransaction().commit();
-        getCurrentSession().close();
+//        getCurrentSession().getTransaction().commit();
+//        getCurrentSession().close();
         return  e;
     }
 
     public List findAll() {
-        getCurrentSession().beginTransaction();
+//        getCurrentSession().beginTransaction();
         List elements = getCurrentSession().createQuery("from " + clazz.getName()).list();
-        getCurrentSession().getTransaction().commit();
-        getCurrentSession().close();
+//        getCurrentSession().getTransaction().commit();
+//        getCurrentSession().close();
         return  elements;
     }
 
 
     public T create(T entity) {
         if (entity != null) {
-           getCurrentSession().beginTransaction();
+//           getCurrentSession().beginTransaction();
            getCurrentSession().saveOrUpdate(entity);
-           getCurrentSession().getTransaction().commit();
-           getCurrentSession().close();
+//           getCurrentSession().getTransaction().commit();
+//           getCurrentSession().close();
         }
         return entity;
     }

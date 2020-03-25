@@ -17,7 +17,7 @@
 <div align=center class="style_gap">
     <form action="addStation">
         <label>Add stations</label><br>
-        <input type="text" name="station" formmethod="post" placeholder="Station name">
+        <input type="text" name="station" placeholder="Station name">
         <button class="button" type="submit">add</button>
         <p>${messageStation}</p>
     </form>
@@ -31,7 +31,7 @@
 <div align="center" class=style_gap>
     <form action="addTrain">
         <label>Add trains</label><br>
-        <input  type="text" name="train_number" formmethod="post" placeholder="Train number">
+        <input  type="number" name="train_number" placeholder="Train number">
 
         <button class="button" type="submit">add</button>
         <p>${messageTrain}</p>

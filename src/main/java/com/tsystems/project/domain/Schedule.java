@@ -4,6 +4,7 @@ package com.tsystems.project.domain;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 @Entity
@@ -27,7 +28,6 @@ public class Schedule implements Serializable {
     public LocalDateTime getArrivalTime() {
         return arrivalTime;
     }
-
 
     public void setArrivalTime(LocalDateTime arrivalTime) {
         this.arrivalTime = arrivalTime;

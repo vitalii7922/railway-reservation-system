@@ -17,5 +17,35 @@ C:/Users/nefed/IdeaProjects/railway reservation system/RRS/rrs/src/main/webapp/W
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
       <jdbc-url>jdbc:mysql://localhost:3306/railways?serverTimezone=UTC</jdbc-url>
     </data-source>
+    <data-source source="LOCAL" name="dataSource" uuid="aa5247ce-f79c-4d9c-a92f-840cd7d54b62">
+      <driver-ref>mysql.8</driver-ref>
+      <synchronize>true</synchronize>
+      <imported>true</imported>
+      <remarks>spring
+
+C:/Users/nefed/IdeaProjects/railway reservation system/RRS/rrs/src/main/resources/META-INF/spring.xml</remarks>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://localhost:3306/railways?serverTimezone=UTC</jdbc-url>
+    </data-source>
+    <data-source source="LOCAL" name="sessionFactory/Hibernate" uuid="1790a522-0653-46ea-962c-d1b601ff0680">
+      <driver-ref>mysql.8</driver-ref>
+      <synchronize>true</synchronize>
+      <imported>true</imported>
+      <remarks>Hibernate
+
+C:/Users/nefed/IdeaProjects/railway reservation system/RRS/rrs/src/main/resources/META-INF/spring.xml</remarks>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://localhost:3306/railways?serverTimezone=UTC</jdbc-url>
+    </data-source>
+    <data-source source="LOCAL" name="META-INF:hibernate.cfg.xml/Hibernate" uuid="f92fe199-9053-4f75-9c84-1d2f3fdd0b2d">
+      <driver-ref>mysql.8</driver-ref>
+      <synchronize>true</synchronize>
+      <imported>true</imported>
+      <remarks>Hibernate
+
+C:/Users/nefed/IdeaProjects/railway reservation system/RRS/rrs/src/main/resources/META-INF/hibernate.cfg.xml</remarks>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://localhost:3306/railways?serverTimezone=UTC</jdbc-url>
+    </data-source>
   </component>
 </project>

@@ -1,10 +1,9 @@
 
-h
-java:S1192#"FDefine a constant instead of duplicating this literal "train" 3 times.(Íº†•şÿÿÿÿ8Å•Õ .
-h
-java:S1192)"KDefine a constant instead of duplicating this literal "trains.jsp" 3 times.(„íûª8Å•Õ .
 l
 java:S1192%"JDefine a constant instead of duplicating this literal "train.jsp" 3 times.(ôÒ®üÿÿÿÿ8Å•Õ .
+h
+java:S1192)"KDefine a constant instead of duplicating this literal "trains.jsp" 3 times.(„íûª8Å•Õ .
 q
 java:S1192*"ODefine a constant instead of duplicating this literal "listOfStations" 4 times.(àò¯Éşÿÿÿÿ8Å•Õ .
-]	java:S125n"<This block of commented-out lines of code should be removed.(€Íµøÿÿÿÿ8Å•Õ .
+h
+java:S1192#"FDefine a constant instead of duplicating this literal "train" 3 times.(Íº†•şÿÿÿÿ8Å•Õ .

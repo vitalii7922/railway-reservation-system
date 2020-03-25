@@ -1,8 +1,10 @@
 
-[
-java:S1128"@Remove this unused import 'com.tsystems.project.domain.Station'.(çÿ–Îøÿÿÿÿ
-]
-java:S1854 "@Remove this useless assignment to local variable "trainArrival".(³Äº±8†ñõÎ.
-N
-java:S1481 "1Remove this unused "trainArrival" local variable.(³Äº±8†ñõÎ.
-X	java:S125!"<This block of commented-out lines of code should be removed.(— ¦½8†ñõÎ.
+Z
+java:S1128"8Remove this unused import 'java.util.stream.Collectors'.(Óóº´úÿÿÿÿ8–íŞµ.
+‰
+java:S4144U"lUpdate this method so that its implementation is not identical to "getSchedulesByTrainsArriveId" on line 77.(„ÿç¹8Ôö¶.
+L
+java:S1128"/Remove this unused import 'java.util.Iterator'.(¥ÍòÕ8êºÚç.
+«
+java:S1845p"ˆRename method "getSchedulesBystationId" to prevent any misunderstanding/clash with method "getSchedulesByStationId" defined on line 104.(¼µÃáıÿÿÿÿ8êºÚç.
+X	java:S125t"<This block of commented-out lines of code should be removed.(µŞè•8êºÚç.

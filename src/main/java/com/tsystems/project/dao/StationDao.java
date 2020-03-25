@@ -15,13 +15,10 @@ public class StationDao extends AbstractDao<Station> {
     }
 
     public Station findByName(String name) {
-        getCurrentSession().beginTransaction();
         String queryString = "SELECT s FROM Station s WHERE LOWER(s.name) = :name";
         Query query = getCurrentSession().createQuery(queryString);
         query.setParameter("name", name.toLowerCase());
         List<Station> stations = query.getResultList();
-        getCurrentSession().getTransaction().commit();
-        getCurrentSession().close();
         if (stations.isEmpty()) {
             return null;
         } else {
@@ -30,13 +27,10 @@ public class StationDao extends AbstractDao<Station> {
     }
 
     public Station findByDestinationStationId(long id) {
-        getCurrentSession().beginTransaction();
         String queryString = "SELECT t FROM Train t WHERE (t.destinationStation) = :id";
         Query query = getCurrentSession().createQuery(queryString);
         query.setParameter("id", id);
         List<Train> trains = query.getResultList();
-        getCurrentSession().getTransaction().commit();
-        getCurrentSession().close();
         if (trains.isEmpty()) {
             return null;
         } else {

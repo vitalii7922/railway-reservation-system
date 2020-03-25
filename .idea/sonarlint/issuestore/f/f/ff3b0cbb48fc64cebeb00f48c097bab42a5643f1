@@ -1,4 +1,5 @@
 
+c
+java:S1128"ARemove this unused import 'com.tsystems.project.domain.Schedule'.(ªŒ›œüÿÿÿÿ8ĞÒˆµ.
 Z
-java:S1128
-"8Remove this unused import 'javax.persistence.ManyToOne'.(ÇÑ²øÿÿÿÿ8ÄÃğ¡.
+java:S1128"8Remove this unused import 'javax.persistence.ManyToOne'.(ÇÑ²øÿÿÿÿ8ÄÃğ¡.
