@@ -1,4 +1,6 @@
-
+<%@ page import="java.util.List" %>
+<%@ page import="com.tsystems.project.dto.TrainDto" %>
+<%@ page import="com.tsystems.project.domain.Train" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
@@ -15,16 +17,21 @@
         <tr align="left">
             <th>number</th>
             <th>from</th>
+            <th>Departure time</th>
             <th>to</th>
+            <th>Arrival time</th>
         </tr>
-        <c:forEach items="${trains}" var="train">
-            <tr>
-                <td>${train.number}</td>
-                <td>${train.originStation.name}</td>
-                <td>${train.destinationStation.name}</td>
-                <td><button>Open</button></td>
-            </tr>
-        </c:forEach>
+        <%
+            List<TrainDto> trainDtos = (List<TrainDto>) request.getAttribute("trains");
+            for(TrainDto t : trainDtos){%>
+        <tr>
+            <td><%=t.getNumber()%></td>
+            <td><%=t.getOriginStation().getName()%></td>
+            <td><%=t.getSchedules().get(0).getDepartureTime()%></td>
+            <td><%=t.getDestinationStation().getName()%></td>
+            <td><%=t.getSchedules().get(1).getArrivalTime()%></td>
+        </tr>
+        <%}%>
     </table>
 </div>
 </body>

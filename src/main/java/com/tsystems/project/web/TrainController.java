@@ -6,17 +6,17 @@ import com.tsystems.project.dto.TrainDto;
 import com.tsystems.project.service.ScheduleService;
 import com.tsystems.project.service.StationService;
 import com.tsystems.project.service.TrainService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-
+import javax.servlet.http.HttpServlet;
 import java.time.LocalDateTime;
-import java.util.Arrays;
 import java.util.List;
 
 @Controller
-public class TrainController {
+public class TrainController extends HttpServlet {
 
     @Autowired
     StationService stationService;
@@ -27,6 +27,9 @@ public class TrainController {
     @Autowired
     ScheduleService scheduleService;
 
+    @Autowired
+    ModelMapper modelMapper;
+
     @ResponseBody
     @GetMapping(value = "/addTrain")
     public ModelAndView addTrain(@RequestParam("train_number") String trainNumber, ModelAndView model) {
@@ -35,11 +38,10 @@ public class TrainController {
         model.addObject("train", number);
         if (train == null) {
             model.setViewName("train.jsp");
-
         } else {
-            List<String> stationsNames = trainService.getAllTrainsByNumbers(number);
+            List<TrainDto> trains = trainService.getAllTrainsByNumbers(number);
             model.setViewName("trains.jsp");
-            model.addObject("listOfStations", stationsNames);
+            model.addObject("listOfStations", trains);
         }
         return model;
     }
@@ -50,86 +52,44 @@ public class TrainController {
                                  @RequestParam("origin_station") String originStation,
                                  @RequestParam("destination_station") String destinationStation,
                                  @RequestParam("number_of_seats") String numberOfSeats,
-                                 @RequestParam("departure_time")String departureTime,
-                                 @RequestParam("arrival_time")String arrivalTime, ModelAndView model){
+                                 @RequestParam("departure_time") String departureTime,
+                                 @RequestParam("arrival_time") String arrivalTime, ModelAndView model) {
 
-//        int number = Integer.parseInt(trainNumber);
         model.addObject("train", number);
-        Station from = stationService.getStation(originStation);
-        Station to = stationService.getStation(destinationStation);
+        Station from = stationService.getStationByName(originStation);
+        Station to = stationService.getStationByName(destinationStation);
         LocalDateTime timeDeparture = LocalDateTime.parse(departureTime);
         LocalDateTime timeArrival = LocalDateTime.parse(arrivalTime);
 
+        model.setViewName("train.jsp");
+
         if (originStation == null || destinationStation == null) {
-            model.setViewName("train.jsp");
             return model;
         }
 
         if (from.getId() == to.getId() || timeDeparture.isAfter(timeArrival)) {
-            model.setViewName("train.jsp");
             return model;
         }
 
-        Train train;
-
-        train = trainService.addTrain(number, from, to, numberOfSeats);
+        Train train = trainService.addTrain(number, from, to, numberOfSeats);
+        TrainDto trainDto;
 
         if (train != null) {
             scheduleService.addSchedule(train, LocalDateTime.parse(departureTime), LocalDateTime.parse(arrivalTime));
+            trainDto = modelMapper.map(train, TrainDto.class);
+            model.addObject("listOfStations", trainDto);
         }
-        List<String> stationsNames = Arrays.asList(originStation, destinationStation);
-        model.addObject("listOfStations", stationsNames);
-            model.setViewName("trains.jsp");
-            return model;
-    }
-
-    @ResponseBody
-    @GetMapping(value = "/addTrips")
-    public ModelAndView addTrain(@RequestParam("train_number") int number,
-                                 @RequestParam("destination_station") String destinationStation,
-                                 @RequestParam("number_of_seats") String numberOfSeats,
-                                 @RequestParam("departure_time")String departureTime,
-                                 @RequestParam("arrival_time")String arrivalTime, ModelAndView model){
-
-//        int number = Integer.parseInt(trainNumber);
-        Train train = trainService.getTrainByNumber(number);
-        LocalDateTime timeArrival = LocalDateTime.parse(arrivalTime);
-        LocalDateTime timeDeparture = LocalDateTime.parse(departureTime);
-
-        Schedule schedule = scheduleService.getScheduleByTrainId(train.getId());
-        List<String> stationsNames = trainService.getAllTrainsByNumbers(number);
 
         model.setViewName("trains.jsp");
-        model.addObject("train", number);
-
-        LocalDateTime time = schedule.getArrivalTime();
-        if (time.isAfter(timeDeparture) || timeDeparture.isAfter(timeArrival)) {
-            model.addObject("listOfStations", stationsNames);
-            return model;
-        }
-
-        Station from = stationService.getStationById(train.getDestinationStation().getId());
-        Station to = stationService.getStation(destinationStation);
-
-        if (from != null && to != null) {
-            train = trainService.addTrain(number, from, to, numberOfSeats);
-        }
-
-        if (train != null) {
-            scheduleService.addSchedule(train, LocalDateTime.parse(departureTime), LocalDateTime.parse(arrivalTime));
-        }
-
-        stationsNames = trainService.getAllTrainsByNumbers(number);
-        model.addObject("listOfStations", stationsNames);
-
         return model;
     }
 
+
+
     @ResponseBody
     @GetMapping(value = "/getTrains")
-    public ModelAndView getTrain(ModelAndView model) {
+    public ModelAndView getTrain(ModelAndView model/*, HttpServletRequest request, HttpServletResponse response*/)  {
         List<TrainDto> trains = trainService.getAllTrains();
-
 
         model.setViewName("trainsList.jsp");
         model.addObject("trains", trains);

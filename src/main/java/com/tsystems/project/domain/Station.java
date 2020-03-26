@@ -54,4 +54,12 @@ public class Station implements Serializable {
         this.trainsArrive = trainsArrive;
     }
 
+    public List<Schedule> getSchedules() {
+        return schedules;
+    }
+
+    public void setSchedules(List<Schedule> schedules) {
+        this.schedules = schedules;
+    }
+
 }

@@ -2,17 +2,22 @@ package com.tsystems.project.service;
 
 import com.tsystems.project.dao.StationDao;
 import com.tsystems.project.domain.Station;
+import com.tsystems.project.dto.StationDto;
+import com.tsystems.project.dto.TrainDto;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-@Transactional
 public class StationService {
 
     @Autowired
     StationDao stationDao;
+
+    @Autowired
+    ModelMapper modelMapper;
 
     @Transactional
     public Station addStation(String name) {
@@ -31,7 +36,6 @@ public class StationService {
         }
     }
 
-
     public Station getStationById(long id){
         stationDao.getCurrentSession().beginTransaction();
         Station station = stationDao.findOne(id);
@@ -40,7 +44,7 @@ public class StationService {
         return station;
     }
 
-    public Station getStation(String stationName) {
+    public Station getStationByName(String stationName) {
         stationDao.getCurrentSession().beginTransaction();
         Station station = stationDao.findByName(stationName);
         stationDao.getCurrentSession().getTransaction().commit();

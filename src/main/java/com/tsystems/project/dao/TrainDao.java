@@ -25,20 +25,19 @@ public class TrainDao extends AbstractDao<Train> {
         }
     }
 
-    public List<String> findByNumbers(int number) {
+    public List<Train> findByNumbers(int number) {
         String queryString = "SELECT t FROM Train t WHERE (t.number) = :number";
         Query query = getCurrentSession().createQuery(queryString);
         query.setParameter("number", number);
         List<Train> trains = query.getResultList();
         List<String> stationNames = new ArrayList<>();
-        for (int i = 0; i < trains.size(); i++) {
+       /* for (int i = 0; i < trains.size(); i++) {
             stationNames.add(trains.get(i).getOriginStation().getName());
             if (i == trains.size() - 1){
                 stationNames.add(trains.get(i).getDestinationStation().getName());
             }
-        }
-
-            return stationNames;
+        }*/
+            return trains;
         }
 
     public Train findByNumber(int number) {

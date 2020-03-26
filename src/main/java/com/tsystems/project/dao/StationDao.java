@@ -19,6 +19,7 @@ public class StationDao extends AbstractDao<Station> {
         Query query = getCurrentSession().createQuery(queryString);
         query.setParameter("name", name.toLowerCase());
         List<Station> stations = query.getResultList();
+
         if (stations.isEmpty()) {
             return null;
         } else {

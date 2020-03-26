@@ -103,6 +103,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/com/tsystems/project/dto/StationDto.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/main/java/com/tsystems/project/dto/TrainDto.java">
           <value>
             <set />

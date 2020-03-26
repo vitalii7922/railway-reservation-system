@@ -4,11 +4,14 @@ import com.tsystems.project.dao.ScheduleDao;
 import com.tsystems.project.dao.TrainDao;
 import com.tsystems.project.domain.Station;
 import com.tsystems.project.domain.Train;
+import com.tsystems.project.dto.StationDto;
 import com.tsystems.project.dto.TrainDto;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
+import java.lang.reflect.Type;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -25,6 +28,8 @@ public class TrainService {
 
     @Transactional
     public Train addTrain(int trainNumber, Station originStation, Station destinationStation, String numberOfSeats) {
+            Station origin = modelMapper.map(originStation, Station.class);
+            Station destination = modelMapper.map(destinationStation, Station.class);
             trainDao.getCurrentSession().beginTransaction();
             Train trainDeparture;
             trainDeparture = new Train();
@@ -48,11 +53,15 @@ public class TrainService {
     }
 
     @Transactional
-    public List<String> getAllTrainsByNumbers(int trainNumber) {
+    public List<TrainDto> getAllTrainsByNumbers(int trainNumber) {
         trainDao.getCurrentSession().beginTransaction();
-        List<String> trains = trainDao.findByNumbers(trainNumber);
+        List<Train> trains = trainDao.findByNumbers(trainNumber);
+
+        Type listType = new TypeToken<List<TrainDto>>() {}.getType();
+        List<TrainDto> trainsDto = new ModelMapper().map(trains, listType);
+
         trainDao.getCurrentSession().close();
-        return trains;
+        return trainsDto;
     }
 
     @Transactional
