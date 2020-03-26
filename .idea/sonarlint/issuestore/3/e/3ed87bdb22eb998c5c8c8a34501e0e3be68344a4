@@ -1,3 +1,23 @@
 
-L
-java:S1905"/Remove this unnecessary cast to "Serializable".(¶´ë¤8”­É›.
+[	java:S125"<This block of commented-out lines of code should be removed.(Š‚¨Ìıÿÿÿÿ8ÙæŠ‘.
+t
+java:S1488"YImmediately return this expression instead of assigning it to the temporary variable "e".(ŠîÒò8ùˆ¥¶‘.
+[	java:S125"<This block of commented-out lines of code should be removed.(ì¤§“şÿÿÿÿ8¿õ—¶‘.
+t
+java:S1488"YImmediately return this expression instead of assigning it to the temporary variable "e".(ºÇ…8Ãæü³‘.
+V	java:S125"<This block of commented-out lines of code should be removed.(ÄãÄ»8ãÈ¶‘.
+€
+java:S1488"`Immediately return this expression instead of assigning it to the temporary variable "elements".(›á‘îùÿÿÿÿ8Ãæü³‘.
+[	java:S125"<This block of commented-out lines of code should be removed.(Š‚¨Ìıÿÿÿÿ8Ãæü³‘.
+J
+java:S1905"/Remove this unnecessary cast to "Serializable".(ºÇ…8•–Ÿ¶‘.
+[	java:S125"<This block of commented-out lines of code should be removed.(Š‚¨Ìıÿÿÿÿ8ÿÿ¥¶‘.
+V	java:S125"<This block of commented-out lines of code should be removed.(ÄãÄ»8ÿÿ¥¶‘.
+[	java:S125"<This block of commented-out lines of code should be removed.(Š‚¨Ìıÿÿÿÿ8Ãæü³‘.
+V	java:S125"<This block of commented-out lines of code should be removed.(ÄãÄ»8Ãæü³‘.
+[	java:S125"<This block of commented-out lines of code should be removed.(Š‚¨Ìıÿÿÿÿ8ÙÎÈ¶‘.
+V	java:S125"<This block of commented-out lines of code should be removed.(ÄãÄ»8Ãæü³‘.
+V	java:S125"<This block of commented-out lines of code should be removed.(î¬®º8º †´‘.
+[	java:S125"<This block of commented-out lines of code should be removed.(Š‚¨Ìıÿÿÿÿ8ùˆ¥¶‘.
+V	java:S125"<This block of commented-out lines of code should be removed.(ÄãÄ»8ùˆ¥¶‘.
+V	java:S125"<This block of commented-out lines of code should be removed.(ŞÀËò8‡˜¶‘.

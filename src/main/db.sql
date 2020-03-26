@@ -30,8 +30,8 @@ create table schedule (
                           id int auto_increment primary key,
                           train_id int,
                           station_id int,
-                          arrive_time timestamp,
-                          departure_time timestamp,
+                          arrive_time timestamp null,
+                          departure_time timestamp null,
                           foreign key (train_id) references train (id),
                           foreign key (station_id) references station (id)
 )  engine=InnoDB;
@@ -52,12 +52,16 @@ create table user (
 ) engine=InnoDB;
 
 drop table ticket;
-drop table passenger;
+delete from station;
+delete from schedule;
+delete from train;
+delete from station;
+drop table schedule;
+SET GLOBAL time_zone = '+3:00';
 
-select   number, originStation_id, destinationStation_id from train
-                                                                  inner join schedule s on train.id = s.train_id
-where train.originStation_id = 1 and s.departure_time > '2018-06-12 16:25:00';
-
-select   number, originStation_id, destinationStation_id from train
-                                                                  inner join schedule s on train.id = s.train_id
-where train.destinationStation_id = 4 and s.arrive_time < '2018-06-15 16:35:00';
+SET time_zone = 'SYSTEM';
+SELECT NOW(), FROM_UNIXTIME(946681261);
+SET time_zone = '+03:00';
+select current_timestamp();
+SET time_zone = 'UTC';
+ALTER TABLE schedule MODIFY arrive_time TIMESTAMP null;

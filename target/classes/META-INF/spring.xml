@@ -1,3 +1,4 @@
+<!--
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
@@ -7,7 +8,7 @@
     <bean id="dataSource"
           class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
-        <property name="url" value="jdbc:mysql://localhost:3306/railways?serverTimezone=UTC"/>
+        <property name="url" value="jdbc:mysql://localhost:3306/railways?"/>
         <property name="username" value="root"/>
         <property name="password" value="000"/>
     </bean>
@@ -18,27 +19,28 @@
         <property name="configLocation" value="classpath:META-INF/hibernate.cfg.xml" />
     </bean>
 
-    <!--<bean id="txManager"
+    &lt;!&ndash;<bean id="txManager"
           class="org.springframework.orm.hibernate5.HibernateTransactionManager"
           p:sessionFactory-ref="sessionFactory">
-    </bean>-->
+    </bean>&ndash;&gt;
 
     <bean id="txManager"
           class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <property name="dataSource" ref="dataSource" />
     </bean>
 
-    <!--<bean id="PassengerDao" 	class="com.tsystems.project.dao.PassengerDao"></bean>
+    &lt;!&ndash;<bean id="PassengerDao" 	class="com.tsystems.project.dao.PassengerDao"></bean>
     <bean id="scheduleDao" 	class="com.tsystems.project.dao.ScheduleDao"></bean>
     <bean id="StationDao" 	class="com.tsystems.project.dao.StationDao"></bean>
     <bean id="TicketDao" 	class="com.tsystems.project.dao.TicketDao"></bean>
     <bean id="TrainDao" 	class="com.tsystems.project.dao.TrainDao"></bean>
-    <bean id="UserDao" 	class="com.tsystems.project.dao.UserDao"></bean>-->
+    <bean id="UserDao" 	class="com.tsystems.project.dao.UserDao"></bean>&ndash;&gt;
 
-    <!--<bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+    &lt;!&ndash;<bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
         <property name="configLocation" value="classpath:META-INF/hibernate.cfg.xml"/>
-    </bean>-->
+    </bean>&ndash;&gt;
 
-<!--    <tx:annotation-driven/>-->
+&lt;!&ndash;    <tx:annotation-driven/>&ndash;&gt;
     <tx:annotation-driven transaction-manager="txManager"/>
 </beans>
+-->

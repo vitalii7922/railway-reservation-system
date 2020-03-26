@@ -1,11 +1,11 @@
 package com.tsystems.project.dao;
 
 import com.tsystems.project.domain.Train;
-import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.Query;
 
 @Repository
 public class TrainDao extends AbstractDao<Train> {
@@ -15,7 +15,7 @@ public class TrainDao extends AbstractDao<Train> {
 
     public Train findByStationId(long id) {
         String queryString = "SELECT t FROM Train t WHERE (t.destinationStation.id) = :id";
-        Query query = getCurrentSession().createQuery(queryString);
+        Query query = entityManager.createQuery(queryString);
         query.setParameter("id", id);
         List<Train> trains = query.getResultList();
         if (trains.isEmpty()) {
@@ -27,7 +27,7 @@ public class TrainDao extends AbstractDao<Train> {
 
     public List<Train> findByNumbers(int number) {
         String queryString = "SELECT t FROM Train t WHERE (t.number) = :number";
-        Query query = getCurrentSession().createQuery(queryString);
+        Query query = entityManager.createQuery(queryString);
         query.setParameter("number", number);
         List<Train> trains = query.getResultList();
         List<String> stationNames = new ArrayList<>();
@@ -42,7 +42,7 @@ public class TrainDao extends AbstractDao<Train> {
 
     public Train findByNumber(int number) {
         String queryString = "select t from Train t inner join Station s on  s.id=t.originStation.id where (t.number) = :number";
-        Query query = getCurrentSession().createQuery(queryString);
+        Query query = entityManager.createQuery(queryString);
         query.setParameter("number", number);
         List<Train> trains = query.getResultList();
         if (trains.isEmpty()) {
@@ -55,8 +55,8 @@ public class TrainDao extends AbstractDao<Train> {
     public List<Train> findByStations(long fromId, long toId, LocalDateTime departureTime, LocalDateTime arrivalTime) {
         String queryString1 = "select t from Train t inner join Schedule s on t.id = s.train.id where t.originStation.id = :fromId and s.departureTime >= :departureTime";
         String queryString2 = "select t from Train t inner join Schedule s on t.id = s.train.id where t.destinationStation.id = :toId and s.arrivalTime <= :arrivalTime";
-        Query query1 = getCurrentSession().createQuery(queryString1);
-        Query query2 = getCurrentSession().createQuery(queryString2);
+        Query query1 = entityManager.createQuery(queryString1);
+        Query query2 = entityManager.createQuery(queryString2);
         query1.setParameter("fromId", fromId);
         query2.setParameter("toId", toId);
         query1.setParameter("departureTime", departureTime);
@@ -70,6 +70,4 @@ public class TrainDao extends AbstractDao<Train> {
             return trains;
         }
     }
-
-
 }

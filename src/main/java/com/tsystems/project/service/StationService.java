@@ -2,8 +2,6 @@ package com.tsystems.project.service;
 
 import com.tsystems.project.dao.StationDao;
 import com.tsystems.project.domain.Station;
-import com.tsystems.project.dto.StationDto;
-import com.tsystems.project.dto.TrainDto;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,35 +19,23 @@ public class StationService {
 
     @Transactional
     public Station addStation(String name) {
-        stationDao.getCurrentSession().beginTransaction();
+        Station station = null;
         if (!name.equals("") && stationDao.findByName(name) == null) {
-            Station station = new Station();
+            station = new Station();
             station.setName(name);
             stationDao.create(station);
-            stationDao.getCurrentSession().getTransaction().commit();
-            stationDao.getCurrentSession().close();
             return station;
-        } else {
-            stationDao.getCurrentSession().getTransaction().commit();
-            stationDao.getCurrentSession().close();
-            return null;
         }
+        return station;
     }
 
     public Station getStationById(long id){
-        stationDao.getCurrentSession().beginTransaction();
         Station station = stationDao.findOne(id);
-        stationDao.getCurrentSession().getTransaction().commit();
-        stationDao.getCurrentSession().close();
         return station;
     }
 
     public Station getStationByName(String stationName) {
-        stationDao.getCurrentSession().beginTransaction();
-        Station station = stationDao.findByName(stationName);
-        stationDao.getCurrentSession().getTransaction().commit();
-        stationDao.getCurrentSession().close();
-        return station;
+        return stationDao.findByName(stationName);
     }
 
     @Transactional
@@ -62,10 +48,7 @@ public class StationService {
     }
 
     public List<Station> getAllStations() {
-        stationDao.getCurrentSession().beginTransaction();
         List<Station> stations = stationDao.findAll();
-        stationDao.getCurrentSession().getTransaction().commit();
-        stationDao.getCurrentSession().close();
         return stations;
     }
 }

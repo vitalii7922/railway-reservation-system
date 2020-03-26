@@ -4,7 +4,6 @@ import com.tsystems.project.dao.ScheduleDao;
 import com.tsystems.project.dao.TrainDao;
 import com.tsystems.project.domain.Station;
 import com.tsystems.project.domain.Train;
-import com.tsystems.project.dto.StationDto;
 import com.tsystems.project.dto.TrainDto;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
@@ -17,6 +16,7 @@ import java.util.*;
 
 @Service
 public class TrainService {
+
     @Autowired
     TrainDao trainDao;
 
@@ -27,46 +27,38 @@ public class TrainService {
     ModelMapper modelMapper;
 
     @Transactional
-    public Train addTrain(int trainNumber, Station originStation, Station destinationStation, String numberOfSeats) {
-            Station origin = modelMapper.map(originStation, Station.class);
-            Station destination = modelMapper.map(destinationStation, Station.class);
-            trainDao.getCurrentSession().beginTransaction();
+    public TrainDto addTrain(int trainNumber, Station originStation, Station destinationStation, String numberOfSeats) {
             Train trainDeparture;
             trainDeparture = new Train();
             trainDeparture.setNumber(trainNumber);
             trainDeparture.setOriginStation(originStation);
             trainDeparture.setDestinationStation(destinationStation);
             trainDeparture.setSeats(Integer.parseInt(numberOfSeats));
-            Train train = trainDao.create(trainDeparture);
-            trainDao.getCurrentSession().getTransaction().commit();
-            trainDao.getCurrentSession().close();
-            return train;
+            trainDao.create(trainDeparture);
+            TrainDto trainDto = modelMapper.map(trainDeparture, TrainDto.class);
+            return trainDto;
     }
 
     @Transactional
-    public Train getTrainByNumber(int number) {
-        trainDao.getCurrentSession().beginTransaction();
+    public TrainDto getTrainByNumber(int number) {
         Train train = trainDao.findByNumber(number);
-        trainDao.getCurrentSession().getTransaction().commit();
-        trainDao.getCurrentSession().close();
-        return train;
+        TrainDto trainDto = null;
+        if (train != null) {
+            trainDto = modelMapper.map(train, TrainDto.class);
+        }
+        return  trainDto;
     }
 
     @Transactional
     public List<TrainDto> getAllTrainsByNumbers(int trainNumber) {
-        trainDao.getCurrentSession().beginTransaction();
         List<Train> trains = trainDao.findByNumbers(trainNumber);
-
         Type listType = new TypeToken<List<TrainDto>>() {}.getType();
         List<TrainDto> trainsDto = new ModelMapper().map(trains, listType);
-
-        trainDao.getCurrentSession().close();
         return trainsDto;
     }
 
     @Transactional
     public List<TrainDto> getAllTrains() {
-            trainDao.getCurrentSession().beginTransaction();
             List<Train> trains = trainDao.findAll();
             List<TrainDto> trainDtos = new ArrayList<>();
             Train lastTrain;
@@ -86,15 +78,12 @@ public class TrainService {
                 }
                 trainDtos.add(trainDto);
             }
-            trainDao.getCurrentSession().getTransaction().commit();
-            trainDao.getCurrentSession().close();
 
         return trainDtos;
     }
 
     @Transactional
     public Map<Train, Train> getTrainsByStations(Station stationA, Station stationB, String timeDeparture, String timeArrival) {
-        trainDao.getCurrentSession().beginTransaction();
         LocalDateTime departureTime = LocalDateTime.parse(timeDeparture);
         LocalDateTime arrivalTime = LocalDateTime.parse(timeArrival);
         Map<Train, Train> map = null;
@@ -119,8 +108,6 @@ public class TrainService {
             }
         }
 
-        trainDao.getCurrentSession().getTransaction().commit();
-        trainDao.getCurrentSession().close();
         return map;
     }
 }

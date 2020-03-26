@@ -1,49 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="@localhost" uuid="08e6324d-6bf3-47a0-8cc4-5f413bd95ec1">
+    <data-source source="LOCAL" name="railways@localhost" uuid="617abe41-0a0b-450b-a949-5fb33fb2f166">
       <driver-ref>mysql.8</driver-ref>
       <synchronize>true</synchronize>
-      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://localhost:3306/?serverTimezone=UTC</jdbc-url>
-    </data-source>
-    <data-source source="LOCAL" name="src:main:webapp:WEB-INF:hibernate.cfg.xml/Hibernate" uuid="0c0a24db-090c-4bae-9e1d-b304fc3af5a0">
-      <driver-ref>mysql.8</driver-ref>
-      <synchronize>true</synchronize>
-      <imported>true</imported>
-      <remarks>Hibernate
-
-C:/Users/nefed/IdeaProjects/railway reservation system/RRS/rrs/src/main/webapp/WEB-INF/hibernate.cfg.xml</remarks>
-      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://localhost:3306/railways?serverTimezone=UTC</jdbc-url>
-    </data-source>
-    <data-source source="LOCAL" name="dataSource" uuid="aa5247ce-f79c-4d9c-a92f-840cd7d54b62">
-      <driver-ref>mysql.8</driver-ref>
-      <synchronize>true</synchronize>
-      <imported>true</imported>
-      <remarks>spring
-
-C:/Users/nefed/IdeaProjects/railway reservation system/RRS/rrs/src/main/resources/META-INF/spring.xml</remarks>
-      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://localhost:3306/railways?serverTimezone=UTC</jdbc-url>
-    </data-source>
-    <data-source source="LOCAL" name="sessionFactory/Hibernate" uuid="1790a522-0653-46ea-962c-d1b601ff0680">
-      <driver-ref>mysql.8</driver-ref>
-      <synchronize>true</synchronize>
-      <imported>true</imported>
-      <remarks>Hibernate
-
-C:/Users/nefed/IdeaProjects/railway reservation system/RRS/rrs/src/main/resources/META-INF/spring.xml</remarks>
-      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://localhost:3306/railways?serverTimezone=UTC</jdbc-url>
-    </data-source>
-    <data-source source="LOCAL" name="META-INF:hibernate.cfg.xml/Hibernate" uuid="f92fe199-9053-4f75-9c84-1d2f3fdd0b2d">
-      <driver-ref>mysql.8</driver-ref>
-      <synchronize>true</synchronize>
-      <imported>true</imported>
-      <remarks>Hibernate
-
-C:/Users/nefed/IdeaProjects/railway reservation system/RRS/rrs/src/main/resources/META-INF/hibernate.cfg.xml</remarks>
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
       <jdbc-url>jdbc:mysql://localhost:3306/railways?serverTimezone=UTC</jdbc-url>
     </data-source>

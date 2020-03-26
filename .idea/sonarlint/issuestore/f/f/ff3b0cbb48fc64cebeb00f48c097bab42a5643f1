@@ -1,5 +1,13 @@
 
-c
-java:S1128"ARemove this unused import 'com.tsystems.project.domain.Schedule'.(ªŒ›œüÿÿÿÿ8ĞÒˆµ.
-Z
-java:S1128"8Remove this unused import 'javax.persistence.ManyToOne'.(ÇÑ²øÿÿÿÿ8ÄÃğ¡.
+V
+java:S1854":Remove this useless assignment to local variable "origin".(ÆÜõ8Î‡¸‘.
+G
+java:S1481"+Remove this unused "origin" local variable.(ÆÜõ8Î‡¸‘.
+}
+java:S1488'"`Immediately return this expression instead of assigning it to the temporary variable "trainDto".(»ÙœÀ8ŸÚ¸‘.
+M
+java:S1481"0Remove this unused "destination" local variable.(ø®òÖ8Î‡¸‘.
+~
+java:S14885"aImmediately return this expression instead of assigning it to the temporary variable "trainsDto".(ñÎä·8Î‡¸‘.
+\
+java:S1854"?Remove this useless assignment to local variable "destination".(ø®òÖ8Î‡¸‘.

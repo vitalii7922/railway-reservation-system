@@ -1,13 +1,14 @@
 package com.tsystems.project.web;
 
+import com.tsystems.project.config.ModelMap;
 import com.tsystems.project.domain.Schedule;
 import com.tsystems.project.domain.Station;
 import com.tsystems.project.domain.Train;
-import com.tsystems.project.dto.StationDto;
 import com.tsystems.project.dto.TrainDto;
 import com.tsystems.project.service.ScheduleService;
 import com.tsystems.project.service.StationService;
 import com.tsystems.project.service.TrainService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,6 +30,9 @@ public class TrainScheduleController {
 
     @Autowired
     ScheduleService scheduleService;
+
+    @Autowired
+    ModelMapper mapper;
 
     @ResponseBody
     @GetMapping(value = "/getTrips")
@@ -68,7 +72,7 @@ public class TrainScheduleController {
                                  @RequestParam("departure_time") String departureTime,
                                  @RequestParam("arrival_time") String arrivalTime, ModelAndView model) {
 
-        Train train = trainService.getTrainByNumber(number);
+        TrainDto train = trainService.getTrainByNumber(number);
         LocalDateTime timeArrival = LocalDateTime.parse(arrivalTime);
         LocalDateTime timeDeparture = LocalDateTime.parse(departureTime);
 

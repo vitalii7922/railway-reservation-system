@@ -6,6 +6,7 @@ import com.tsystems.project.dao.TrainDao;
 import com.tsystems.project.domain.Schedule;
 import com.tsystems.project.domain.Train;
 import com.tsystems.project.dto.ScheduleDto;
+import com.tsystems.project.dto.TrainDto;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,8 +33,9 @@ public class ScheduleService {
     ModelMapper modelMapper;
 
     @Transactional
-    public void addSchedule(Train train, LocalDateTime departureTime, LocalDateTime arrivalTime) {
-        scheduleDao.getCurrentSession().beginTransaction();
+    public void addSchedule(TrainDto trainDto, LocalDateTime departureTime, LocalDateTime arrivalTime) {
+        Train train = null;
+        train = modelMapper.map(trainDto, Train.class);
         Schedule scheduleDeparture = null;
         Schedule scheduleArrival = null;
 
@@ -48,9 +50,6 @@ public class ScheduleService {
         scheduleArrival.setArrivalTime(arrivalTime);
         scheduleArrival.setStation(train.getDestinationStation());
         scheduleDao.create(scheduleArrival);
-
-        scheduleDao.getCurrentSession().getTransaction().commit();
-        scheduleDao.getCurrentSession().close();
     }
 
     @Transactional
@@ -64,13 +63,8 @@ public class ScheduleService {
         scheduleDao.delete(schedule);
     }
 
-    @Transactional
     public Schedule getScheduleByTrainId(long id) {
-        scheduleDao.getCurrentSession().beginTransaction();
-        Schedule schedule = scheduleDao.findByTrainId(id);
-        scheduleDao.getCurrentSession().getTransaction().commit();
-        scheduleDao.getCurrentSession().close();
-        return schedule;
+        return scheduleDao.findByTrainId(id);
     }
 
 
@@ -79,42 +73,26 @@ public class ScheduleService {
     }
 
     public Schedule getSchedulesByTrainsArriveId(Train train) {
-        scheduleDao.getCurrentSession().beginTransaction();
-        Schedule schedule = scheduleDao.findByTrainArriveId(train.getId());
-        scheduleDao.getCurrentSession().getTransaction().commit();
-        scheduleDao.getCurrentSession().close();
-        return schedule;
+        return scheduleDao.findByTrainArriveId(train.getId());
     }
 
     public Schedule getSchedulesByTrainsDepartureId(Train train) {
-        scheduleDao.getCurrentSession().beginTransaction();
-        Schedule schedule = scheduleDao.findByTrainArriveId(train.getId());
-        scheduleDao.getCurrentSession().getTransaction().commit();
-        scheduleDao.getCurrentSession().close();
-        return schedule;
+        return scheduleDao.findByTrainArriveId(train.getId());
     }
 
     public Map<Schedule, Schedule> getSchedulesByTrains(Map<Train, Train> trains) {
-        scheduleDao.getCurrentSession().beginTransaction();
         Map<Schedule, Schedule> map = new LinkedHashMap<>();
         for (Map.Entry<Train, Train> entry : trains.entrySet()) {
             map.put(scheduleDao.findByTrainDepartureId(entry.getKey().getId()), scheduleDao.findByTrainArriveId(entry.getValue().getId()));
         }
-        scheduleDao.getCurrentSession().getTransaction().commit();
-        scheduleDao.getCurrentSession().close();
         return map;
     }
 
     public Schedule getScheduleByStationId(long id) {
-        scheduleDao.getCurrentSession().beginTransaction();
-        Schedule schedule = scheduleDao.findByTrainArriveId(id);
-        scheduleDao.getCurrentSession().getTransaction().commit();
-        scheduleDao.getCurrentSession().close();
-        return schedule;
+        return scheduleDao.findByTrainArriveId(id);
     }
 
     public List<ScheduleDto> getSchedulesByStationId(long id) {
-        scheduleDao.getCurrentSession().beginTransaction();
         List<Schedule> schedules = scheduleDao.fyndByStationId(id);
         Type listType = null;
         List<ScheduleDto> scheduleDtos = null;
@@ -142,8 +120,6 @@ public class ScheduleService {
             }
         }
         }
-        scheduleDao.getCurrentSession().getTransaction().commit();
-        scheduleDao.getCurrentSession().close();
         return scheduleDtos;
     }
 }

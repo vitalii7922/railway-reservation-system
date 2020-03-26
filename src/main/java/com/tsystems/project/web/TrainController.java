@@ -1,5 +1,4 @@
 package com.tsystems.project.web;
-import com.tsystems.project.domain.Schedule;
 import com.tsystems.project.domain.Station;
 import com.tsystems.project.domain.Train;
 import com.tsystems.project.dto.TrainDto;
@@ -12,7 +11,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServlet;
+import java.lang.reflect.Type;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -34,7 +35,7 @@ public class TrainController extends HttpServlet {
     @GetMapping(value = "/addTrain")
     public ModelAndView addTrain(@RequestParam("train_number") String trainNumber, ModelAndView model) {
         int number = Integer.parseInt(trainNumber);
-        Train train = trainService.getTrainByNumber(number);
+        TrainDto train = trainService.getTrainByNumber(number);
         model.addObject("train", number);
         if (train == null) {
             model.setViewName("train.jsp");
@@ -71,15 +72,13 @@ public class TrainController extends HttpServlet {
             return model;
         }
 
-        Train train = trainService.addTrain(number, from, to, numberOfSeats);
-        TrainDto trainDto;
+        TrainDto train = trainService.addTrain(number, from, to, numberOfSeats);
 
         if (train != null) {
             scheduleService.addSchedule(train, LocalDateTime.parse(departureTime), LocalDateTime.parse(arrivalTime));
-            trainDto = modelMapper.map(train, TrainDto.class);
-            model.addObject("listOfStations", trainDto);
+            List<TrainDto> trains = trainService.getAllTrainsByNumbers(train.getNumber());
+            model.addObject("listOfStations", trains);
         }
-
         model.setViewName("trains.jsp");
         return model;
     }
@@ -88,7 +87,7 @@ public class TrainController extends HttpServlet {
 
     @ResponseBody
     @GetMapping(value = "/getTrains")
-    public ModelAndView getTrain(ModelAndView model/*, HttpServletRequest request, HttpServletResponse response*/)  {
+    public ModelAndView getTrain(ModelAndView model)  {
         List<TrainDto> trains = trainService.getAllTrains();
 
         model.setViewName("trainsList.jsp");
