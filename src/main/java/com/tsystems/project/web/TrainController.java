@@ -1,6 +1,5 @@
 package com.tsystems.project.web;
 import com.tsystems.project.domain.Station;
-import com.tsystems.project.domain.Train;
 import com.tsystems.project.dto.TrainDto;
 import com.tsystems.project.service.ScheduleService;
 import com.tsystems.project.service.StationService;
@@ -11,9 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServlet;
-import java.lang.reflect.Type;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -64,7 +61,7 @@ public class TrainController extends HttpServlet {
 
         model.setViewName("train.jsp");
 
-        if (originStation == null || destinationStation == null) {
+        if (from == null || to == null) {
             return model;
         }
 

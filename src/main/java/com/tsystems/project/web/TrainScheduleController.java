@@ -1,6 +1,4 @@
 package com.tsystems.project.web;
-
-import com.tsystems.project.config.ModelMap;
 import com.tsystems.project.domain.Schedule;
 import com.tsystems.project.domain.Station;
 import com.tsystems.project.domain.Train;
@@ -58,6 +56,8 @@ public class TrainScheduleController {
         String trip = stationNameA + " - " + stationNameB;
 
         model.addObject("trip", trip);
+        model.addObject("stationA", stationNameA);
+        model.addObject("stationB", stationNameB);
         model.addObject("schedules", schedules);
         model.setViewName("trips.jsp");
 
@@ -81,20 +81,22 @@ public class TrainScheduleController {
 
         model.setViewName("trains.jsp");
         model.addObject("train", number);
+        model.addObject("listOfStations", trains);
 
         LocalDateTime time = schedule.getArrivalTime();
 
         if (time.isAfter(timeDeparture) || timeDeparture.isAfter(timeArrival)) {
-            model.addObject("listOfStations", trains);
             return model;
         }
 
         Station from = stationService.getStationById(train.getDestinationStation().getId());
         Station to = stationService.getStationByName(destinationStation);
 
-        if (from != null && to != null) {
-            train = trainService.addTrain(number, from, to, numberOfSeats);
+        if (from == null || to == null) {
+          return model;
         }
+
+        train = trainService.addTrain(number, from, to, numberOfSeats);
 
         if (train != null) {
             scheduleService.addSchedule(train, LocalDateTime.parse(departureTime), LocalDateTime.parse(arrivalTime));

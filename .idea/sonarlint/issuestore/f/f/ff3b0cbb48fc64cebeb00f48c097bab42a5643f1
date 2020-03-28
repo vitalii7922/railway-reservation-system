@@ -1,13 +1,9 @@
 
-V
-java:S1854":Remove this useless assignment to local variable "origin".(ÆÜõ8Î‡¸‘.
-G
-java:S1481"+Remove this unused "origin" local variable.(ÆÜõ8Î‡¸‘.
+ƒ
+java:S1488="aImmediately return this expression instead of assigning it to the temporary variable "trainsDto".(Ï¾«êüÿÿÿÿ8Î‡¸‘.
 }
-java:S1488'"`Immediately return this expression instead of assigning it to the temporary variable "trainDto".(»ÙœÀ8ŸÚ¸‘.
-M
-java:S1481"0Remove this unused "destination" local variable.(ø®òÖ8Î‡¸‘.
-~
-java:S14885"aImmediately return this expression instead of assigning it to the temporary variable "trainsDto".(ñÎä·8Î‡¸‘.
-\
-java:S1854"?Remove this useless assignment to local variable "destination".(ø®òÖ8Î‡¸‘.
+java:S1488+"`Immediately return this expression instead of assigning it to the temporary variable "trainDto".(»ÙœÀ8ŸÚ¸‘.
+^
+java:S1854<"<Remove this useless assignment to local variable "listType".(ôáÙïúÿÿÿÿ8¨ÎØí‘.
+O
+java:S1481<"-Remove this unused "listType" local variable.(ôáÙïúÿÿÿÿ8¨ÎØí‘.

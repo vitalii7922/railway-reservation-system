@@ -1,8 +1,7 @@
 
-[
-java:S1854"@Remove this useless assignment to local variable "stationNames".(‹ëèˆ8æ ƒ˜‘.
-V	java:S125"<This block of commented-out lines of code should be removed.(èùõ»8€£‚˜‘.
-F
-java:S1168"+Return an empty collection instead of null.(¥¹ï8”­É›.
-L
-java:S1481"1Remove this unused "stationNames" local variable.(‹ëèˆ8æ ƒ˜‘.
+H
+java:S1168>"+Return an empty collection instead of null.(¥¹ï8”­É›.
+]
+java:S1854!"@Remove this useless assignment to local variable "stationNames".(‹ëèˆ8æ ƒ˜‘.
+N
+java:S1481!"1Remove this unused "stationNames" local variable.(‹ëèˆ8æ ƒ˜‘.

@@ -5,6 +5,7 @@ import com.tsystems.project.dao.TrainDao;
 import com.tsystems.project.domain.Station;
 import com.tsystems.project.domain.Train;
 import com.tsystems.project.dto.TrainDto;
+import com.tsystems.project.converter.TrainConverter;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import javax.transaction.Transactional;
 import java.lang.reflect.Type;
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class TrainService {
@@ -25,6 +27,9 @@ public class TrainService {
 
     @Autowired
     ModelMapper modelMapper;
+
+    @Autowired
+    TrainConverter trainConverter;
 
     @Transactional
     public TrainDto addTrain(int trainNumber, Station originStation, Station destinationStation, String numberOfSeats) {
@@ -53,7 +58,8 @@ public class TrainService {
     public List<TrainDto> getAllTrainsByNumbers(int trainNumber) {
         List<Train> trains = trainDao.findByNumbers(trainNumber);
         Type listType = new TypeToken<List<TrainDto>>() {}.getType();
-        List<TrainDto> trainsDto = new ModelMapper().map(trains, listType);
+        List<TrainDto> trainsDto = trains.stream()
+                .map(t -> trainConverter.convertToTrainDto(t)).collect(Collectors.toList());
         return trainsDto;
     }
 
@@ -63,7 +69,7 @@ public class TrainService {
             List<TrainDto> trainDtos = new ArrayList<>();
             Train lastTrain;
             for (int i = 0; i < trains.size(); i++) {
-                TrainDto trainDto = modelMapper.map(trains.get(i), TrainDto.class);
+                TrainDto trainDto = trainConverter.convertToTrainDto(trains.get(i));
                 lastTrain = null;
                 if (trainDtos.stream().anyMatch(train -> train.getNumber() == trainDto.getNumber())) {
                     continue;
@@ -75,6 +81,7 @@ public class TrainService {
                 }
                 if (lastTrain != null) {
                     trainDto.setDestinationStation(lastTrain.getDestinationStation());
+                    trainDto.setArrivalTime(lastTrain.getSchedules().get(1).getArrivalTime());
                 }
                 trainDtos.add(trainDto);
             }

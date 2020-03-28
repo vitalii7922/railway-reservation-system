@@ -31,13 +31,7 @@ public class TrainDao extends AbstractDao<Train> {
         query.setParameter("number", number);
         List<Train> trains = query.getResultList();
         List<String> stationNames = new ArrayList<>();
-       /* for (int i = 0; i < trains.size(); i++) {
-            stationNames.add(trains.get(i).getOriginStation().getName());
-            if (i == trains.size() - 1){
-                stationNames.add(trains.get(i).getDestinationStation().getName());
-            }
-        }*/
-            return trains;
+        return trains;
         }
 
     public Train findByNumber(int number) {
@@ -69,5 +63,14 @@ public class TrainDao extends AbstractDao<Train> {
         } else {
             return trains;
         }
+    }
+
+    public List<Train> findAllTrainsBetweenTwoStations(long trainDepartureId, long trainArrivalId) {
+        String queryString1 = "select t from Train t where t.id >= :trainDepartureId and t.id <= :trainArrivalId";
+        Query query = entityManager.createQuery(queryString1);
+        query.setParameter("trainDepartureId", trainDepartureId);
+        query.setParameter("trainArrivalId", trainArrivalId);
+        List<Train> trains = query.getResultList();
+        return trains;
     }
 }

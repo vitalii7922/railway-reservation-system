@@ -27,9 +27,9 @@
         <tr>
             <td><%=t.getNumber()%></td>
             <td><%=t.getOriginStation().getName()%></td>
-            <td><%=t.getSchedules().get(0).getDepartureTime()%></td>
+            <td><%=t.getDepartureTime()%></td>
             <td><%=t.getDestinationStation().getName()%></td>
-            <td><%=t.getSchedules().get(1).getArrivalTime()%></td>
+            <td><%=t.getArrivalTime()%></td>
         </tr>
         <%}%>
     </table>

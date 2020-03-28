@@ -36,34 +36,34 @@
         if (trains.size() == 1) {%>
         <tr>
             <td><%=trains.get(i).getOriginStation().getName()%></td>
-            <td><%=trains.get(i).getSchedules().get(0).getDepartureTime()%></td>
+            <td><%=trains.get(i).getDepartureTime()%></td>
             <td></td>
         </tr>
         <tr>
             <td><%=trains.get(i).getDestinationStation().getName()%></td>
             <td></td>
-            <td><%=trains.get(i).getSchedules().get(1).getArrivalTime()%></td>
+            <td><%=trains.get(i).getArrivalTime()%></td>
         </tr>
         <%continue;
         } else if (i == trains.size() - 1) {%>
         <tr>
             <td><%=trains.get(i).getOriginStation().getName()%></td>
-            <td><%=trains.get(i).getSchedules().get(0).getDepartureTime()%></td>
+            <td><%=trains.get(i).getDepartureTime()%></td>
             <td><%=arrivalTime%></td>
         </tr>
         <tr>
             <td><%=trains.get(i).getDestinationStation().getName()%></td>
             <td></td>
-            <td><%=trains.get(i).getSchedules().get(1).getArrivalTime()%></td>
+            <td><%=trains.get(i).getArrivalTime()%></td>
         </tr>
             <%} else {%>
         <tr>
             <td><%=trains.get(i).getOriginStation().getName()%></td>
-            <td><%=trains.get(i).getSchedules().get(0).getDepartureTime()%></td>
+            <td><%=trains.get(i).getDepartureTime()%></td>
             <%if (arrivalTime != null) {%>
             <td><%=arrivalTime%></td>
             <%}%>
-            <%arrivalTime=trains.get(i).getSchedules().get(1).getArrivalTime();%>
+            <%arrivalTime=trains.get(i).getArrivalTime();%>
         </tr>
         <%}}%>
 

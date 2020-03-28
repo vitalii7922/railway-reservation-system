@@ -73,6 +73,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/com/tsystems/project/converter/TrainConverter.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/main/java/com/tsystems/project/dao/AbstractDao.java">
           <value>
             <set />
@@ -89,6 +94,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/src/main/java/com/tsystems/project/dao/StationDao.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/com/tsystems/project/dao/TicketDao.java">
           <value>
             <set />
           </value>
@@ -133,6 +143,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/com/tsystems/project/service/PassengerService.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/main/java/com/tsystems/project/service/ScheduleService.java">
           <value>
             <set />
@@ -143,12 +158,22 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/com/tsystems/project/service/TicketService.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/main/java/com/tsystems/project/service/TrainService.java">
           <value>
             <set />
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/src/main/java/com/tsystems/project/web/LoginController.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/com/tsystems/project/web/PassengerController.java">
           <value>
             <set />
           </value>
@@ -168,6 +193,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/com/tsystems/project/web/TicketController.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/main/java/com/tsystems/project/web/TrainController.java">
           <value>
             <set />
@@ -179,6 +209,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/src/main/java/com/tsystems/project/web/TrainScheduleController.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/converter/TrainConverter.java">
           <value>
             <set />
           </value>
@@ -234,6 +269,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/src/main/webapp/menu.jsp">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/webapp/passenger.jsp">
           <value>
             <set />
           </value>

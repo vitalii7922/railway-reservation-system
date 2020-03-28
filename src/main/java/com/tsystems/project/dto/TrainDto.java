@@ -4,6 +4,7 @@ import com.tsystems.project.domain.Schedule;
 import com.tsystems.project.domain.Station;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class TrainDto implements Serializable {
@@ -14,7 +15,9 @@ public class TrainDto implements Serializable {
 
     int seats;
 
-    private List<Schedule> schedules;
+    private LocalDateTime arrivalTime;
+
+    private LocalDateTime departureTime;
 
     private Station originStation;
 
@@ -25,7 +28,7 @@ public class TrainDto implements Serializable {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -45,20 +48,20 @@ public class TrainDto implements Serializable {
         this.seats = seats;
     }
 
-    public List<Schedule> getSchedules() {
-        return schedules;
+    public LocalDateTime getArrivalTime() {
+        return arrivalTime;
     }
 
-    public void setSchedules(List<Schedule> schedules) {
-        this.schedules = schedules;
+    public void setArrivalTime(LocalDateTime arrivalTime) {
+        this.arrivalTime = arrivalTime;
     }
 
-    public Station getDestinationStation() {
-        return destinationStation;
+    public LocalDateTime getDepartureTime() {
+        return departureTime;
     }
 
-    public void setDestinationStation(Station destinationStation) {
-        this.destinationStation = destinationStation;
+    public void setDepartureTime(LocalDateTime departureTime) {
+        this.departureTime = departureTime;
     }
 
     public Station getOriginStation() {
@@ -69,4 +72,11 @@ public class TrainDto implements Serializable {
         this.originStation = originStation;
     }
 
+    public Station getDestinationStation() {
+        return destinationStation;
+    }
+
+    public void setDestinationStation(Station destinationStation) {
+        this.destinationStation = destinationStation;
+    }
 }

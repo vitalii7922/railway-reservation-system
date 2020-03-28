@@ -10,7 +10,7 @@ public class Station implements Serializable {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private long id;
 
-    @Column(name = "station_name")
+    @Column(name = "name")
     private String name;
 
     @OneToMany(mappedBy = "originStation", fetch = FetchType.EAGER)

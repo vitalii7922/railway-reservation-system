@@ -8,8 +8,9 @@
 <body>
 <div class="style_gap">
     <h1 class="text" align="center">
-        ${trip}
+        ${stationA} - ${stationB}
     </h1>
+
     <table class = table align=center>
         <tr align="left">
             <th>number</th>
@@ -21,9 +22,15 @@
                 <td>${mapElement.key.train.number}</td>
                 <td>${mapElement.key.departureTime}</td>
                 <td>${mapElement.value.arrivalTime}</td>
+                <td><button id="myButton">buy a ticket</button></td>
             </tr>
         </c:forEach>
     </table>
+    <script type="text/javascript">
+        document.getElementById("myButton").onclick = function () {
+            location.href = "buyTicket?stationA=${stationA}&stationB=${stationB}&trainNumber${mapElement.key.train.number}&departureTime${mapElement.key.departureTime}";
+        };
+    </script>
 </div>
 </body>
 </html>
