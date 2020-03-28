@@ -1,8 +1,10 @@
 package com.tsystems.project.web;
 
 import com.tsystems.project.domain.Passenger;
+import com.tsystems.project.domain.Station;
 import com.tsystems.project.domain.Ticket;
 import com.tsystems.project.domain.Train;
+import com.tsystems.project.dto.TrainDto;
 import com.tsystems.project.service.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.time.LocalDateTime;
 
 
 @Controller
@@ -22,14 +23,12 @@ public class TicketController {
 
     @ResponseBody
     @GetMapping(value = "/buyTicket")
-    public ModelAndView addTicketPasesnger(@RequestParam("trainNumber") String trainNumber,
-                                 @RequestParam("stationA") String stationA,
-                                 @RequestParam("stationB") String stationB,
-                                 @RequestParam("departureTime")LocalDateTime departureTime, ModelAndView model) {
-        model.addObject("trainNumber", trainNumber);
+    public ModelAndView addTicketPasesnger(@RequestParam("train") TrainDto train,
+                                 @RequestParam("stationA") Station stationA,
+                                 @RequestParam("stationB") Station stationB, ModelAndView model) {
+        model.addObject("train", train);
         model.addObject("stationA", stationA);
         model.addObject("stationB", stationB);
-        model.addObject("departureTime", departureTime);
         model.setViewName("passenger.jsp");
         return model;
     }

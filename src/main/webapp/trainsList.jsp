@@ -1,6 +1,5 @@
 <%@ page import="java.util.List" %>
 <%@ page import="com.tsystems.project.dto.TrainDto" %>
-<%@ page import="com.tsystems.project.domain.Train" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>

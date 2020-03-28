@@ -42,26 +42,31 @@ public class TrainScheduleController {
         Station stationFrom = stationService.getStationByName(stationNameA);
         Station stationTo = stationService.getStationByName(stationNameB);
 
-        Map<Train, Train> trains = null;
+//        Map<Train, Train> trains = null;
         Map<Schedule, Schedule> schedules = new LinkedHashMap<>();
+        List<TrainDto> trains = null;
 
         if (stationFrom != null && stationTo != null) {
             trains = trainService.getTrainsByStations(stationFrom, stationTo, timeDeparture, timeArrival);
         }
 
-       if (trains != null) {
+       /*if (trains != null) {
            schedules = scheduleService.getSchedulesByTrains(trains);
-       }
+       }*/
 
-        String trip = stationNameA + " - " + stationNameB;
+        /*String trip = stationNameA + " - " + stationNameB;*/
 
-        model.addObject("trip", trip);
-        model.addObject("stationA", stationNameA);
-        model.addObject("stationB", stationNameB);
-        model.addObject("schedules", schedules);
+//        model.addObject("trip", trip);
+//        model.addObject("stationA", stationNameA);
+//        model.addObject("stationB", stationNameB);
         model.setViewName("trips.jsp");
-
-        return model;
+        if (trains != null) {
+            model.addObject("train", trains.get(0));
+            model.addObject("trains", trains);
+            return model;
+        } else {
+               return model;
+        }
     }
 
     @ResponseBody

@@ -13,7 +13,19 @@ public class TrainDao extends AbstractDao<Train> {
         super(Train.class);
     }
 
-    public Train findByStationId(long id) {
+    public Train findByStationDepartureId(long id) {
+        String queryString = "SELECT t FROM Train t WHERE (t.originStation.id) = :id";
+        Query query = entityManager.createQuery(queryString);
+        query.setParameter("id", id);
+        List<Train> trains = query.getResultList();
+        if (trains.isEmpty()) {
+            return null;
+        } else {
+            return trains.get(0);
+        }
+    }
+
+    public Train findByStationArrivalId(long id) {
         String queryString = "SELECT t FROM Train t WHERE (t.destinationStation.id) = :id";
         Query query = entityManager.createQuery(queryString);
         query.setParameter("id", id);

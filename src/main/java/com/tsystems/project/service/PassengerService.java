@@ -23,36 +23,22 @@ public class PassengerService {
     TrainDao trainDao;
 
     @Transactional
-    public Passenger addPassenger(int trainNumber, Station stationA, Station stationB, LocalDateTime departureTime, String firstName, String lastName, LocalDate birthDate) {
-        Train trainDeparture = trainDao.findByStationId(stationA.getId());
-        Train trainArrival = trainDao.findByStationId(stationB.getId());
+    public Passenger addPassenger(int trainNumber, Station stationA, Station stationB, String firstName, String lastName, LocalDate birthDate) {
+        Train trainDeparture = trainDao.findByStationDepartureId(stationA.getId());
+        Train trainArrival = trainDao.findByStationArrivalId(stationB.getId());
         List<Train> trains = trainDao.findAllTrainsBetweenTwoStations(trainDeparture.getId(), trainArrival.getId());
+
         for (Train t : trains) {
             int seats = t.getSeats();
             seats--;
             t.setSeats(seats);
         }
+
         Passenger passenger = new Passenger();
         passenger.setFirstName(firstName);
         passenger.setSecondName(lastName);
         passenger.setBirthDate(birthDate);
         return passengerDao.create(passenger);
-    }
-
-
-    @Transactional
-    public Passenger editPassenger(Passenger passenger) throws RuntimeException {
-        passengerDao.update(passenger);
-        return passengerDao.findOne(passenger.getId());
-    }
-
-    @Transactional
-    public void removePassenger(Passenger passenger) {
-        passengerDao.delete(passenger);
-    }
-
-    public List<Schedule> getAllSchedules() {
-        return passengerDao.findAll();
     }
 
 

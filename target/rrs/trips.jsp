@@ -8,7 +8,7 @@
 <body>
 <div class="style_gap">
     <h1 class="text" align="center">
-        ${stationA} - ${stationB}
+        ${train.originStation.name} - ${train.destinationStation.name}
     </h1>
 
     <table class = table align=center>
@@ -17,18 +17,18 @@
             <th>Departure time</th>
             <th>Arrival time</th>
         </tr>
-        <c:forEach items="${schedules}" var="mapElement">
+        <c:forEach items="${trains}" var="train">
             <tr>
-                <td>${mapElement.key.train.number}</td>
-                <td>${mapElement.key.departureTime}</td>
-                <td>${mapElement.value.arrivalTime}</td>
+                <td>${train.number}</td>
+                <td>${train.departureTime}</td>
+                <td>${train.arrivalTime}</td>
                 <td><button id="myButton">buy a ticket</button></td>
             </tr>
         </c:forEach>
     </table>
     <script type="text/javascript">
         document.getElementById("myButton").onclick = function () {
-            location.href = "buyTicket?stationA=${stationA}&stationB=${stationB}&trainNumber${mapElement.key.train.number}&departureTime${mapElement.key.departureTime}";
+            location.href = "buyTicket?trainNumber=${mapElement.key.departureTime}&stationA=${stationA}&stationB=${stationB}";
         };
     </script>
 </div>

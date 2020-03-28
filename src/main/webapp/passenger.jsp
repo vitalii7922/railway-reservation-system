@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
     <title>Title</title>
@@ -18,10 +19,9 @@
     <input type="hidden" name="trainNumber" value="${trainNumber}"/>
     <input type="hidden" name="stationA" value="${stationA}"/>
     <input type="hidden" name="stationB" value="${stationB}"/>
-    <input type="hidden" name="departureTime" value="${departureTime}"/>
-    <input  type="text" name="first_name" formmethod="post" placeholder="First name"><br>
-    <input  type="text" name="last_name" formmethod="post" placeholder="Last name"><br>
-    <td><input type="date" name="date_of_birth" placeholder="Date of birth"></td><br>
+    <input  type="text" name="first_name"  placeholder="First name"><br>
+    <input  type="text" name="last_name" placeholder="Last name"><br>
+    <input type="date" name="date_of_birth"><br>
     <button class="button" type="submit">buy</button>
 </form>
 </div>

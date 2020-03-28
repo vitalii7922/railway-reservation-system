@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Controller
 public class PassengerController {
@@ -37,26 +36,25 @@ public class PassengerController {
 
     @ResponseBody
     @GetMapping(value = "/addPassenger")
-    public ModelAndView getTrain(@RequestParam("trainNumber") String trainNumber,
-                                 @RequestParam("stationA") String stationA,
-                                 @RequestParam("departureTime") LocalDateTime departureTime,
-                                 @RequestParam("stationB") String stationB,
+    public ModelAndView getTrain(@RequestParam("train") TrainDto train,
+                                 @RequestParam("stationA") Station stationA,
+                                 @RequestParam("stationB") Station stationB,
                                  @RequestParam("first_name") String firstName,
                                  @RequestParam("last_name") String lastName,
                                  @RequestParam("date_of_birth") LocalDate birthDate,
                                  ModelAndView model) {
-        Station stationFrom =  stationService.getStationByName(stationA);
-        Station stationTo = stationService.getStationByName(stationB);
+//        Station stationFrom =  stationService.getStationByName(stationA);
+//        Station stationTo = stationService.getStationByName(stationB);
         Ticket ticket = null;
-        TrainDto train = trainService.getTrainByNumber(Integer.parseInt(trainNumber));
+//        TrainDto train = trainService.getTrainByNumber(Integer.parseInt(trainNumber));
         Passenger passenger = null;
 
-        if (stationFrom != null && firstName != null && lastName != null && birthDate != null && train != null) {
-            ticket = ticketService.getTicketByPassenger(train.getNumber(), stationFrom, firstName, lastName, birthDate);
+        if (stationA != null && firstName != null && lastName != null && birthDate != null && train != null) {
+            ticket = ticketService.getTicketByPassenger(train.getNumber(), stationA, firstName, lastName, birthDate);
         }
 
-        if (ticket == null && train != null && stationFrom != null) {
-            passenger = passengerService.addPassenger(train.getNumber(), stationFrom, stationTo, departureTime, firstName, lastName, birthDate);
+        if (ticket == null && train != null && stationA != null) {
+            passenger = passengerService.addPassenger(train.getNumber(), stationA, stationB, firstName, lastName, birthDate);
         }
 
         model.addObject("passenger", passenger);
