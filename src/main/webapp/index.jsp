@@ -38,6 +38,7 @@
                 <td><input type="datetime-local" value="2018-06-132T19:30" name=time_arrival></td>
                 <td><button type="submit">Find</button></td>
         </tr>
+        <p align="center">${message}</p>
     </table>
     </form>
 </div>

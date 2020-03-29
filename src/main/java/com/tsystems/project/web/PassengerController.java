@@ -11,12 +11,11 @@ import com.tsystems.project.service.TicketService;
 import com.tsystems.project.service.TrainService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Controller
 public class PassengerController {
@@ -36,30 +35,33 @@ public class PassengerController {
 
     @ResponseBody
     @GetMapping(value = "/addPassenger")
-    public ModelAndView getTrain(@RequestParam("train") TrainDto train,
-                                 @RequestParam("stationA") Station stationA,
-                                 @RequestParam("stationB") Station stationB,
+    public ModelAndView addPassenger(@RequestParam("train") int trainNumber,
+                                /* @RequestParam("stationA") long stationA,
+                                 @RequestParam("stationB") long stationB,*/
+                                 @RequestParam("departureTime") LocalDateTime departureTime,
                                  @RequestParam("first_name") String firstName,
                                  @RequestParam("last_name") String lastName,
                                  @RequestParam("date_of_birth") LocalDate birthDate,
                                  ModelAndView model) {
-//        Station stationFrom =  stationService.getStationByName(stationA);
-//        Station stationTo = stationService.getStationByName(stationB);
-        Ticket ticket = null;
-//        TrainDto train = trainService.getTrainByNumber(Integer.parseInt(trainNumber));
-        Passenger passenger = null;
+       /* Station originStation =  stationService.getStationById(stationA);
+        Station destinationStation = stationService.getStationById(stationB);
+        Ticket ticket = null;*/
+       /* Passenger passenger = null;
 
-        if (stationA != null && firstName != null && lastName != null && birthDate != null && train != null) {
-            ticket = ticketService.getTicketByPassenger(train.getNumber(), stationA, firstName, lastName, birthDate);
+        if (firstName != null && lastName != null && birthDate != null) {
+            passenger = passengerService.getPassenger(firstName, lastName, birthDate);
         }
 
-        if (ticket == null && train != null && stationA != null) {
-            passenger = passengerService.addPassenger(train.getNumber(), stationA, stationB, firstName, lastName, birthDate);
+        if (passenger == null) {
+            passenger = passengerService.addPassenger(firstName, lastName, birthDate);
         }
 
         model.addObject("passenger", passenger);
-        model.addObject("train", train);
-        model.setViewName("/addTicket");
+        model.addObject("train", trainNumber);
+        model.addObject("stationA", stationA);
+        model.addObject("stationB", stationB);
+        model.addObject("departureTime", departureTime);
+        model.setViewName("/addTicket");*/
         return model;
     }
 }

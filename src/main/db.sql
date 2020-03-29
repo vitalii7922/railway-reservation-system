@@ -65,3 +65,4 @@ SET time_zone = '+03:00';
 select current_timestamp();
 SET time_zone = 'UTC';
 ALTER TABLE schedule MODIFY arrive_time TIMESTAMP null;
+ALTER TABLE schedule drop column arrive_time;

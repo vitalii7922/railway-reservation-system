@@ -16,6 +16,7 @@
             <th>Departure time</th>
             <th>Arrival time</th>
         </tr>
+        <form action="passenger.jsp">
         <c:forEach items="${trains}" var="train">
             <tr>
                 <td>${train.number}</td>
@@ -23,13 +24,14 @@
                 <td>${train.arrivalTime}</td>
                 <td><button id="myButton">buy a ticket</button></td>
             </tr>
+            <input type="hidden" name="train" value="${train.number}">
         </c:forEach>
     </table>
-    <script type="text/javascript">
+    <%--<script type="text/javascript">
         document.getElementById("myButton").onclick = function () {
-            location.href = "buyTicket?train=${train}&stationA=${train.originStation}&stationB=${train.destinationStation}";
+            location.href = "passenger.jsp";
         };
-    </script>
+    </script>--%>
 </div>
 </body>
 </html>

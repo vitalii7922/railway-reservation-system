@@ -13,10 +13,11 @@ public class TrainDao extends AbstractDao<Train> {
         super(Train.class);
     }
 
-    public Train findByStationDepartureId(long id) {
-        String queryString = "SELECT t FROM Train t WHERE (t.originStation.id) = :id";
+    public Train findByStationDepartureId(int trainNumber, long id) {
+        String queryString = "SELECT t FROM Train t WHERE (t.originStation.id) = :id and t.number = :trainNumber";
         Query query = entityManager.createQuery(queryString);
         query.setParameter("id", id);
+        query.setParameter("trainNumber", trainNumber);
         List<Train> trains = query.getResultList();
         if (trains.isEmpty()) {
             return null;
@@ -25,10 +26,11 @@ public class TrainDao extends AbstractDao<Train> {
         }
     }
 
-    public Train findByStationArrivalId(long id) {
-        String queryString = "SELECT t FROM Train t WHERE (t.destinationStation.id) = :id";
+    public Train findByStationArrivalId(int trainNumber, long id) {
+        String queryString = "SELECT t FROM Train t WHERE (t.destinationStation.id) = :id and t.number = :trainNumber";
         Query query = entityManager.createQuery(queryString);
         query.setParameter("id", id);
+        query.setParameter("trainNumber", trainNumber);
         List<Train> trains = query.getResultList();
         if (trains.isEmpty()) {
             return null;

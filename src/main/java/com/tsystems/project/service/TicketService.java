@@ -26,18 +26,8 @@ public class TicketService {
     }
 
     @Transactional
-    public void removeTicket(Ticket ticket) {
-        ticketDao.delete(ticket);
-    }
-
-    public List<Ticket> getAllTickets() {
-        return ticketDao.findAll();
-    }
-
-
-    @Transactional
-    public Ticket getTicketByPassenger(int trainNumber, Station stationA, String firstName, String lastName, LocalDate birthDate) {
-        Ticket ticket = ticketDao.findByPassenger(trainNumber, stationA.getId(), firstName, lastName, birthDate);
+    public Ticket getTicketByPassenger(int trainNumber, String firstName, String lastName, LocalDate birthDate) {
+        Ticket ticket = ticketDao.findByPassenger(trainNumber, firstName, lastName, birthDate);
         return ticket;
     }
 

@@ -59,12 +59,15 @@ public class TrainScheduleController {
 //        model.addObject("trip", trip);
 //        model.addObject("stationA", stationNameA);
 //        model.addObject("stationB", stationNameB);
-        model.setViewName("trips.jsp");
-        if (trains != null) {
+
+        if (trains != null && !trains.isEmpty()) {
+            model.setViewName("trips.jsp");
             model.addObject("train", trains.get(0));
             model.addObject("trains", trains);
             return model;
         } else {
+            model.setViewName("index.jsp");
+               model.addObject("message", "No trains");
                return model;
         }
     }

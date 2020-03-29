@@ -93,7 +93,7 @@ public class ScheduleService {
     }
 
     public List<ScheduleDto> getSchedulesByStationId(long id) {
-        List<Schedule> schedules = scheduleDao.fyndByStationId(id);
+        List<Schedule> schedules = scheduleDao.findByStationId(id);
         Type listType = null;
         List<ScheduleDto> scheduleDtos = null;
 

@@ -15,12 +15,11 @@ public class TicketDao extends AbstractDao<Ticket> {
         super(Ticket.class);
     }
 
-    public Ticket findByPassenger(int trainNumber, long stationA, String firstName, String lastName, LocalDate birthDate) {
+    public Ticket findByPassenger(int trainNumber, String firstName, String lastName, LocalDate birthDate) {
         String queryString = "SELECT t FROM Ticket t WHERE LOWER(t.passenger.firstName) = :firstName and LOWER(t.passenger.birthDate) = :birthDate " +
-                            "and LOWER(t.passenger.secondName) = :lastName and t.train.originStation.id = :stationA and t.train.number = :trainNumber";
+                            "and LOWER(t.passenger.secondName) = :lastName t.train.number = :trainNumber";
         Query query = entityManager.createQuery(queryString);
         query.setParameter("trainNumber", trainNumber);
-        query.setParameter("stationA", stationA);
         query.setParameter("firstName", firstName);
         query.setParameter("lastName", lastName);
         query.setParameter("birthDate", birthDate);

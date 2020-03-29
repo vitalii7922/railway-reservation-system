@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.time.LocalDateTime;
 
 
 @Controller
@@ -21,18 +22,21 @@ public class TicketController {
     @Autowired
     TicketService ticketService;
 
-    @ResponseBody
+ /*   @ResponseBody
     @GetMapping(value = "/buyTicket")
-    public ModelAndView addTicketPasesnger(@RequestParam("train") TrainDto train,
-                                 @RequestParam("stationA") Station stationA,
-                                 @RequestParam("stationB") Station stationB, ModelAndView model) {
-        model.addObject("train", train);
-        model.addObject("stationA", stationA);
-        model.addObject("stationB", stationB);
+    public ModelAndView addTicketPassesnger(@RequestParam("train") int trainNumber,
+                                            @RequestParam("stationA") long originStationId,
+                                            @RequestParam("stationB") long destinationStationId,
+                                            @RequestParam("departureTime") LocalDateTime departureTime,
+                                            ModelAndView model) {
+        model.addObject("train", trainNumber);
+        model.addObject("stationA", originStationId);
+        model.addObject("stationB", destinationStationId);
+        model.addObject("departureTime", departureTime);
         model.setViewName("passenger.jsp");
         return model;
     }
-
+*/
     @ResponseBody
     @GetMapping(value = "/addTicket")
     public ModelAndView addTicketPasesnger(@RequestParam("train") Train train,

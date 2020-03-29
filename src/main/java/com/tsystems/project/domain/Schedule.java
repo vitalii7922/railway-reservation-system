@@ -20,9 +20,11 @@ public class Schedule implements Serializable {
     private LocalDateTime departureTime;
 
     @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "train_id")
     Train train;
 
     @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "station_id")
     Station station;
 
     public LocalDateTime getArrivalTime() {

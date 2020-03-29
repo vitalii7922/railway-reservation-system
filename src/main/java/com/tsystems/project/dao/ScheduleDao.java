@@ -13,28 +13,22 @@ public class ScheduleDao extends AbstractDao<Schedule> {
     }
 
     public Schedule findByTrainId(long id) {
-//        getCurrentSession().beginTransaction();
         String queryString = "SELECT s FROM Schedule s WHERE (s.train.id) = :id";
         Query query = entityManager.createQuery(queryString);
         query.setParameter("id", id);
         List<Schedule> schedules = query.getResultList();
-//        getCurrentSession().getTransaction().commit();
-//        getCurrentSession().close();
         if (schedules.isEmpty()) {
             return null;
         } else {
-            return schedules.get(schedules.size() - 1);
+            return schedules.get(1);
         }
     }
 
     public Schedule findByTrainDepartureId(long id) {
-//        getCurrentSession().beginTransaction();
         String queryString = "SELECT s FROM Schedule s WHERE (s.train.id) = :id";
         Query query = entityManager.createQuery(queryString);
         query.setParameter("id", id);
         List<Schedule> schedules = query.getResultList();
-//        getCurrentSession().getTransaction().commit();
-//        getCurrentSession().close();
         if (schedules.isEmpty()) {
             return null;
         } else {
@@ -44,13 +38,10 @@ public class ScheduleDao extends AbstractDao<Schedule> {
 
 
     public Schedule findByTrainArriveId(long id) {
-//        getCurrentSession().beginTransaction();
         String queryString = "SELECT s FROM Schedule s WHERE (s.train.id) = :id";
         Query query = entityManager.createQuery(queryString);
         query.setParameter("id", id);
         List<Schedule> schedules = query.getResultList();
-//        getCurrentSession().getTransaction().commit();
-//        getCurrentSession().close();
         if (schedules.isEmpty()) {
             return null;
         } else {
@@ -58,7 +49,7 @@ public class ScheduleDao extends AbstractDao<Schedule> {
         }
     }
 
-    public List<Schedule> fyndByStationId(long id) {
+    public List<Schedule> findByStationId(long id) {
         String queryString = "SELECT s FROM Schedule s WHERE (s.station.id) = :id";
         Query query = entityManager.createQuery(queryString);
         query.setParameter("id", id);
