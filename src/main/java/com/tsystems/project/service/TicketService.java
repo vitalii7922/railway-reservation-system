@@ -1,17 +1,18 @@
 package com.tsystems.project.service;
 
+import com.tsystems.project.converter.TicketConverter;
+import com.tsystems.project.dao.PassengerDao;
 import com.tsystems.project.dao.TicketDao;
+import com.tsystems.project.dao.TrainDao;
 import com.tsystems.project.domain.Passenger;
-import com.tsystems.project.domain.Station;
 import com.tsystems.project.domain.Ticket;
 import com.tsystems.project.domain.Train;
+import com.tsystems.project.dto.PassengerDto;
+import com.tsystems.project.dto.TicketDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.swing.plaf.metal.MetalIconFactory;
 import javax.transaction.Transactional;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -19,23 +20,37 @@ public class TicketService {
     @Autowired
     TicketDao ticketDao;
 
-    @Transactional
-    public Ticket editTicket(Ticket ticket) throws RuntimeException {
-        ticketDao.update(ticket);
-        return ticketDao.findOne(ticket.getId());
-    }
+    @Autowired
+    TrainDao trainDao;
+
+    @Autowired
+    PassengerDao passengerDao;
+
+    @Autowired
+    TicketConverter ticketConverter;
 
     @Transactional
-    public Ticket getTicketByPassenger(int trainNumber, String firstName, String lastName, LocalDate birthDate) {
-        Ticket ticket = ticketDao.findByPassenger(trainNumber, firstName, lastName, birthDate);
-        return ticket;
-    }
+    public TicketDto addTicket(int trainNumber, long stationFromId, long stationToId, PassengerDto passengerDto) {
+        Train trainDeparture = trainDao.findByStationDepartureId(trainNumber, stationFromId);
+        Train trainArrival = trainDao.findByStationArrivalId(trainNumber, stationToId);
+        List<Train> trains = trainDao.findAllTrainsBetweenTwoStations(trainDeparture.getId(), trainArrival.getId());
+        Ticket t = new Ticket();
+        TicketDto ticketDto = null;
 
-    @Transactional
-    public Ticket addTicket(Train train, Passenger passenger) {
-        Ticket ticket = new Ticket();
-        ticket.setTrain(train);
-        ticket.setPassenger(passenger);
-        return ticketDao.create(ticket);
+        t.setTrain(trainDeparture);
+        Passenger passenger = passengerDao.findOne(passengerDto.getId());
+        t.setPassenger(passenger);
+
+        for (Train train : trains) {
+            int seats = train.getSeats();
+            seats--;
+            train.setSeats(seats);
+            trainDao.update(train);
+        }
+
+        t = ticketDao.create(t);
+        ticketDto = ticketConverter.convertToTicketDto(t, passengerDto, trainDeparture, trainArrival);
+
+        return ticketDto;
     }
 }

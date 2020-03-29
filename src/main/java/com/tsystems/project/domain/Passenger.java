@@ -3,6 +3,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 public class Passenger implements Serializable {
@@ -62,4 +63,18 @@ public class Passenger implements Serializable {
         this.birthDate = birthDate;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Passenger passenger = (Passenger) o;
+        return firstName.equals(passenger.firstName) &&
+                secondName.equals(passenger.secondName) &&
+                birthDate.equals(passenger.birthDate);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(firstName, secondName, birthDate);
+    }
 }

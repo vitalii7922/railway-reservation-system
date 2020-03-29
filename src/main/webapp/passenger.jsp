@@ -15,11 +15,12 @@
 </head>
 <body>
 <div class="text" align="center">
-<form action="addPassenger">
-    <input type="hidden" name="train" value="${train}"/>
-    <%--<input type="hidden" name="stationA" value="${stationA}"/>
+    <p>${message}</p>
+<form action="addPassengerTicket">
+    <input type="hidden" name="trainNumber" value="${trainNumber}"/>
+    <input type="hidden" name="stationA" value="${stationA}"/>
     <input type="hidden" name="stationB" value="${stationB}"/>
-    <input type="hidden" name="departureTime" value="${departureTime}"/>--%>
+<%--    <input type="hidden" name="departureTime" value="${departureTime}"/>--%>
     <input  type="text" name="first_name"  placeholder="First name"><br>
     <input  type="text" name="last_name" placeholder="Last name"><br>
     <input type="date" name="date_of_birth"><br>

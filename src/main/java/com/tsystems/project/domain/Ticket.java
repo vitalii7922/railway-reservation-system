@@ -2,6 +2,7 @@ package com.tsystems.project.domain;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 public class Ticket implements Serializable {
@@ -23,14 +24,6 @@ public class Ticket implements Serializable {
         this.id = id;
     }
 
-    public Train getTrain() {
-        return train;
-    }
-
-    public void setTrain(Train train) {
-        this.train = train;
-    }
-
     public Passenger getPassenger() {
         return passenger;
     }
@@ -39,12 +32,12 @@ public class Ticket implements Serializable {
         this.passenger = passenger;
     }
 
-    @Override
-    public String toString() {
-        return "Ticket{" +
-                "id=" + id +
-                ", train=" + train +
-                ", passenger=" + passenger +
-                '}';
+
+    public Train getTrain() {
+        return train;
+    }
+
+    public void setTrain(Train train) {
+        this.train = train;
     }
 }

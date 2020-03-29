@@ -1,7 +1,6 @@
 package com.tsystems.project.web;
 import com.tsystems.project.domain.Schedule;
 import com.tsystems.project.domain.Station;
-import com.tsystems.project.domain.Train;
 import com.tsystems.project.dto.TrainDto;
 import com.tsystems.project.service.ScheduleService;
 import com.tsystems.project.service.StationService;
@@ -42,23 +41,12 @@ public class TrainScheduleController {
         Station stationFrom = stationService.getStationByName(stationNameA);
         Station stationTo = stationService.getStationByName(stationNameB);
 
-//        Map<Train, Train> trains = null;
         Map<Schedule, Schedule> schedules = new LinkedHashMap<>();
         List<TrainDto> trains = null;
 
         if (stationFrom != null && stationTo != null) {
             trains = trainService.getTrainsByStations(stationFrom, stationTo, timeDeparture, timeArrival);
         }
-
-       /*if (trains != null) {
-           schedules = scheduleService.getSchedulesByTrains(trains);
-       }*/
-
-        /*String trip = stationNameA + " - " + stationNameB;*/
-
-//        model.addObject("trip", trip);
-//        model.addObject("stationA", stationNameA);
-//        model.addObject("stationB", stationNameB);
 
         if (trains != null && !trains.isEmpty()) {
             model.setViewName("trips.jsp");

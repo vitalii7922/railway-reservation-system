@@ -3,7 +3,6 @@ package com.tsystems.project.domain;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
-import java.util.Objects;
 
 @Entity
 public class Train implements Serializable {
@@ -27,6 +26,8 @@ public class Train implements Serializable {
     @JoinColumn(name = "destinationStation_id")
     private Station destinationStation;
 
+    @OneToMany(mappedBy = "train")
+    private List<Ticket> tickets;
 
     public long getId() {
         return id;
