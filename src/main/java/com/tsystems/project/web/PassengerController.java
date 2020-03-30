@@ -12,6 +12,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.List;
+
 @Controller
 public class PassengerController {
 
@@ -22,24 +24,17 @@ public class PassengerController {
     PassengerService passengerService;
 
     @Autowired
-    StationService stationService;
-
-    @Autowired
-    TrainService trainService;
-
-    @Autowired
     TicketValidator ticketValidator;
 
     @ResponseBody
     @GetMapping(value = "/addPassengerTicket")
     public ModelAndView addPassenger(@RequestParam("trainNumber") int trainNumber,
-                                 @RequestParam("stationA") long stationAId,
-                                 @RequestParam("stationB") long stationBId,
-                                /* @RequestParam("departureTime") String departureTime,*/
-                                 @RequestParam("first_name") String firstName,
-                                 @RequestParam("last_name") String lastName,
-                                 @RequestParam("date_of_birth") String birthDate,
-                                 ModelAndView model) {
+                                     @RequestParam("stationA") long stationAId,
+                                     @RequestParam("stationB") long stationBId,
+                                     @RequestParam("first_name") String firstName,
+                                     @RequestParam("last_name") String lastName,
+                                     @RequestParam("date_of_birth") String birthDate,
+                                     ModelAndView model) {
 
         PassengerDto passenger = null;
         model.setViewName("passenger.jsp");
@@ -64,5 +59,21 @@ public class PassengerController {
         model.addObject("ticket", ticketDto);
         model.setViewName("ticket.jsp");
         return model;
+    }
+
+    @ResponseBody
+    @GetMapping(value = "/getPassengers")
+    public ModelAndView getPassengers(@RequestParam("trainNumber") int trainNumber,
+                                     ModelAndView model) {
+        List<PassengerDto> passengersDto = passengerService.getPassengers(trainNumber);
+        if (!passengersDto.isEmpty()) {
+            model.addObject("passengers", passengersDto);
+            model.addObject("train", trainNumber);
+            model.setViewName("passenger_list.jsp");
+            return model;
+        } else {
+            model.setViewName("trainsList.jsp");
+            return model;
+        }
     }
 }

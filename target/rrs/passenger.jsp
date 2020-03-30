@@ -14,6 +14,7 @@
     </header>
 </head>
 <body>
+
 <div class="text" align="center">
     <p>${message}</p>
 <form action="addPassengerTicket">

@@ -1,7 +1,6 @@
 package com.tsystems.project.dao;
 
 import com.tsystems.project.domain.Passenger;
-import com.tsystems.project.domain.Schedule;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.Query;
@@ -28,5 +27,12 @@ public class PassengerDao extends AbstractDao<Passenger> {
         } else {
             return passengers.get(0);
         }
+    }
+
+    public List<Passenger> findAllPassengersByTrainNumber(int trainNumber) {
+        String queryString = "SELECT p FROM Passenger p inner join Ticket t on p.id = t.passenger.id where t.train.number = :trainNumber";
+        Query query = entityManager.createQuery(queryString);
+        query.setParameter("trainNumber", trainNumber);
+        return query.getResultList();
     }
 }

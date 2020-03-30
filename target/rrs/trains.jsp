@@ -9,6 +9,12 @@
     <title>Title</title>
 </head>
 <body>
+<%
+    if (session.getAttribute("admin") == null) {
+        response.sendRedirect("login.jsp");
+    }
+%>
+
 <form action="addTrips">
     <input type="hidden" type="number" name="train_number" value="${train}"/>
     <p align="center">
@@ -22,6 +28,7 @@
         </tr>
         <br>
     </c:forEach>--%>
+    ${message}
     <table class = table align=center>
         <tr align="left">
             <th>Station</th>

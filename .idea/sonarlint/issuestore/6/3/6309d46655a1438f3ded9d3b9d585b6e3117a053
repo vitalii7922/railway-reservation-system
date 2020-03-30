@@ -1,4 +1,9 @@
 
-Y	java:S112"FDefine and throw a dedicated exception instead of using a generic one.(âÛ¶­
-y
-java:S1130"eRemove the declaration of thrown exception 'java.lang.RuntimeException' which is a runtime exception.(âÛ¶­
+b
+java:S1128"@Remove this unused import 'com.tsystems.project.domain.Station'.(çÿ–Îøÿÿÿÿ8¼Æ÷¿’.
+[
+java:S1128	">Remove this unused import 'com.tsystems.project.domain.Train'.(ôËÁ´8¼Æ÷¿’.
+c
+java:S1128"ARemove this unused import 'com.tsystems.project.domain.Schedule'.(ªŒ›œüÿÿÿÿ8çŒŠ´’.
+V
+java:S1128"4Remove this unused import 'java.time.LocalDateTime'.(æÃ§ƒüÿÿÿÿ8çŒŠ´’.

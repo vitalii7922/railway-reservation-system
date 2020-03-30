@@ -1,5 +1,5 @@
 
-c
-java:S1128"ARemove this unused import 'com.tsystems.project.domain.Schedule'.(ªŒ›œüÿÿÿÿ8¢Üœí‘.
 M
 java:S1128"+Remove this unused import 'java.util.List'.(Õë±Äøÿÿÿÿ8¢Üœí‘.
+c
+java:S1128"ARemove this unused import 'com.tsystems.project.domain.Schedule'.(ªŒ›œüÿÿÿÿ8¢Üœí‘.

@@ -5,8 +5,9 @@
     <title>Ticket</title>
 </head>
 <body>
+
 <div class="style_gap" align="center">
-     Ticket number: ${ticket.id}<br>
+    Ticket number: ${ticket.id}<br>
     Train number: ${ticket.trainNumber}<br>
 
      ${ticket.stationOrigin} - ${ticket.stationDeparture}<br>

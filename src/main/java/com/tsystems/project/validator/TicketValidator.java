@@ -2,7 +2,6 @@ package com.tsystems.project.validator;
 
 import com.tsystems.project.dao.TicketDao;
 import com.tsystems.project.dao.TrainDao;
-import com.tsystems.project.domain.Passenger;
 import com.tsystems.project.domain.Ticket;
 import com.tsystems.project.domain.Train;
 import com.tsystems.project.dto.PassengerDto;
@@ -24,8 +23,8 @@ public class TicketValidator {
     TicketDao ticketDao;
 
     public boolean verifyTime(String departureTime) {
-        long minutes = ChronoUnit.MINUTES.between(LocalDateTime.parse("2018-06-12T19:10:00"), LocalDateTime.parse(departureTime));
-        return minutes >= 15;
+        long minutes = ChronoUnit.MINUTES.between(LocalDateTime.now(), LocalDateTime.parse(departureTime));
+        return minutes >= 10;
     }
 
     public boolean verifySeats(int trainNumber, long stationFromId, long stationToId) {

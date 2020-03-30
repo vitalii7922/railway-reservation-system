@@ -43,12 +43,32 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/com/tsystems/project/config/App1ConfigurationAdapter.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/main/java/com/tsystems/project/config/AppConfig.java">
           <value>
             <set />
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/src/main/java/com/tsystems/project/config/AppConfig2.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/com/tsystems/project/config/AppInitializer.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/com/tsystems/project/config/ApplicationConfig.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/com/tsystems/project/config/Config.java">
           <value>
             <set />
           </value>
@@ -64,6 +84,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/src/main/java/com/tsystems/project/config/ModelMap.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/com/tsystems/project/config/SecurityConfig.java">
           <value>
             <set />
           </value>
@@ -98,7 +123,17 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/com/tsystems/project/dao/AdminDao.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/main/java/com/tsystems/project/dao/HibernateUtil.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/com/tsystems/project/dao/PassengerDao.java">
           <value>
             <set />
           </value>
@@ -124,6 +159,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/src/main/java/com/tsystems/project/dao/UserDao.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/com/tsystems/project/domain/Admin.java">
           <value>
             <set />
           </value>
@@ -178,6 +218,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/com/tsystems/project/service/AdminService.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/main/java/com/tsystems/project/service/PassengerService.java">
           <value>
             <set />
@@ -199,6 +244,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/src/main/java/com/tsystems/project/service/TrainService.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/com/tsystems/project/service/UserService.java">
           <value>
             <set />
           </value>
@@ -298,6 +348,16 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/main/webapp/WEB-INF/spring-security.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/passenger.jsp">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml">
           <value>
             <set />
@@ -313,12 +373,22 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/main/webapp/login.jsp">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/main/webapp/menu.jsp">
           <value>
             <set />
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/src/main/webapp/passenger.jsp">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/webapp/passenger_list.jsp">
           <value>
             <set />
           </value>
@@ -364,6 +434,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/src/main/webapp/trips.jsp">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/webapp/views/passenger.jsp">
           <value>
             <set />
           </value>

@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 @Controller
 public class TicketController {
 
@@ -20,19 +23,19 @@ public class TicketController {
     @ResponseBody
     @GetMapping(value = "/addTicket")
     public ModelAndView addTicket(@RequestParam("trainNumber") int trainNumber,
-                                            @RequestParam("stationA") long originStationId,
-                                            @RequestParam("stationB") long destinationStationId,
-                                            @RequestParam("departureTime") String departureTime,
-                                            ModelAndView model) {
+                                  @RequestParam("stationA") long originStationId,
+                                  @RequestParam("stationB") long destinationStationId,
+                                  @RequestParam("departureTime") String departureTime,
+                                  ModelAndView model, HttpServletResponse response, HttpServletRequest request) {
 
         if (!ticketValidator.verifyTime(departureTime)) {
             model.setViewName("index.jsp");
-            model.addObject("message", "you cannot buy a ticket 15 minutes before the train departures");
+            model.addObject("message", "you cannot buy a ticket 10 minutes before the train departures");
             return model;
         }
 
         if (!ticketValidator.verifySeats(trainNumber, originStationId, destinationStationId)) {
-            model.setViewName("index.jsp");
+            model.setViewName("trips.jsp");
             model.addObject("message", "no free seats");
             return model;
         }

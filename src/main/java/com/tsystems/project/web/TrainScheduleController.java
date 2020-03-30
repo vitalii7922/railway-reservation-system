@@ -1,6 +1,7 @@
 package com.tsystems.project.web;
 import com.tsystems.project.domain.Schedule;
 import com.tsystems.project.domain.Station;
+import com.tsystems.project.domain.Train;
 import com.tsystems.project.dto.TrainDto;
 import com.tsystems.project.service.ScheduleService;
 import com.tsystems.project.service.StationService;
@@ -40,8 +41,6 @@ public class TrainScheduleController {
 
         Station stationFrom = stationService.getStationByName(stationNameA);
         Station stationTo = stationService.getStationByName(stationNameB);
-
-        Map<Schedule, Schedule> schedules = new LinkedHashMap<>();
         List<TrainDto> trains = null;
 
         if (stationFrom != null && stationTo != null) {
@@ -85,11 +84,22 @@ public class TrainScheduleController {
             return model;
         }
 
+
+
         Station from = stationService.getStationById(train.getDestinationStation().getId());
         Station to = stationService.getStationByName(destinationStation);
 
         if (from == null || to == null) {
           return model;
+        }
+
+        if (from.getId() == to.getId()) {
+            return model;
+        }
+
+        if (numberOfSeats == null || numberOfSeats.equals("\\s*")) {
+            model.addObject("message", "you haven't number of seats");
+            return model;
         }
 
         train = trainService.addTrain(number, from, to, numberOfSeats);
@@ -99,6 +109,11 @@ public class TrainScheduleController {
         }
 
         trains = trainService.getAllTrainsByNumbers(number);
+
+        if (trains.stream().anyMatch(t -> t.getDestinationStation().equals(to) || t.getOriginStation().equals(from))) {
+            return model;
+        }
+
         model.addObject("listOfStations", trains);
 
         return model;

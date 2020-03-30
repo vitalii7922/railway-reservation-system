@@ -30,18 +30,6 @@ public class PassengerService {
 
     @Transactional
     public PassengerDto addPassenger(String firstName, String lastName, String birthDate) {
-        /*Train trainDeparture = trainDao.findByStationDepartureId(trainNumber, stationA.getId());
-        Train trainArrival = trainDao.findByStationArrivalId(trainNumber, stationB.getId());
-        List<Train> trains = trainDao.findAllTrainsBetweenTwoStations(trainDeparture.getId(), trainArrival.getId());
-
-        if (trains.parallelStream().allMatch(t -> t.getSeats() > 0)) {
-            for (Train t : trains) {
-                int seats = t.getSeats();
-                seats--;
-                t.setSeats(seats);
-            }
-        }*/
-
         Passenger passenger = new Passenger();
         passenger.setFirstName(firstName);
         passenger.setSecondName(lastName);
@@ -60,5 +48,17 @@ public class PassengerService {
         }
 
         return passengerDto;
+    }
+
+    @Transactional
+    public List<PassengerDto> getPassengers(int trainNumber) {
+        List<Passenger> passengers = passengerDao.findAllPassengersByTrainNumber(trainNumber);
+        List<PassengerDto> passengersDto = null;
+        if (!passengers.isEmpty()) {
+              passengersDto = passengers.stream()
+                      .map(p -> passengerConverter.convertToPassengerDto(p))
+                      .collect(Collectors.toList());
+        }
+        return passengersDto;
     }
 }

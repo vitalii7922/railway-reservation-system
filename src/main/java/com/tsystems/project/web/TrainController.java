@@ -1,5 +1,6 @@
 package com.tsystems.project.web;
 import com.tsystems.project.domain.Station;
+import com.tsystems.project.domain.Train;
 import com.tsystems.project.dto.TrainDto;
 import com.tsystems.project.service.ScheduleService;
 import com.tsystems.project.service.StationService;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -53,6 +55,7 @@ public class TrainController extends HttpServlet {
                                  @RequestParam("departure_time") String departureTime,
                                  @RequestParam("arrival_time") String arrivalTime, ModelAndView model) {
 
+
         model.addObject("train", number);
         Station from = stationService.getStationByName(originStation);
         Station to = stationService.getStationByName(destinationStation);
@@ -62,6 +65,12 @@ public class TrainController extends HttpServlet {
         model.setViewName("train.jsp");
 
         if (from == null || to == null) {
+            model.addObject("message", "you haven't added station");
+            return model;
+        }
+
+        if (numberOfSeats == null || numberOfSeats.equals("\\s*")) {
+            model.addObject("message", "you haven't added number of seats");
             return model;
         }
 
@@ -86,9 +95,8 @@ public class TrainController extends HttpServlet {
     @GetMapping(value = "/getTrains")
     public ModelAndView getTrain(ModelAndView model)  {
         List<TrainDto> trains = trainService.getAllTrains();
-
         model.setViewName("trainsList.jsp");
-        model.addObject("trains", trains);
+        model.addObject("listOfTrains", trains);
         return model;
     }
 }

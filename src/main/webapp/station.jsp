@@ -10,8 +10,8 @@
     <h1 align="center"> List of stations </h1>
 </head>
 <body>
-<div class="style_gap">
 
+<div class="style_gap">
         <table class = table align=center>
             <tr align="left">
                 <th>name</th>

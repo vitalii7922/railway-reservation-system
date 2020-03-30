@@ -6,14 +6,41 @@
         <%@include file='resources/style.css'%>
         <%@include file='resources/login.css'%>
     </style>
+
+<%--    <script type="text/javascript">
+        function preventBack() { window.history.forward(); }
+        setTimeout("preventBack()", 0);
+        window.onunload = function () { null };
+    </script>--%>
 </head>
 <body>
 <header class="text" align=center>
+    <div align="right">
+        <form action="/logout" method="post">
+            <button  class=button type="submit">Logout</button><br>
+        </form>
+    </div>
     <h1>
     Admin menu
     </h1>
     <hr>
 </header>
+
+    <%
+        /*response.setHeader("Cache-Control","no-cache");
+        response.setHeader("Cache-Control","no-store");
+        response.setHeader("Pragma","no-cache");
+        response.setDateHeader ("Expires", -1);*/
+
+        if (session.getAttribute("admin") == null) {
+            response.sendRedirect("login.jsp");
+        }
+    %>
+
+<META Http-Equiv="Cache-Control" Content="no-cache">
+<META Http-Equiv="Pragma" Content="no-cache">
+<META Http-Equiv="Expires" Content="0">
+
 <div align=center class="style_gap">
     <form action="addStation">
         <label>Add stations</label><br>

@@ -8,10 +8,16 @@
     <title>Title</title>
 </head>
 <body>
+<%
+    if (session.getAttribute("admin") == null) {
+        response.sendRedirect("login.jsp");
+    }
+%>
 <div class="style_gap">
     <h1 class="text" align="center">
         List of trains
     </h1>
+
     <table class = table align=center>
         <tr align="left">
             <th>number</th>
@@ -20,17 +26,20 @@
             <th>to</th>
             <th>Arrival time</th>
         </tr>
-        <%
-            List<TrainDto> trainDtos = (List<TrainDto>) request.getAttribute("trains");
-            for(TrainDto t : trainDtos){%>
-        <tr>
-            <td><%=t.getNumber()%></td>
-            <td><%=t.getOriginStation().getName()%></td>
-            <td><%=t.getDepartureTime()%></td>
-            <td><%=t.getDestinationStation().getName()%></td>
-            <td><%=t.getArrivalTime()%></td>
-        </tr>
-        <%}%>
+        <c:forEach items="${listOfTrains}" var="train">
+            <tr>
+                <td>${train.number}</td>
+                <td>${train.originStation.name}</td>
+                <td>${train.departureTime}</td>
+                <td>${train.destinationStation.name}</td>
+                <td>${train.arrivalTime}</td>
+                <form action="getPassengers">
+                <td><button>List of passengers</button></td>
+                <input type="hidden" name="trainNumber" value="${train.number}">
+                </form>
+            </tr>
+
+        </c:forEach>
     </table>
 </div>
 </body>
