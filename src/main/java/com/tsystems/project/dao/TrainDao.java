@@ -39,7 +39,7 @@ public class TrainDao extends AbstractDao<Train> {
         }
     }
 
-    public List<Train> findByNumbers(int number) {
+    public List<Train> findTrainsByNumber(int number) {
         String queryString = "SELECT t FROM Train t WHERE (t.number) = :number";
         Query query = entityManager.createQuery(queryString);
         query.setParameter("number", number);

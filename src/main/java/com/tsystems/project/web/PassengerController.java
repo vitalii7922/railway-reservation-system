@@ -2,6 +2,7 @@ package com.tsystems.project.web;
 
 import com.tsystems.project.dto.PassengerDto;
 import com.tsystems.project.dto.TicketDto;
+import com.tsystems.project.dto.TrainDto;
 import com.tsystems.project.service.PassengerService;
 import com.tsystems.project.service.StationService;
 import com.tsystems.project.service.TicketService;
@@ -25,6 +26,9 @@ public class PassengerController {
 
     @Autowired
     TicketValidator ticketValidator;
+
+    @Autowired
+    TrainService trainService;
 
     @ResponseBody
     @GetMapping(value = "/addPassengerTicket")
@@ -65,13 +69,16 @@ public class PassengerController {
     @GetMapping(value = "/getPassengers")
     public ModelAndView getPassengers(@RequestParam("trainNumber") int trainNumber,
                                      ModelAndView model) {
+
         List<PassengerDto> passengersDto = passengerService.getPassengers(trainNumber);
-        if (!passengersDto.isEmpty()) {
+        if (passengersDto != null && !passengersDto.isEmpty()) {
             model.addObject("passengers", passengersDto);
             model.addObject("train", trainNumber);
             model.setViewName("passenger_list.jsp");
             return model;
         } else {
+            List<TrainDto> trains = trainService.getAllTrains();
+            model.addObject("listOfTrains",trains);
             model.setViewName("trainsList.jsp");
             return model;
         }

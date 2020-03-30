@@ -6,7 +6,6 @@ import com.tsystems.project.domain.Station;
 import com.tsystems.project.domain.Train;
 import com.tsystems.project.dto.TrainDto;
 import com.tsystems.project.converter.TrainConverter;
-import com.tsystems.project.dto.TrainStationDto;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,7 +56,7 @@ public class TrainService {
 
     @Transactional
     public List<TrainDto> getAllTrainsByNumbers(int trainNumber) {
-        List<Train> trains = trainDao.findByNumbers(trainNumber);
+        List<Train> trains = trainDao.findTrainsByNumber(trainNumber);
         Type listType = new TypeToken<List<TrainDto>>() {}.getType();
         List<TrainDto> trainsDto = trains.stream()
                 .map(t -> trainConverter.convertToTrainDto(t)).collect(Collectors.toList());
@@ -94,27 +93,6 @@ public class TrainService {
     public List<TrainDto> getTrainsByStations(Station stationA, Station stationB, String timeDeparture, String timeArrival) {
         LocalDateTime departureTime = LocalDateTime.parse(timeDeparture);
         LocalDateTime arrivalTime = LocalDateTime.parse(timeArrival);
-        /*Map<Train, Train> map = null;
-        List<Train> trains = null;
-
-        if (departureTime.isAfter(arrivalTime)){
-            return map;
-        }
-
-        trains = trainDao.findByStations(stationA.getId(), stationB.getId(), departureTime, arrivalTime);
-        map = new LinkedHashMap<>();
-
-        if (trains != null) {
-            for (int i = 0; i < trains.size(); i++) {
-                for (int j = i + 1; j < trains.size(); j++) {
-                    Train departure = trains.get(i);
-                    Train arrive = trains.get(j);
-                    if (departure.getNumber() == arrive.getNumber()) {
-                        map.put(departure, arrive);
-                    }
-                }
-            }
-        }*/
 
         List<TrainDto> trainsDto = new ArrayList<>();
         List<Train> trains = null;
@@ -141,7 +119,6 @@ public class TrainService {
                     }
                 }
             }
-
         return trainsDto;
     }
 }
