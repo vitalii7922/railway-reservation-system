@@ -43,6 +43,5 @@ public class LoginController {
         session.setAttribute("admin", null);
         return mav;
     }
-
 }
 

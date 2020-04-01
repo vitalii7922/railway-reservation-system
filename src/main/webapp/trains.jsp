@@ -16,7 +16,7 @@
 %>
 
 <form action="addTrips">
-    <input type="hidden" type="number" name="train_number" value="${train}"/>
+
     <p align="center">
     Train number: ${train}
     </p>
@@ -28,7 +28,7 @@
         </tr>
         <br>
     </c:forEach>--%>
-    ${message}
+
     <table class = table align=center>
         <tr align="left">
             <th>Station</th>
@@ -75,11 +75,13 @@
         <%}}%>
 
     </table>
+    <input type="hidden" type="number" name="train_number" value="${train}"/>
     <input  type="text" name="destination_station" formmethod="post" placeholder="Destination station">
-    <input  type="number" name="number_of_seats" formmethod="post" placeholder="Number of seats">
+    <input  type="number" value="1" min="1" max="100" name="number_of_seats" placeholder="Number of seats">
     <td><input type="datetime-local" name="departure_time" value="2018-06-12T19:30" placeholder="Departure time"></td>
     <td><input type="datetime-local" name="arrival_time" value="2018-06-13T19:30" placeholder="Arrive time"></td>
     <button class="button" type="submit">add train</button>
+    <p align="center">${message}</p>
 </form>
 </body>
 </html>

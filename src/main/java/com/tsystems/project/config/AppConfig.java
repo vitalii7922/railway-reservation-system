@@ -1,5 +1,6 @@
 package com.tsystems.project.config;
 
+import org.apache.log4j.BasicConfigurator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -15,6 +16,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 import java.util.Properties;
+import java.util.logging.Logger;
 
 @Configuration
 @EnableTransactionManagement

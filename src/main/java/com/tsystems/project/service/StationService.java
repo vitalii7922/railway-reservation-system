@@ -19,8 +19,8 @@ public class StationService {
 
     @Transactional
     public Station addStation(String name) {
-        Station station = null;
-        if (!name.equals("") && stationDao.findByName(name) == null) {
+        Station station = stationDao.findByName(name);
+        if (station == null && !name.matches("\\s*")) {
             station = new Station();
             station.setName(name);
             stationDao.create(station);
@@ -38,14 +38,6 @@ public class StationService {
         return stationDao.findByName(stationName);
     }
 
-    @Transactional
-    public Station editStation(Station station) {
-        return  stationDao.update(station);
-    }
-
-    public void removeStation(Station station) {
-        stationDao.delete(station);
-    }
 
     public List<Station> getAllStations() {
         List<Station> stations = stationDao.findAll();

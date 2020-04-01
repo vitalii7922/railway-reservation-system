@@ -4,16 +4,15 @@ import com.tsystems.project.converter.PassengerConverter;
 import com.tsystems.project.dao.PassengerDao;
 import com.tsystems.project.dao.TrainDao;
 import com.tsystems.project.domain.Passenger;
-import com.tsystems.project.domain.Schedule;
-import com.tsystems.project.domain.Station;
-import com.tsystems.project.domain.Train;
 import com.tsystems.project.dto.PassengerDto;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.time.DateTimeException;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -28,6 +27,8 @@ public class PassengerService {
     @Autowired
     PassengerConverter passengerConverter;
 
+    private static final Log log = LogFactory.getLog(PassengerService.class);
+
     @Transactional
     public PassengerDto addPassenger(String firstName, String lastName, String birthDate) {
         Passenger passenger = new Passenger();
@@ -40,13 +41,15 @@ public class PassengerService {
 
     @Transactional
     public PassengerDto getPassenger(String firstName, String lastName, String birthDate) {
-        Passenger passenger = passengerDao.find(firstName, lastName, LocalDate.parse(birthDate));
         PassengerDto passengerDto = null;
-
-        if (passenger != null) {
+        try {
+            Passenger passenger = passengerDao.find(firstName, lastName, LocalDate.parse(birthDate));
+//            if (passenger != null) {
             passengerDto = passengerConverter.convertToPassengerDto(passenger);
+//            }
+        } catch (NullPointerException | DateTimeException e) {
+               log.error(e.getCause() + "getPassenger");
         }
-
         return passengerDto;
     }
 
@@ -54,11 +57,16 @@ public class PassengerService {
     public List<PassengerDto> getPassengers(int trainNumber) {
         List<Passenger> passengers = passengerDao.findAllPassengersByTrainNumber(trainNumber);
         List<PassengerDto> passengersDto = null;
-        if (!passengers.isEmpty()) {
-              passengersDto = passengers.stream()
-                      .map(p -> passengerConverter.convertToPassengerDto(p))
-                      .collect(Collectors.toList());
+//        if (!passengers.isEmpty()) {
+        try {
+            passengersDto = passengers.stream()
+                    .map(p -> passengerConverter.convertToPassengerDto(p))
+                    .collect(Collectors.toList());
+        } catch (NullPointerException e) {
+            log.error(e.getCause() + " List of passengers is empty");
         }
+
+//        }
         return passengersDto;
     }
 }

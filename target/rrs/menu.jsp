@@ -16,7 +16,7 @@
 <body>
 <header class="text" align=center>
     <div align="right">
-        <form action="/logout" method="post">
+        <form action="logout" method="post">
             <button  class=button type="submit">Logout</button><br>
         </form>
     </div>
@@ -36,10 +36,6 @@
             response.sendRedirect("login.jsp");
         }
     %>
-
-<META Http-Equiv="Cache-Control" Content="no-cache">
-<META Http-Equiv="Pragma" Content="no-cache">
-<META Http-Equiv="Expires" Content="0">
 
 <div align=center class="style_gap">
     <form action="addStation">
@@ -65,6 +61,7 @@
     </form>
     <form action="getTrains">
         <button  class=button type="submit">List of trains</button><br>
+        <p>${messageList}</p>
     </form>
 </div>
 

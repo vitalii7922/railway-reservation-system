@@ -11,7 +11,7 @@ public class TrainConverter {
     public TrainConverter transferService() {
         return new TrainConverter();
     }
-    public TrainDto convertToTrainDto(Train train) {
+    public TrainDto convertToTrainDto(Train train) throws NullPointerException {
         TrainDto trainDto = new TrainDto();
         trainDto.setId( train.getId());
         trainDto.setNumber(train.getNumber());

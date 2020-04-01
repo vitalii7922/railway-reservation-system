@@ -57,7 +57,12 @@ delete from schedule;
 delete from train;
 delete from station;
 drop table schedule;
+drop table passenger;
 SET GLOBAL time_zone = '+3:00';
+
+alter table user rename to admin;
+
+insert into admin value (1, 'admin','000');
 
 SET time_zone = 'SYSTEM';
 SELECT NOW(), FROM_UNIXTIME(946681261);

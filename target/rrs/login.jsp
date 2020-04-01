@@ -14,13 +14,6 @@
     </h1>
 </header>
 
-<%
-    response.setHeader("Cache-Control","no-cache");
-    response.setHeader("Cache-Control","no-store");
-    response.setHeader("Pragma","no-cache");
-    response.setDateHeader ("Expires", -1);
-%>
-
 <form action="login" method="post">
     <div class="text" align="center">
         <p>${message}</p>

@@ -77,9 +77,8 @@ public class PassengerController {
             model.setViewName("passenger_list.jsp");
             return model;
         } else {
-            List<TrainDto> trains = trainService.getAllTrains();
-            model.addObject("listOfTrains",trains);
-            model.setViewName("trainsList.jsp");
+            model.addObject("no passengers on train " + trainNumber);
+            model.setViewName("getTrains");
             return model;
         }
     }

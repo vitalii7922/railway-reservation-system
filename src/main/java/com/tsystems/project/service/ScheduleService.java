@@ -7,6 +7,8 @@ import com.tsystems.project.domain.Schedule;
 import com.tsystems.project.domain.Train;
 import com.tsystems.project.dto.ScheduleDto;
 import com.tsystems.project.dto.TrainDto;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.lang.reflect.Type;
+import java.time.DateTimeException;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -32,6 +35,8 @@ public class ScheduleService {
     @Autowired
     ModelMapper modelMapper;
 
+    private static final Log log = LogFactory.getLog(PassengerService.class);
+
     @Transactional
     public void addSchedule(TrainDto trainDto, LocalDateTime departureTime, LocalDateTime arrivalTime) {
         Train train = null;
@@ -39,58 +44,27 @@ public class ScheduleService {
         Schedule scheduleDeparture = null;
         Schedule scheduleArrival = null;
 
-        scheduleDeparture = new Schedule();
-        scheduleDeparture.setTrain(train);
-        scheduleDeparture.setDepartureTime(departureTime);
-        scheduleDeparture.setStation(train.getOriginStation());
-        scheduleDao.create(scheduleDeparture);
+        try {
+            scheduleDeparture = new Schedule();
+            scheduleDeparture.setTrain(train);
+            scheduleDeparture.setDepartureTime(departureTime);
+            scheduleDeparture.setStation(train.getOriginStation());
+            scheduleDao.create(scheduleDeparture);
 
-        scheduleArrival = new Schedule();
-        scheduleArrival.setTrain(train);
-        scheduleArrival.setArrivalTime(arrivalTime);
-        scheduleArrival.setStation(train.getDestinationStation());
-        scheduleDao.create(scheduleArrival);
-    }
-
-    @Transactional
-    public Schedule editSchedule(Schedule schedule) {
-        scheduleDao.update(schedule);
-        return scheduleDao.findOne(schedule.getId());
-    }
-
-    @Transactional
-    public void removeSchedule(Schedule schedule) {
-        scheduleDao.delete(schedule);
+            scheduleArrival = new Schedule();
+            scheduleArrival.setTrain(train);
+            scheduleArrival.setArrivalTime(arrivalTime);
+            scheduleArrival.setStation(train.getDestinationStation());
+            scheduleDao.create(scheduleArrival);
+        } catch (Exception e) {
+            log.error(e.getCause());
+        }
     }
 
     public Schedule getScheduleByTrainId(long id) {
         return scheduleDao.findByTrainId(id);
     }
 
-
-    public List<Schedule> getAllSchedules() {
-        return scheduleDao.findAll();
-    }
-
-    public Schedule getSchedulesByTrainsArriveId(Train train) {
-        return scheduleDao.findByTrainArriveId(train.getId());
-    }
-
-    public Schedule getSchedulesByTrainsDepartureId(Train train) {
-        return scheduleDao.findByTrainArriveId(train.getId());
-    }
-
-    public Map<Schedule, Schedule> getSchedulesByTrains(Map<Train, Train> trains) {
-        Map<Schedule, Schedule> map = new LinkedHashMap<>();
-        for (Map.Entry<Train, Train> entry : trains.entrySet()) {
-            map.put(scheduleDao.findByTrainDepartureId(entry.getKey().getId()), scheduleDao.findByTrainArriveId(entry.getValue().getId()));
-        }
-        return map;
-    }
-
-    public Schedule getScheduleByStationId(long id) {
-        return scheduleDao.findByTrainArriveId(id);
-    }
 
     public List<ScheduleDto> getSchedulesByStationId(long id) {
         List<Schedule> schedules = scheduleDao.findByStationId(id);
