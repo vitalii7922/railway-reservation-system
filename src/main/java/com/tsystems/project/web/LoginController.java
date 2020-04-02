@@ -6,11 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.util.Objects;
+
 
 @Controller
 public class LoginController {
@@ -35,7 +34,7 @@ public class LoginController {
         return mav;
     }
 
-    @PostMapping(value = "/logout")
+    @GetMapping(value = "/logout")
     public ModelAndView logOut(HttpServletRequest request, HttpServletResponse response) {
         ModelAndView mav = new ModelAndView();
         mav.setViewName("login.jsp");
@@ -43,5 +42,39 @@ public class LoginController {
         session.setAttribute("admin", null);
         return mav;
     }
+
+  /*  // If user will be successfully authenticated he/she will be taken to the login secure page.
+    @GetMapping(value="/admin")
+    public ModelAndView adminPage() {
+
+        ModelAndView m = new ModelAndView();
+        m.setViewName("admin");
+
+        return m;
+    }*/
+
+    // Spring security will see this message.
+    /*@PostMapping(value = "/login")
+    public ModelAndView login(@RequestParam(value = "error", required = false) String error,
+                              @RequestParam(value = "logout", required = false) String logout) {
+
+        ModelAndView m = new ModelAndView();
+        if (error != null) {
+            m.addObject("error", "Invalid username and password error.");
+        }
+
+        if (logout != null) {
+            m.addObject("msg", "You have left successfully.");
+        }
+
+        m.setViewName("menu.jsp");
+        return m;
+    }
+
+    @GetMapping(value = "/logout")
+    public ModelAndView logOut(ModelAndView modelAndView) {
+        modelAndView.setViewName("login.jsp");
+        return modelAndView;
+    }*/
 }
 

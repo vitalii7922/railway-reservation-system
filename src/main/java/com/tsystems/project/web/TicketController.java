@@ -1,4 +1,7 @@
 package com.tsystems.project.web;
+import com.tsystems.project.dto.TrainDto;
+import com.tsystems.project.service.StationService;
+import com.tsystems.project.service.TrainService;
 import com.tsystems.project.validator.TicketValidator;
 import com.tsystems.project.service.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 @Controller
 public class TicketController {
@@ -20,23 +24,37 @@ public class TicketController {
     @Autowired
     TicketValidator ticketValidator;
 
+    @Autowired
+    TrainService trainService;
+
+    @Autowired
+    StationService stationService;
+
+
     @ResponseBody
     @GetMapping(value = "/addTicket")
     public ModelAndView addTicket(@RequestParam("trainNumber") int trainNumber,
                                   @RequestParam("stationA") long originStationId,
                                   @RequestParam("stationB") long destinationStationId,
                                   @RequestParam("departureTime") String departureTime,
+                                  @RequestParam("arrivalTime") String arrivalTime,
                                   ModelAndView model, HttpServletResponse response, HttpServletRequest request) {
 
         if (!ticketValidator.verifyTime(departureTime)) {
-            model.setViewName("index.jsp");
-            model.addObject("message", "you cannot buy a ticket 10 minutes before the train departures");
+            model.setViewName("trips.jsp");
+            List<TrainDto> trainsDto = trainService.getTrainsByStations(stationService.getStationById(originStationId), stationService.getStationById(destinationStationId), departureTime, arrivalTime);
+            model.addObject("trains", trainsDto);
+            model.addObject("train", trainsDto.get(0));
+            model.addObject("message", "you cannot buy a ticket 10 minutes before the train " + trainNumber + " departures");
             return model;
         }
 
         if (!ticketValidator.verifySeats(trainNumber, originStationId, destinationStationId)) {
             model.setViewName("trips.jsp");
-            model.addObject("message", "no free seats");
+            List<TrainDto> trainsDto = trainService.getTrainsByStations(stationService.getStationById(originStationId), stationService.getStationById(destinationStationId), departureTime, arrivalTime);
+            model.addObject("trains", trainsDto);
+            model.addObject("train", trainsDto.get(0));
+            model.addObject("message", "no free seats on train " + trainNumber);
             return model;
         }
 

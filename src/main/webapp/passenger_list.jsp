@@ -8,9 +8,9 @@
 <body>
 
 <%
-    if (session.getAttribute("admin") == null) {
+   /* if (session.getAttribute("admin") == null) {
         response.sendRedirect("login.jsp");
-    }
+    }*/
 %>
 <div class="style_gap">
     <h1 class="text" align="center">

@@ -6,13 +6,13 @@ import com.tsystems.project.domain.Station;
 import com.tsystems.project.domain.Train;
 import com.tsystems.project.dto.TrainDto;
 import com.tsystems.project.converter.TrainConverter;
+import com.tsystems.project.helper.TrainHelper;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
-import java.time.DateTimeException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.util.*;
@@ -33,7 +33,10 @@ public class TrainService {
     @Autowired
     TrainConverter trainConverter;
 
-    private static final Log log = LogFactory.getLog(PassengerService.class);
+    @Autowired
+    TrainHelper trainHelper;
+
+    private static final Log log = LogFactory.getLog(TrainService.class);
 
     @Transactional
     public TrainDto addTrain(int trainNumber, Station originStation, Station destinationStation, int numberOfSeats) {
@@ -44,8 +47,7 @@ public class TrainService {
             trainDeparture.setDestinationStation(destinationStation);
             trainDeparture.setSeats(numberOfSeats);
             trainDao.create(trainDeparture);
-            TrainDto trainDto = modelMapper.map(trainDeparture, TrainDto.class);
-            return trainDto;
+            return modelMapper.map(trainDeparture, TrainDto.class);
     }
 
     @Transactional
@@ -80,7 +82,8 @@ public class TrainService {
             List<Train> trains = trainDao.findAll();
             List<TrainDto> trainsDto = new ArrayList<>();
             try {
-                Train lastTrain;
+                trainsDto = trainHelper.getTrainBetweenExtremeStations(trains);
+                /*Train lastTrain;
                 for (int i = 0; i < trains.size(); i++) {
                     TrainDto trainDto = trainConverter.convertToTrainDto(trains.get(i));
                     lastTrain = null;
@@ -97,12 +100,10 @@ public class TrainService {
                         trainDto.setArrivalTime(lastTrain.getSchedules().get(1).getArrivalTime());
                     }
                     trainsDto.add(trainDto);
-                }
+                }*/
             } catch (NullPointerException e) {
                 log.error(e.getCause());
             }
-
-
         return trainsDto;
     }
 
@@ -116,14 +117,16 @@ public class TrainService {
             LocalDateTime arrivalTime = LocalDateTime.parse(timeArrival);
 
 
-            List<Train> trains = null;
+            List<Train> trains;
             if (departureTime.isAfter(arrivalTime)) {
                 return trainsDto;
             }
 
             trains = trainDao.findByStations(stationA.getId(), stationB.getId(), departureTime, arrivalTime);
 
-            if (trains != null) {
+            trainsDto = trainHelper.searchTrainBetweenExtremeStations(trains);
+
+           /* if (trains != null) {
                 for (int i = 0; i < trains.size(); i++) {
                     Train departure = trains.get(i);
                     TrainDto trainDto = trainConverter.convertToTrainDto(departure);
@@ -139,7 +142,7 @@ public class TrainService {
                         }
                     }
                 }
-            }
+            }*/
         } catch (NullPointerException | DateTimeParseException e) {
             log.error(e.getCause());
         }

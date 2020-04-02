@@ -16,7 +16,7 @@
 <body>
 <header class="text" align=center>
     <div align="right">
-        <form action="logout" method="post">
+        <form action="logout">
             <button  class=button type="submit">Logout</button><br>
         </form>
     </div>
@@ -32,9 +32,9 @@
         response.setHeader("Pragma","no-cache");
         response.setDateHeader ("Expires", -1);*/
 
-        if (session.getAttribute("admin") == null) {
+       /* if (session.getAttribute("admin") == null) {
             response.sendRedirect("login.jsp");
-        }
+        }*/
     %>
 
 <div align=center class="style_gap">
@@ -54,7 +54,7 @@
 <div align="center" class=style_gap>
     <form action="addTrain">
         <label>Add trains</label><br>
-        <input  type="number" name="train_number" placeholder="Train number">
+        <input min="1" type="number" name="train_number" placeholder="Train number" required>
 
         <button class="button" type="submit">add</button>
         <p>${messageTrain}</p>

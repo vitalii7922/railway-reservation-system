@@ -7,9 +7,9 @@
 <body>
 
 <%
-    if (session.getAttribute("admin") == null) {
+    /*if (session.getAttribute("admin") == null) {
         response.sendRedirect("login.jsp");
-    }
+    }*/
 %>
 
 <div class="style_gap">
@@ -32,9 +32,9 @@
      <input type="hidden" name="train_number" value="${train}"/>
     <input  type="text" name="origin_station" formmethod="post" placeholder="Origin station">
     <input  type="text" name="destination_station" formmethod="post" placeholder="Destination station">
-    <input  type="number" value="1" min="1" max="100" name="number_of_seats" formmethod="post" placeholder="Number of seats">
-    <td><input type="datetime-local" name="departure_time" value="2018-03-31T19:30" placeholder="Departure time"></td>
-    <td><input type="datetime-local" name="arrival_time" value="2018-04-01T19:30" placeholder="Arrive time"></td>
+    <input  type="number" value="1" min="1" max="100" name="number_of_seats" formmethod="post" placeholder="Number of seats" required>
+    <td><input type="datetime-local" name="departure_time" value="2020-04-01T19:30" placeholder="Departure time"></td>
+    <td><input type="datetime-local" name="arrival_time" value="2020-04-02T19:30" placeholder="Arrive time"></td>
     <button class="button" type="submit">add train</button>
     </form>
 </div>

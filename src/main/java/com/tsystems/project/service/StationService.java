@@ -30,8 +30,7 @@ public class StationService {
     }
 
     public Station getStationById(long id){
-        Station station = stationDao.findOne(id);
-        return station;
+        return stationDao.findOne(id);
     }
 
     public Station getStationByName(String stationName) {
@@ -40,7 +39,6 @@ public class StationService {
 
 
     public List<Station> getAllStations() {
-        List<Station> stations = stationDao.findAll();
-        return stations;
+        return stationDao.findAll();
     }
 }

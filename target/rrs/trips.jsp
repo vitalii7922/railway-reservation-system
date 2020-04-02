@@ -9,9 +9,10 @@
 <div class="style_gap">
     <h1 class="text" align="center">
         ${train.originStation.name} - ${train.destinationStation.name}
-        ${message}
     </h1>
-
+    <p align="center">
+    ${message}
+    </p>
     <table class = table align=center>
         <tr align="left">
             <th>number</th>
@@ -29,6 +30,7 @@
                     <input type="hidden" name="stationA" value="${train.originStation.id}">
                     <input type="hidden" name="stationB" value="${train.destinationStation.id}">
                     <input type="hidden" name="departureTime" value="${train.departureTime}">
+                    <input type="hidden" name="arrivalTime" value="${train.arrivalTime}">
                 </form>
             </tr>
         </c:forEach>

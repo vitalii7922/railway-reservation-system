@@ -31,7 +31,7 @@ public class TicketService {
     @Autowired
     TicketConverter ticketConverter;
 
-    private static final Log log = LogFactory.getLog(PassengerService.class);
+    private static final Log log = LogFactory.getLog(TicketService.class);
 
     @Transactional
     public TicketDto addTicket(int trainNumber, long stationFromId, long stationToId, PassengerDto passengerDto) {
@@ -44,20 +44,17 @@ public class TicketService {
             t.setTrain(trainDeparture);
             Passenger passenger = passengerDao.findOne(passengerDto.getId());
             t.setPassenger(passenger);
-
             for (Train train : trains) {
                 int seats = train.getSeats();
                 seats--;
                 train.setSeats(seats);
                 trainDao.update(train);
             }
-
             t = ticketDao.create(t);
             ticketDto = ticketConverter.convertToTicketDto(t, passengerDto, trainDeparture, trainArrival);
         } catch (NullPointerException e) {
             log.error(e.getCause());
         }
-
         return ticketDto;
     }
 }

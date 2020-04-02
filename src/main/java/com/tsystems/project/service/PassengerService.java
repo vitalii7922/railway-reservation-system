@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -30,26 +29,22 @@ public class PassengerService {
     private static final Log log = LogFactory.getLog(PassengerService.class);
 
     @Transactional
-    public PassengerDto addPassenger(String firstName, String lastName, String birthDate) {
-        Passenger passenger = new Passenger();
+    public PassengerDto addPassenger(String firstName, String lastName, LocalDate birthDate) {
+        Passenger passenger = null;
+        passenger = new Passenger();
         passenger.setFirstName(firstName);
         passenger.setSecondName(lastName);
-        passenger.setBirthDate(LocalDate.parse(birthDate));
-
+        passenger.setBirthDate(birthDate);
         return passengerConverter.convertToPassengerDto(passengerDao.create(passenger));
     }
 
     @Transactional
-    public PassengerDto getPassenger(String firstName, String lastName, String birthDate) {
+    public PassengerDto getPassenger(String firstName, String lastName, LocalDate birthDate) {
         PassengerDto passengerDto = null;
-        try {
-            Passenger passenger = passengerDao.find(firstName, lastName, LocalDate.parse(birthDate));
-//            if (passenger != null) {
+            Passenger passenger = passengerDao.find(firstName, lastName, birthDate);
+            if (passenger != null) {
             passengerDto = passengerConverter.convertToPassengerDto(passenger);
-//            }
-        } catch (NullPointerException | DateTimeException e) {
-               log.error(e.getCause() + "getPassenger");
-        }
+            }
         return passengerDto;
     }
 

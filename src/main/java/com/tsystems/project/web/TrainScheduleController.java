@@ -1,9 +1,7 @@
 package com.tsystems.project.web;
 import com.tsystems.project.domain.Schedule;
 import com.tsystems.project.domain.Station;
-import com.tsystems.project.domain.Train;
 import com.tsystems.project.dto.TrainDto;
-import com.tsystems.project.service.PassengerService;
 import com.tsystems.project.service.ScheduleService;
 import com.tsystems.project.service.StationService;
 import com.tsystems.project.service.TrainService;
@@ -18,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.persistence.criteria.CriteriaBuilder;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.util.*;
@@ -38,7 +35,13 @@ public class TrainScheduleController {
     @Autowired
     ModelMapper mapper;
 
-    private static final Log log = LogFactory.getLog(PassengerService.class);
+    private static final Log log = LogFactory.getLog(TrainScheduleController.class);
+    private int trainNumber;
+    private List<TrainDto> trainsList;
+    String trainAttribute = "train";
+    String message = "message";
+    String listOfStations = "listOfStations";
+    String trainsPage = "trains.jsp";
 
     @ResponseBody
     @GetMapping(value = "/getTrips")
@@ -46,7 +49,6 @@ public class TrainScheduleController {
                                  @RequestParam("to") String stationNameB,
                                  @RequestParam("time_departure") String timeDeparture,
                                  @RequestParam("time_arrival") String timeArrival, ModelAndView model) {
-
         Station stationFrom = stationService.getStationByName(stationNameA);
         Station stationTo = stationService.getStationByName(stationNameB);
         List<TrainDto> trains = null;
@@ -57,13 +59,13 @@ public class TrainScheduleController {
 
         if (trains != null && !trains.isEmpty()) {
             model.setViewName("trips.jsp");
-            model.addObject("train", trains.get(0));
+            model.addObject(trainAttribute, trains.get(0));
             model.addObject("trains", trains);
             return model;
         } else {
             model.setViewName("index.jsp");
-               model.addObject("message", "No trains");
-               return model;
+            model.addObject(message, "No trains");
+            return model;
         }
     }
 
@@ -73,45 +75,42 @@ public class TrainScheduleController {
                                  @RequestParam("destination_station") String destinationStation,
                                  @RequestParam("number_of_seats") int numberOfSeats,
                                  @RequestParam("departure_time") String departureTime,
-                                 @RequestParam("arrival_time") String arrivalTime, ModelAndView model) {
+                                 @RequestParam("arrival_time") String arrivalTime, ModelAndView modelAndView) {
 
         TrainDto train = trainService.getTrainByNumber(number);
-        LocalDateTime timeArrival = LocalDateTime.parse(arrivalTime);
-        LocalDateTime timeDeparture = timeDeparture = LocalDateTime.parse(departureTime);
-
+        trainNumber = number;
         Schedule schedule = scheduleService.getScheduleByTrainId(train.getId());
-        List<TrainDto> trains;
-
-        /*model.setViewName("trains.jsp");
-        model.addObject("train", number);
-        model.addObject("listOfStations", trains);*/
-
+        List<TrainDto> trains = trainService.getAllTrainsByNumbers(number);
+        modelAndView.addObject(trainAttribute, number);
+        trainsList = trains;
+        modelAndView.setViewName(trainsPage);
         LocalDateTime time = schedule.getArrivalTime();
-        model.setViewName("incorrect_date_format.jsp");
-        if (time.isAfter(timeDeparture) || timeDeparture.isAfter(timeArrival)) {
-            model.addObject("message", "departure time is after arrival time");
-            model.setViewName("incorrect_date_format.jsp");
-            return model;
+        modelAndView.addObject(listOfStations, trains);
+
+        LocalDateTime timeArrival = LocalDateTime.parse(arrivalTime);
+        LocalDateTime timeDeparture = LocalDateTime.parse(departureTime);
+
+        if (timeDeparture.isAfter(timeArrival)) {
+            modelAndView.addObject(message, "departure time is after arrival time");
+            return modelAndView;
+        }
+
+        if (time.isAfter(timeDeparture)) {
+            modelAndView.addObject(message, "arrival time is after departure time");
+            return modelAndView;
         }
 
         Station from = stationService.getStationById(train.getDestinationStation().getId());
         Station to = stationService.getStationByName(destinationStation);
 
         if (from == null || to == null) {
-          model.addObject("message", "this station doesn't exist in DB");
-          return model;
+          modelAndView.addObject(message, "this station doesn't exist in DB");
+          return modelAndView;
         }
 
-        /*if (from.getId() == to.getId()) {
-            model.addObject("message", "origin and destination stations are the same");
-            return model;
-        }*/
-
-        trains = trainService.getAllTrainsByNumbers(number);
-
-        if (trains.stream().anyMatch(t -> t.getDestinationStation().equals(to) || t.getOriginStation().equals(from))) {
-            model.addObject("message", "destination station in a path");
-            return model;
+        if (trains.stream().anyMatch(t -> t.getOriginStation().getId() == to.getId() || t.getDestinationStation().getId() == to.getId())) {
+            modelAndView.addObject(message, "destination station in a path");
+            return modelAndView;
         }
 
         train = trainService.addTrain(number, from, to, numberOfSeats);
@@ -122,18 +121,19 @@ public class TrainScheduleController {
 
         trains = trainService.getAllTrainsByNumbers(number);
 
-        model.addObject("train", number);
-        model.addObject("listOfStations", trains);
-        model.setViewName("trains.jsp");
+        modelAndView.addObject(listOfStations, trains);
+        modelAndView.setViewName(trainsPage);
 
-        return model;
+        return modelAndView;
     }
 
     @ExceptionHandler(DateTimeParseException.class)
     public ModelAndView handleException(Exception e) {
-        log.error(e.getCause());
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("message", "incorrect format of date");
-        return new ModelAndView("incorrect_date_format.jsp");
+        log.error(e.getCause());
+        Map<String, ?> modelMap = Map.of(trainAttribute, trainNumber, listOfStations, trainsList, message, "incorrect date");
+        modelAndView.addAllObjects(modelMap);
+        modelAndView.setViewName(trainsPage);
+        return modelAndView;
     }
 }

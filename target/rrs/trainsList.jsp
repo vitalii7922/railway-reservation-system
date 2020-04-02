@@ -9,15 +9,15 @@
 </head>
 <body>
 <%
-    if (session.getAttribute("admin") == null) {
+   /* if (session.getAttribute("admin") == null) {
         response.sendRedirect("login.jsp");
-    }
+    }*/
 %>
 <div class="style_gap">
     <h1 class="text" align="center">
         List of trains
     </h1>
-    <p>
+    <p align="center">
         ${message}
     </p>
     <table class = table align=center>
@@ -36,11 +36,14 @@
                 <td>${train.destinationStation.name}</td>
                 <td>${train.arrivalTime}</td>
                 <form action="getPassengers">
-                <td><button>List of passengers</button></td>
+                <td><button>Passengers</button></td>
                 <input type="hidden" name="trainNumber" value="${train.number}">
                 </form>
+                <form action="getTrips">
+                    <td><button>Stations</button></td>
+                    <input type="hidden" name="trainNumber" value="${train.number}">
+                </form>
             </tr>
-
         </c:forEach>
     </table>
 </div>

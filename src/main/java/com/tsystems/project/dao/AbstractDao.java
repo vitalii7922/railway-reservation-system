@@ -1,11 +1,9 @@
 package com.tsystems.project.dao;
 
-import com.tsystems.project.domain.Passenger;
 import org.springframework.context.annotation.Configuration;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.util.List;
 
 @Configuration

@@ -1,5 +1,3 @@
 
-j
-java:S1128"HRemove this unused import 'com.tsystems.project.service.StationService'.(£Æ›Øûÿÿÿÿ8¯ÊÅÀ’.
-c
-java:S1128"FRemove this unused import 'com.tsystems.project.service.TrainService'.(ĞÄ½È8­€ÆÀ’.
+`
+java:S1128">Remove this unused import 'com.tsystems.project.dto.TrainDto'.(Àü‰¥şÿÿÿÿ8•ÓÉ»“.
