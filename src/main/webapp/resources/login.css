@@ -1,5 +1,5 @@
 
-input[type=text], input[type=password] {
+input[type=text], input[type=password], input[type=number] {
     width: 25%;
     padding: 12px 20px;
     margin: 8px 0;

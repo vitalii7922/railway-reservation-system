@@ -161,3 +161,15 @@ g
 7src/main/java/com/tsystems/project/web/LoginFilter.java,4\2\42757ae7f586df22778bd659b73e204db6bcf26b
 m
 =src/main/java/com/tsystems/project/config/SecurityConfig.java,6\4\64c967bef933d273cb3a5434333a98bb66c2271d
+O
+target/rrs/WEB-INF/security.xml,d\0\d0f30505a1f74375037681f0f6afd492fadb0343
+k
+;src/main/java/com/tsystems/project/dto/TrainStationDto.java,f\a\fa7cc8096ec1f42d1b3647528efb75437446869d
+s
+Csrc/main/java/com/tsystems/project/converter/ScheduleConverter.java,7\0\70c08cefd79b9a850391a30b4da11295107d18bb
+o
+?src/main/java/com/tsystems/project/converter/TimeConverter.java,9\9\992b2c36c8ed3161c4a05f7ad195fcd8ac901495
+m
+=src/main/java/com/tsystems/project/helper/ScheduleHelper.java,9\c\9c16114d8756d075e081f9bc3d0329dd7b653770
+h
+8src/main/java/com/tsystems/project/web/StationsList.java,d\7\d79e86ac3713f4930eba16ebdcbad9e4c43a439c

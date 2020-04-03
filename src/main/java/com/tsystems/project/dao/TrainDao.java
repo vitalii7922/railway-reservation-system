@@ -87,4 +87,11 @@ public class TrainDao extends AbstractDao<Train> {
         List<Train> trains = query.getResultList();
         return trains;
     }
+
+    public List<Train> findAllByNumber(int number) {
+        String queryString = "select t from Train t where t.number = :number";
+        Query query = entityManager.createQuery(queryString);
+        query.setParameter("number", number);
+        return query.getResultList();
+    }
 }

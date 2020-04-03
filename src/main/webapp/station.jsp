@@ -4,23 +4,27 @@
 <html>
 <head>
     <style>
-        <%@include file='resources/style.css'%>
-        <%@include file='resources/login.css'%>
+        <%@include file='resources/trains.css'%>
     </style>
-    <h1 align="center"> List of stations </h1>
+    <h1 align="center" class="font"> List of stations </h1>
 </head>
 <body>
 
-<div class="style_gap">
-        <table class = table align=center>
+<div align="center" class="style_gap">
+        ${message}
+        <table align=center>
             <tr align="left">
-                <th>name</th>
-                <th></th>
+                <th class="font">Name</th>
+                <th>                             </th>
             </tr>
             <c:forEach items="${listOfParams}" var="station">
             <tr>
                 <td>${station.name}</td>
-                <td><a href="getSchedules?stationId=${station.id}">Schedule</a></td>
+                <form action="getSchedules">
+                    <td><button class="button_station">Schedule</button></td>
+                    <input type="hidden" name="stationId" value="${station.id}">
+                </form>
+<%--                <td><a href="getSchedules?stationId=${station.id}">Schedule</a></td>--%>
             </tr>
             </c:forEach>
         </table>

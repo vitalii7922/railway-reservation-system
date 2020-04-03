@@ -4,14 +4,15 @@
 <html>
 <head>
     <title>Title</title>
+    <style>
+        <%@include file='resources/trains.css'%>
+    </style>
 </head>
 <body>
 
-<%
-   /* if (session.getAttribute("admin") == null) {
-        response.sendRedirect("login.jsp");
-    }*/
-%>
+<form action="menu.jsp" align="right">
+    <button  class=button type="submit">Menu</button><br>
+</form>
 <div class="style_gap">
     <h1 class="text" align="center">
         List of passengers<br>
@@ -20,9 +21,9 @@
 
     <table class = table align=center>
         <tr align="left">
-            <th>First name</th>
-            <th>Last name</th>
-            <th>Birth date</th>
+            <th class="font">First name</th>
+            <th class="font">Last name</th>
+            <th class="font">Birth date</th>
         </tr>
         <c:forEach items="${passengers}" var="passenger">
             <tr>

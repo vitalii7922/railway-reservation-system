@@ -2,6 +2,7 @@ package com.tsystems.project.web;
 import com.tsystems.project.domain.Schedule;
 import com.tsystems.project.domain.Station;
 import com.tsystems.project.dto.TrainDto;
+import com.tsystems.project.dto.TrainStationDto;
 import com.tsystems.project.service.ScheduleService;
 import com.tsystems.project.service.StationService;
 import com.tsystems.project.service.TrainService;
@@ -37,7 +38,7 @@ public class TrainScheduleController {
 
     private static final Log log = LogFactory.getLog(TrainScheduleController.class);
     private int trainNumber;
-    private List<TrainDto> trainsList;
+    private List<TrainStationDto> trainsList;
     String trainAttribute = "train";
     String message = "message";
     String listOfStations = "listOfStations";
@@ -61,6 +62,8 @@ public class TrainScheduleController {
             model.setViewName("trips.jsp");
             model.addObject(trainAttribute, trains.get(0));
             model.addObject("trains", trains);
+            model.addObject("timeDeparture", timeDeparture);
+            model.addObject("timeArrival", timeArrival);
             return model;
         } else {
             model.setViewName("index.jsp");
@@ -80,7 +83,7 @@ public class TrainScheduleController {
         TrainDto train = trainService.getTrainByNumber(number);
         trainNumber = number;
         Schedule schedule = scheduleService.getScheduleByTrainId(train.getId());
-        List<TrainDto> trains = trainService.getAllTrainsByNumbers(number);
+        List<TrainStationDto> trains = trainService.getAllTrainsByNumbers(number);
         modelAndView.addObject(trainAttribute, number);
         trainsList = trains;
         modelAndView.setViewName(trainsPage);
@@ -104,11 +107,11 @@ public class TrainScheduleController {
         Station to = stationService.getStationByName(destinationStation);
 
         if (from == null || to == null) {
-          modelAndView.addObject(message, "this station doesn't exist in DB");
+          modelAndView.addObject(message, destinationStation + " doesn't exist in DB");
           return modelAndView;
         }
 
-        if (trains.stream().anyMatch(t -> t.getOriginStation().getId() == to.getId() || t.getDestinationStation().getId() == to.getId())) {
+        if (trains.stream().anyMatch(t -> t.getStation().getId() == to.getId())) {
             modelAndView.addObject(message, "destination station in a path");
             return modelAndView;
         }
@@ -131,7 +134,8 @@ public class TrainScheduleController {
     public ModelAndView handleException(Exception e) {
         ModelAndView modelAndView = new ModelAndView();
         log.error(e.getCause());
-        Map<String, ?> modelMap = Map.of(trainAttribute, trainNumber, listOfStations, trainsList, message, "incorrect date");
+        Map<String, ?> modelMap = Map.of(trainAttribute, trainNumber, listOfStations,
+                trainsList, message, "incorrect date");
         modelAndView.addAllObjects(modelMap);
         modelAndView.setViewName(trainsPage);
         return modelAndView;

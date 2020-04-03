@@ -6,15 +6,16 @@
 <html>
 <head>
     <title>Title</title>
+    <style>
+        <%@include file='resources/trains.css'%>
+    </style>
 </head>
 <body>
-<%
-   /* if (session.getAttribute("admin") == null) {
-        response.sendRedirect("login.jsp");
-    }*/
-%>
+<form action="menu.jsp" align="right">
+    <button  class=button type="submit">Menu</button><br>
+</form>
 <div class="style_gap">
-    <h1 class="text" align="center">
+    <h1 class="font" align="center">
         List of trains
     </h1>
     <p align="center">
@@ -22,15 +23,15 @@
     </p>
     <table class = table align=center>
         <tr align="left">
-            <th>number</th>
-            <th>from</th>
-            <th>Departure time</th>
-            <th>to</th>
-            <th>Arrival time</th>
+            <th class="th">Number</th>
+            <th class="th">From</th>
+            <th class="th">Departure time</th>
+            <th class="th">To</th>
+            <th class="th">Arrival time</th>
         </tr>
         <c:forEach items="${listOfTrains}" var="train">
             <tr>
-                <td>${train.number}</td>
+                <td align="center">${train.number}</td>
                 <td>${train.originStation.name}</td>
                 <td>${train.departureTime}</td>
                 <td>${train.destinationStation.name}</td>
@@ -39,9 +40,13 @@
                 <td><button>Passengers</button></td>
                 <input type="hidden" name="trainNumber" value="${train.number}">
                 </form>
-                <form action="getTrips">
+                <form action="addTrain">
                     <td><button>Stations</button></td>
-                    <input type="hidden" name="trainNumber" value="${train.number}">
+                    <input type="hidden" name="train_number" value="${train.number}">
+                </form>
+                <form action="getSeats">
+                    <td><button>Seats</button></td>
+                    <input type="hidden" name="train_number" value="${train.number}">
                 </form>
             </tr>
         </c:forEach>

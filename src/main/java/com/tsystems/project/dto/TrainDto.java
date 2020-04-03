@@ -1,11 +1,9 @@
 package com.tsystems.project.dto;
 
-import com.tsystems.project.domain.Schedule;
 import com.tsystems.project.domain.Station;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.List;
 
 public class TrainDto implements Serializable {
 
@@ -15,9 +13,13 @@ public class TrainDto implements Serializable {
 
     int seats;
 
-    private LocalDateTime arrivalTime;
+//    private LocalDateTime arrivalTime;
 
-    private LocalDateTime departureTime;
+//    private LocalDateTime departureTime;
+
+    String arrivalTime;
+
+    String departureTime;
 
     private Station originStation;
 
@@ -48,19 +50,21 @@ public class TrainDto implements Serializable {
         this.seats = seats;
     }
 
-    public LocalDateTime getArrivalTime() {
+
+
+    public String getArrivalTime() {
         return arrivalTime;
     }
 
-    public void setArrivalTime(LocalDateTime arrivalTime) {
+    public void setArrivalTime(String arrivalTime) {
         this.arrivalTime = arrivalTime;
     }
 
-    public LocalDateTime getDepartureTime() {
+    public String getDepartureTime() {
         return departureTime;
     }
 
-    public void setDepartureTime(LocalDateTime departureTime) {
+    public void setDepartureTime(String departureTime) {
         this.departureTime = departureTime;
     }
 

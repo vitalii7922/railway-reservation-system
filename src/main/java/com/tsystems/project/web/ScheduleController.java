@@ -1,6 +1,5 @@
 package com.tsystems.project.web;
 
-import com.tsystems.project.domain.Station;
 import com.tsystems.project.dto.ScheduleDto;
 import com.tsystems.project.service.ScheduleService;
 import com.tsystems.project.service.StationService;
@@ -26,12 +25,14 @@ public class ScheduleController {
     public ModelAndView getSchedule(@RequestParam("stationId")String stationId, ModelAndView model) {
         long id = Integer.parseInt(stationId);
         List<ScheduleDto> schedules = scheduleService.getSchedulesByStationId(id);
-        Station station = stationService.getStationById(id);
-        model.setViewName("schedule.jsp");
-
-        if (schedules != null) {
-            model.addObject("station", station.getName());
+        if (schedules != null && !schedules.isEmpty()) {
+            model.setViewName("schedule.jsp");
+            model.addObject("schedule", schedules.get(0));
             model.addObject("schedules", schedules);
+        } else {
+            model.setViewName("station.jsp");
+            model.addObject("listOfParams", stationService.getAllStations());
+            model.addObject("message", "no trains on station " + stationService.getStationById(id).getName());
         }
         return model;
     }

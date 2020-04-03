@@ -1,9 +1,12 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
     <title>Railway reservation system</title>
     <style>
         <%@include file='resources/style.css'%>
+        <%@include file='resources/trains.css'%>
     </style>
 </head>
 <body>
@@ -28,8 +31,8 @@
         <tr align="left">
             <th>From</th>
             <th>To</th>
-            <th>Departure date</th>
-            <th>Arrival date</th>
+            <th>Departure time</th>
+            <th>Arrival time</th>
         </tr>
         <tr class=dark>
                 <td><input type="text" name="from" placeholder="From"></td>
@@ -41,6 +44,11 @@
         <p align="center">${message}</p>
     </table>
     </form>
+    <div>
+        <form action="getStations" align="center">
+            <button  class=button_index type="submit">List of stations</button><br>
+        </form>
+    </div>
 </div>
 </body>
 </html>

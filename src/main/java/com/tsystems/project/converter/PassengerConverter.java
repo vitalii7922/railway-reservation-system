@@ -12,10 +12,12 @@ import org.springframework.context.annotation.Configuration;
 public class PassengerConverter {
 
     private static final Log log = LogFactory.getLog(PassengerConverter.class);
+
     @Bean
     public PassengerConverter transferService() {
         return new PassengerConverter();
     }
+
     public PassengerDto convertToPassengerDto(Passenger passenger) {
         PassengerDto passengerDto = null;
 

@@ -52,7 +52,6 @@ public class PassengerService {
     public List<PassengerDto> getPassengers(int trainNumber) {
         List<Passenger> passengers = passengerDao.findAllPassengersByTrainNumber(trainNumber);
         List<PassengerDto> passengersDto = null;
-//        if (!passengers.isEmpty()) {
         try {
             passengersDto = passengers.stream()
                     .map(p -> passengerConverter.convertToPassengerDto(p))
@@ -60,8 +59,6 @@ public class PassengerService {
         } catch (NullPointerException e) {
             log.error(e.getCause() + " List of passengers is empty");
         }
-
-//        }
         return passengersDto;
     }
 }

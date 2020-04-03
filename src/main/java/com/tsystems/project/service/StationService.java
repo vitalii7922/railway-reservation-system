@@ -19,12 +19,10 @@ public class StationService {
 
     @Transactional
     public Station addStation(String name) {
-        Station station = stationDao.findByName(name);
-        if (station == null && !name.matches("\\s*")) {
+        Station station = null;
+        if (!name.matches("\\s*") && stationDao.findByName(name) == null) {
             station = new Station();
-            station.setName(name);
-            stationDao.create(station);
-            return station;
+            return stationDao.create(station);
         }
         return station;
     }

@@ -1,4 +1,5 @@
 package com.tsystems.project.web;
+import com.tsystems.project.converter.TimeConverter;
 import com.tsystems.project.dto.TrainDto;
 import com.tsystems.project.service.StationService;
 import com.tsystems.project.service.TrainService;
@@ -10,9 +11,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 @Controller
@@ -30,6 +28,9 @@ public class TicketController {
     @Autowired
     StationService stationService;
 
+    @Autowired
+    TimeConverter timeConverter;
+
 
     @ResponseBody
     @GetMapping(value = "/addTicket")
@@ -38,22 +39,30 @@ public class TicketController {
                                   @RequestParam("stationB") long destinationStationId,
                                   @RequestParam("departureTime") String departureTime,
                                   @RequestParam("arrivalTime") String arrivalTime,
-                                  ModelAndView model, HttpServletResponse response, HttpServletRequest request) {
+                                  @RequestParam("timeDeparture") String departure,
+                                  @RequestParam("timeArrival") String arrival,
+                                  ModelAndView model) {
 
-        if (!ticketValidator.verifyTime(departureTime)) {
+        if (!ticketValidator.verifyTime(timeConverter.reversedConvertDateTime(departureTime).toString())) {
             model.setViewName("trips.jsp");
-            List<TrainDto> trainsDto = trainService.getTrainsByStations(stationService.getStationById(originStationId), stationService.getStationById(destinationStationId), departureTime, arrivalTime);
+            List<TrainDto> trainsDto = trainService.getTrainsByStations(stationService.getStationById(originStationId),
+                    stationService.getStationById(destinationStationId), departure, arrival);
             model.addObject("trains", trainsDto);
             model.addObject("train", trainsDto.get(0));
+            model.addObject("timeDeparture", departure);
+            model.addObject("timeArrival", arrival);
             model.addObject("message", "you cannot buy a ticket 10 minutes before the train " + trainNumber + " departures");
             return model;
         }
 
         if (!ticketValidator.verifySeats(trainNumber, originStationId, destinationStationId)) {
             model.setViewName("trips.jsp");
-            List<TrainDto> trainsDto = trainService.getTrainsByStations(stationService.getStationById(originStationId), stationService.getStationById(destinationStationId), departureTime, arrivalTime);
+            List<TrainDto> trainsDto = trainService.getTrainsByStations(stationService.getStationById(originStationId),
+                    stationService.getStationById(destinationStationId), departure, arrival);
             model.addObject("trains", trainsDto);
             model.addObject("train", trainsDto.get(0));
+            model.addObject("timeDeparture", departure);
+            model.addObject("timeArrival", arrival);
             model.addObject("message", "no free seats on train " + trainNumber);
             return model;
         }

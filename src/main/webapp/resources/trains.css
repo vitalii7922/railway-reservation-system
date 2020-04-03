@@ -1,0 +1,65 @@
+input[type=text], input[type=password], input[type=number], input[type=datetime-local] {
+    width: 250px;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+button {
+    background-color: #A0A0A0;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100px;
+    position: center;
+}
+
+.th {
+    font-size: 170%;
+}
+
+td {
+    font-size: 150%;
+}
+
+.font {
+    font-size: 200%;
+}
+
+.button {
+    background-color: #A0A0A0;
+    color: white;
+    /*padding: 14px 20px;
+    margin: 8px 0;*/
+    border: none;
+    cursor: pointer;
+    width: 150px;
+    position: center;
+}
+
+.button_index {
+    background-color: #A0A0A0;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 150px;
+    position: center;
+    text-align: center;
+}
+
+.button_station {
+    background-color: #A0A0A0;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100px;
+    position: center;
+}

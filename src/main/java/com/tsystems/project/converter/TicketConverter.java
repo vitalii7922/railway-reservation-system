@@ -4,6 +4,7 @@ import com.tsystems.project.domain.Ticket;
 import com.tsystems.project.domain.Train;
 import com.tsystems.project.dto.PassengerDto;
 import com.tsystems.project.dto.TicketDto;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -14,6 +15,9 @@ public class TicketConverter {
         return new TicketConverter();
     }
 
+    @Autowired
+    TimeConverter timeConverter;
+
     public TicketDto convertToTicketDto(Ticket t, PassengerDto passengerDto, Train trainDeparture, Train trainArrival) {
         TicketDto ticketDto = new TicketDto();
         ticketDto.setTrainNumber(trainDeparture.getNumber());
@@ -23,8 +27,8 @@ public class TicketConverter {
         ticketDto.setBirthDate(passengerDto.getBirthDate());
         ticketDto.setStationOrigin(trainDeparture.getOriginStation().getName());
         ticketDto.setStationDeparture(trainArrival.getDestinationStation().getName());
-        ticketDto.setDepartureTime(trainDeparture.getSchedules().get(0).getDepartureTime());
-        ticketDto.setArrivalTime(trainArrival.getSchedules().get(1).getArrivalTime());
+        ticketDto.setDepartureTime(timeConverter.convertDateTime(trainDeparture.getSchedules().get(0).getDepartureTime()));
+        ticketDto.setArrivalTime(timeConverter.convertDateTime(trainArrival.getSchedules().get(1).getArrivalTime()));
         return ticketDto;
     }
 }

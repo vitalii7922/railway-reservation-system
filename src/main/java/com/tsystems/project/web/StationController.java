@@ -11,7 +11,6 @@ import java.util.List;
 
 @Controller
 class StationController {
-
     @Autowired
     StationService stationService;
 
@@ -22,7 +21,7 @@ class StationController {
         if (station != null) {
             model.addAttribute("messageStation", "Station " + station.getName() + " has been added");
         } else {
-            model.addAttribute("Station " + stationName + " exists or you entered empty line");
+            model.addAttribute("messageStation", "Station " + stationName + " exists or you entered empty line");
         }
         return new ModelAndView("menu.jsp");
     }
@@ -31,6 +30,7 @@ class StationController {
     @GetMapping(value = "/getStations")
     public ModelAndView getStations(Model model) {
         List<Station> stations = stationService.getAllStations();
+        model.addAttribute("name", stations.get(0));
         model.addAttribute("listOfParams", stations);
         return new ModelAndView("station.jsp");
     }

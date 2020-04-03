@@ -1,5 +1,4 @@
 
-M
-java:S1128"+Remove this unused import 'java.util.List'.(Õë±Äøÿÿÿÿ8¢Üœí‘.
-c
-java:S1128"ARemove this unused import 'com.tsystems.project.domain.Schedule'.(ªŒ›œüÿÿÿÿ8¢Üœí‘.
+]	java:S1255"<This block of commented-out lines of code should be removed.(—‚ïäüÿÿÿÿ8¥®µã“.
+X	java:S125"<This block of commented-out lines of code should be removed.(ö‰­ú8„„µã“.
+W	java:S125"<This block of commented-out lines of code should be removed.(²ð‘-8„„µã“.

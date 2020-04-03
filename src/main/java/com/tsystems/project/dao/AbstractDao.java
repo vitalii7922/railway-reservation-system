@@ -1,6 +1,7 @@
 package com.tsystems.project.dao;
 
 import org.springframework.context.annotation.Configuration;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.io.Serializable;
@@ -18,13 +19,13 @@ public abstract class AbstractDao<T extends Serializable> {
         this.clazz = clazz;
     }
 
-    public T findOne(long id){
+    public T findOne(long id) {
         T e = (T) entityManager.find(clazz, id);
-        return  e;
+        return e;
     }
 
     public List findAll() {
-        return  entityManager.createQuery("from " + clazz.getName()).getResultList();
+        return entityManager.createQuery("from " + clazz.getName()).getResultList();
     }
 
 

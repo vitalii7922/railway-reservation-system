@@ -1,11 +1,4 @@
 
-X	java:S1254"<This block of commented-out lines of code should be removed.(ÄãÄ»8¯øÓ´.
-X	java:S125$"<This block of commented-out lines of code should be removed.(ÄãÄ»8”­É›.
-X	java:S125"<This block of commented-out lines of code should be removed.(ÄãÄ»8¯øÓ´.
-
-java:S1192"rDefine a constant instead of duplicating this literal "SELECT s FROM Schedule s WHERE (s.train.id) = :id" 3 times.(‹«Öõ8¯øÓ´.
-]	java:S125"<This block of commented-out lines of code should be removed.(Š‚¨Ìıÿÿÿÿ8¯øÓ´.
-]	java:S125"<This block of commented-out lines of code should be removed.(Š‚¨Ìıÿÿÿÿ8”­É›.
+X	java:S125"<This block of commented-out lines of code should be removed.(ÃÏ¢8Ô‰–×“.
 H
-java:S1168C"+Return an empty collection instead of null.(¥¹ï8¦Úç.
-]	java:S125/"<This block of commented-out lines of code should be removed.(Š‚¨Ìıÿÿÿÿ8¯øÓ´.
+java:S1168:"+Return an empty collection instead of null.(¥¹ï8¦Úç.

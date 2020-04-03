@@ -1,7 +1,6 @@
 package com.tsystems.project.dto;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 public class TicketDto {
     private long id;
@@ -10,28 +9,28 @@ public class TicketDto {
     private LocalDate birthDate;
     private String stationOrigin;
     private String stationDeparture;
-    private LocalDateTime departureTime;
-    private LocalDateTime arrivalTime;
+    private String departureTime;
+    private String arrivalTime;
     private int trainNumber;
 
     public long getId() {
         return id;
     }
 
-    public LocalDateTime getDepartureTime() {
-        return departureTime;
-    }
-
-    public void setDepartureTime(LocalDateTime departureTime) {
-        this.departureTime = departureTime;
-    }
-
-    public LocalDateTime getArrivalTime() {
+    public String getArrivalTime() {
         return arrivalTime;
     }
 
-    public void setArrivalTime(LocalDateTime arrivalTime) {
+    public void setArrivalTime(String arrivalTime) {
         this.arrivalTime = arrivalTime;
+    }
+
+    public String getDepartureTime() {
+        return departureTime;
+    }
+
+    public void setDepartureTime(String departureTime) {
+        this.departureTime = departureTime;
     }
 
     public void setId(long id) {

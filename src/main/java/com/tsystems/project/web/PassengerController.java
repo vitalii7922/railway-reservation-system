@@ -45,26 +45,20 @@ public class PassengerController {
                                      @RequestParam("last_name") String lastName,
                                      @RequestParam("date_of_birth") String birthDate,
                                      ModelAndView model) {
-
         PassengerDto passenger;
         model.setViewName("passenger.jsp");
-
         if (!ticketValidator.verifySeats(trainNumber, stationAId, stationBId)) {
             model.addObject(MESSAGE, "no free seats on train " + trainNumber);
             return model;
         }
-
         if (firstName.matches("\\s*") || lastName.matches("\\s*")) {
             model.addObject(MESSAGE, "you added incorrect data");
             return model;
         }
-
         passenger = passengerService.getPassenger(firstName, lastName, LocalDate.parse(birthDate));
-
         if (passenger == null) {
             passenger = passengerService.addPassenger(firstName, lastName, LocalDate.parse(birthDate));
         }
-
         if (!ticketValidator.verifyPassenger(trainNumber, passenger)) {
             model.addObject("trainNumber", trainNumber);
             model.addObject("stationA", stationAId);
@@ -72,7 +66,6 @@ public class PassengerController {
             model.addObject(MESSAGE, "you have already bought a ticket on train " + trainNumber);
             return model;
         }
-
         TicketDto ticketDto = ticketService.addTicket(trainNumber, stationAId, stationBId, passenger);
         model.addObject("ticket", ticketDto);
         model.setViewName("ticket.jsp");
@@ -83,7 +76,6 @@ public class PassengerController {
     @GetMapping(value = "/getPassengers")
     public ModelAndView getPassengers(@RequestParam("trainNumber") int trainNumber,
                                      ModelAndView model) {
-
         List<PassengerDto> passengersDto = passengerService.getPassengers(trainNumber);
         if (passengersDto != null && !passengersDto.isEmpty()) {
             model.addObject("passengers", passengersDto);
@@ -97,7 +89,6 @@ public class PassengerController {
             return model;
         }
     }
-
 
     @ExceptionHandler(DateTimeParseException.class)
     public ModelAndView handleException(Exception e) {

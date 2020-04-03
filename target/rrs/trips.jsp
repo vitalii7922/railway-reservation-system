@@ -4,8 +4,14 @@
 <html>
 <head>
     <title>Title</title>
+    <style>
+        <%@include file='resources/trains.css'%>
+    </style>
 </head>
 <body>
+<form action="index.jsp" align="right">
+    <button  class=button type="submit">Home</button>
+</form>
 <div class="style_gap">
     <h1 class="text" align="center">
         ${train.originStation.name} - ${train.destinationStation.name}
@@ -15,13 +21,13 @@
     </p>
     <table class = table align=center>
         <tr align="left">
-            <th>number</th>
-            <th>Departure time</th>
-            <th>Arrival time</th>
+            <th class="font">Number</th>
+            <th class="font">Departure time</th>
+            <th class="font">Arrival time</th>
         </tr>
         <c:forEach items="${trains}" var="train">
             <tr>
-                <td>${train.number}</td>
+                <td align="center">${train.number}</td>
                 <td>${train.departureTime}</td>
                 <td>${train.arrivalTime}</td>
                 <form action="addTicket">
@@ -31,6 +37,8 @@
                     <input type="hidden" name="stationB" value="${train.destinationStation.id}">
                     <input type="hidden" name="departureTime" value="${train.departureTime}">
                     <input type="hidden" name="arrivalTime" value="${train.arrivalTime}">
+                    <input type="hidden" name="timeDeparture" value="${timeDeparture}">
+                    <input type="hidden" name="timeArrival" value="${timeArrival}">
                 </form>
             </tr>
         </c:forEach>

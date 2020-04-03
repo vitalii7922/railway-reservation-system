@@ -2,33 +2,32 @@ package com.tsystems.project.dto;
 import com.tsystems.project.domain.Station;
 import com.tsystems.project.domain.Train;
 import java.io.Serializable;
-import java.time.LocalDateTime;
+
 
 public class ScheduleDto implements Serializable {
-
     long id;
 
-    private LocalDateTime arrivalTime;
+    private String arrivalTime;
 
-    private LocalDateTime departureTime;
+    private String departureTime;
 
     Train train;
 
     Station station;
 
-    public LocalDateTime getArrivalTime() {
+    public String getArrivalTime() {
         return arrivalTime;
     }
 
-    public void setArrivalTime(LocalDateTime arrivalTime) {
+    public void setArrivalTime(String arrivalTime) {
         this.arrivalTime = arrivalTime;
     }
 
-    public LocalDateTime getDepartureTime() {
+    public String getDepartureTime() {
         return departureTime;
     }
 
-    public void setDepartureTime(LocalDateTime departureTime) {
+    public void setDepartureTime(String departureTime) {
         this.departureTime = departureTime;
     }
 
@@ -48,7 +47,6 @@ public class ScheduleDto implements Serializable {
         this.station = station;
     }
 
-
     public long getId() {
         return id;
     }
@@ -57,4 +55,3 @@ public class ScheduleDto implements Serializable {
         this.id = id;
     }
 }
-

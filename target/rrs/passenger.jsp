@@ -7,14 +7,17 @@
         <%@include file='resources/style.css'%>
         <%@include file='resources/login.css'%>
     </style>
-    <header>
-        <h1 class="text" align="center">
-            Enter personal data
-        </h1>
-    </header>
+
 </head>
 <body>
-
+<form action="index.jsp" align="right">
+    <button  class=button type="submit">Home</button><br>
+</form>
+<header>
+    <h1 class="text" align="center">
+        Enter personal data
+    </h1>
+</header>
 <div class="text" align="center">
     <p>${message}</p>
 <form action="addPassengerTicket">

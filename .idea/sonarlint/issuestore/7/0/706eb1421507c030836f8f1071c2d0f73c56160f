@@ -1,9 +1,9 @@
 
 N
 java:S1481/"1Remove this unused "stationNames" local variable.(‹ëèˆ8æ ƒ˜‘.
-]
-java:S1854/"@Remove this useless assignment to local variable "stationNames".(‹ëèˆ8æ ƒ˜‘.
-€
-java:S1488W"^Immediately return this expression instead of assigning it to the temporary variable "trains".(¢à‰ÿÿÿÿÿ8ßù–À’.
 H
 java:S1168L"+Return an empty collection instead of null.(¥¹ï8”­É›.
+€
+java:S1488W"^Immediately return this expression instead of assigning it to the temporary variable "trains".(¢à‰ÿÿÿÿÿ8ßù–À’.
+]
+java:S1854/"@Remove this useless assignment to local variable "stationNames".(‹ëèˆ8æ ƒ˜‘.

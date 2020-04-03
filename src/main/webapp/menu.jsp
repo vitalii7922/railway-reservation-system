@@ -3,44 +3,30 @@
 <head>
     <title>Railway reservation system</title>
     <style>
-        <%@include file='resources/style.css'%>
-        <%@include file='resources/login.css'%>
+                <%@include file='resources/menu.css'%>
     </style>
 
-<%--    <script type="text/javascript">
-        function preventBack() { window.history.forward(); }
-        setTimeout("preventBack()", 0);
-        window.onunload = function () { null };
-    </script>--%>
 </head>
 <body>
 <header class="text" align=center>
     <div align="right">
         <form action="logout">
-            <button  class=button type="submit">Logout</button><br>
+            <button  class=button type="submit">Logout</button>
+        </form>
+        <form action="index.jsp">
+            <button  class=button type="submit">Home</button>
         </form>
     </div>
-    <h1>
+    <h1 class="font">
     Admin menu
     </h1>
     <hr>
 </header>
 
-    <%
-        /*response.setHeader("Cache-Control","no-cache");
-        response.setHeader("Cache-Control","no-store");
-        response.setHeader("Pragma","no-cache");
-        response.setDateHeader ("Expires", -1);*/
-
-       /* if (session.getAttribute("admin") == null) {
-            response.sendRedirect("login.jsp");
-        }*/
-    %>
-
-<div align=center class="style_gap">
+<div align=center>
     <form action="addStation">
-        <label>Add stations</label><br>
-        <input type="text" name="station" placeholder="Station name">
+        <label class="font">Add stations</label><br>
+        <input class="input" type="text" name="station" placeholder="Station name">
         <button class="button" type="submit">add</button>
         <p>${messageStation}</p>
     </form>
@@ -53,8 +39,8 @@
 
 <div align="center" class=style_gap>
     <form action="addTrain">
-        <label>Add trains</label><br>
-        <input min="1" type="number" name="train_number" placeholder="Train number" required>
+        <label class="font">Add trains</label><br>
+        <input class="input" min="1" type="number" name="train_number" placeholder="Train number" required>
 
         <button class="button" type="submit">add</button>
         <p>${messageTrain}</p>

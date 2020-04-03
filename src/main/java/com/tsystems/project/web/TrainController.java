@@ -1,6 +1,8 @@
 package com.tsystems.project.web;
+import com.tsystems.project.converter.TimeConverter;
 import com.tsystems.project.domain.Station;
 import com.tsystems.project.dto.TrainDto;
+import com.tsystems.project.dto.TrainStationDto;
 import com.tsystems.project.service.ScheduleService;
 import com.tsystems.project.service.StationService;
 import com.tsystems.project.service.TrainService;
@@ -31,6 +33,9 @@ public class TrainController extends HttpServlet {
     @Autowired
     ModelMapper modelMapper;
 
+    @Autowired
+    TimeConverter timeConverter;
+
     private int trainNumber;
 
     private static final String MESSAGE = "message";
@@ -45,7 +50,7 @@ public class TrainController extends HttpServlet {
         if (train == null) {
             model.setViewName("train.jsp");
         } else {
-            List<TrainDto> trains = trainService.getAllTrainsByNumbers(trainNumber);
+            List<TrainStationDto> trains = trainService.getAllTrainsByNumbers(trainNumber);
             model.setViewName("trains.jsp");
             model.addObject("listOfStations", trains);
         }
@@ -90,7 +95,7 @@ public class TrainController extends HttpServlet {
 
         if (train != null) {
             scheduleService.addSchedule(train, timeDeparture, timeArrival);
-            List<TrainDto> trains = trainService.getAllTrainsByNumbers(train.getNumber());
+            List<TrainStationDto> trains = trainService.getAllTrainsByNumbers(train.getNumber());
             modelAndView.addObject("listOfStations", trains);
             modelAndView.setViewName("trains.jsp");
         }
