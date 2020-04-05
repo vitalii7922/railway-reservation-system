@@ -11,10 +11,10 @@
 <body>
 
 <div align="center" class="style_gap">
-        ${message}
+    <p class="message">${message}</p>
         <table align=center>
             <tr align="left">
-                <th class="font">Name</th>
+                <th class="th">Name</th>
                 <th>                             </th>
             </tr>
             <c:forEach items="${listOfParams}" var="station">

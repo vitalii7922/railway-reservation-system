@@ -22,6 +22,7 @@ public class StationService {
         Station station = null;
         if (!name.matches("\\s*") && stationDao.findByName(name) == null) {
             station = new Station();
+            station.setName(name);
             return stationDao.create(station);
         }
         return station;

@@ -1,5 +1,5 @@
 input[type=text], input[type=password], input[type=number], input[type=datetime-local] {
-    width: 250px;
+    width: 220px;
     padding: 12px 20px;
     margin: 8px 0;
     display: inline-block;
@@ -19,15 +19,15 @@ button {
 }
 
 .th {
-    font-size: 170%;
+    font-size: 140%;
 }
 
 td {
-    font-size: 150%;
+    font-size: 130%;
 }
 
 .font {
-    font-size: 200%;
+    font-size: 170%;
 }
 
 .button {
@@ -62,4 +62,8 @@ td {
     cursor: pointer;
     width: 100px;
     position: center;
+}
+
+.message {
+ color: red;
 }

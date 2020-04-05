@@ -1,4 +1,5 @@
 package com.tsystems.project.web;
+
 import com.tsystems.project.converter.TimeConverter;
 import com.tsystems.project.domain.Station;
 import com.tsystems.project.dto.TrainDto;
@@ -13,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+
 import javax.servlet.http.HttpServlet;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
@@ -38,9 +40,7 @@ public class TrainController extends HttpServlet {
 
     private int trainNumber;
 
-    private static final String MESSAGE = "message";
-
-    private static final Log log = LogFactory.getLog(TrainController.class);
+    private Log log = LogFactory.getLog(TrainController.class);
 
     @ResponseBody
     @GetMapping(value = "/addTrain")
@@ -77,17 +77,17 @@ public class TrainController extends HttpServlet {
         Station to = stationService.getStationByName(destinationStation);
 
         if (from == null || to == null) {
-            modelAndView.addObject(MESSAGE, "you haven't added station or this station doesn't exist in DB");
+            modelAndView.addObject("message", "you haven't added station or this station doesn't exist in DB");
             return modelAndView;
         }
 
         if (from.getId() == to.getId()) {
-            modelAndView.addObject(MESSAGE, "origin and destination stations are the same");
+            modelAndView.addObject("message", "origin and destination stations are the same");
             return modelAndView;
         }
 
         if (timeDeparture.isAfter(timeArrival)) {
-            modelAndView.addObject(MESSAGE, "time departure is after time arrival");
+            modelAndView.addObject("message", "time departure is after time arrival");
             return modelAndView;
         }
 
@@ -106,11 +106,13 @@ public class TrainController extends HttpServlet {
     @GetMapping(value = "/getTrains")
     public ModelAndView getTrain(ModelAndView model) {
         List<TrainDto> trains = trainService.getAllTrains();
-        model.addObject("messageList", "no trains");
+//        model.addObject("messageList", "no trains");
         model.setViewName("menu.jsp");
-        if (trains != null) {
+        if (trains != null && !trains.isEmpty()) {
             model.setViewName("trainsList.jsp");
             model.addObject("listOfTrains", trains);
+        } else {
+            model.addObject("messageTrain", "no trains");
         }
         return model;
     }
@@ -120,7 +122,7 @@ public class TrainController extends HttpServlet {
     public ModelAndView handleException(Exception e) {
         ModelAndView modelAndView = new ModelAndView();
         log.error(e.getCause());
-        modelAndView.addObject(MESSAGE, "incorrect date format");
+        modelAndView.addObject("message", "incorrect date format");
         modelAndView.addObject("train", trainNumber);
         modelAndView.setViewName("train.jsp");
         return modelAndView;

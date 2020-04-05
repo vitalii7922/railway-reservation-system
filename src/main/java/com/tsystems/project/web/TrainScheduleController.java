@@ -1,4 +1,5 @@
 package com.tsystems.project.web;
+
 import com.tsystems.project.domain.Schedule;
 import com.tsystems.project.domain.Station;
 import com.tsystems.project.dto.TrainDto;
@@ -107,8 +108,8 @@ public class TrainScheduleController {
         Station to = stationService.getStationByName(destinationStation);
 
         if (from == null || to == null) {
-          modelAndView.addObject(message, destinationStation + " doesn't exist in DB");
-          return modelAndView;
+            modelAndView.addObject(message, destinationStation + " doesn't exist in DB");
+            return modelAndView;
         }
 
         if (trains.stream().anyMatch(t -> t.getStation().getId() == to.getId())) {
@@ -119,7 +120,7 @@ public class TrainScheduleController {
         train = trainService.addTrain(number, from, to, numberOfSeats);
 
         if (train != null) {
-            scheduleService.addSchedule(train, timeDeparture , timeArrival);
+            scheduleService.addSchedule(train, timeDeparture, timeArrival);
         }
 
         trains = trainService.getAllTrainsByNumbers(number);

@@ -20,3 +20,8 @@ button {
 .font {
     font-size: 200%;
 }
+
+.message {
+    color: red;
+}
+

@@ -1,4 +1,5 @@
 package com.tsystems.project.web;
+
 import com.tsystems.project.converter.TimeConverter;
 import com.tsystems.project.dto.TrainDto;
 import com.tsystems.project.service.StationService;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+
 import java.util.List;
 
 @Controller

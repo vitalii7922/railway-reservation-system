@@ -18,10 +18,10 @@
     <button class=button type="submit">Menu</button><br>
 </form>
 
-    <h1 align="center">
+    <h1 class="font" align="center">
     Train number: ${train}
     </h1>
-    <p align="center">${message}</p>
+    <p align="center" class="message">${message}</p>
 
         <table align="center">
 
@@ -30,7 +30,7 @@
                 <th>Number of seats</th>
                 <th>Departure time</th>
                 <th>Arrival time</th>
-                <th>                   </th>
+                <th>             </th>
             </tr>
             <tr>
                 <form action="addTrips">

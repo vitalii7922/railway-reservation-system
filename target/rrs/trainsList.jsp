@@ -18,7 +18,7 @@
     <h1 class="font" align="center">
         List of trains
     </h1>
-    <p align="center">
+    <p align="center" class="message">
         ${message}
     </p>
     <table class = table align=center>

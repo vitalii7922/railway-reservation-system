@@ -4,6 +4,7 @@
     <title>Railway reservation system</title>
     <style>
                 <%@include file='resources/menu.css'%>
+                <%@include file='resources/trains.css'%>
     </style>
 
 </head>
@@ -25,10 +26,10 @@
 
 <div align=center>
     <form action="addStation">
-        <label class="font">Add stations</label><br>
+        <label class="th">Add stations</label><br>
         <input class="input" type="text" name="station" placeholder="Station name">
         <button class="button" type="submit">add</button>
-        <p>${messageStation}</p>
+        <p class="message">${messageStation}</p>
     </form>
     <form action="getStations">
         <button  class=button type="submit">List of stations</button><br>
@@ -39,11 +40,11 @@
 
 <div align="center" class=style_gap>
     <form action="addTrain">
-        <label class="font">Add trains</label><br>
-        <input class="input" min="1" type="number" name="train_number" placeholder="Train number" required>
+        <label class="th">Add trains</label><br>
+        <input class="input" min="1" max="1 000 000" type="number" name="train_number" placeholder="Train number" required>
 
         <button class="button" type="submit">add</button>
-        <p>${messageTrain}</p>
+        <p class="message">${messageTrain}</p>
     </form>
     <form action="getTrains">
         <button  class=button type="submit">List of trains</button><br>

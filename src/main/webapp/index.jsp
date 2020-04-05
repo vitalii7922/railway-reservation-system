@@ -41,7 +41,7 @@
                 <td><input type="datetime-local" value="2020-04-02T19:30" name=time_arrival></td>
                 <td><button type="submit">Find</button></td>
         </tr>
-        <p align="center">${message}</p>
+        <p align="center" class="message">${message}</p>
     </table>
     </form>
     <div>

@@ -15,14 +15,14 @@
 </form>--%>
 <div class="style_gap">
 
-        <h1 class="text" align="center">
+        <h1 class="font" align="center">
             ${schedule.station.name}
         </h1>
         <table class = table align=center>
             <tr align="left">
-                <th class="font">Train number</th>
-                <th class="font">Arrival time</th>
-                <th class="font">Departure time</th>
+                <th class="th">Train number</th>
+                <th class="th">Arrival time</th>
+                <th class="th">Departure time</th>
             </tr>
             <c:forEach items="${schedules}" var="schedule">
                 <tr>

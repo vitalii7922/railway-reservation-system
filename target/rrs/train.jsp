@@ -13,12 +13,12 @@
     <form action="menu.jsp" align="right">
         <button  class=button type="submit">Menu</button><br>
     </form>
-    <h1 align="center">
+    <h1 align="center" class="font">
         Train number: ${train}
     </h1>
     <br>
     <br>
-        ${message}
+    <p class="message" align="center">${message}</p>
     <table align="center">
         <tr align="left">
             <th>Origin station</th>

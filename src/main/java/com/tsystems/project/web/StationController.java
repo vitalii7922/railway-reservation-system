@@ -1,4 +1,5 @@
 package com.tsystems.project.web;
+
 import com.tsystems.project.domain.Station;
 import com.tsystems.project.service.StationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,8 +31,13 @@ class StationController {
     @GetMapping(value = "/getStations")
     public ModelAndView getStations(Model model) {
         List<Station> stations = stationService.getAllStations();
-        model.addAttribute("name", stations.get(0));
-        model.addAttribute("listOfParams", stations);
-        return new ModelAndView("station.jsp");
+        if (stations != null && !stations.isEmpty()) {
+            model.addAttribute("name", stations.get(0));
+            model.addAttribute("listOfParams", stations);
+            return new ModelAndView("station.jsp");
+        } else {
+            model.addAttribute("messageStation", "no stations");
+            return new ModelAndView("menu.jsp");
+        }
     }
 }

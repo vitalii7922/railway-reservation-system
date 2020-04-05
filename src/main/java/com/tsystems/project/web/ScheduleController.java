@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+
 import java.util.List;
 
 @Controller
@@ -22,7 +23,7 @@ public class ScheduleController {
 
     @ResponseBody
     @GetMapping(value = "/getSchedules")
-    public ModelAndView getSchedule(@RequestParam("stationId")String stationId, ModelAndView model) {
+    public ModelAndView getSchedule(@RequestParam("stationId") String stationId, ModelAndView model) {
         long id = Integer.parseInt(stationId);
         List<ScheduleDto> schedules = scheduleService.getSchedulesByStationId(id);
         if (schedules != null && !schedules.isEmpty()) {
@@ -32,7 +33,8 @@ public class ScheduleController {
         } else {
             model.setViewName("station.jsp");
             model.addObject("listOfParams", stationService.getAllStations());
-            model.addObject("message", "no trains on station " + stationService.getStationById(id).getName());
+            model.addObject("message", "no trains on station " +
+                    stationService.getStationById(id).getName());
         }
         return model;
     }

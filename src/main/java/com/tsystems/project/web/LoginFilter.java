@@ -17,7 +17,9 @@ public class LoginFilter implements Filter {
         HttpServletResponse response = (HttpServletResponse) servletResponse;
         HttpSession session = request.getSession();
 
-        List<String> list = List.of("addTrain", "addStation", "menu.jsp", "getTrains", "addTrip", "addTrips", "getPassengers");
+        List<String> list = List.of("addTrain", "addStation", "menu.jsp", "getTrains",
+                "addTrip", "addTrips", "getPassengers", "passenger_list.jsp", "seats.jsp", "trainsList.jsp", "train.jsp,"
+                        + "trains.jsp");
 
         if (session.getAttribute("admin") == null && isLoginRequired(list, request)) {
             RequestDispatcher dispatcher = request.getRequestDispatcher("/login.jsp");

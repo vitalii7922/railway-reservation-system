@@ -10,7 +10,7 @@
     <button  class=button type="submit">Menu</button><br>
 </form>
     <div class="style_gap">
-        <h1 align="center">
+        <h1 class="font" align="center">
             Train number: ${train}
         </h1>
         </table>

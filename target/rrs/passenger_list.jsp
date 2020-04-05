@@ -14,16 +14,16 @@
     <button  class=button type="submit">Menu</button><br>
 </form>
 <div class="style_gap">
-    <h1 class="text" align="center">
+    <h1 class="font" align="center">
         List of passengers<br>
         Train number: ${train}
     </h1>
 
     <table class = table align=center>
         <tr align="left">
-            <th class="font">First name</th>
-            <th class="font">Last name</th>
-            <th class="font">Birth date</th>
+            <th class="th">First name</th>
+            <th class="th">Last name</th>
+            <th class="th">Birth date</th>
         </tr>
         <c:forEach items="${passengers}" var="passenger">
             <tr>

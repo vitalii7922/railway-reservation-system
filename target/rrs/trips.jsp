@@ -13,17 +13,17 @@
     <button  class=button type="submit">Home</button>
 </form>
 <div class="style_gap">
-    <h1 class="text" align="center">
+    <h1 class="font" align="center">
         ${train.originStation.name} - ${train.destinationStation.name}
     </h1>
-    <p align="center">
+    <p class="message" align="center">
     ${message}
     </p>
     <table class = table align=center>
         <tr align="left">
-            <th class="font">Number</th>
-            <th class="font">Departure time</th>
-            <th class="font">Arrival time</th>
+            <th class="th">Number</th>
+            <th class="th">Departure time</th>
+            <th class="th">Arrival time</th>
         </tr>
         <c:forEach items="${trains}" var="train">
             <tr>
@@ -43,7 +43,6 @@
             </tr>
         </c:forEach>
     </table>
-
 </div>
 </body>
 </html>

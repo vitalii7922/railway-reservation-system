@@ -16,7 +16,7 @@
 
 <form action="login" method="post">
     <div class="text" align="center">
-        <p>${message}</p>
+        <p class="message">${message}</p>
         <label><b>Username</b></label><br>
         <input type="text" placeholder="Enter Username" name="login" required><br>
 
