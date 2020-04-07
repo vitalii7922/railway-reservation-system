@@ -15,6 +15,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.time.DateTimeException;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 @Service
@@ -56,5 +59,22 @@ public class TicketService {
             log.error(e.getCause());
         }
         return ticketDto;
+    }
+
+    public boolean verifyTime(String departureTime) throws DateTimeException {
+        long minutes = ChronoUnit.MINUTES.between(LocalDateTime.now(), LocalDateTime.parse(departureTime));
+        return minutes > 10;
+    }
+
+    public boolean verifySeats(int trainNumber, long stationFromId, long stationToId) {
+        Train trainDeparture = trainDao.findByStationDepartureId(trainNumber, stationFromId);
+        Train trainArrival = trainDao.findByStationArrivalId(trainNumber, stationToId);
+        List<Train> trains = trainDao.findAllTrainsBetweenTwoStations(trainDeparture.getId(), trainArrival.getId());
+        return trains.stream().allMatch(t -> t.getSeats() > 0);
+    }
+
+    public boolean verifyPassenger(int trainNumber, PassengerDto passengerDto) {
+        Ticket ticket = ticketDao.findByPassenger(trainNumber, passengerDto);
+        return ticket == null;
     }
 }

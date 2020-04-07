@@ -15,7 +15,7 @@ public class StationDao extends AbstractDao<Station> {
     }
 
     public Station findByName(String name) {
-        String queryString = "SELECT s FROM Station s WHERE LOWER(s.name) = :name";
+        String queryString = "SELECT s FROM Station s WHERE UPPER(s.name) = :name";
         Query query = entityManager.createQuery(queryString);
         query.setParameter("name", name.toLowerCase());
         List<Station> stations = query.getResultList();

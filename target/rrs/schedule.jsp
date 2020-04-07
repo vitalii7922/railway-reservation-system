@@ -3,6 +3,7 @@
 
 <html>
 <head>
+    <title>Railway reservation system</title>
     <title>Title</title>
 
     <style>
@@ -10,9 +11,15 @@
     </style>
 </head>
 <body>
-<%--<form action="menu.jsp" align="right">
-    <button  class=button type="submit">Menu</button><br>
-</form>--%>
+<div>
+    <form action="index.jsp" align="right">
+        <button  class=button type="submit">Home</button>
+    </form>
+
+    <form action="menu.jsp" align="right">
+        <button  class=button type="submit">Menu</button><br>
+    </form>
+</div>
 <div class="style_gap">
 
         <h1 class="font" align="center">

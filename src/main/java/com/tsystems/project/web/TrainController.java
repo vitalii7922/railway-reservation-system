@@ -43,7 +43,7 @@ public class TrainController extends HttpServlet {
     private Log log = LogFactory.getLog(TrainController.class);
 
     @ResponseBody
-    @GetMapping(value = "/addTrain")
+    @GetMapping(value = "/admin/addTrain")
     public ModelAndView addTrain(@RequestParam("train_number") int trainNumber, ModelAndView model) {
         TrainDto train = trainService.getTrainByNumber(trainNumber);
         model.addObject("train", trainNumber);
@@ -58,7 +58,7 @@ public class TrainController extends HttpServlet {
     }
 
     @ResponseBody
-    @GetMapping(value = "/addTrip")
+    @GetMapping(value = "/admin/addTrip")
     public ModelAndView addTrain(@RequestParam("train_number") int number,
                                  @RequestParam("origin_station") String originStation,
                                  @RequestParam("destination_station") String destinationStation,
@@ -103,10 +103,9 @@ public class TrainController extends HttpServlet {
     }
 
     @ResponseBody
-    @GetMapping(value = "/getTrains")
+    @GetMapping(value = "/admin/getTrains")
     public ModelAndView getTrain(ModelAndView model) {
         List<TrainDto> trains = trainService.getAllTrains();
-//        model.addObject("messageList", "no trains");
         model.setViewName("menu.jsp");
         if (trains != null && !trains.isEmpty()) {
             model.setViewName("trainsList.jsp");

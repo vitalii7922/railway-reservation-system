@@ -1,7 +1,9 @@
 package com.tsystems.project.domain;
 import javax.persistence.*;
 import java.io.Serializable;
+import java.sql.Date;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 
@@ -63,18 +65,11 @@ public class Passenger implements Serializable {
         this.birthDate = birthDate;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Passenger passenger = (Passenger) o;
-        return firstName.equals(passenger.firstName) &&
-                secondName.equals(passenger.secondName) &&
-                birthDate.equals(passenger.birthDate);
+  /*  public Date getBirthDate() {
+        return birthDate;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(firstName, secondName, birthDate);
-    }
+    public void setBirthDate(Date birthDate) {
+        this.birthDate = birthDate;
+    }*/
 }

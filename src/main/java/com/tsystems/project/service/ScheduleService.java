@@ -101,6 +101,7 @@ public class ScheduleService {
                     iterator.remove();
                 }
             }
+            Collections.sort(scheduleDtos);
         }
         } catch (NullPointerException e) {
             log.error(e.getCause());

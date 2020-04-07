@@ -5,7 +5,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>Railway reservation system</title>
     <style>
         <%@include file='resources/trains.css'%>
     </style>

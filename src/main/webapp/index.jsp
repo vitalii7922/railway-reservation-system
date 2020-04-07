@@ -37,8 +37,8 @@
         <tr class=dark>
                 <td><input type="text" name="from" placeholder="From"></td>
                 <td><input type="text" name="to" placeholder="To"></td>
-                <td><input type="datetime-local" value="2020-04-01T19:30" name=time_departure></td>
-                <td><input type="datetime-local" value="2020-04-02T19:30" name=time_arrival></td>
+                <td><input type="datetime-local" name=time_departure></td>
+                <td><input type="datetime-local" name=time_arrival></td>
                 <td><button type="submit">Find</button></td>
         </tr>
         <p align="center" class="message">${message}</p>

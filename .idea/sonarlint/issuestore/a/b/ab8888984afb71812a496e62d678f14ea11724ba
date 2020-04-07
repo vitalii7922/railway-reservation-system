@@ -1,4 +1,5 @@
 
-]	java:S1255"<This block of commented-out lines of code should be removed.(—‚ïäüÿÿÿÿ8¥®µã“.
-X	java:S125"<This block of commented-out lines of code should be removed.(ö‰­ú8„„µã“.
-W	java:S125"<This block of commented-out lines of code should be removed.(²ğ‘-8„„µã“.
+W	java:S125"<This block of commented-out lines of code should be removed.(²ğ‘-8Æ§ûÛ”.
+u
+java:S1210W"YOverride "equals(Object obj)" to comply with the contract of the "compareTo(T o)" method.(ûö¸Y8ïÔÈå”.
+X	java:S125"<This block of commented-out lines of code should be removed.(ö‰­ú8Æ§ûÛ”.

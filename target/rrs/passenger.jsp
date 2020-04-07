@@ -2,6 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
+    <title>Railway reservation system</title>
     <title>Title</title>
     <style>
         <%@include file='resources/style.css'%>
@@ -10,7 +11,7 @@
 
 </head>
 <body>
-<form action="index.jsp" align="right">
+<form name="myForm" action="index.jsp" align="right">
     <button  class=button type="submit">Home</button><br>
 </form>
 <header>
@@ -24,6 +25,7 @@
     <input type="hidden" name="trainNumber" value="${trainNumber}"/>
     <input type="hidden" name="stationA" value="${stationA}"/>
     <input type="hidden" name="stationB" value="${stationB}"/>
+    <input type="hidden" name="departureTime" value="${departureTime}"/>
     <input  type="text" name="first_name"  placeholder="First name"><br>
     <input  type="text" name="last_name" placeholder="Last name"><br>
     <input type="date" name="date_of_birth"><br>

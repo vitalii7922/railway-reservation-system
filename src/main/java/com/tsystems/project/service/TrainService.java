@@ -67,7 +67,7 @@ public class TrainService {
     @Transactional
     public List<TrainStationDto> getAllTrainsByNumbers(int trainNumber) {
         List<Train> trains = trainDao.findTrainsByNumber(trainNumber);
-        List<TrainDto> trainsDto = null;
+        List<TrainDto> trainsDto = new ArrayList<>();
         try {
              trainsDto = trains.stream()
                     .map(t -> trainConverter.convertToTrainDto(t)).collect(Collectors.toList());
@@ -84,6 +84,7 @@ public class TrainService {
             List<TrainDto> trainsDto = new ArrayList<>();
             try {
                 trainsDto = trainHelper.getTrainBetweenExtremeStations(trains);
+                Collections.sort(trainsDto);
             } catch (NullPointerException e) {
                 log.error(e.getCause());
             }
@@ -103,6 +104,7 @@ public class TrainService {
             trains = trainDao.findByStations(stationA.getId(), stationB.getId(), departureTime, arrivalTime);
 
             trainsDto = trainHelper.searchTrainBetweenExtremeStations(trains);
+            Collections.sort(trainsDto);
 
         } catch (NullPointerException | DateTimeParseException e) {
             log.error(e.getCause());

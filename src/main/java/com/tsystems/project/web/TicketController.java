@@ -4,7 +4,6 @@ import com.tsystems.project.converter.TimeConverter;
 import com.tsystems.project.dto.TrainDto;
 import com.tsystems.project.service.StationService;
 import com.tsystems.project.service.TrainService;
-import com.tsystems.project.validator.TicketValidator;
 import com.tsystems.project.service.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,9 +19,6 @@ public class TicketController {
 
     @Autowired
     TicketService ticketService;
-
-    @Autowired
-    TicketValidator ticketValidator;
 
     @Autowired
     TrainService trainService;
@@ -42,10 +38,10 @@ public class TicketController {
                                   @RequestParam("departureTime") String departureTime,
                                   @RequestParam("arrivalTime") String arrivalTime,
                                   @RequestParam("timeDeparture") String departure,
-                                  @RequestParam("timeArrival") String arrival,
-                                  ModelAndView model) {
+                                  @RequestParam("timeArrival") String arrival, ModelAndView model) {
 
-        if (!ticketValidator.verifyTime(timeConverter.reversedConvertDateTime(departureTime).toString())) {
+
+        if (!ticketService.verifyTime(timeConverter.reversedConvertDateTime(departureTime).toString())) {
             model.setViewName("trips.jsp");
             List<TrainDto> trainsDto = trainService.getTrainsByStations(stationService.getStationById(originStationId),
                     stationService.getStationById(destinationStationId), departure, arrival);
@@ -57,7 +53,7 @@ public class TicketController {
             return model;
         }
 
-        if (!ticketValidator.verifySeats(trainNumber, originStationId, destinationStationId)) {
+        if (!ticketService.verifySeats(trainNumber, originStationId, destinationStationId)) {
             model.setViewName("trips.jsp");
             List<TrainDto> trainsDto = trainService.getTrainsByStations(stationService.getStationById(originStationId),
                     stationService.getStationById(destinationStationId), departure, arrival);
@@ -72,6 +68,7 @@ public class TicketController {
         model.addObject("trainNumber", trainNumber);
         model.addObject("stationA", originStationId);
         model.addObject("stationB", destinationStationId);
+        model.addObject("departureTime", departureTime);
         model.setViewName("passenger.jsp");
         return model;
     }

@@ -6,15 +6,15 @@
 
 <html>
 <head>
-    <title>Title</title>
+    <title>Railway reservation system</title>
 
     <style>
-        <%@include file='resources/trains.css'%>
+        <%@include file='../resources/trains.css'%>
 
     </style>
 </head>
 <body>
-<form action="menu.jsp" align="right">
+<form action="../menu.jsp" align="right">
     <button class=button type="submit">Menu</button><br>
 </form>
 
@@ -25,20 +25,19 @@
 
         <table align="center">
 
-            <tr align="left">
+            <tr>
                 <th>Destination station</th>
                 <th>Number of seats</th>
                 <th>Departure time</th>
                 <th>Arrival time</th>
-                <th>             </th>
             </tr>
             <tr>
-                <form action="addTrips">
+                <form action="admin/addTrips">
                 <input type="hidden" type="number" name="train_number" value="${train}"/>
                 <td> <input  type="text" name="destination_station" formmethod="post" placeholder="Destination station"></td>
                 <td><input  type="number" value="1" min="1" max="100" name="number_of_seats" placeholder="Number of seats" required></td>
-                <td><input type="datetime-local" name="departure_time" value="2020-04-01T19:30" placeholder="Departure time"></td>
-                <td><input type="datetime-local" name="arrival_time" value="2020-04-02T19:30" placeholder="Arrive time"></td>
+                <td><input type="datetime-local" name="departure_time" placeholder="Departure time"></td>
+                <td><input type="datetime-local" name="arrival_time" placeholder="Arrive time"></td>
                 <td><button class="button" type="submit">add train</button></td>
             </form>
                 <form action="getSeats">
@@ -48,7 +47,7 @@
             </tr>
 </table>
     <table align=center>
-        <tr align="left">
+        <tr>
             <th class="th">Station</th>
             <th class="th">Arrival time</th>
             <th class="th">Departure time</th>
@@ -59,7 +58,6 @@
                 <td>${train.arrivalTime}</td>
                 <td>${train.departureTime}</td>
             </tr>
-            <br>
         </c:forEach>
     </table>
 </body>

@@ -1,10 +1,10 @@
 package com.tsystems.project.dto;
 
-
+import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.Objects;
+import java.util.Comparator;
 
-public class PassengerDto {
+public class PassengerDto implements Serializable {
 
     private long id;
 
@@ -46,18 +46,7 @@ public class PassengerDto {
         this.id = id;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        PassengerDto that = (PassengerDto) o;
-        return firstName.equals(that.firstName) &&
-                secondName.equals(that.secondName) &&
-                birthDate.equals(that.birthDate);
-    }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(firstName, secondName, birthDate);
-    }
 }
+
+

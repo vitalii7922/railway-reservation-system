@@ -6,6 +6,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -22,7 +24,7 @@ public class StationService {
         Station station = null;
         if (!name.matches("\\s*") && stationDao.findByName(name) == null) {
             station = new Station();
-            station.setName(name);
+            station.setName(name.toUpperCase());
             return stationDao.create(station);
         }
         return station;
@@ -38,6 +40,8 @@ public class StationService {
 
 
     public List<Station> getAllStations() {
-        return stationDao.findAll();
+        List<Station> stations = stationDao.findAll();
+        Collections.sort(stations);
+        return stations;
     }
 }

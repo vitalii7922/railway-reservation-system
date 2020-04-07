@@ -1,3 +1,4 @@
+/*
 package com.tsystems.project.validator;
 
 import com.tsystems.project.dao.TicketDao;
@@ -28,7 +29,7 @@ public class TicketValidator {
         return minutes >= 10;
     }
 
-    public boolean verifySeats(int trainNumber, long stationFromId, long stationToId) throws NullPointerException {
+    public boolean verifySeats(int trainNumber, long stationFromId, long stationToId) {
         Train trainDeparture = trainDao.findByStationDepartureId(trainNumber, stationFromId);
         Train trainArrival = trainDao.findByStationArrivalId(trainNumber, stationToId);
         List<Train> trains = trainDao.findAllTrainsBetweenTwoStations(trainDeparture.getId(), trainArrival.getId());
@@ -45,3 +46,4 @@ public class TicketValidator {
         return new TicketValidator();
     }
 }
+*/

@@ -4,7 +4,7 @@ import com.tsystems.project.domain.Train;
 import java.io.Serializable;
 
 
-public class ScheduleDto implements Serializable {
+public class ScheduleDto implements Serializable, Comparable<ScheduleDto> {
     long id;
 
     private String arrivalTime;
@@ -53,5 +53,11 @@ public class ScheduleDto implements Serializable {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+
+    @Override
+    public int compareTo(ScheduleDto o) {
+        return train.getNumber() - o.getTrain().getNumber();
     }
 }

@@ -54,7 +54,6 @@ public class TrainScheduleController {
         Station stationFrom = stationService.getStationByName(stationNameA);
         Station stationTo = stationService.getStationByName(stationNameB);
         List<TrainDto> trains = null;
-
         if (stationFrom != null && stationTo != null) {
             trains = trainService.getTrainsByStations(stationFrom, stationTo, timeDeparture, timeArrival);
         }

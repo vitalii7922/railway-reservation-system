@@ -24,30 +24,6 @@ public class ScheduleDao extends AbstractDao<Schedule> {
         }
     }
 
-   /* public Schedule findByTrainDepartureId(long id) {
-        String queryString = "SELECT s FROM Schedule s WHERE (s.train.id) = :id";
-        Query query = entityManager.createQuery(queryString);
-        query.setParameter("id", id);
-        List<Schedule> schedules = query.getResultList();
-        if (schedules.isEmpty()) {
-            return null;
-        } else {
-            return schedules.get(0);
-        }
-    }
-
-
-    public Schedule findByTrainArriveId(long id) {
-        String queryString = "SELECT s FROM Schedule s WHERE (s.train.id) = :id";
-        Query query = entityManager.createQuery(queryString);
-        query.setParameter("id", id);
-        List<Schedule> schedules = query.getResultList();
-        if (schedules.isEmpty()) {
-            return null;
-        } else {
-            return schedules.get(1);
-        }
-    }*/
 
     public List<Schedule> findByStationId(long id) {
         String queryString = "SELECT s FROM Schedule s WHERE (s.station.id) = :id";

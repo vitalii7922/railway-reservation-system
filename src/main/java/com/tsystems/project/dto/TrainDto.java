@@ -3,9 +3,8 @@ package com.tsystems.project.dto;
 import com.tsystems.project.domain.Station;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
 
-public class TrainDto implements Serializable {
+public class TrainDto implements Serializable, Comparable<TrainDto> {
 
     private long id;
 
@@ -50,8 +49,6 @@ public class TrainDto implements Serializable {
         this.seats = seats;
     }
 
-
-
     public String getArrivalTime() {
         return arrivalTime;
     }
@@ -82,5 +79,12 @@ public class TrainDto implements Serializable {
 
     public void setDestinationStation(Station destinationStation) {
         this.destinationStation = destinationStation;
+    }
+
+
+
+    @Override
+    public int compareTo(TrainDto o) {
+        return number - o.number;
     }
 }

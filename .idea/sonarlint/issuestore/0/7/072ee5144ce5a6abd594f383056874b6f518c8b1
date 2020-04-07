@@ -1,2 +1,7 @@
 
-]	java:S125N"<This block of commented-out lines of code should be removed.(…„Ğÿşÿÿÿÿ8–±‹Û“.
+X	java:S125M"<This block of commented-out lines of code should be removed.(¢ ì¨8èóÜ”.
+k
+java:S1128"IRemove this unused import 'com.tsystems.project.converter.TimeConverter'.(„«íúÿÿÿÿ8’Ôõ”.
+t
+java:S3776K"RRefactor this method to reduce its Cognitive Complexity from 16 to the 15 allowed.(¼ãí·øÿÿÿÿ8áİ¯“”.
+]	java:S125Q"<This block of commented-out lines of code should be removed.(½ûªÊøÿÿÿÿ8èóÜ”.

@@ -23,6 +23,5 @@ public class ApplicationConfig {
         driverManagerDataSource.setPassword("000");
         return driverManagerDataSource;
     }
-
 }
 */

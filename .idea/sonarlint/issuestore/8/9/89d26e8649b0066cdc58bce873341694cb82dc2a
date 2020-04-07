@@ -1,11 +1,11 @@
 
-C	Web:S1827
-")Remove this deprecated "align" attribute.(ğ½Å·ùÿÿÿÿ
 CWeb:PageWithoutTitleCheck"Add a <title> tag to this page.(Õ¶¯M
-cWeb:DoctypePresenceCheck":Insert a <!DOCTYPE> declaration to before this <html> tag.(œ÷Ãûÿÿÿÿ
-MWeb:TableWithoutCaptionCheck" Add a description to this table.(È¥±“üÿÿÿÿ
-C	Web:S1827")Remove this deprecated "align" attribute.(¼ø†şÿÿÿÿ
-C	Web:S1827")Remove this deprecated "align" attribute.(È¥±“üÿÿÿÿ
-l Web:TableHeaderHasIdOrScopeCheck";Add either an 'id' or a 'scope' attribute to this <th> tag.(¿·§ôıÿÿÿÿ
 Z	Web:S5254"@Add "lang" and/or "xml:lang" attributes to this "<html>" element(œ÷Ãûÿÿÿÿ
+cWeb:DoctypePresenceCheck":Insert a <!DOCTYPE> declaration to before this <html> tag.(œ÷Ãûÿÿÿÿ
+g Web:TableHeaderHasIdOrScopeCheck";Add either an 'id' or a 'scope' attribute to this <th> tag.(ù•Ô™
+MWeb:TableWithoutCaptionCheck" Add a description to this table.(ñ¦ÿÍşÿÿÿÿ
+C	Web:S1827")Remove this deprecated "align" attribute.(ñ¦ÿÍşÿÿÿÿ
+C	Web:S1827")Remove this deprecated "align" attribute.(¼ø†şÿÿÿÿ
 g Web:TableHeaderHasIdOrScopeCheck";Add either an 'id' or a 'scope' attribute to this <th> tag.(É“š¼
+J	Web:S1827	")Remove this deprecated "align" attribute.(á‹›§ùÿÿÿÿ8Ñ³Ï“”.
+E	Web:S1827")Remove this deprecated "align" attribute.(Õå®8Ñ³Ï“”.

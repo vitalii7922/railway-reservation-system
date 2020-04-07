@@ -1,11 +1,11 @@
 package com.tsystems.project.web;
 
+import com.tsystems.project.converter.TimeConverter;
 import com.tsystems.project.dto.PassengerDto;
 import com.tsystems.project.dto.TicketDto;
 import com.tsystems.project.service.PassengerService;
 import com.tsystems.project.service.TicketService;
 import com.tsystems.project.service.TrainService;
-import com.tsystems.project.validator.TicketValidator;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,10 +27,10 @@ public class PassengerController {
     PassengerService passengerService;
 
     @Autowired
-    TicketValidator ticketValidator;
+    TrainService trainService;
 
     @Autowired
-    TrainService trainService;
+    TimeConverter timeConverter;
 
     private static final String MESSAGE = "message";
 
@@ -44,14 +44,25 @@ public class PassengerController {
                                      @RequestParam("first_name") String firstName,
                                      @RequestParam("last_name") String lastName,
                                      @RequestParam("date_of_birth") String birthDate,
+                                     @RequestParam("departureTime") String departureTime,
                                      ModelAndView model) {
+
         PassengerDto passenger;
         model.setViewName("passenger.jsp");
-        if (!ticketValidator.verifySeats(trainNumber, stationAId, stationBId)) {
+        model.addObject("trainNumber", trainNumber);
+        model.addObject("stationA", stationAId);
+        model.addObject("stationB", stationBId);
+        model.addObject("departureTime", departureTime);
+
+        if (!ticketService.verifySeats(trainNumber, stationAId, stationBId)) {
             model.addObject(MESSAGE, "no free seats on train " + trainNumber);
             return model;
         }
-        if (firstName.matches("\\s*") || lastName.matches("\\s*")) {
+        if (!ticketService.verifyTime(timeConverter.reversedConvertDateTime(departureTime).toString())) {
+            model.addObject(MESSAGE, "you cannot buy a ticket 10 minutes before the train " + trainNumber + " departures");
+            return model;
+        }
+        if (passengerService.verifyInputPassenger(firstName, lastName)) {
             model.addObject(MESSAGE, "you added incorrect data");
             return model;
         }
@@ -59,10 +70,7 @@ public class PassengerController {
         if (passenger == null) {
             passenger = passengerService.addPassenger(firstName, lastName, LocalDate.parse(birthDate));
         }
-        if (!ticketValidator.verifyPassenger(trainNumber, passenger)) {
-            model.addObject("trainNumber", trainNumber);
-            model.addObject("stationA", stationAId);
-            model.addObject("stationB", stationBId);
+        if (!ticketService.verifyPassenger(trainNumber, passenger)) {
             model.addObject(MESSAGE, "you have already bought a ticket on train " + trainNumber);
             return model;
         }

@@ -67,7 +67,7 @@ public class TrainHelper {
                     }
                     for (int j = i + 1; j < trains.size(); j++) {
                         Train arrive = trains.get(j);
-                        if (departure.getNumber() == arrive.getNumber()) {
+                        if (departure.getNumber() == arrive.getNumber() && departure.getId() <= arrive.getId()) {
                             trainDto.setArrivalTime(timeConverter.convertDateTime(arrive.getSchedules().get(1).getArrivalTime()));
                             trainDto.setDestinationStation(arrive.getDestinationStation());
                             trainsDto.add(trainDto);
