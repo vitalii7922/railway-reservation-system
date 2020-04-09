@@ -18,10 +18,12 @@ public class LoginController {
     @Autowired
     AdminService adminService;
 
-    @PostMapping(value = "/login")
-    public ModelAndView loginProcess(HttpServletRequest request, HttpServletResponse response,
-                                     @ModelAttribute("login") String login, @ModelAttribute("password") String password) {
-        ModelAndView mav = null;
+
+   /* @PostMapping(value = "/login")
+    private ModelAndView getModelAndView(HttpServletRequest request,
+                                         @ModelAttribute("login") String login,
+                                         @ModelAttribute("password") String password) {
+        ModelAndView mav;
         Admin admin = adminService.validate(login, password);
         if (admin != null) {
             mav = new ModelAndView("menu.jsp");
@@ -29,7 +31,24 @@ public class LoginController {
             session.setAttribute("admin", admin);
         } else {
             mav = new ModelAndView("login.jsp");
-            mav.addObject("message", "login or password is wrong!!");
+            mav.addObject("message", "login or password is wrong");
+        }
+        return mav;
+    }*/
+
+    @PostMapping(value = "/login")
+    public ModelAndView loginAdminProcess(HttpServletRequest request,
+                                          @ModelAttribute("login") String login,
+                                          @ModelAttribute("password") String password) {
+        ModelAndView mav;
+        Admin admin = adminService.validate(login, password);
+        if (admin != null) {
+            mav = new ModelAndView("menu.jsp");
+            HttpSession session = request.getSession();
+            session.setAttribute("admin", admin);
+        } else {
+            mav = new ModelAndView("login.jsp");
+            mav.addObject("message", "login or password is wrong");
         }
         return mav;
     }

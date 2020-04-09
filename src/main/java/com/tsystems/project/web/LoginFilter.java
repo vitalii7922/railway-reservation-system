@@ -21,6 +21,8 @@ public class LoginFilter implements Filter {
                 "addTrip", "addTrips", "getPassengers", "passenger_list.jsp", "seats.jsp", "trainsList.jsp", "train.jsp,"
                         + "trains.jsp");
 
+//        List<String> list = List.of("/admin/");
+
         if (session.getAttribute("admin") == null && isLoginRequired(list, request)) {
             RequestDispatcher dispatcher = request.getRequestDispatcher("/login.jsp");
             dispatcher.forward(request, response);

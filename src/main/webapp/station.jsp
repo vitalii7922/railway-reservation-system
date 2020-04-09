@@ -25,7 +25,7 @@
         <table align=center>
             <tr align="left">
                 <th class="th">Name</th>
-                <th>                             </th>
+                <th></th>
             </tr>
             <c:forEach items="${listOfParams}" var="station">
             <tr>
@@ -34,7 +34,6 @@
                     <td><button class="button_station">Schedule</button></td>
                     <input type="hidden" name="stationId" value="${station.id}">
                 </form>
-<%--                <td><a href="getSchedules?stationId=${station.id}">Schedule</a></td>--%>
             </tr>
             </c:forEach>
         </table>

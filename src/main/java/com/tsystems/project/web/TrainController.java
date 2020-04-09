@@ -1,6 +1,5 @@
 package com.tsystems.project.web;
 
-import com.tsystems.project.converter.TimeConverter;
 import com.tsystems.project.domain.Station;
 import com.tsystems.project.dto.TrainDto;
 import com.tsystems.project.dto.TrainStationDto;
@@ -11,17 +10,16 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-
-import javax.servlet.http.HttpServlet;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.util.List;
 
 @Controller
-public class TrainController extends HttpServlet {
+public class TrainController {
 
     @Autowired
     StationService stationService;
@@ -35,15 +33,12 @@ public class TrainController extends HttpServlet {
     @Autowired
     ModelMapper modelMapper;
 
-    @Autowired
-    TimeConverter timeConverter;
-
     private int trainNumber;
 
     private Log log = LogFactory.getLog(TrainController.class);
 
     @ResponseBody
-    @GetMapping(value = "/admin/addTrain")
+    @GetMapping(value = "/addTrain")
     public ModelAndView addTrain(@RequestParam("train_number") int trainNumber, ModelAndView model) {
         TrainDto train = trainService.getTrainByNumber(trainNumber);
         model.addObject("train", trainNumber);
@@ -58,19 +53,20 @@ public class TrainController extends HttpServlet {
     }
 
     @ResponseBody
-    @GetMapping(value = "/admin/addTrip")
-    public ModelAndView addTrain(@RequestParam("train_number") int number,
+    @PostMapping(value = "/addTrip", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ModelAndView addTrain(@RequestBody TrainDto trainDto,
+                                 /*@RequestParam("train_number") int number,
                                  @RequestParam("origin_station") String originStation,
                                  @RequestParam("destination_station") String destinationStation,
                                  @RequestParam("number_of_seats") int numberOfSeats,
                                  @RequestParam("departure_time") String departureTime,
-                                 @RequestParam("arrival_time") String arrivalTime, ModelAndView modelAndView) {
+                                 @RequestParam("arrival_time") String arrivalTime,*/ ModelAndView modelAndView) {
 
-        modelAndView.addObject("train", number);
-        trainNumber = number;
+       /* modelAndView.addObject("train", number);
+        trainNumber = number;*/
         modelAndView.setViewName("train.jsp");
 
-        LocalDateTime timeDeparture = LocalDateTime.parse(departureTime);
+       /* LocalDateTime timeDeparture = LocalDateTime.parse(departureTime);
         LocalDateTime timeArrival = LocalDateTime.parse(arrivalTime);
 
         Station from = stationService.getStationByName(originStation);
@@ -98,12 +94,12 @@ public class TrainController extends HttpServlet {
             List<TrainStationDto> trains = trainService.getAllTrainsByNumbers(train.getNumber());
             modelAndView.addObject("listOfStations", trains);
             modelAndView.setViewName("trains.jsp");
-        }
+        }*/
         return modelAndView;
     }
 
     @ResponseBody
-    @GetMapping(value = "/admin/getTrains")
+    @GetMapping(value = "/getTrains")
     public ModelAndView getTrain(ModelAndView model) {
         List<TrainDto> trains = trainService.getAllTrains();
         model.setViewName("menu.jsp");
