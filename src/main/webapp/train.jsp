@@ -69,6 +69,7 @@
                 destinationStation: destinationStationVal, seats: numberOfSeatsVal, departureTime: departureTimeVal,
                 arrivalTime: arrivalTimeVal});
             console.log(trainDto);
+
             $.ajax({
                 type : 'POST',
                 url : url,
