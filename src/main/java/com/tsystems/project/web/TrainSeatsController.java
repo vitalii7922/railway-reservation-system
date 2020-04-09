@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-public class TrainSeats {
+public class TrainSeatsController {
 
     @Autowired
     SeatsService seatsService;

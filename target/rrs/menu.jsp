@@ -23,7 +23,6 @@
     </h1>
     <hr>
 </header>
-
 <div align=center>
     <form action="addStation">
         <label class="th">Add stations</label><br>
@@ -39,7 +38,7 @@
 <hr>
 
 <div align="center" class=style_gap>
-    <form action="admin/addTrain">
+    <form action="addTrain">
         <label class="th">Add trains</label><br>
         <input class="input" min="1" max="1 000 000" type="number" name="train_number" placeholder="Train number" required>
 
@@ -51,6 +50,5 @@
         <p>${messageList}</p>
     </form>
 </div>
-
 </body>
 </html>
