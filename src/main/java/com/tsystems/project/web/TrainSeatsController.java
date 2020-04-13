@@ -14,7 +14,6 @@ import java.util.Map;
 
 @Controller
 public class TrainSeatsController {
-
     @Autowired
     SeatsService seatsService;
 
