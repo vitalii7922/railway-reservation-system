@@ -54,7 +54,7 @@
 
     </table>
 
-    <script>
+   <%-- <script>
         $("#addTrip").submit(function(event){
             event.preventDefault();
             var form = $(this);
@@ -84,7 +84,7 @@
                 }
             });
         });
-    </script>
+    </script>--%>
 
     <c:forEach items="${listOfStations}" var="stationsNames">
         <tr>

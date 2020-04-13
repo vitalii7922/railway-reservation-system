@@ -83,7 +83,7 @@ public class TrainScheduleController {
         TrainDto train = trainService.getTrainByNumber(number);
         trainNumber = number;
         Schedule schedule = scheduleService.getScheduleByTrainId(train.getId());
-        List<TrainStationDto> trains = trainService.getAllTrainsByNumbers(number);
+        List<TrainStationDto> trains = trainService.getAllTrainsByNumber(number);
         modelAndView.addObject(trainAttribute, number);
         trainsList = trains;
         modelAndView.setViewName(trainsPage);
@@ -122,7 +122,7 @@ public class TrainScheduleController {
             scheduleService.addSchedule(train, timeDeparture, timeArrival);
         }
 
-        trains = trainService.getAllTrainsByNumbers(number);
+        trains = trainService.getAllTrainsByNumber(number);
 
         modelAndView.addObject(listOfStations, trains);
         modelAndView.setViewName(trainsPage);

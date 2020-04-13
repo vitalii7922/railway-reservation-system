@@ -45,7 +45,7 @@ public class TrainController {
         if (train == null) {
             model.setViewName("train.jsp");
         } else {
-            List<TrainStationDto> trains = trainService.getAllTrainsByNumbers(trainNumber);
+            List<TrainStationDto> trains = trainService.getAllTrainsByNumber(trainNumber);
             model.setViewName("trains.jsp");
             model.addObject("listOfStations", trains);
         }
@@ -54,19 +54,19 @@ public class TrainController {
 
     @ResponseBody
     @PostMapping(value = "/addTrip", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ModelAndView addTrain(@RequestBody TrainDto trainDto,
-                                 /*@RequestParam("train_number") int number,
+    public ModelAndView addTrain(/*@RequestBody TrainDto trainDto,*/
+                                 @RequestParam("train_number") int number,
                                  @RequestParam("origin_station") String originStation,
                                  @RequestParam("destination_station") String destinationStation,
                                  @RequestParam("number_of_seats") int numberOfSeats,
                                  @RequestParam("departure_time") String departureTime,
-                                 @RequestParam("arrival_time") String arrivalTime,*/ ModelAndView modelAndView) {
+                                 @RequestParam("arrival_time") String arrivalTime, ModelAndView modelAndView) {
 
-       /* modelAndView.addObject("train", number);
-        trainNumber = number;*/
+        modelAndView.addObject("train", number);
+        trainNumber = number;
         modelAndView.setViewName("train.jsp");
 
-       /* LocalDateTime timeDeparture = LocalDateTime.parse(departureTime);
+        LocalDateTime timeDeparture = LocalDateTime.parse(departureTime);
         LocalDateTime timeArrival = LocalDateTime.parse(arrivalTime);
 
         Station from = stationService.getStationByName(originStation);
@@ -91,10 +91,10 @@ public class TrainController {
 
         if (train != null) {
             scheduleService.addSchedule(train, timeDeparture, timeArrival);
-            List<TrainStationDto> trains = trainService.getAllTrainsByNumbers(train.getNumber());
+            List<TrainStationDto> trains = trainService.getAllTrainsByNumber(train.getNumber());
             modelAndView.addObject("listOfStations", trains);
             modelAndView.setViewName("trains.jsp");
-        }*/
+        }
         return modelAndView;
     }
 

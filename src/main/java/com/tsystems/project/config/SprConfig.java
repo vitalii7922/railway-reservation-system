@@ -13,6 +13,7 @@ import javax.persistence.EntityManagerFactory;
 @Configuration
 @ComponentScan(basePackages = "com.tsystems.project.dao")
 @EnableTransactionManagement
+public
 class SprConfig {
     @Bean
     public LocalEntityManagerFactoryBean entityManagerFactory() {
@@ -26,4 +27,5 @@ class SprConfig {
     public PlatformTransactionManager transactionManager(EntityManagerFactory emf) {
         return new JpaTransactionManager(emf);
     }
+
 }

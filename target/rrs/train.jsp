@@ -54,7 +54,7 @@
 
     </table>
 
-    <script>
+   <%-- <script>
         $("#addTrip").submit(function(event){
             event.preventDefault();
             var form = $(this);
@@ -69,6 +69,7 @@
                 destinationStation: destinationStationVal, seats: numberOfSeatsVal, departureTime: departureTimeVal,
                 arrivalTime: arrivalTimeVal});
             console.log(trainDto);
+
             $.ajax({
                 type : 'POST',
                 url : url,
@@ -83,7 +84,7 @@
                 }
             });
         });
-    </script>
+    </script>--%>
 
     <c:forEach items="${listOfStations}" var="stationsNames">
         <tr>

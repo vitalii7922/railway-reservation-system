@@ -65,7 +65,7 @@ public class TrainService {
     }
 
     @Transactional
-    public List<TrainStationDto> getAllTrainsByNumbers(int trainNumber) {
+    public List<TrainStationDto> getAllTrainsByNumber(int trainNumber) {
         List<Train> trains = trainDao.findTrainsByNumber(trainNumber);
         List<TrainDto> trainsDto = new ArrayList<>();
         try {
