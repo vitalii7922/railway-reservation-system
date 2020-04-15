@@ -14,7 +14,7 @@ import org.junit.Test;
 import org.mockito.*;
 import org.modelmapper.ModelMapper;
 
-import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.when;
 
 public class TrainServiceTest {
