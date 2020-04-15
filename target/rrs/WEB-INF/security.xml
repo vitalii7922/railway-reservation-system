@@ -1,3 +1,4 @@
+<!--
 <?xml version="1.0" encoding="UTF-8"?>
 <beans:beans
         xmlns="http://www.springframework.org/schema/security"
@@ -11,7 +12,7 @@
 
         <intercept-url pattern="/admin**" access="hasRole('ROLE_ADMIN')" />
 
-        <!-- access denied page -->
+        &lt;!&ndash; access denied page &ndash;&gt;
         <access-denied-handler error-page="/403" />
 
         <form-login
@@ -21,11 +22,11 @@
                 username-parameter="username"
                 password-parameter="password" />
         <logout logout-success-url="/login?logout"  />
-        <!-- enable csrf protection -->
+        &lt;!&ndash; enable csrf protection &ndash;&gt;
         <csrf/>
     </http>
 
-    <!-- Select users and user_roles from database -->
+    &lt;!&ndash; Select users and user_roles from database &ndash;&gt;
     <authentication-manager>
         <authentication-provider>
             <jdbc-user-service data-source-ref="dataSource"
@@ -36,7 +37,7 @@
         </authentication-provider>
     </authentication-manager>
 
-    <!-- database configuration (database = MySql) -->
+    &lt;!&ndash; database configuration (database = MySql) &ndash;&gt;
     <beans:bean id="dataSource"
                 class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <beans:property name="driverClassName"
@@ -47,3 +48,4 @@
         <beans:property name="password" value="000" />
     </beans:bean>
 </beans:beans>
+-->

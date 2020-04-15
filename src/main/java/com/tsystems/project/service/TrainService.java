@@ -47,8 +47,8 @@ public class TrainService {
             trainDeparture.setOriginStation(originStation);
             trainDeparture.setDestinationStation(destinationStation);
             trainDeparture.setSeats(numberOfSeats);
-            trainDao.create(trainDeparture);
-            return modelMapper.map(trainDeparture, TrainDto.class);
+            Train train = trainDao.create(trainDeparture);
+            return modelMapper.map(train, TrainDto.class);
     }
 
     @Transactional

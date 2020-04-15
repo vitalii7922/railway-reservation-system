@@ -7,6 +7,7 @@
                 <%@include file='resources/trains.css'%>
     </style>
 
+
 </head>
 <body>
 <header class="text" align=center>
@@ -50,5 +51,7 @@
         <p>${messageList}</p>
     </form>
 </div>
+
+
 </body>
 </html>

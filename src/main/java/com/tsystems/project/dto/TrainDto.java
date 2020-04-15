@@ -1,6 +1,7 @@
 package com.tsystems.project.dto;
 
 import com.tsystems.project.domain.Station;
+import org.hamcrest.Matcher;
 
 import java.io.Serializable;
 
@@ -23,7 +24,6 @@ public class TrainDto implements Serializable, Comparable<TrainDto> {
     private Station originStation;
 
     private Station destinationStation;
-
 
     public long getId() {
         return id;

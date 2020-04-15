@@ -1,11 +1,7 @@
 
-u
-java:S2226+"XRemove this misleading mutable servlet instance field or make it "static" and/or "final"(–‡£Ó8™¢¹Ñ”.
-e
-java:S1192P"HDefine a constant instead of duplicating this literal "message" 4 times.(Öƒ©´8™¢¹Ñ”.
-u
-java:S2226)"XRemove this misleading mutable servlet instance field or make it "static" and/or "final"(¸Õ¬ê8™¢¹Ñ”.
 c
-java:S11921"FDefine a constant instead of duplicating this literal "train" 3 times.(Ü€Öê8™¢¹Ñ”.
+java:S1192,"FDefine a constant instead of duplicating this literal "train" 3 times.(Ü€Öê8¶ Üœ—.
 l
-java:S11923"JDefine a constant instead of duplicating this literal "train.jsp" 3 times.(ôÒ®üÿÿÿÿ8™¢¹Ñ”.
+java:S1192."JDefine a constant instead of duplicating this literal "train.jsp" 3 times.(ôÒ®üÿÿÿÿ8™¢¹Ñ”.
+e
+java:S1192L"HDefine a constant instead of duplicating this literal "message" 4 times.(Öƒ©´8¶ Üœ—.

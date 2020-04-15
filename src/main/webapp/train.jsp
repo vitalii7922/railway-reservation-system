@@ -37,7 +37,7 @@
         </tr>
 
         <tr>
-            <form class="addTrip" method="post">
+            <form class="addTrip">
                 <input type="hidden" name="train_number" value="${train}"/>
                 <td><input type="text" name="origin_station" formmethod="post" placeholder="Origin station"></td>
                 <td><input type="text" name="destination_station" formmethod="post" placeholder="Destination station">

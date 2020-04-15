@@ -53,7 +53,7 @@ public class TrainController {
     }
 
     @ResponseBody
-    @PostMapping(value = "/addTrip", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/addTrip", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ModelAndView addTrain(/*@RequestBody TrainDto trainDto,*/
                                  @RequestParam("train_number") int number,
                                  @RequestParam("origin_station") String originStation,

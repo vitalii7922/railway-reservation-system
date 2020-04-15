@@ -29,7 +29,6 @@ public class TicketController {
     @Autowired
     TimeConverter timeConverter;
 
-
     @ResponseBody
     @GetMapping(value = "/addTicket")
     public ModelAndView addTicket(@RequestParam("trainNumber") int trainNumber,

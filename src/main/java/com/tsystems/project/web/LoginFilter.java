@@ -1,3 +1,4 @@
+/*
 package com.tsystems.project.web;
 
 import javax.servlet.*;
@@ -9,7 +10,7 @@ import java.io.IOException;
 import java.util.List;
 
 @WebFilter("/*")
-public class LoginFilter implements Filter {
+public abstract class LoginFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
@@ -31,6 +32,7 @@ public class LoginFilter implements Filter {
         }
     }
 
+
     private boolean isLoginRequired(List<String> list, HttpServletRequest request) {
         for (String s : list) {
             if (request.getRequestURL().toString().contains(s)) {
@@ -41,3 +43,4 @@ public class LoginFilter implements Filter {
     }
 
 }
+*/
