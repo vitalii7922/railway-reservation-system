@@ -3,6 +3,7 @@ package com.tsystems.project.web;
 import com.tsystems.project.converter.TimeConverter;
 import com.tsystems.project.dto.PassengerDto;
 import com.tsystems.project.dto.TicketDto;
+import com.tsystems.project.dto.TrainDto;
 import com.tsystems.project.service.PassengerService;
 import com.tsystems.project.service.TicketService;
 import com.tsystems.project.service.TrainService;
@@ -54,12 +55,19 @@ public class PassengerController {
         model.addObject("stationB", stationBId);
         model.addObject("departureTime", departureTime);
 
-        if (!ticketService.verifySeats(trainNumber, stationAId, stationBId)) {
+        TrainDto trainDto = new TrainDto();
+        trainDto.setNumber(trainNumber);
+        trainDto.setOriginStation(trainDto.getOriginStation());
+        trainDto.setDestinationStation(trainDto.getDestinationStation());
+        trainDto.setDepartureTime(departureTime);
+
+        if (!ticketService.verifySeats(trainDto)) {
             model.addObject(MESSAGE, "no free seats on train " + trainNumber);
             return model;
         }
-        if (!ticketService.verifyTime(timeConverter.reversedConvertDateTime(departureTime).toString())) {
-            model.addObject(MESSAGE, "you cannot buy a ticket 10 minutes before the train " + trainNumber + " departures");
+        if (!ticketService.verifyTime(trainDto)) {
+            model.addObject(MESSAGE, "you cannot buy a ticket 10 minutes before the train " + trainNumber
+                    + " departures");
             return model;
         }
         if (passengerService.verifyInputPassenger(firstName, lastName)) {

@@ -32,9 +32,9 @@
         <c:forEach items="${listOfTrains}" var="train">
             <tr>
                 <td align="center">${train.number}</td>
-                <td>${train.originStation.name}</td>
+                <td>${train.originStation}</td>
                 <td>${train.departureTime}</td>
-                <td>${train.destinationStation.name}</td>
+                <td>${train.destinationStation}</td>
                 <td>${train.arrivalTime}</td>
                 <form action="getPassengers">
                 <td><button>Passengers</button></td>

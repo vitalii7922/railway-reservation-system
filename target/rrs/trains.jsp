@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <html>
 <head>
@@ -7,7 +8,6 @@
 
     <style>
         <%@include file='resources/trains.css'%>
-
     </style>
 </head>
 <body>
@@ -30,17 +30,17 @@
         <th>Arrival time</th>
     </tr>
     <tr>
-        <form action="addTrips">
-            <input type="hidden" type="number" name="train_number" value="${train}"/>
-            <td><input type="text" name="destination_station" formmethod="post" placeholder="Destination station"></td>
-            <td><input type="number" value="1" min="1" max="100" name="number_of_seats" placeholder="Number of seats"
-                       required></td>
-            <td><input type="datetime-local" name="departure_time" placeholder="Departure time"></td>
-            <td><input type="datetime-local" name="arrival_time" placeholder="Arrive time"></td>
-            <td>
-                <button class="button" type="submit">add train</button>
-            </td>
-        </form>
+        <%--@elvariable id="trainDto" type="com.tsystems.project"--%>
+        <form:form method="post" action="addTrips" modelAttribute="trainDto">
+            <form:input type="hidden"  path="number" value="${train}"/>
+            <td><form:input type="text" placeholder="Destination station" path="destinationStation"/></td>
+            <td><form:input type="number" value="1" min="1" max="100"
+                            placeholder="Number of seats" path="seats" required="number"/></td>
+            <td><form:input type="datetime-local" placeholder="Departure time" path="departureTime"/></td>
+            <td><form:input type="datetime-local" placeholder="Arrive time" path="arrivalTime"/></td>
+            <td><button type="submit">add train</button></td>
+        </form:form>
+
         <form action="getSeats">
             <td>
                 <button>Seats</button>
@@ -55,9 +55,9 @@
         <th class="th">Arrival time</th>
         <th class="th">Departure time</th>
     </tr>
-    <c:forEach items="${listOfStations}" var="train">
+    <c:forEach items="${trainList}" var="train">
         <tr>
-            <td>${train.station.name}</td>
+            <td>${train.station}</td>
             <td>${train.arrivalTime}</td>
             <td>${train.departureTime}</td>
         </tr>

@@ -5,6 +5,7 @@ import com.tsystems.project.converter.TrainConverter;
 import com.tsystems.project.domain.Train;
 import com.tsystems.project.dto.TrainDto;
 import com.tsystems.project.dto.TrainStationDto;
+import com.tsystems.project.service.StationService;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,9 @@ public class TrainHelper {
 
     @Autowired
     TimeConverter timeConverter;
+
+    @Autowired
+    StationService stationService;
 
     private static final Log log = LogFactory.getLog(TrainHelper.class);
 
@@ -45,7 +49,7 @@ public class TrainHelper {
                     }
                 }
                 if (lastTrain != null) {
-                    trainDto.setDestinationStation(lastTrain.getDestinationStation());
+                    trainDto.setDestinationStation(lastTrain.getDestinationStation().getName());
                     trainDto.setArrivalTime(timeConverter.convertDateTime(lastTrain.getSchedules().get(1).getArrivalTime()));
                 }
                 trainsDto.add(trainDto);
@@ -69,7 +73,7 @@ public class TrainHelper {
                         Train arrive = trains.get(j);
                         if (departure.getNumber() == arrive.getNumber() && departure.getId() <= arrive.getId()) {
                             trainDto.setArrivalTime(timeConverter.convertDateTime(arrive.getSchedules().get(1).getArrivalTime()));
-                            trainDto.setDestinationStation(arrive.getDestinationStation());
+                            trainDto.setDestinationStation(arrive.getDestinationStation().getName());
                             trainsDto.add(trainDto);
                         }
                     }

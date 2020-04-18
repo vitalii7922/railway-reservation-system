@@ -13,17 +13,13 @@ public class TrainDto implements Serializable, Comparable<TrainDto> {
 
     int seats;
 
-//    private LocalDateTime arrivalTime;
-
-//    private LocalDateTime departureTime;
-
     String arrivalTime;
 
     String departureTime;
 
-    private Station originStation;
+    private String originStation;
 
-    private Station destinationStation;
+    private String destinationStation;
 
     public long getId() {
         return id;
@@ -65,23 +61,21 @@ public class TrainDto implements Serializable, Comparable<TrainDto> {
         this.departureTime = departureTime;
     }
 
-    public Station getOriginStation() {
+    public String getOriginStation() {
         return originStation;
     }
 
-    public void setOriginStation(Station originStation) {
+    public void setOriginStation(String originStation) {
         this.originStation = originStation;
     }
 
-    public Station getDestinationStation() {
+    public String getDestinationStation() {
         return destinationStation;
     }
 
-    public void setDestinationStation(Station destinationStation) {
+    public void setDestinationStation(String destinationStation) {
         this.destinationStation = destinationStation;
     }
-
-
 
     @Override
     public int compareTo(TrainDto o) {

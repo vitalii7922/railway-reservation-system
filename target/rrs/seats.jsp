@@ -23,8 +23,8 @@
             </tr>
         <c:forEach items="${trains}" var="train">
             <tr>
-                <td>${train.originStation.name}</td>
-                <td>${train.destinationStation.name}</td>
+                <td>${train.originStation}</td>
+                <td>${train.destinationStation}</td>
                 <td align="center">${train.seats}</td>
             </tr>
             <br>

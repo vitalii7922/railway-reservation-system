@@ -1,5 +1,4 @@
 package com.tsystems.project.web;
-
 import com.tsystems.project.domain.Station;
 import com.tsystems.project.dto.TrainDto;
 import com.tsystems.project.dto.TrainStationDto;
@@ -8,10 +7,9 @@ import com.tsystems.project.service.StationService;
 import com.tsystems.project.service.TrainService;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import java.time.LocalDateTime;
@@ -30,9 +28,6 @@ public class TrainController {
     @Autowired
     ScheduleService scheduleService;
 
-    @Autowired
-    ModelMapper modelMapper;
-
     private int trainNumber;
 
     private Log log = LogFactory.getLog(TrainController.class);
@@ -47,33 +42,29 @@ public class TrainController {
         } else {
             List<TrainStationDto> trains = trainService.getAllTrainsByNumber(trainNumber);
             model.setViewName("trains.jsp");
-            model.addObject("listOfStations", trains);
+            model.addObject("trainList", trains);
         }
         return model;
     }
 
     @ResponseBody
-    @GetMapping(value = "/addTrip", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ModelAndView addTrain(/*@RequestBody TrainDto trainDto,*/
-                                 @RequestParam("train_number") int number,
-                                 @RequestParam("origin_station") String originStation,
-                                 @RequestParam("destination_station") String destinationStation,
-                                 @RequestParam("number_of_seats") int numberOfSeats,
-                                 @RequestParam("departure_time") String departureTime,
-                                 @RequestParam("arrival_time") String arrivalTime, ModelAndView modelAndView) {
+    @PostMapping(value = "/addTrip")
+    public ModelAndView addTrain(@ModelAttribute("trainDto") TrainDto trainDto,
+                                 BindingResult bindingResult, ModelAndView modelAndView) {
 
-        modelAndView.addObject("train", number);
-        trainNumber = number;
+        modelAndView.addObject("train", trainDto.getNumber());
+        trainNumber = trainDto.getNumber();
         modelAndView.setViewName("train.jsp");
 
-        LocalDateTime timeDeparture = LocalDateTime.parse(departureTime);
-        LocalDateTime timeArrival = LocalDateTime.parse(arrivalTime);
+        LocalDateTime timeDeparture = LocalDateTime.parse(trainDto.getDepartureTime());
+        LocalDateTime timeArrival = LocalDateTime.parse(trainDto.getArrivalTime());
 
-        Station from = stationService.getStationByName(originStation);
-        Station to = stationService.getStationByName(destinationStation);
+        Station from = stationService.getStationByName(trainDto.getOriginStation());
+        Station to = stationService.getStationByName(trainDto.getDestinationStation());
 
         if (from == null || to == null) {
-            modelAndView.addObject("message", "you haven't added station or this station doesn't exist in DB");
+            modelAndView.addObject("message", "you haven't added station or this station " +
+                    "doesn't exist in DB");
             return modelAndView;
         }
 
@@ -87,12 +78,12 @@ public class TrainController {
             return modelAndView;
         }
 
-        TrainDto train = trainService.addTrain(number, from, to, numberOfSeats);
+        TrainDto train = trainService.addTrain(trainDto);
 
         if (train != null) {
             scheduleService.addSchedule(train, timeDeparture, timeArrival);
             List<TrainStationDto> trains = trainService.getAllTrainsByNumber(train.getNumber());
-            modelAndView.addObject("listOfStations", trains);
+            modelAndView.addObject("trainList", trains);
             modelAndView.setViewName("trains.jsp");
         }
         return modelAndView;

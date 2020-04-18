@@ -14,7 +14,7 @@
 </form>
 <div class="style_gap">
     <h1 class="font" align="center">
-        ${train.originStation.name} - ${train.destinationStation.name}
+        ${train.originStation} - ${train.destinationStation}
     </h1>
     <p class="message" align="center">
     ${message}
@@ -30,16 +30,15 @@
                 <td align="center">${train.number}</td>
                 <td>${train.departureTime}</td>
                 <td>${train.arrivalTime}</td>
-                <form action="addTicket">
-                <td><button>buy a ticket</button></td>
-                    <input type="hidden" name="trainNumber" value="${train.number}">
-                    <input type="hidden" name="stationA" value="${train.originStation.id}">
-                    <input type="hidden" name="stationB" value="${train.destinationStation.id}">
-                    <input type="hidden" name="departureTime" value="${train.departureTime}">
-                    <input type="hidden" name="arrivalTime" value="${train.arrivalTime}">
-                    <input type="hidden" name="timeDeparture" value="${timeDeparture}">
-                    <input type="hidden" name="timeArrival" value="${timeArrival}">
-                </form>
+                <%--@elvariable id="trainDto" type="com.tsystems.project"--%>
+                <form:form action="addTicket" method="post" modelAttribute="trainDto">
+                    <form:input type="hidden" path="number" value="${train.number}"/>
+                    <form:input type="hidden" path="destinationStation" value="${train.destinationStation}"/>
+                    <form:input type="hidden" path="originStation" value="${train.originStation}"/>
+                    <form:input type="hidden" path="departureTime" value="${train.departureTime}"/>
+                    <form:input type="hidden" path="arrivalTime" value="${train.arrivalTime}"/>
+                    <td><button type="submit">buy a ticket</button></td>
+                </form:form>
             </tr>
         </c:forEach>
     </table>

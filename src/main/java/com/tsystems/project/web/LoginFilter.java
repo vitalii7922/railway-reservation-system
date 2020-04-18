@@ -3,6 +3,7 @@ package com.tsystems.project.web;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
+import javax.servlet.annotation.WebListener;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -31,8 +32,6 @@ public abstract class LoginFilter implements Filter {
             filterChain.doFilter(request, response);
         }
     }
-
-
     private boolean isLoginRequired(List<String> list, HttpServletRequest request) {
         for (String s : list) {
             if (request.getRequestURL().toString().contains(s)) {

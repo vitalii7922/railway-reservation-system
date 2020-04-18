@@ -27,8 +27,8 @@ public class TrainConverter {
             trainDto = new TrainDto();
             trainDto.setId(train.getId());
             trainDto.setNumber(train.getNumber());
-            trainDto.setOriginStation(train.getOriginStation());
-            trainDto.setDestinationStation(train.getDestinationStation());
+            trainDto.setOriginStation(train.getOriginStation().getName());
+            trainDto.setDestinationStation(train.getDestinationStation().getName());
             trainDto.setSeats(train.getSeats());
             trainDto.setDepartureTime(timeConverter.convertDateTime(train.getSchedules().get(0).getDepartureTime()));
             trainDto.setArrivalTime(timeConverter.convertDateTime(train.getSchedules().get(1).getArrivalTime()));
