@@ -1,5 +1,6 @@
 package com.tsystems.project.sender;
 
+
 import javax.jms.*;
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -7,6 +8,7 @@ import javax.naming.NamingException;
 import java.util.Hashtable;
 
 public class Sender {
+
     public static void main(String[] args) throws NamingException, JMSException {
         Hashtable<String, String> props = new Hashtable<>();
         props.put("java.naming.factory.initial", "org.apache.activemq.jndi.ActiveMQInitialContextFactory");

@@ -10,6 +10,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.jms.JMSException;
+import javax.naming.NamingException;
 import java.util.*;
 
 @Controller
@@ -47,7 +49,7 @@ public class TrainScheduleController {
     @PostMapping(value = "/addTrips")
     public ModelAndView addTrain(@ModelAttribute("trainDto") TrainDto trainDto,
                                  BindingResult bindingResult,
-                                 ModelAndView modelAndView) {
+                                 ModelAndView modelAndView)  {
         modelAndView.setViewName("trains.jsp");
         TrainDto train = trainService.getTrainByNumber(trainDto.getNumber());
         modelAndView.addObject("train", trainDto.getNumber());

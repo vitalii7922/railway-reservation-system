@@ -7,11 +7,14 @@ import com.tsystems.project.dto.TrainDto;
 import com.tsystems.project.converter.TrainConverter;
 import com.tsystems.project.dto.TrainStationDto;
 import com.tsystems.project.helper.TrainHelper;
+import com.tsystems.project.sender.Sender;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.jms.JMSException;
+import javax.naming.NamingException;
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;

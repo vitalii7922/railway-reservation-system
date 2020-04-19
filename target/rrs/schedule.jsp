@@ -23,7 +23,7 @@
 <div class="style_gap">
 
         <h1 class="font" align="center">
-            ${schedule.station.name}
+            ${schedule.stationName}
         </h1>
         <table class = table align=center>
             <tr align="left">
@@ -33,7 +33,7 @@
             </tr>
             <c:forEach items="${schedules}" var="schedule">
                 <tr>
-                    <td align="center">${schedule.train.number}</td>
+                    <td align="center">${schedule.trainNumber}</td>
                     <td>${schedule.arrivalTime}</td>
                     <td>${schedule.departureTime}</td>
                 </tr>

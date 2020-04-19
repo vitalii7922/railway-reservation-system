@@ -45,8 +45,6 @@ public class TrainDto implements Serializable, Comparable<TrainDto> {
         this.allTrainsDepartureTime = allTrainsDepartureTime;
     }
 
-
-
     public long getId() {
         return id;
     }

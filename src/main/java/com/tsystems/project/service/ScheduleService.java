@@ -1,23 +1,17 @@
 package com.tsystems.project.service;
 
 import com.tsystems.project.converter.ScheduleConverter;
-import com.tsystems.project.converter.TimeConverter;
 import com.tsystems.project.dao.ScheduleDao;
 import com.tsystems.project.dao.StationDao;
-import com.tsystems.project.dao.TrainDao;
 import com.tsystems.project.domain.Schedule;
 import com.tsystems.project.domain.Train;
 import com.tsystems.project.dto.ScheduleDto;
-import com.tsystems.project.dto.TrainDto;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.modelmapper.ModelMapper;
-import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.lang.reflect.Type;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -27,9 +21,6 @@ public class ScheduleService {
 
     @Autowired
     ScheduleDao scheduleDao;
-
-    @Autowired
-    TrainDao trainDao;
 
     @Autowired
     StationDao stationDao;
@@ -46,8 +37,8 @@ public class ScheduleService {
     @Transactional
     public void addSchedule(Train train, LocalDateTime departureTime, LocalDateTime arrivalTime) {
         train = modelMapper.map(train, Train.class);
-        Schedule scheduleDeparture = null;
-        Schedule scheduleArrival = null;
+        Schedule scheduleDeparture;
+        Schedule scheduleArrival;
 
         try {
             scheduleDeparture = new Schedule();
@@ -70,7 +61,6 @@ public class ScheduleService {
         return scheduleDao.findByTrainId(id);
     }
 
-
     public List<ScheduleDto> getSchedulesByStationId(long id) {
         List<Schedule> schedules = scheduleDao.findByStationId(id);
         List<ScheduleDto> scheduleDtos = null;
@@ -82,17 +72,15 @@ public class ScheduleService {
 
             for (int i = 0; i < scheduleDtos.size(); i++) {
                 for (int j = i + 1; j < scheduleDtos.size(); j++) {
-                    if (scheduleDtos.get(i).getTrain().getNumber() == scheduleDtos.get(j).getTrain().getNumber()) {
+                    if (scheduleDtos.get(i).getTrainNumber() == scheduleDtos.get(j).getTrainNumber()) {
                         scheduleDtos.get(i).setDepartureTime(scheduleDtos.get(j).getDepartureTime());
-                        trainsId.add(scheduleDtos.get(j).getTrain().getId());
+                        trainsId.add(scheduleDtos.get(j).getTrainId());
                     }
                 }
             }
-
             Iterator<ScheduleDto> iterator = scheduleDtos.iterator();
-
             while (iterator.hasNext()) {
-                long trainId = iterator.next().getTrain().getId();
+                long trainId = iterator.next().getTrainId();
                 if (trainsId.contains(trainId)){
                     iterator.remove();
                 }
