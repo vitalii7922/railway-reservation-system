@@ -27,8 +27,9 @@ public class ScheduleConverter {
         ScheduleDto scheduleDto = new ScheduleDto();
         try {
             scheduleDto.setId(schedule.getId());
-            scheduleDto.setTrain(schedule.getTrain());
-            scheduleDto.setStation(schedule.getStation());
+            scheduleDto.setTrainNumber(schedule.getTrain().getNumber());
+            scheduleDto.setTrainId(schedule.getTrain().getId());
+            scheduleDto.setStationName(schedule.getStation().getName());
             if (schedule.getArrivalTime() != null) {
                 scheduleDto.setArrivalTime(timeConverter.convertDateTime(schedule.getArrivalTime()));
             }

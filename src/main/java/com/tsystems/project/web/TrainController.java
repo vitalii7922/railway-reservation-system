@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
+import javax.jms.JMSException;
+import javax.naming.NamingException;
 import javax.validation.Valid;
 
 @Controller
