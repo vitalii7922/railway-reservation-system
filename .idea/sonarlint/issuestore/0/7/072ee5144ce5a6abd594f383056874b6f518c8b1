@@ -1,7 +1,11 @@
 
-X	java:S125M"<This block of commented-out lines of code should be removed.(¢ ì¨8èóÜ”.
-]	java:S125Q"<This block of commented-out lines of code should be removed.(½ûªÊøÿÿÿÿ8èóÜ”.
-t
-java:S3776K"RRefactor this method to reduce its Cognitive Complexity from 16 to the 15 allowed.(¼ãí·øÿÿÿÿ8áİ¯“”.
+S
+java:S1128"6Remove this unused import 'org.modelmapper.TypeToken'.(ğ´©Ş8ëóî˜.
+`
+java:S1128">Remove this unused import 'com.tsystems.project.dto.TrainDto'.(Àü‰¥şÿÿÿÿ8ŞÉıî˜.
+U
+java:S1128"3Remove this unused import 'java.lang.reflect.Type'.(‰ûÕñıÿÿÿÿ8ëóî˜.
 k
 java:S1128"IRemove this unused import 'com.tsystems.project.converter.TimeConverter'.(„«íúÿÿÿÿ8’Ôõ”.
+t
+java:S3776J"RRefactor this method to reduce its Cognitive Complexity from 16 to the 15 allowed.(¼ãí·øÿÿÿÿ8áİ¯“”.

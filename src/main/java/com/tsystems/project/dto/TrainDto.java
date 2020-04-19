@@ -1,8 +1,7 @@
 package com.tsystems.project.dto;
 
-import com.tsystems.project.domain.Station;
-import org.hamcrest.Matcher;
-
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 public class TrainDto implements Serializable, Comparable<TrainDto> {
@@ -17,9 +16,36 @@ public class TrainDto implements Serializable, Comparable<TrainDto> {
 
     String departureTime;
 
+    @NotNull(message = "Origin station must not be empty")
+    @NotEmpty(message = "Origin station must not be empty")
     private String originStation;
 
+    @NotNull(message = "Destination station must not be empty")
+    @NotEmpty(message = "Destination station must not be empty")
+
     private String destinationStation;
+
+    String allTrainsArrivalTime;
+
+    String allTrainsDepartureTime;
+
+    public String getAllTrainsArrivalTime() {
+        return allTrainsArrivalTime;
+    }
+
+    public void setAllTrainsArrivalTime(String allTrainsArrivalTime) {
+        this.allTrainsArrivalTime = allTrainsArrivalTime;
+    }
+
+    public String getAllTrainsDepartureTime() {
+        return allTrainsDepartureTime;
+    }
+
+    public void setAllTrainsDepartureTime(String allTrainsDepartureTime) {
+        this.allTrainsDepartureTime = allTrainsDepartureTime;
+    }
+
+
 
     public long getId() {
         return id;

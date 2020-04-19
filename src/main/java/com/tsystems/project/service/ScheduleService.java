@@ -44,9 +44,8 @@ public class ScheduleService {
     private static final Log log = LogFactory.getLog(ScheduleService.class);
 
     @Transactional
-    public void addSchedule(TrainDto trainDto, LocalDateTime departureTime, LocalDateTime arrivalTime) {
-        Train train = null;
-        train = modelMapper.map(trainDto, Train.class);
+    public void addSchedule(Train train, LocalDateTime departureTime, LocalDateTime arrivalTime) {
+        train = modelMapper.map(train, Train.class);
         Schedule scheduleDeparture = null;
         Schedule scheduleArrival = null;
 
@@ -74,12 +73,9 @@ public class ScheduleService {
 
     public List<ScheduleDto> getSchedulesByStationId(long id) {
         List<Schedule> schedules = scheduleDao.findByStationId(id);
-//        Type listType = null;
         List<ScheduleDto> scheduleDtos = null;
         try {
         if (schedules != null) {
-//            listType = new TypeToken<List<ScheduleDto>>() {}.getType();
-//            scheduleDtos = new ModelMapper().map(schedules, listType);
             scheduleDtos = schedules.stream().map(s -> scheduleConverter.convertToScheduleDto(s))
                                             .collect(Collectors.toList());
             List<Long> trainsId = new ArrayList<>();

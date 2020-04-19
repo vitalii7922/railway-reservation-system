@@ -16,8 +16,5 @@
           <property name="suffix" value=".jsp"/>
       </bean>-->
 
-    <bean id = "employee" class = "com.tsystems.project.domain.Employee">
-    </bean>
-
     <mvc:annotation-driven/>
 </beans>

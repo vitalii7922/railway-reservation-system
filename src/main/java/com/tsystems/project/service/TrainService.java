@@ -1,8 +1,7 @@
 package com.tsystems.project.service;
 
-import com.tsystems.project.dao.ScheduleDao;
+import com.tsystems.project.converter.TimeConverter;
 import com.tsystems.project.dao.TrainDao;
-import com.tsystems.project.domain.Station;
 import com.tsystems.project.domain.Train;
 import com.tsystems.project.dto.TrainDto;
 import com.tsystems.project.converter.TrainConverter;
@@ -10,9 +9,9 @@ import com.tsystems.project.dto.TrainStationDto;
 import com.tsystems.project.helper.TrainHelper;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
@@ -26,16 +25,16 @@ public class TrainService {
     TrainDao trainDao;
 
     @Autowired
-    ScheduleDao scheduleDao;
-
-    @Autowired
-    ModelMapper modelMapper;
-
-    @Autowired
     StationService stationService;
 
     @Autowired
     TrainConverter trainConverter;
+
+    @Autowired
+    ScheduleService scheduleService;
+
+    @Autowired
+    TimeConverter timeConverter;
 
     @Autowired
     TrainHelper trainHelper;
@@ -43,15 +42,16 @@ public class TrainService {
     private static final Log log = LogFactory.getLog(TrainService.class);
 
     @Transactional
-    public TrainDto addTrain(TrainDto trainDto) {
-            Train trainDeparture;
-            trainDeparture = new Train();
-            trainDeparture.setNumber(trainDto.getNumber());
-            trainDeparture.setOriginStation(stationService.getStationByName(trainDto.getOriginStation()));
-            trainDeparture.setDestinationStation(stationService.getStationByName(trainDto.getDestinationStation()));
-            trainDeparture.setSeats(trainDto.getSeats());
-            Train train = trainDao.create(trainDeparture);
-            return trainConverter.convertToTrainDto(train);
+    public void addTrain(TrainDto trainDto) {
+        Train trainDeparture;
+        trainDeparture = new Train();
+        trainDeparture.setNumber(trainDto.getNumber());
+        trainDeparture.setOriginStation(stationService.getStationByName(trainDto.getOriginStation()));
+        trainDeparture.setDestinationStation(stationService.getStationByName(trainDto.getDestinationStation()));
+        trainDeparture.setSeats(trainDto.getSeats());
+        Train train = trainDao.create(trainDeparture);
+        scheduleService.addSchedule(train, LocalDateTime.parse(trainDto.getDepartureTime()),
+                LocalDateTime.parse(trainDto.getArrivalTime()));
     }
 
     @Transactional
@@ -61,7 +61,7 @@ public class TrainService {
         if (train != null) {
             trainDto = trainConverter.convertToTrainDto(train);
         }
-        return  trainDto;
+        return trainDto;
     }
 
     @Transactional
@@ -69,7 +69,7 @@ public class TrainService {
         List<Train> trains = trainDao.findTrainsByNumber(trainNumber);
         List<TrainDto> trainsDto = new ArrayList<>();
         try {
-             trainsDto = trains.stream()
+            trainsDto = trains.stream()
                     .map(t -> trainConverter.convertToTrainDto(t)).collect(Collectors.toList());
         } catch (Exception e) {
             log.error(e.getCause());
@@ -80,14 +80,14 @@ public class TrainService {
 
     @Transactional
     public List<TrainDto> getAllTrains() {
-            List<Train> trains = trainDao.findAll();
-            List<TrainDto> trainsDto = new ArrayList<>();
-            try {
-                trainsDto = trainHelper.getTrainBetweenExtremeStations(trains);
-                Collections.sort(trainsDto);
-            } catch (NullPointerException e) {
-                log.error(e.getCause());
-            }
+        List<Train> trains = trainDao.findAll();
+        List<TrainDto> trainsDto = new ArrayList<>();
+        try {
+            trainsDto = trainHelper.getTrainBetweenExtremeStations(trains);
+            Collections.sort(trainsDto);
+        } catch (NullPointerException e) {
+            log.error(e.getCause());
+        }
         return trainsDto;
     }
 
@@ -95,6 +95,10 @@ public class TrainService {
     public List<TrainDto> getTrainsByStations(TrainDto trainDto) {
         List<TrainDto> trainsDto = new ArrayList<>();
         try {
+            if (trainDto.getDepartureTime().matches("\\d{2}-\\d{2}-\\d{4}\\s{1}\\d{2}:\\d{2}")) {
+                trainDto.setDepartureTime(timeConverter.reversedConvertDateTime(trainDto.getDepartureTime()).toString());
+                trainDto.setArrivalTime(timeConverter.reversedConvertDateTime(trainDto.getArrivalTime()).toString());
+            }
             LocalDateTime departureTime = LocalDateTime.parse(trainDto.getDepartureTime());
             LocalDateTime arrivalTime = LocalDateTime.parse(trainDto.getArrivalTime());
             List<Train> trains;
@@ -113,4 +117,39 @@ public class TrainService {
         }
         return trainsDto;
     }
+
+    public Train getTrainByOriginStation(TrainDto trainDto) {
+        return trainDao.findByStationDeparture(trainDto.getNumber(), trainDto.getOriginStation());
+    }
+
+    public Train getTrainByDestinationStation(TrainDto trainDto) {
+        return trainDao.findByStationArrival(trainDto.getNumber(), trainDto.getDestinationStation());
+    }
+
+    @Transactional
+    public List<TrainDto> getTrainsDtoBetweenTwoStations(Train trainDeparture, Train trainArrival) {
+        List<Train> trains = trainDao.findAllTrainsBetweenTwoStations(trainDeparture.getId(), trainArrival.getId());
+        return trains.stream().map(t -> trainConverter.convertToTrainDto(t)).collect(Collectors.toList());
+    }
+
+    public List<Train> getTrainsBetweenTwoStations(Train trainDeparture, Train trainArrival) {
+        return trainDao.findAllTrainsBetweenTwoStations(trainDeparture.getId(), trainArrival.getId());
+    }
+
+    public void updateTrain(Train train) {
+        trainDao.update(train);
+    }
+
+    public TrainDto initializeTrainDto(String originStation, String destinationStation, String departureTime,
+                                             String arrivalTime) {
+        TrainDto trainDto = new TrainDto();
+        trainDto.setOriginStation(originStation);
+        trainDto.setDestinationStation(destinationStation);
+        trainDto.setDepartureTime(departureTime);
+        trainDto.setArrivalTime(arrivalTime);
+        trainDto.setAllTrainsDepartureTime(departureTime);
+        trainDto.setAllTrainsArrivalTime(arrivalTime);
+        return trainDto;
+    }
 }
+

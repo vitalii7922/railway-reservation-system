@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html>
 <head>
     <title>Railway reservation system</title>
@@ -21,16 +22,24 @@
 </header>
 <div class="text" align="center">
     <p class="message">${message}</p>
-<form action="addPassengerTicket">
-    <input type="hidden" name="trainNumber" value="${trainNumber}"/>
-    <input type="hidden" name="stationA" value="${stationA}"/>
-    <input type="hidden" name="stationB" value="${stationB}"/>
-    <input type="hidden" name="departureTime" value="${departureTime}"/>
-    <input  type="text" name="first_name"  placeholder="First name"><br>
-    <input  type="text" name="last_name" placeholder="Last name"><br>
-    <input type="date" name="date_of_birth"><br>
+<%--@elvariable id="passengerTrainDto" type="com.tsystems.project"--%>
+<form:form action="addTicket" method="post" modelAttribute="passengerTrainDto">
+    <form:errors path="seats" cssClass="message"/><br>
+    <form:errors path="departureTime" cssClass="message"/><br>
+    <form:errors path="trainNumber" cssClass="message"/><br>
+    <form:input type="hidden" value="${train.number}" path="trainNumber"/>
+    <form:input type="hidden" value="${train.originStation}" path="originStation"/>
+    <form:input type="hidden" value="${train.destinationStation}" path="destinationStation"/>
+    <form:input type="hidden" value="${train.departureTime}" path="departureTime"/>
+    <form:input type="hidden" value="${train.seats}" path="seats"/>
+    <form:input  type="text"  placeholder="First name" path="firstName"/><br>
+    <form:errors path="firstName" cssClass="message"/><br>
+    <form:input  type="text" placeholder="Last name" path="secondName"/><br>
+    <form:errors path="secondName" cssClass="message"/><br>
+    <form:input type="date" path="birthDate"/><br>
+    <form:errors path="birthDate" cssClass="message"/><br>
     <button class="button" type="submit">buy</button>
-</form>
+</form:form>
 </div>
 </body>
 </html>
