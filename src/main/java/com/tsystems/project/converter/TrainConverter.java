@@ -2,6 +2,7 @@ package com.tsystems.project.converter;
 
 import com.tsystems.project.domain.Train;
 import com.tsystems.project.dto.TrainDto;
+import com.tsystems.project.service.StationService;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,9 @@ public class TrainConverter {
 
     @Autowired
     TimeConverter timeConverter;
+
+    @Autowired
+    StationService stationService;
 
     private static final Log log = LogFactory.getLog(TrainConverter.class);
 

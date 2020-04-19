@@ -16,13 +16,13 @@
     <br>
 </form>
 
+<div align="center">
 <h1 class="font" align="center">
     Train number: ${train}
 </h1>
 <p align="center" class="message">${message}</p>
 
 <table align="center">
-
     <tr>
         <th>Destination station</th>
         <th>Number of seats</th>
@@ -32,6 +32,10 @@
     <tr>
         <%--@elvariable id="trainDto" type="com.tsystems.project"--%>
         <form:form method="post" action="addTrips" modelAttribute="trainDto">
+            <form:errors path="originStation" cssClass="message"/><br>
+            <form:errors path="destinationStation" cssClass="message"/><br>
+            <form:errors path="departureTime" cssClass="message"/><br>
+            <form:errors path="arrivalTime" cssClass="message"/><br>
             <form:input type="hidden"  path="number" value="${train}"/>
             <td><form:input type="text" placeholder="Destination station" path="destinationStation"/></td>
             <td><form:input type="number" value="1" min="1" max="100"
@@ -49,6 +53,7 @@
         </form>
     </tr>
 </table>
+    </div>
 <table align=center>
     <tr>
         <th class="th">Station</th>

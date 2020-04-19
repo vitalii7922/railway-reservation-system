@@ -18,13 +18,12 @@
     </form>
 </div>
 
-<div class="style_gap">
+<div class="style_gap" align="center">
     <h1 align="center" class="font">
         Train number: ${train}
     </h1>
     <br>
     <br>
-    <p class="message" align="center">${message}</p>
     <table align="center">
         <tr align="left">
             <th>Origin station</th>
@@ -34,17 +33,23 @@
             <th>Arrival date</th>
             <th></th>
         </tr>
+        <tr>
             <%--@elvariable id="trainDto" type="com.tsystems.project"--%>
-            <form:form method="post" action="addTrip" modelAttribute="trainDto">
-                <td><form:input type="hidden"  path="number" value="${train}"/></td>
-                <td><form:input type="text" placeholder="Origin station" path="originStation"/></td>
-                <td><form:input type="text" placeholder="Destination station" path="destinationStation"/></td>
-                <td><form:input type="number" value="1" min="1" max="100"
-                                placeholder="Number of seats" path="seats" required="number"/></td>
-                <td><form:input type="datetime-local" placeholder="Departure time" path="departureTime"/></td>
-                <td><form:input type="datetime-local" placeholder="Arrive time" path="arrivalTime"/></td>
-                <td><button type="submit">add train</button>></td>
-            </form:form>
+                <form:form method="post" action="addTrip" modelAttribute="trainDto">
+                    <form:errors path="originStation" cssClass="message"/><br>
+                    <form:errors path="destinationStation" cssClass="message"/><br>
+                    <form:errors path="departureTime" cssClass="message"/><br>
+                    <form:errors path="arrivalTime" cssClass="message"/><br>
+                    <form:input type="hidden"  path="number" value="${train}"/>
+                    <td><form:input type="text" placeholder="Origin station" path="originStation"/></td>
+                    <td><form:input type="text" placeholder="Destination station" path="destinationStation"/></td>
+                    <td><form:input type="number" value="1" min="1" max="100"
+                                    placeholder="Number of seats" path="seats" required="number"/></td>
+                    <td><form:input type="datetime-local" placeholder="Departure time" path="departureTime"/></td>
+                    <td><form:input type="datetime-local" placeholder="Arrival time" path="arrivalTime"/></td>
+                    <td><button type="submit">add train</button></td>
+                </form:form>
+        </tr>
     </table>
     <c:forEach items="${listOfStations}" var="stationsNames">
         <tr>
@@ -52,7 +57,6 @@
         </tr>
         <br>
     </c:forEach>
-</div>
 
 </body>
 </html>

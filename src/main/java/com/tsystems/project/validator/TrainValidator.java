@@ -1,43 +1,72 @@
 package com.tsystems.project.validator;
 
+import com.tsystems.project.converter.TimeConverter;
 import com.tsystems.project.domain.Station;
+import com.tsystems.project.domain.Train;
+import com.tsystems.project.dto.TrainDto;
 import com.tsystems.project.service.StationService;
+import com.tsystems.project.service.TrainService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Component;
+import org.springframework.validation.Errors;
+import org.springframework.validation.Validator;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
+import java.time.temporal.ChronoUnit;
+import java.util.List;
 
-@Configuration
-public class TrainValidator {
+@Component
+public class TrainValidator implements Validator {
 
     @Autowired
     StationService stationService;
 
-    @Bean
-    public TrainValidator transferService() {
-        return new TrainValidator();
+    @Autowired
+    TimeConverter timeConverter;
+
+    @Autowired
+    TrainService trainService;
+
+    @Override
+    public boolean supports(Class<?> aClass) {
+        return Train.class.equals(aClass);
     }
 
-    public String validateTrainData(String originStation, String destinationStation, String arrivalTime, String departureTime) {
-        LocalDateTime timeDeparture = LocalDateTime.parse(departureTime);
-        LocalDateTime timeArrival = LocalDateTime.parse(arrivalTime);
+    @Override
+    public void validate(Object o, Errors errors) {
+        TrainDto trainDto = (TrainDto) o;
 
-        Station from = stationService.getStationByName(originStation);
-        Station to = stationService.getStationByName(destinationStation);
+        Station from = stationService.getStationByName(trainDto.getOriginStation());
+        Station to = stationService.getStationByName(trainDto.getDestinationStation());
 
-        if (from == null || to == null) {
-            return  "you haven't added station or this station doesn't exist in DB";
+        if (from != null && to != null && from.getId() == to.getId()) {
+            errors.rejectValue("originStation", "same.stations",
+                    "Origin and destination stations are the same");
         }
+        try {
+            LocalDateTime timeDeparture = LocalDateTime.parse(trainDto.getDepartureTime());
+            LocalDateTime timeArrival = LocalDateTime.parse(trainDto.getArrivalTime());
 
-        if (from.getId() == to.getId()) {
-            return  "you haven't added station or this station doesn't exist in DB";
+            if (timeDeparture.isAfter(timeArrival)) {
+                errors.rejectValue("departureTime", "incorrect.time.period", "Time departure is after time arrival");
+            }
+        } catch (DateTimeParseException e) {
+            System.out.println("exception");
         }
-
-        if (timeDeparture.isAfter(timeArrival)) {
-            return  "you haven't added station or this station doesn't exist in DB";
-        }
-
-        return null;
     }
+
+    public boolean verifyTime(TrainDto trainDto) {
+        long minutes = ChronoUnit.MINUTES.between(LocalDateTime.now(),
+                LocalDateTime.parse(timeConverter.reversedConvertDateTime(trainDto.getDepartureTime()).toString()));
+        return minutes <= 10;
+    }
+
+    public boolean verifySeats(TrainDto trainDto) {
+        Train trainDeparture = trainService.getTrainByOriginStation(trainDto);
+        Train trainArrival = trainService.getTrainByDestinationStation(trainDto);
+        List<TrainDto> trains = trainService.getTrainsDtoBetweenTwoStations(trainDeparture, trainArrival);
+        return !trains.stream().allMatch(t -> t.getSeats() > 0);
+    }
+
 }

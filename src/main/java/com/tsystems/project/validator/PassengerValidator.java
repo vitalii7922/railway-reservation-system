@@ -1,0 +1,70 @@
+package com.tsystems.project.validator;
+
+import com.tsystems.project.domain.Passenger;
+import com.tsystems.project.dto.PassengerDto;
+import com.tsystems.project.dto.PassengerTrainDto;
+import com.tsystems.project.service.PassengerService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.validation.Errors;
+import org.springframework.validation.Validator;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+@Component
+public class PassengerValidator extends Verification implements Validator {
+
+    @Autowired
+    PassengerService passengerService;
+
+    Pattern namePattern = Pattern.compile("[\\d|\\s*]", Pattern.CASE_INSENSITIVE);
+
+    @Override
+    public boolean supports(Class<?> aClass) {
+        return Passenger.class.equals(aClass);
+    }
+
+    @Override
+    public void validate(Object o, Errors errors) {
+        PassengerTrainDto passengerTrainDto = (PassengerTrainDto) o;
+        if (verifySeats(passengerTrainDto)) {
+            errors.rejectValue("seats", "free.seats", "No free seats on train "
+                    + passengerTrainDto.getTrainNumber());
+        }
+        if (verifyTime(passengerTrainDto)) {
+            errors.rejectValue("departureTime", "after.permitted.time",
+                    "You cannot buy a ticket 10 minutes before time departure");
+        }
+        if (verifyInputFirstName(passengerTrainDto)) {
+            errors.rejectValue("firstName", "incorrect.first.name",
+                    "Incorrect first name");
+        }
+        if (verifyInputSecondName(passengerTrainDto)) {
+            errors.rejectValue("secondName", "incorrect.second.name",
+                    "Incorrect second name");
+        }
+        if (!passengerTrainDto.getBirthDate().matches("\\d{4}.\\d{2}.\\d{2}")) {
+            errors.rejectValue("birthDate", "incorrect.birth.date",
+                    "Incorrect birth date");
+        }
+        if (!verifyInputFirstName(passengerTrainDto) && !verifyInputSecondName(passengerTrainDto) &&
+                passengerTrainDto.getBirthDate().matches("\\d{4}.\\d{2}.\\d{2}")) {
+            PassengerDto passenger = passengerService.getPassenger(passengerTrainDto);
+            if (passenger != null && verifyPassenger(passengerTrainDto.getTrainNumber(), passenger)) {
+                errors.rejectValue("trainNumber", "booked.ticket",
+                        "you have already bought a ticket on train " + passengerTrainDto.getTrainNumber());
+            }
+        }
+    }
+
+    public boolean verifyInputFirstName(PassengerTrainDto passengerTrainDto) {
+        Matcher first = namePattern.matcher(passengerTrainDto.getFirstName());
+        return first.find();
+    }
+
+    public boolean verifyInputSecondName(PassengerTrainDto passengerTrainDto) {
+        Matcher second = namePattern.matcher(passengerTrainDto.getSecondName());
+        return second.find();
+    }
+}

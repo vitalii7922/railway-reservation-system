@@ -5,7 +5,6 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.Query;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
@@ -15,7 +14,7 @@ public class PassengerDao extends AbstractDao<Passenger> {
         super(Passenger.class);
     }
 
-    public Passenger find(String firstName, String lastName, LocalDate birthDate) {
+    public Passenger findByPersonalData(String firstName, String lastName, LocalDate birthDate) {
         String queryString = "SELECT p FROM Passenger p WHERE upper(p.firstName) = :firstName and upper(p.secondName) = :lastName and p.birthDate = :birthDate";
         Query query = entityManager.createQuery(queryString);
         query.setParameter("firstName", firstName);
