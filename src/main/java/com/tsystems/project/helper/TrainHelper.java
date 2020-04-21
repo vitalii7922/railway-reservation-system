@@ -2,7 +2,7 @@ package com.tsystems.project.helper;
 
 import com.tsystems.project.converter.TimeConverter;
 import com.tsystems.project.converter.TrainConverter;
-import com.tsystems.project.domain.Train;
+import com.tsystems.project.model.Train;
 import com.tsystems.project.dto.TrainDto;
 import com.tsystems.project.dto.TrainStationDto;
 import com.tsystems.project.service.StationService;
@@ -11,6 +11,8 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.util.CollectionUtils;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,7 +35,7 @@ public class TrainHelper {
         return new TrainHelper();
     }
 
-    public List<TrainDto> getTrainBetweenExtremeStations(List<Train> trains) {
+    public List<TrainDto> getTrainsBetweenExtremeStations(List<Train> trains) {
         List<TrainDto> trainsDto = new ArrayList<>();
         Train lastTrain;
         try {
@@ -87,7 +89,7 @@ public class TrainHelper {
     public List<TrainStationDto> getTrainPath(List<TrainDto> trainsDto) {
         String arrivalTime = null;
         List<TrainStationDto> trainStationDtoList = new ArrayList<>();
-
+        if (!CollectionUtils.isEmpty(trainsDto))
         for(int i = 0; i < trainsDto.size(); i++) {
             if (trainsDto.size() == 1) {
                 TrainStationDto trainStationDto1 = new TrainStationDto();

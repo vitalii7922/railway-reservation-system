@@ -1,8 +1,7 @@
-package com.tsystems.project.domain;
+package com.tsystems.project.model;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.List;
 
 @Entity
 public class Ticket implements Serializable {

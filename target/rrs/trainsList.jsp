@@ -40,11 +40,11 @@
                 <td><button>Passengers</button></td>
                 <input type="hidden" name="trainNumber" value="${train.number}">
                 </form>
-                <form action="addTrain">
+                <form action="train" method="post">
                     <td><button>Stations</button></td>
                     <input type="hidden" name="train_number" value="${train.number}">
                 </form>
-                <form action="getSeats">
+                <form action="seats">
                     <td><button>Seats</button></td>
                     <input type="hidden" name="train_number" value="${train.number}">
                 </form>

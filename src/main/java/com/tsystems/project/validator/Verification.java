@@ -1,12 +1,11 @@
 package com.tsystems.project.validator;
 
 import com.tsystems.project.converter.TimeConverter;
-import com.tsystems.project.domain.Ticket;
-import com.tsystems.project.domain.Train;
+import com.tsystems.project.model.Ticket;
+import com.tsystems.project.model.Train;
 import com.tsystems.project.dto.PassengerDto;
 import com.tsystems.project.dto.PassengerTrainDto;
 import com.tsystems.project.dto.TrainDto;
-import com.tsystems.project.service.StationService;
 import com.tsystems.project.service.TicketService;
 import com.tsystems.project.service.TrainService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,23 +21,22 @@ public abstract class Verification {
     TimeConverter timeConverter;
 
     @Autowired
-    StationService stationService;
-
-    @Autowired
     TrainService trainService;
 
     @Autowired
     TicketService ticketService;
 
     public boolean verifyTime(TrainDto trainDto) {
-        long minutes = ChronoUnit.MINUTES.between(LocalDateTime.now(),
-                LocalDateTime.parse(timeConverter.reversedConvertDateTime(trainDto.getDepartureTime()).toString()));
-        return minutes <= 10;
+        return timeDifference(trainDto.getDepartureTime());
     }
 
     public boolean verifyTime(PassengerTrainDto passengerTrainDto) {
-        long minutes = ChronoUnit.MINUTES.between(LocalDateTime.now(),
-                LocalDateTime.parse(timeConverter.reversedConvertDateTime(passengerTrainDto.getDepartureTime()).toString()));
+        return timeDifference(passengerTrainDto.getDepartureTime());
+    }
+
+    public boolean timeDifference(String departureTime) {
+        long minutes =  ChronoUnit.MINUTES.between(LocalDateTime.now(),
+                LocalDateTime.parse(timeConverter.reversedConvertDateTime(departureTime).toString()));
         return minutes <= 10;
     }
 
@@ -54,10 +52,7 @@ public abstract class Verification {
         trainDto.setNumber(passengerTrainDto.getTrainNumber());
         trainDto.setOriginStation(passengerTrainDto.getOriginStation());
         trainDto.setDestinationStation(passengerTrainDto.getDestinationStation());
-        Train trainDeparture = trainService.getTrainByOriginStation(trainDto);
-        Train trainArrival = trainService.getTrainByDestinationStation(trainDto);
-        List<TrainDto> trains = trainService.getTrainsDtoBetweenTwoStations(trainDeparture, trainArrival);
-        return !trains.stream().allMatch(t -> t.getSeats() > 0);
+        return verifySeats(trainDto);
     }
 
     public boolean verifyPassenger(int trainNumber, PassengerDto passengerDto) {

@@ -30,7 +30,7 @@
             <c:forEach items="${listOfParams}" var="station">
             <tr>
                 <td>${station.name}</td>
-                <form action="getSchedules">
+                <form action="schedules">
                     <td><button class="button_station">Schedule</button></td>
                     <input type="hidden" name="stationId" value="${station.id}">
                 </form>

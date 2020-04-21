@@ -12,8 +12,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
-import javax.jms.JMSException;
-import javax.naming.NamingException;
 import javax.validation.Valid;
 
 @Controller
@@ -25,7 +23,7 @@ public class TrainController {
     TrainValidator trainValidator;
 
     @ResponseBody
-    @GetMapping(value = "/addTrain")
+    @PostMapping(value = "/train")
     public ModelAndView addTrain(@RequestParam("train_number") int trainNumber, ModelAndView model) {
         TrainDto train = trainService.getTrainByNumber(trainNumber);
         model.addObject("train", trainNumber);
@@ -39,8 +37,8 @@ public class TrainController {
         return model;
     }
 
-
-    @PostMapping(value = "/addTrip")
+    @ResponseBody
+    @PostMapping(value = "/trip")
     public ModelAndView addTrain(@Valid @ModelAttribute("trainDto") TrainDto trainDto,
                                  BindingResult bindingResult, Model model) {
         model.addAttribute("train", trainDto.getNumber());
@@ -55,7 +53,7 @@ public class TrainController {
     }
 
     @ResponseBody
-    @GetMapping(value = "/getTrains")
+    @GetMapping(value = "/trains")
     public ModelAndView getTrain(ModelAndView model) {
         List<TrainDto> trains = trainService.getAllTrains();
         model.setViewName("menu.jsp");

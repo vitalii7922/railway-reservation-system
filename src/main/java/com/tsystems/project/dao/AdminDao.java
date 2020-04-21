@@ -1,6 +1,6 @@
 package com.tsystems.project.dao;
 
-import com.tsystems.project.domain.Admin;
+import com.tsystems.project.model.Admin;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.Query;
@@ -13,7 +13,7 @@ public class AdminDao extends AbstractDao<Admin> {
     }
 
     public Admin find(String login, String password) {
-        String queryString = "SELECT a FROM Admin a where a.login = :login and a.password = :password";
+        String queryString = "SELECT a FROM Admin a WHERE a.login = :login AND a.password = :password";
         Query query = entityManager.createQuery(queryString);
         query.setParameter("login", login);
         query.setParameter("password", password);

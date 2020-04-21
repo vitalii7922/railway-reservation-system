@@ -21,7 +21,6 @@
     </form>
 </div>
 <div class="style_gap">
-
         <h1 class="font" align="center">
             ${schedule.stationName}
         </h1>

@@ -1,10 +1,9 @@
-package com.tsystems.project.domain;
+package com.tsystems.project.model;
 
 
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 @Entity

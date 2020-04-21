@@ -1,9 +1,10 @@
 package com.tsystems.project.validator;
 
-import com.tsystems.project.domain.Passenger;
+import com.tsystems.project.model.Passenger;
 import com.tsystems.project.dto.PassengerDto;
 import com.tsystems.project.dto.PassengerTrainDto;
 import com.tsystems.project.service.PassengerService;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
@@ -19,14 +20,15 @@ public class PassengerValidator extends Verification implements Validator {
     PassengerService passengerService;
 
     Pattern namePattern = Pattern.compile("[\\d|\\s*]", Pattern.CASE_INSENSITIVE);
+    Pattern birthDate = Pattern.compile("\\d{4}.\\d{2}.\\d{2}", Pattern.CASE_INSENSITIVE);
 
     @Override
-    public boolean supports(Class<?> aClass) {
+    public boolean supports(@NotNull Class<?> aClass) {
         return Passenger.class.equals(aClass);
     }
 
     @Override
-    public void validate(Object o, Errors errors) {
+    public void validate(@NotNull Object o, @NotNull Errors errors) {
         PassengerTrainDto passengerTrainDto = (PassengerTrainDto) o;
         if (verifySeats(passengerTrainDto)) {
             errors.rejectValue("seats", "free.seats", "No free seats on train "
@@ -44,12 +46,12 @@ public class PassengerValidator extends Verification implements Validator {
             errors.rejectValue("secondName", "incorrect.second.name",
                     "Incorrect second name");
         }
-        if (!passengerTrainDto.getBirthDate().matches("\\d{4}.\\d{2}.\\d{2}")) {
+        if (!birthDate.matcher(passengerTrainDto.getBirthDate()).matches()) {
             errors.rejectValue("birthDate", "incorrect.birth.date",
                     "Incorrect birth date");
         }
         if (!verifyInputFirstName(passengerTrainDto) && !verifyInputSecondName(passengerTrainDto) &&
-                passengerTrainDto.getBirthDate().matches("\\d{4}.\\d{2}.\\d{2}")) {
+                birthDate.matcher(passengerTrainDto.getBirthDate()).matches()) {
             PassengerDto passenger = passengerService.getPassenger(passengerTrainDto);
             if (passenger != null && verifyPassenger(passengerTrainDto.getTrainNumber(), passenger)) {
                 errors.rejectValue("trainNumber", "booked.ticket",

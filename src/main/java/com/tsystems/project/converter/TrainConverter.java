@@ -1,6 +1,6 @@
 package com.tsystems.project.converter;
 
-import com.tsystems.project.domain.Train;
+import com.tsystems.project.model.Train;
 import com.tsystems.project.dto.TrainDto;
 import com.tsystems.project.service.StationService;
 import org.apache.commons.logging.Log;
@@ -27,7 +27,7 @@ public class TrainConverter {
 
     public TrainDto convertToTrainDto(Train train) {
         TrainDto trainDto = null;
-        try {
+        if (train != null) {
             trainDto = new TrainDto();
             trainDto.setId(train.getId());
             trainDto.setNumber(train.getNumber());
@@ -36,8 +36,6 @@ public class TrainConverter {
             trainDto.setSeats(train.getSeats());
             trainDto.setDepartureTime(timeConverter.convertDateTime(train.getSchedules().get(0).getDepartureTime()));
             trainDto.setArrivalTime(timeConverter.convertDateTime(train.getSchedules().get(1).getArrivalTime()));
-        } catch (NullPointerException e) {
-            log.error(e.getCause());
         }
         return trainDto;
     }

@@ -1,8 +1,9 @@
 package com.tsystems.project.service;
 
 import com.tsystems.project.dao.StationDao;
-import com.tsystems.project.domain.Station;
-import com.tsystems.project.sender.Sender;
+import com.tsystems.project.model.Station;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,12 +21,14 @@ public class StationService {
     @Autowired
     ModelMapper modelMapper;
 
+    private static final Log log = LogFactory.getLog(TicketService.class);
+
     @Transactional
     public Station addStation(String name)  {
-        Station station = null;
+        Station station = new Station();
         if (!name.matches("\\s*") && stationDao.findByName(name) == null) {
-            station = new Station();
             station.setName(name.toUpperCase());
+            log.info("--------Station has been added-------------");
             return stationDao.create(station);
         }
         return station;

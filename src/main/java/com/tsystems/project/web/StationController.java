@@ -1,6 +1,6 @@
 package com.tsystems.project.web;
 
-import com.tsystems.project.domain.Station;
+import com.tsystems.project.model.Station;
 import com.tsystems.project.service.StationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -8,8 +8,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.jms.JMSException;
-import javax.naming.NamingException;
 import java.util.List;
 
 @Controller
@@ -19,7 +17,7 @@ class StationController {
     StationService stationService;
 
     @ResponseBody
-    @GetMapping(value = "/addStation")
+    @PostMapping(value = "/station")
     public ModelAndView addStation(@RequestParam("station") String stationName, Model model) {
         Station station = stationService.addStation(stationName);
         if (station != null) {
@@ -31,7 +29,7 @@ class StationController {
     }
 
     @ResponseBody
-    @GetMapping(value = "/getStations")
+    @GetMapping(value = "/stations")
     public ModelAndView getStations(Model model) {
         List<Station> stations = stationService.getAllStations();
         if (stations != null && !stations.isEmpty()) {

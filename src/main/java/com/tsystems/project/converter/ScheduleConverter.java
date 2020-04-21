@@ -1,13 +1,12 @@
 package com.tsystems.project.converter;
 
-import com.tsystems.project.domain.Schedule;
+import com.tsystems.project.model.Schedule;
 import com.tsystems.project.dto.ScheduleDto;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
 
 
 @Configuration
@@ -25,7 +24,7 @@ public class ScheduleConverter {
 
     public ScheduleDto convertToScheduleDto(Schedule schedule) {
         ScheduleDto scheduleDto = new ScheduleDto();
-        try {
+        if (schedule != null) {
             scheduleDto.setId(schedule.getId());
             scheduleDto.setTrainNumber(schedule.getTrain().getNumber());
             scheduleDto.setTrainId(schedule.getTrain().getId());
@@ -36,8 +35,6 @@ public class ScheduleConverter {
             if (schedule.getDepartureTime() != null) {
                 scheduleDto.setDepartureTime(timeConverter.convertDateTime(schedule.getDepartureTime()));
             }
-        } catch (Exception e) {
-            log.error(e.getCause());
         }
         return scheduleDto;
     }

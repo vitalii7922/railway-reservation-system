@@ -1,6 +1,6 @@
 package com.tsystems.project.web;
 
-import com.tsystems.project.domain.Admin;
+import com.tsystems.project.model.Admin;
 import com.tsystems.project.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

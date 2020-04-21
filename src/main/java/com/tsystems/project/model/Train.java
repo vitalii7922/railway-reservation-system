@@ -1,4 +1,4 @@
-package com.tsystems.project.domain;
+package com.tsystems.project.model;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -28,6 +28,17 @@ public class Train implements Serializable {
 
     @OneToMany(mappedBy = "train")
     private List<Ticket> tickets;
+
+    public Train() {
+    }
+
+    public Train(int number, int seats, List<Schedule> schedules, Station originStation, Station destinationStation) {
+        this.number = number;
+        this.seats = seats;
+        this.schedules = schedules;
+        this.originStation = originStation;
+        this.destinationStation = destinationStation;
+    }
 
     public long getId() {
         return id;
@@ -84,5 +95,4 @@ public class Train implements Serializable {
     public void setOriginStation(Station originStation) {
         this.originStation = originStation;
     }
-
 }

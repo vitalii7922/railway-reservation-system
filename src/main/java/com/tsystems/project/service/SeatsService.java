@@ -2,7 +2,7 @@ package com.tsystems.project.service;
 
 import com.tsystems.project.converter.TrainConverter;
 import com.tsystems.project.dao.TrainDao;
-import com.tsystems.project.domain.Train;
+import com.tsystems.project.model.Train;
 import com.tsystems.project.dto.TrainDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

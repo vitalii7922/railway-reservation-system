@@ -1,6 +1,6 @@
 package com.tsystems.project.dao;
 
-import com.tsystems.project.domain.Schedule;
+import com.tsystems.project.model.Schedule;
 import org.springframework.stereotype.Repository;
 import javax.persistence.Query;
 import java.util.List;
@@ -29,11 +29,6 @@ public class ScheduleDao extends AbstractDao<Schedule> {
         String queryString = "SELECT s FROM Schedule s WHERE (s.station.id) = :id";
         Query query = entityManager.createQuery(queryString);
         query.setParameter("id", id);
-        List<Schedule> schedules = query.getResultList();
-        if (schedules.isEmpty()) {
-            return null;
-        } else {
-            return schedules;
-        }
+        return query.getResultList();
     }
 }

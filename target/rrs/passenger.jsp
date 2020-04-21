@@ -23,7 +23,7 @@
 <div class="text" align="center">
     <p class="message">${message}</p>
 <%--@elvariable id="passengerTrainDto" type="com.tsystems.project"--%>
-<form:form action="addTicket" method="post" modelAttribute="passengerTrainDto">
+<form:form action="ticket" method="patch" modelAttribute="passengerTrainDto">
     <form:errors path="seats" cssClass="message"/><br>
     <form:errors path="departureTime" cssClass="message"/><br>
     <form:errors path="trainNumber" cssClass="message"/><br>

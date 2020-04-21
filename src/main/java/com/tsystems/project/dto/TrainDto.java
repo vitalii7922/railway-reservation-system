@@ -2,6 +2,7 @@ package com.tsystems.project.dto;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.io.Serializable;
 
 public class TrainDto implements Serializable, Comparable<TrainDto> {
@@ -28,6 +29,22 @@ public class TrainDto implements Serializable, Comparable<TrainDto> {
     String allTrainsArrivalTime;
 
     String allTrainsDepartureTime;
+
+    public TrainDto(int number, int seats, String departureTime, String arrivalTime,
+                    @NotNull(message = "Origin station must not be empty")
+                    @NotEmpty(message = "Origin station must not be empty") String originStation,
+                    @NotNull(message = "Destination station must not be empty")
+                    @NotEmpty(message = "Destination station must not be empty") String destinationStation) {
+        this.number = number;
+        this.seats = seats;
+        this.arrivalTime = arrivalTime;
+        this.departureTime = departureTime;
+        this.originStation = originStation;
+        this.destinationStation = destinationStation;
+    }
+
+    public TrainDto() {
+    }
 
     public String getAllTrainsArrivalTime() {
         return allTrainsArrivalTime;

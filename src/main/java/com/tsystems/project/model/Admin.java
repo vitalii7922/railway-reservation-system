@@ -1,4 +1,4 @@
-package com.tsystems.project.domain;
+package com.tsystems.project.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
