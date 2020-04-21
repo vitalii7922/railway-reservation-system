@@ -1,13 +1,15 @@
 package com.tsystems.project.validator;
 
-import com.tsystems.project.domain.Schedule;
-import com.tsystems.project.domain.Station;
-import com.tsystems.project.domain.Train;
+import com.tsystems.project.model.Schedule;
+import com.tsystems.project.model.Station;
+import com.tsystems.project.model.Train;
 import com.tsystems.project.dto.TrainDto;
 import com.tsystems.project.dto.TrainStationDto;
 import com.tsystems.project.service.ScheduleService;
 import com.tsystems.project.service.StationService;
 import com.tsystems.project.service.TrainService;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
@@ -28,6 +30,8 @@ public class TripsValidator implements Validator {
 
     @Autowired
     ScheduleService scheduleService;
+
+    private Log log = LogFactory.getLog(TrainValidator.class);
 
     @Override
     public boolean supports(Class<?> aClass) {
@@ -75,7 +79,8 @@ public class TripsValidator implements Validator {
                         "destination station in a path");
             }
         } catch (DateTimeParseException e) {
-            e.getErrorIndex();
+            log.error(e);
+            errors.rejectValue("departureTime", "incorrect.time", "Incorrect departure or arrival time");
         }
     }
 }

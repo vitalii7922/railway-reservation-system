@@ -31,7 +31,7 @@
     </tr>
     <tr>
         <%--@elvariable id="trainDto" type="com.tsystems.project"--%>
-        <form:form method="post" action="addTrips" modelAttribute="trainDto">
+        <form:form method="post" action="trips" modelAttribute="trainDto">
             <form:errors path="originStation" cssClass="message"/><br>
             <form:errors path="destinationStation" cssClass="message"/><br>
             <form:errors path="departureTime" cssClass="message"/><br>
@@ -45,7 +45,7 @@
             <td><button type="submit">add train</button></td>
         </form:form>
 
-        <form action="getSeats">
+        <form action="seats">
             <td>
                 <button>Seats</button>
             </td>

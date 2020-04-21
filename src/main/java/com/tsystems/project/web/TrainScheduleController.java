@@ -24,7 +24,7 @@ public class TrainScheduleController {
     TripsValidator tripsValidator;
 
     @ResponseBody
-    @GetMapping(value = "/getTrips")
+    @GetMapping(value = "/trips")
     public ModelAndView addTrain(@RequestParam("from") String stationNameA,
                                  @RequestParam("to") String stationNameB,
                                  @RequestParam("time_departure") String timeDeparture,
@@ -46,7 +46,7 @@ public class TrainScheduleController {
     }
 
     @ResponseBody
-    @PostMapping(value = "/addTrips")
+    @PostMapping(value = "/trips")
     public ModelAndView addTrain(@ModelAttribute("trainDto") TrainDto trainDto,
                                  BindingResult bindingResult,
                                  ModelAndView modelAndView)  {

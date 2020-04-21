@@ -14,7 +14,6 @@
         <h1 class="font" align="center">
             Train number: ${train}
         </h1>
-        </table>
         <table align="center">
             <tr align="left">
                 <th class="font">From</th>

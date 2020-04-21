@@ -32,8 +32,8 @@ public class PassengerController {
 
 
     @ResponseBody
-    @PostMapping(value = "/addTicket")
-    public ModelAndView addPassenger(@Valid @ModelAttribute("passengerTrainDto") PassengerTrainDto passengerTrainDto,
+    @PatchMapping(value = "/ticket")
+    public ModelAndView addPassengerTicket(@Valid @ModelAttribute("passengerTrainDto") PassengerTrainDto passengerTrainDto,
                                      BindingResult bindingResult, ModelAndView model) {
         model.setViewName("passenger.jsp");
         passengerValidator.validate(passengerTrainDto, bindingResult);

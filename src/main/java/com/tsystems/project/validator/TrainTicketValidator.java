@@ -1,7 +1,8 @@
 package com.tsystems.project.validator;
 
-import com.tsystems.project.domain.Ticket;
+import com.tsystems.project.model.Ticket;
 import com.tsystems.project.dto.TrainDto;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
@@ -9,12 +10,12 @@ import org.springframework.validation.Validator;
 @Component
 public class TrainTicketValidator extends Verification implements Validator {
     @Override
-    public boolean supports(Class<?> aClass) {
+    public boolean supports(@NotNull Class<?> aClass) {
         return Ticket.class.equals(aClass);
     }
 
     @Override
-    public void validate(Object o, Errors errors) {
+    public void validate(@NotNull Object o, @NotNull Errors errors) {
         TrainDto trainDto = (TrainDto) o;
 
         if (verifyTime(trainDto)) {

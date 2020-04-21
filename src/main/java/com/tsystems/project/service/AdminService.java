@@ -1,7 +1,7 @@
 package com.tsystems.project.service;
 
 import com.tsystems.project.dao.AdminDao;
-import com.tsystems.project.domain.Admin;
+import com.tsystems.project.model.Admin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -1,17 +1,16 @@
 package com.tsystems.project.service;
 
 import com.tsystems.project.converter.TicketConverter;
-import com.tsystems.project.converter.TimeConverter;
-import com.tsystems.project.dao.PassengerDao;
 import com.tsystems.project.dao.TicketDao;
-import com.tsystems.project.dao.TrainDao;
-import com.tsystems.project.domain.Passenger;
-import com.tsystems.project.domain.Ticket;
-import com.tsystems.project.domain.Train;
+import com.tsystems.project.model.Passenger;
+import com.tsystems.project.model.Ticket;
+import com.tsystems.project.model.Train;
 import com.tsystems.project.dto.PassengerDto;
 import com.tsystems.project.dto.PassengerTrainDto;
 import com.tsystems.project.dto.TicketDto;
 import com.tsystems.project.dto.TrainDto;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -35,8 +34,7 @@ public class TicketService {
     @Autowired
     TicketConverter ticketConverter;
 
-    @Autowired
-    TrainDao trainDao;
+    private static final Log log = LogFactory.getLog(TicketService.class);
 
 
     @Transactional
@@ -47,7 +45,7 @@ public class TicketService {
         trainDto.setDestinationStation(passengerTrainDto.getDestinationStation());
         Train trainDeparture = trainService.getTrainByOriginStation(trainDto);
         Train trainArrival = trainService.getTrainByDestinationStation(trainDto);
-        TicketDto ticketDto = null;
+        TicketDto ticketDto;
 
         List<Train> trains = trainService.getTrainsBetweenTwoStations(trainDeparture, trainArrival);
         Ticket t = new Ticket();
@@ -62,7 +60,7 @@ public class TicketService {
         }
         t = ticketDao.create(t);
         ticketDto = ticketConverter.convertToTicketDto(t, passengerDto, trainDeparture, trainArrival);
-
+        log.info("---------ticket has been added--------------");
         return ticketDto;
     }
 

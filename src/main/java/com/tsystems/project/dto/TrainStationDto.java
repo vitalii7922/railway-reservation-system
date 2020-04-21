@@ -1,9 +1,6 @@
 package com.tsystems.project.dto;
 
-import com.tsystems.project.domain.Station;
-
 import java.io.Serializable;
-import java.time.LocalDateTime;
 
 public class TrainStationDto implements Serializable {
     private String station;

@@ -26,7 +26,7 @@
     <p align=center>
         Choose stations for a trip:
     </p>
-    <form action="getTrips">
+    <form action="trips">
     <table class = table align=center>
         <tr align="left">
             <th>From</th>
@@ -45,7 +45,7 @@
     </table>
     </form>
     <div>
-        <form action="getStations" align="center">
+        <form action="stations" align="center">
             <button  class=button_index type="submit">List of stations</button><br>
         </form>
     </div>

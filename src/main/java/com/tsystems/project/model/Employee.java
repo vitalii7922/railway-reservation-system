@@ -1,4 +1,4 @@
-package com.tsystems.project.domain;
+package com.tsystems.project.model;
 
 public class Employee {
     private String name;

@@ -18,7 +18,7 @@ public class TrainSeatsController {
     SeatsService seatsService;
 
     @ResponseBody
-    @GetMapping(value = "/getSeats")
+    @GetMapping(value = "/seats")
     public ModelAndView getSeats(@RequestParam("train_number") int trainNumber, ModelAndView model) {
         List<TrainDto> trains = seatsService.getTrainByNumber(trainNumber);
         model.setViewName("seats.jsp");

@@ -1,15 +1,12 @@
 package com.tsystems.project.web;
-
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.tsystems.project.dto.ScheduleDto;
 import com.tsystems.project.service.ScheduleService;
 import com.tsystems.project.service.StationService;
-import org.apache.camel.Produce;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -26,10 +23,9 @@ public class ScheduleController {
 
     @ResponseBody
 
-    @GetMapping(value = "/getSchedules")
-    public ModelAndView getSchedule(@RequestParam("stationId") String stationId, ModelAndView model) {
-        long id = Integer.parseInt(stationId);
-        List<ScheduleDto> schedules = scheduleService.getSchedulesByStationId(id);
+    @GetMapping(value = "/schedules")
+    public ModelAndView getSchedule(@RequestParam("stationId") long stationId, ModelAndView model) {
+        List<ScheduleDto> schedules = scheduleService.getSchedulesByStationId(stationId);
         if (schedules != null && !schedules.isEmpty()) {
             model.setViewName("schedule.jsp");
             model.addObject("schedule", schedules.get(0));
@@ -38,13 +34,12 @@ public class ScheduleController {
             model.setViewName("station.jsp");
             model.addObject("listOfParams", stationService.getAllStations());
             model.addObject("message", "no trains on station " +
-                    stationService.getStationById(id).getName());
+                    stationService.getStationById(stationId).getName());
         }
         return model;
     }
 
     @ResponseBody
-    @Produce(context = "application/json")
     @GetMapping(value = "/schedules/{stationId}")
     public JsonArray getSchedule(@PathVariable("stationId") long stationId) {
         List<ScheduleDto> scheduleDtos = scheduleService.getSchedulesByStationId(stationId);

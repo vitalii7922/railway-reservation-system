@@ -2,22 +2,19 @@ package com.tsystems.project.service;
 
 import com.tsystems.project.converter.TimeConverter;
 import com.tsystems.project.dao.TrainDao;
-import com.tsystems.project.domain.Train;
+import com.tsystems.project.model.Train;
 import com.tsystems.project.dto.TrainDto;
 import com.tsystems.project.converter.TrainConverter;
 import com.tsystems.project.dto.TrainStationDto;
 import com.tsystems.project.helper.TrainHelper;
-import com.tsystems.project.sender.Sender;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
-import javax.jms.JMSException;
-import javax.naming.NamingException;
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeParseException;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -45,7 +42,7 @@ public class TrainService {
     private static final Log log = LogFactory.getLog(TrainService.class);
 
     @Transactional
-    public void addTrain(TrainDto trainDto) {
+    public Train addTrain(TrainDto trainDto) {
         Train trainDeparture;
         trainDeparture = new Train();
         trainDeparture.setNumber(trainDto.getNumber());
@@ -53,8 +50,12 @@ public class TrainService {
         trainDeparture.setDestinationStation(stationService.getStationByName(trainDto.getDestinationStation()));
         trainDeparture.setSeats(trainDto.getSeats());
         Train train = trainDao.create(trainDeparture);
-        scheduleService.addSchedule(train, LocalDateTime.parse(trainDto.getDepartureTime()),
-                LocalDateTime.parse(trainDto.getArrivalTime()));
+        if (train != null) {
+            scheduleService.addSchedule(train, LocalDateTime.parse(trainDto.getDepartureTime()),
+                    LocalDateTime.parse(trainDto.getArrivalTime()));
+        }
+        log.info("--------Train has been added--------------");
+        return train;
     }
 
     @Transactional
@@ -71,13 +72,10 @@ public class TrainService {
     public List<TrainStationDto> getAllTrainsByNumber(int trainNumber) {
         List<Train> trains = trainDao.findTrainsByNumber(trainNumber);
         List<TrainDto> trainsDto = new ArrayList<>();
-        try {
+        if (!CollectionUtils.isEmpty(trains)) {
             trainsDto = trains.stream()
                     .map(t -> trainConverter.convertToTrainDto(t)).collect(Collectors.toList());
-        } catch (Exception e) {
-            log.error(e.getCause());
         }
-
         return trainHelper.getTrainPath(trainsDto);
     }
 
@@ -85,11 +83,9 @@ public class TrainService {
     public List<TrainDto> getAllTrains() {
         List<Train> trains = trainDao.findAll();
         List<TrainDto> trainsDto = new ArrayList<>();
-        try {
-            trainsDto = trainHelper.getTrainBetweenExtremeStations(trains);
+        if (!CollectionUtils.isEmpty(trains)) {
+            trainsDto = trainHelper.getTrainsBetweenExtremeStations(trains);
             Collections.sort(trainsDto);
-        } catch (NullPointerException e) {
-            log.error(e.getCause());
         }
         return trainsDto;
     }
@@ -97,26 +93,22 @@ public class TrainService {
     @Transactional
     public List<TrainDto> getTrainsByStations(TrainDto trainDto) {
         List<TrainDto> trainsDto = new ArrayList<>();
-        try {
-            if (trainDto.getDepartureTime().matches("\\d{2}-\\d{2}-\\d{4}\\s{1}\\d{2}:\\d{2}")) {
-                trainDto.setDepartureTime(timeConverter.reversedConvertDateTime(trainDto.getDepartureTime()).toString());
-                trainDto.setArrivalTime(timeConverter.reversedConvertDateTime(trainDto.getArrivalTime()).toString());
-            }
-            LocalDateTime departureTime = LocalDateTime.parse(trainDto.getDepartureTime());
-            LocalDateTime arrivalTime = LocalDateTime.parse(trainDto.getArrivalTime());
-            List<Train> trains;
-            if (departureTime.isAfter(arrivalTime)) {
-                return trainsDto;
-            }
-            trains = trainDao.findByStations(stationService.getStationByName(trainDto.getOriginStation()).getId(),
-                    stationService.getStationByName(trainDto.getDestinationStation()).getId(),
-                    departureTime, arrivalTime);
-
+        if (trainDto.getDepartureTime().matches("\\d{2}-\\d{2}-\\d{4}\\s{1}\\d{2}:\\d{2}")) {
+            trainDto.setDepartureTime(timeConverter.reversedConvertDateTime(trainDto.getDepartureTime()).toString());
+            trainDto.setArrivalTime(timeConverter.reversedConvertDateTime(trainDto.getArrivalTime()).toString());
+        }
+        LocalDateTime departureTime = LocalDateTime.parse(trainDto.getDepartureTime());
+        LocalDateTime arrivalTime = LocalDateTime.parse(trainDto.getArrivalTime());
+        List<Train> trains;
+        if (departureTime.isAfter(arrivalTime)) {
+            return trainsDto;
+        }
+        trains = trainDao.findByStations(stationService.getStationByName(trainDto.getOriginStation()).getId(),
+                stationService.getStationByName(trainDto.getDestinationStation()).getId(),
+                departureTime, arrivalTime);
+        if (!CollectionUtils.isEmpty(trains)) {
             trainsDto = trainHelper.searchTrainBetweenExtremeStations(trains);
             Collections.sort(trainsDto);
-
-        } catch (NullPointerException | DateTimeParseException e) {
-            log.error(e.getCause());
         }
         return trainsDto;
     }
@@ -144,7 +136,7 @@ public class TrainService {
     }
 
     public TrainDto initializeTrainDto(String originStation, String destinationStation, String departureTime,
-                                             String arrivalTime) {
+                                       String arrivalTime) {
         TrainDto trainDto = new TrainDto();
         trainDto.setOriginStation(originStation);
         trainDto.setDestinationStation(destinationStation);

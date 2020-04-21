@@ -1,6 +1,5 @@
 package com.tsystems.project.web;
 
-import com.tsystems.project.dto.PassengerDto;
 import com.tsystems.project.dto.PassengerTrainDto;
 import com.tsystems.project.dto.TrainDto;
 import org.springframework.ui.Model;
