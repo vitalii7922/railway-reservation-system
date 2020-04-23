@@ -1,8 +1,10 @@
 package com.tsystems.project.dto;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.io.Serializable;
 
-public class StationDto implements Serializable {
+public class StationDto implements Serializable, Comparable<StationDto>  {
 
     private long id;
 
@@ -22,5 +24,10 @@ public class StationDto implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public int compareTo(@NotNull StationDto o) {
+         return name.compareTo(o.name);
     }
 }

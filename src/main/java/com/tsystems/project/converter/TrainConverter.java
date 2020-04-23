@@ -8,22 +8,13 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Component;
 
-@Configuration
+@Component
 public class TrainConverter {
 
     @Autowired
     TimeConverter timeConverter;
-
-    @Autowired
-    StationService stationService;
-
-    private static final Log log = LogFactory.getLog(TrainConverter.class);
-
-    @Bean
-    public TrainConverter transferService() {
-        return new TrainConverter();
-    }
 
     public TrainDto convertToTrainDto(Train train) {
         TrainDto trainDto = null;

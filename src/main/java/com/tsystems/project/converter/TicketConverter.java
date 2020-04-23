@@ -5,15 +5,10 @@ import com.tsystems.project.model.Train;
 import com.tsystems.project.dto.PassengerDto;
 import com.tsystems.project.dto.TicketDto;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Component;
 
-@Configuration
+@Component
 public class TicketConverter {
-    @Bean
-    public TicketConverter transferService() {
-        return new TicketConverter();
-    }
 
     @Autowired
     TimeConverter timeConverter;

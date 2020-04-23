@@ -5,7 +5,7 @@ import java.io.Serializable;
 import java.util.List;
 
 @Entity
-public class Station implements Serializable, Comparable<Station> {
+public class Station implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private long id;
@@ -68,8 +68,4 @@ public class Station implements Serializable, Comparable<Station> {
         this.schedules = schedules;
     }
 
-    @Override
-    public int compareTo(Station o) {
-        return name.compareTo(o.name);
-    }
 }

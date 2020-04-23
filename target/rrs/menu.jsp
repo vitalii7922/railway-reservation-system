@@ -31,7 +31,7 @@
         <button class="button" type="submit">add</button>
         <p class="message">${messageStation}</p>
     </form>
-    <form action="stations">
+    <form action="stations-all">
         <button  class=button type="submit">List of stations</button><br>
     </form>
 </div>

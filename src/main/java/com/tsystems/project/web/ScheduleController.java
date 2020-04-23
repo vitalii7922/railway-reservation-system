@@ -1,18 +1,15 @@
 package com.tsystems.project.web;
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
 import com.tsystems.project.dto.ScheduleDto;
 import com.tsystems.project.service.ScheduleService;
 import com.tsystems.project.service.StationService;
-import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
-@RestController
+@Controller
 public class ScheduleController {
 
     @Autowired
@@ -37,14 +34,5 @@ public class ScheduleController {
                     stationService.getStationById(stationId).getName());
         }
         return model;
-    }
-
-    @ResponseBody
-    @GetMapping(value = "/schedules/{stationId}")
-    public JsonArray getSchedule(@PathVariable("stationId") long stationId) {
-        List<ScheduleDto> scheduleDtos = scheduleService.getSchedulesByStationId(stationId);
-        Gson gson = new Gson();
-        JsonElement element = gson.toJsonTree(scheduleDtos, new TypeToken<List<ScheduleDto>>() {}.getType());
-        return element.getAsJsonArray();
     }
 }
