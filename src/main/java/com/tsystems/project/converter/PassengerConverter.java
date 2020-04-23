@@ -6,16 +6,10 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Component;
 
-@Configuration
+@Component
 public class PassengerConverter {
-
-    private static final Log log = LogFactory.getLog(PassengerConverter.class);
-
-    @Bean
-    public PassengerConverter transferService() {
-        return new PassengerConverter();
-    }
 
     public PassengerDto convertToPassengerDto(Passenger passenger) {
         PassengerDto passengerDto = new PassengerDto();
