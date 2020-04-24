@@ -13,18 +13,19 @@ import com.tsystems.project.dto.TrainDto;
 import com.tsystems.project.service.ScheduleService;
 import com.tsystems.project.service.StationService;
 import com.tsystems.project.service.TrainService;
+import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.junit.Assert;
 import org.junit.Before;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assert.assertThat;
 import org.junit.Test;
 import org.mockito.*;
-import org.mockito.internal.matchers.apachecommons.ReflectionEquals;
-import org.modelmapper.ModelMapper;
-
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.when;
 
@@ -33,17 +34,17 @@ public class TrainServiceTest {
     @Mock
     private TrainDao trainDaoMock;
 
-    @Spy
-    private TrainConverter trainConverter;
+    @Mock
+    private TrainConverter trainConverterMock;
 
     @Mock
     private StationService stationService;
 
     @Spy
-    private TrainHelper trainHelper;
-
-    @Spy
     private TimeConverter timeConverter;
+
+    @Mock
+    TrainHelper trainHelper;
 
     @Mock
     private ScheduleService scheduleService;
@@ -76,14 +77,25 @@ public class TrainServiceTest {
         Schedule scheduleArrival = new Schedule();
         scheduleArrival.setArrivalTime(LocalDateTime.parse("2020-04-16T16:00"));
         Station originStation = new Station("Moscow");
-        Station departureStation = new Station("Krasnodar");
+        Station destinationStation = new Station("Krasnodar");
 
         Train train = new Train(1, 100, List.of(scheduleDeparture, scheduleArrival),
-                originStation, departureStation);
+                originStation, destinationStation);
+
+        TrainDto trainDto = new TrainDto();
+        trainDto.setNumber(1);
+        trainDto.setSeats(100);
+        trainDto.setArrivalTime("16-04-2020 16:00");
+        trainDto.setDepartureTime("15-04-2020 16:00");
+        trainDto.setOriginStation("Moscow");
+        trainDto.setDestinationStation("Krasnodar");
 
         when(trainDaoMock.findByNumber(1)).thenReturn(train);
+        when(trainConverterMock.convertToTrainDto(trainDaoMock.findByNumber(1))).thenReturn(trainDto);
 
         Assert.assertEquals(1, trainService.getTrainByNumber(1).getNumber());
+
+        Assert.assertTrue(EqualsBuilder.reflectionEquals(trainDto, trainService.getTrainByNumber(1)));
         resetMocks();
     }
 
@@ -94,22 +106,86 @@ public class TrainServiceTest {
         Schedule scheduleArrival = new Schedule();
         scheduleArrival.setArrivalTime(LocalDateTime.parse("2020-04-16T16:00"));
         Station originStation = new Station("Moscow");
-        Station departureStation = new Station("Krasnodar");
-
+        Station destinationStation = new Station("Krasnodar");
         Train train1 = new Train(1, 100, List.of(scheduleDeparture, scheduleArrival),
-                originStation, departureStation);
+                originStation, destinationStation);
         Train train2 = new Train(2, 50, List.of(scheduleDeparture, scheduleArrival),
-                originStation, departureStation);
-        when(trainDaoMock.findAll()).thenReturn(List.of(train1, train2));
+                originStation, destinationStation);
 
-        Assert.assertEquals(2, trainService.getAllTrains().size());
-        resetMocks();
+        TrainDto trainDto1 = new TrainDto(1, 100, "15-04-2020 16:00",
+                "16-04-2020 16:00", "Moscow", "Krasnodar");
+        TrainDto trainDto2 = new TrainDto(2, 50, "15-04-2020 16:00",
+                "16-04-2020 16:00", "Moscow", "Krasnodar");
+        List<TrainDto> trainDtoListExpected = new ArrayList<>() {
+            {
+                add(trainDto1);
+                add(trainDto2);
+            }
+        };
+
+        when(trainDaoMock.findAll()).thenReturn(List.of(train1, train2));
+        when(trainHelper.getTrainsBetweenExtremeStations(Arrays.asList(train1, train2)))
+                .thenReturn(Arrays.asList(trainDto1, trainDto2));
+        List<TrainDto> trainDtoListResult = trainService.getAllTrains();
+        for (int i = 0; i < trainDtoListResult.size(); i++) {
+            Assert.assertTrue(EqualsBuilder.reflectionEquals(trainDtoListResult.get(i), trainDtoListExpected.get(i)));
+        }
     }
 
+    @Test
+    public void testGetAllTrainsByStations() {
+        TrainDto trainDto = new TrainDto();
+        trainDto.setOriginStation("Saint-Petersburg");
+        trainDto.setDestinationStation("Moscow");
+        trainDto.setDepartureTime("12-04-2020 12:00");
+        trainDto.setArrivalTime("13-04-2020 01:00");
 
+        Schedule scheduleDeparture = new Schedule();
+        scheduleDeparture.setDepartureTime(LocalDateTime.parse("2020-04-12T16:00"));
+        Schedule scheduleArrival = new Schedule();
+        scheduleArrival.setArrivalTime(LocalDateTime.parse("2020-04-13T00:30"));
+        Station originStation = new Station("Saint-Petersburg");
+        Station destinationStation = new Station("Moscow");
 
+        Train train = new Train(1, 100, List.of(scheduleDeparture, scheduleArrival),
+                originStation, destinationStation);
+        when(stationService.getStationByName("Saint-Petersburg")).thenReturn(originStation);
+        when(stationService.getStationByName("Moscow")).thenReturn(destinationStation);
+        when(trainDaoMock.findByStations(stationService.getStationByName("Saint-Petersburg").getId(),
+                stationService.getStationByName("Moscow").getId(),
+                timeConverter.reversedConvertDateTime("12-04-2020 12:00"),
+                timeConverter.reversedConvertDateTime("13-04-2020 01:00"))).thenReturn(List.of(train));
+
+        TrainDto trainFounded = new TrainDto();
+        trainFounded.setNumber(1);
+        trainFounded.setSeats(100);
+        trainFounded.setOriginStation("Saint-Petersburg");
+        trainFounded.setDestinationStation("Moscow");
+        trainFounded.setDepartureTime("12-04-2020 16:00");
+        trainFounded.setArrivalTime("13-04-2020 00:30");
+
+        List<TrainDto> trainDtoListFounded = new ArrayList<>() {
+            {
+                add(trainFounded);
+            }
+        };
+        when(trainHelper.searchTrainBetweenExtremeStations(List.of(train))).thenReturn(trainDtoListFounded);
+
+        for (TrainDto t : trainDtoListFounded) {
+            String departureStation = t.getOriginStation();
+            String arrivalStation = t.getDestinationStation();
+
+            assertTrue(departureStation.equalsIgnoreCase(trainDto.getOriginStation()) &&
+            arrivalStation.equalsIgnoreCase(trainDto.getDestinationStation()) &&
+            timeConverter.reversedConvertDateTime(t.getDepartureTime())
+                    .isAfter(timeConverter.reversedConvertDateTime(trainDto.getDepartureTime())) &&
+                    timeConverter.reversedConvertDateTime(t.getArrivalTime())
+                            .isBefore(timeConverter.reversedConvertDateTime(trainDto.getArrivalTime())));
+        }
+        resetMocks();
+    }
     public void resetMocks() {
-        Mockito.reset(trainDaoMock, stationService, scheduleService, trainConverter, timeConverter);
+        Mockito.reset(trainDaoMock, stationService, scheduleService, trainConverterMock, timeConverter);
     }
 
 }
