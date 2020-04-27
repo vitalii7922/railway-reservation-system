@@ -1,5 +1,6 @@
 package com.tsystems.project.dao;
 
+import com.tsystems.project.dto.TrainDto;
 import com.tsystems.project.model.Ticket;
 import com.tsystems.project.dto.PassengerDto;
 import org.springframework.stereotype.Repository;
@@ -12,10 +13,10 @@ public class TicketDao extends AbstractDao<Ticket> {
         super(Ticket.class);
     }
 
-    public Ticket findByPassenger(int trainNumber, PassengerDto passenger) {
-        String queryString = "SELECT t FROM Ticket t WHERE t.passenger.id = :passengerId and t.train.number = :trainNumber";
+    public Ticket findByPassenger(TrainDto trainDto, PassengerDto passenger) {
+        String queryString = "SELECT t FROM Ticket t INNER JOIN Train train ON t.train.id = train.id where train.id = :trainId and t.passenger.id = :passengerId";
         Query query = entityManager.createQuery(queryString);
-        query.setParameter("trainNumber", trainNumber);
+        query.setParameter("trainId", trainDto.getId());
         query.setParameter("passengerId", passenger.getId());
         List<Ticket> tickets = query.getResultList();
         if (tickets.isEmpty()) {

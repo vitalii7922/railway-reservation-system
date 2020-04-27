@@ -63,6 +63,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/../../../board/board-ejb/src/main/java/com/tsystems/javaschool/data/PushContext.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/../../../board/board-ejb/src/main/java/com/tsystems/javaschool/data/SchBean.java">
           <value>
             <set />
@@ -118,6 +123,16 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/../../../board/board-ejb/src/main/java/receiver/Receiver.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../../../board/board-web/board-web.iml">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/../../../board/board-web/pom.xml">
           <value>
             <set />
@@ -133,7 +148,42 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/../../../board/board-web/src/main/java/com/tsystems/javaschool/controller/StationBean.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../../../board/board-web/src/main/java/com/tsystems/javaschool/receiver/Listener.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../../../board/board-web/src/main/java/com/tsystems/javaschool/receiver/Receiver.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/../../../board/board-web/src/main/java/com/tsystems/javaschool/rest/ScheduleRESTService.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../../../board/board-web/src/main/java/com/tsystems/javaschool/rest/StationBean.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../../../board/board-web/src/main/java/receiver/Listener.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../../../board/board-web/src/main/java/receiver/Receiver.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../../../board/board-web/src/main/webapp/WEB-INF/beans.xml">
           <value>
             <set />
           </value>
@@ -183,6 +233,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/../../../board/board-web/src/main/webapp/schedule.xhtml">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/../../../board/pom.xml">
           <value>
             <set />
@@ -213,6 +268,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/../../../electronic-board/electronic-board-ejb/src/main/java/com/tsystems/javaschool/data/HelloBean.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/../../../electronic-board/electronic-board-ejb/src/main/java/com/tsystems/javaschool/model/Member.java">
           <value>
             <set />
@@ -229,6 +289,16 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/../../../electronic-board/electronic-board-web/src/main/webapp/WEB-INF/templates/default.xhtml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../../../electronic-board/electronic-board-web/src/main/webapp/index.xhtml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../../../electronic-board/pom.xml">
           <value>
             <set />
           </value>
@@ -403,6 +473,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/com/tsystems/project/db/db.sql">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/main/java/com/tsystems/project/domain/Admin.java">
           <value>
             <set />
@@ -494,6 +569,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/src/main/java/com/tsystems/project/helper/TrainHelper.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/com/tsystems/project/model/Passenger.java">
           <value>
             <set />
           </value>
@@ -733,12 +813,32 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/main/resources/spring-database.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/main/resources/spring.xml">
           <value>
             <set />
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/src/main/test/java/TrainServiceTest.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/test/java/com/tsystems/javaschool/test/PassengerServiceTest.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/test/java/com/tsystems/javaschool/test/StationServiceTest.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/test/java/com/tsystems/javaschool/test/TicketServiceTest.java">
           <value>
             <set />
           </value>
@@ -769,6 +869,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/src/main/webapp/WEB-INF/something.jsp">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/webapp/WEB-INF/spring-database.xml">
           <value>
             <set />
           </value>
@@ -894,21 +999,6 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/src/main/webapp/views/passenger.jsp">
-          <value>
-            <set />
-          </value>
-        </entry>
-        <entry key="$PROJECT_DIR$/pom.xml">
-          <value>
-            <set />
-          </value>
-        </entry>
-        <entry key="$PROJECT_DIR$/src/main/java/com/tsystems/project/sender/Sender.java">
-          <value>
-            <set />
-          </value>
-        </entry>
-        <entry key="$PROJECT_DIR$/src/main/java/com/tsystems/project/service/StationService.java">
           <value>
             <set />
           </value>
@@ -1059,6 +1149,36 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/../../../scoreboard/untitled/board/pom.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../../../spring-security-login-form-database/pom.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../../../spring-security-login-form-database/script/mysql.sql">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../../../spring-security-login-form-database/src/main/webapp/WEB-INF/mvc-dispatcher-servlet.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../../../spring-security-login-form-database/src/main/webapp/WEB-INF/pages/login.jsp">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../../../spring-security-login-form-database/src/main/webapp/WEB-INF/spring-database.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../../../spring-security-login-form-database/src/main/webapp/WEB-INF/spring-security.xml">
           <value>
             <set />
           </value>

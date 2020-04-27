@@ -1,13 +1,13 @@
 package com.tsystems.project.validator;
 
 import com.tsystems.project.converter.TimeConverter;
-import com.tsystems.project.model.Ticket;
 import com.tsystems.project.model.Train;
 import com.tsystems.project.dto.PassengerDto;
 import com.tsystems.project.dto.PassengerTrainDto;
 import com.tsystems.project.dto.TrainDto;
 import com.tsystems.project.service.TicketService;
 import com.tsystems.project.service.TrainService;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import java.time.LocalDateTime;
@@ -26,11 +26,11 @@ public abstract class Verification {
     @Autowired
     TicketService ticketService;
 
-    public boolean verifyTime(TrainDto trainDto) {
+    public boolean verifyTime(@NotNull TrainDto trainDto) {
         return timeDifference(trainDto.getDepartureTime());
     }
 
-    public boolean verifyTime(PassengerTrainDto passengerTrainDto) {
+    public boolean verifyTime(@NotNull PassengerTrainDto passengerTrainDto) {
         return timeDifference(passengerTrainDto.getDepartureTime());
     }
 
@@ -43,11 +43,11 @@ public abstract class Verification {
     public boolean verifySeats(TrainDto trainDto) {
         Train trainDeparture = trainService.getTrainByOriginStation(trainDto);
         Train trainArrival = trainService.getTrainByDestinationStation(trainDto);
-        List<TrainDto> trains = trainService.getTrainsDtoBetweenTwoStations(trainDeparture, trainArrival);
+        List<Train> trains = trainService.getTrainsBetweenTwoStations(trainDeparture, trainArrival);
         return !trains.stream().allMatch(t -> t.getSeats() > 0);
     }
 
-    public boolean verifySeats(PassengerTrainDto passengerTrainDto) {
+    public boolean verifySeats(@NotNull PassengerTrainDto passengerTrainDto) {
         TrainDto trainDto = new TrainDto();
         trainDto.setNumber(passengerTrainDto.getTrainNumber());
         trainDto.setOriginStation(passengerTrainDto.getOriginStation());
@@ -55,8 +55,12 @@ public abstract class Verification {
         return verifySeats(trainDto);
     }
 
-    public boolean verifyPassenger(int trainNumber, PassengerDto passengerDto) {
-        Ticket ticket = ticketService.getTicketByPassenger(trainNumber, passengerDto);
-        return ticket != null;
+    public boolean verifyPassenger(@NotNull List<TrainDto> trainDtoList, PassengerDto passengerDto) {
+        for (TrainDto trainDto : trainDtoList) {
+            if (ticketService.getTicketByPassenger(trainDto, passengerDto) != null) {
+                return true;
+            }
+        }
+        return false;
     }
 }

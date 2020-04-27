@@ -2,6 +2,7 @@ package com.tsystems.project.service;
 
 import com.tsystems.project.converter.TimeConverter;
 import com.tsystems.project.dao.TrainDao;
+import com.tsystems.project.model.Station;
 import com.tsystems.project.model.Train;
 import com.tsystems.project.dto.TrainDto;
 import com.tsystems.project.converter.TrainConverter;
@@ -9,6 +10,7 @@ import com.tsystems.project.dto.TrainStationDto;
 import com.tsystems.project.helper.TrainHelper;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -103,21 +105,25 @@ public class TrainService {
         if (departureTime.isAfter(arrivalTime)) {
             return trainsDto;
         }
-        trains = trainDao.findByStations(stationService.getStationByName(trainDto.getOriginStation()).getId(),
-                stationService.getStationByName(trainDto.getDestinationStation()).getId(),
-                departureTime, arrivalTime);
-        if (!CollectionUtils.isEmpty(trains)) {
-            trainsDto = trainHelper.searchTrainBetweenExtremeStations(trains);
-            Collections.sort(trainsDto);
+        Station originStation = stationService.getStationByName(trainDto.getOriginStation());
+        Station destinationStation = stationService.getStationByName(trainDto.getDestinationStation());
+        if (originStation != null && destinationStation != null) {
+            trains = trainDao.findByStations(originStation.getId(),
+                    destinationStation.getId(),
+                    departureTime, arrivalTime);
+            if (!CollectionUtils.isEmpty(trains)) {
+                trainsDto = trainHelper.searchTrainBetweenExtremeStations(trains);
+                Collections.sort(trainsDto);
+            }
         }
         return trainsDto;
     }
 
-    public Train getTrainByOriginStation(TrainDto trainDto) {
+    public Train getTrainByOriginStation( TrainDto trainDto) {
         return trainDao.findByStationDeparture(trainDto.getNumber(), trainDto.getOriginStation());
     }
 
-    public Train getTrainByDestinationStation(TrainDto trainDto) {
+    public Train getTrainByDestinationStation( TrainDto trainDto) {
         return trainDao.findByStationArrival(trainDto.getNumber(), trainDto.getDestinationStation());
     }
 
@@ -127,7 +133,7 @@ public class TrainService {
         return trains.stream().map(t -> trainConverter.convertToTrainDto(t)).collect(Collectors.toList());
     }
 
-    public List<Train> getTrainsBetweenTwoStations(Train trainDeparture, Train trainArrival) {
+    public List<Train> getTrainsBetweenTwoStations( Train trainDeparture, Train trainArrival) {
         return trainDao.findAllTrainsBetweenTwoStations(trainDeparture.getId(), trainArrival.getId());
     }
 

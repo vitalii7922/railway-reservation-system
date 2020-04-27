@@ -26,9 +26,6 @@ public class TicketService {
     PassengerService passengerService;
 
     @Autowired
-    StationService stationService;
-
-    @Autowired
     TrainService trainService;
 
     @Autowired
@@ -48,23 +45,24 @@ public class TicketService {
         TicketDto ticketDto;
 
         List<Train> trains = trainService.getTrainsBetweenTwoStations(trainDeparture, trainArrival);
-        Ticket t = new Ticket();
-        t.setTrain(trainDeparture);
         Passenger passenger = passengerService.getPassengerById(passengerDto.getId());
-        t.setPassenger(passenger);
+        Ticket t = null;
         for (Train train : trains) {
+            t = new Ticket();
+            t.setTrain(train);
+            t.setPassenger(passenger);
             int seats = train.getSeats();
             seats--;
             train.setSeats(seats);
             trainService.updateTrain(train);
+            t = ticketDao.create(t);
         }
-        t = ticketDao.create(t);
         ticketDto = ticketConverter.convertToTicketDto(t, passengerDto, trainDeparture, trainArrival);
         log.info("---------ticket has been added--------------");
         return ticketDto;
     }
 
-    public Ticket getTicketByPassenger(int trainNumber, PassengerDto passengerDto) {
-        return ticketDao.findByPassenger(trainNumber, passengerDto);
+    public Ticket getTicketByPassenger(TrainDto trainDto, PassengerDto passengerDto) {
+        return ticketDao.findByPassenger(trainDto, passengerDto);
     }
 }

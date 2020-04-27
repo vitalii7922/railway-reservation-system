@@ -1,7 +1,6 @@
 package com.tsystems.javaschool.test;
 
 import static org.hamcrest.CoreMatchers.is;
-
 import com.tsystems.project.converter.TimeConverter;
 import com.tsystems.project.converter.TrainConverter;
 import com.tsystems.project.dao.TrainDao;

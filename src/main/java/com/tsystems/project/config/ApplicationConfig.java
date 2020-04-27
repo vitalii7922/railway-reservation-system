@@ -16,6 +16,7 @@ public class ApplicationConfig {
 
     @Bean(name = "dataSource")
     public DriverManagerDataSource dataSource() {
+        System.out.println("--------------data source-------------");
         DriverManagerDataSource driverManagerDataSource = new DriverManagerDataSource();
         driverManagerDataSource.setDriverClassName("com.mysql.jdbc.Driver");
         driverManagerDataSource.setUrl("jdbc:mysql://localhost:3306/test");

@@ -26,7 +26,6 @@
                 <td>${train.destinationStation}</td>
                 <td align="center">${train.seats}</td>
             </tr>
-            <br>
         </c:forEach>
     </div>
 <body>

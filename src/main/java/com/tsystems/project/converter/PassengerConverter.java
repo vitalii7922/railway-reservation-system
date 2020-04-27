@@ -2,10 +2,6 @@ package com.tsystems.project.converter;
 
 import com.tsystems.project.model.Passenger;
 import com.tsystems.project.dto.PassengerDto;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 
 @Component

@@ -14,7 +14,7 @@ create table train (
 
 create table station (
                          id int auto_increment primary key,
-                         station_name varchar(50) not null
+                         name varchar(50) not null
 )  engine=InnoDB;
 
 
@@ -71,3 +71,34 @@ select current_timestamp();
 SET time_zone = 'UTC';
 ALTER TABLE schedule MODIFY arrive_time TIMESTAMP null;
 ALTER TABLE schedule drop column arrive_time;
+
+CREATE TABLE user_roles (
+                            user_role_id int(11) NOT NULL AUTO_INCREMENT,
+                            username varchar(45) NOT NULL,
+                            role varchar(45) NOT NULL,
+                            PRIMARY KEY (user_role_id),
+                            UNIQUE KEY uni_username_role (role,username),
+                            KEY fk_username_idx (username),
+                            CONSTRAINT fk_username FOREIGN KEY (username) REFERENCES users (username));
+
+CREATE  TABLE users (
+                        username VARCHAR(45) NOT NULL ,
+                        password VARCHAR(45) NOT NULL ,
+                        enabled TINYINT NOT NULL DEFAULT 1 ,
+                        PRIMARY KEY (username));
+
+CREATE TABLE user_roles (
+                            user_role_id int(11) NOT NULL AUTO_INCREMENT,
+                            username varchar(45) NOT NULL,
+                            role varchar(45) NOT NULL,
+                            PRIMARY KEY (user_role_id),
+                            UNIQUE KEY uni_username_role (role,username),
+                            KEY fk_username_idx (username),
+                            CONSTRAINT fk_username FOREIGN KEY (username) REFERENCES users (username));
+
+insert into users (username, password, enabled) VALUES ('admin', '000', 1);
+delete from railways.user_roles;
+INSERT INTO user_roles (username, role)
+VALUES ('admin', 'ROLE_ADMIN');
+delete from train where train.number = 1;
+delete from schedule where id = 4;

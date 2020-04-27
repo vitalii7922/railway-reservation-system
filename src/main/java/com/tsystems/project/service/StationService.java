@@ -7,7 +7,7 @@ import com.tsystems.project.model.Station;
 import com.tsystems.project.sender.Sender;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.modelmapper.ModelMapper;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,9 +19,6 @@ public class StationService {
 
     @Autowired
     StationDao stationDao;
-
-    @Autowired
-    ModelMapper modelMapper;
 
     @Autowired
     StationConverter stationConverter;
@@ -38,7 +35,6 @@ public class StationService {
         if (!name.matches("\\s*") && stationDao.findByName(name) == null) {
             station.setName(name.toUpperCase());
             log.info("--------Station has been added-------------");
-            station = stationDao.create(station);
             sender.send();
             stationDto = stationConverter.convertToStationDto(stationDao.create(station));
             return stationDto;

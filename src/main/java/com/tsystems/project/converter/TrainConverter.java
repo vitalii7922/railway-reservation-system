@@ -2,12 +2,7 @@ package com.tsystems.project.converter;
 
 import com.tsystems.project.model.Train;
 import com.tsystems.project.dto.TrainDto;
-import com.tsystems.project.service.StationService;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 
 @Component

@@ -41,6 +41,16 @@ public class TrainValidator implements Validator {
         TrainDto trainDto = (TrainDto) o;
         Station from = stationService.getStationByName(trainDto.getOriginStation());
         Station to = stationService.getStationByName(trainDto.getDestinationStation());
+        if (from == null) {
+            errors.rejectValue("originStation", "doesn't.exist",
+                    "Origin station doesn't exist in DB");
+        }
+
+        if (to == null) {
+            errors.rejectValue("destinationStation", "doesn't.exist",
+                    "Destination station doesn't exist in DB");
+        }
+
         if (from != null && to != null && from.getId() == to.getId()) {
             errors.rejectValue("originStation", "same.stations",
                     "Origin and destination stations are the same");

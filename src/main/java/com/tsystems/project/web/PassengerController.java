@@ -32,7 +32,7 @@ public class PassengerController {
 
 
     @ResponseBody
-    @PatchMapping(value = "/ticket")
+    @PostMapping(value = "/ticket")
     public ModelAndView addPassengerTicket(@Valid @ModelAttribute("passengerTrainDto") PassengerTrainDto passengerTrainDto,
                                      BindingResult bindingResult, ModelAndView model) {
         model.setViewName("passenger.jsp");

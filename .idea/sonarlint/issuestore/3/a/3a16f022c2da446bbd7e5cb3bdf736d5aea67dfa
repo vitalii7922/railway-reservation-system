@@ -1,9 +1,0 @@
-
-s
-java:S1128"QRemove this unused import 'org.springframework.context.annotation.Configuration'.(¬²Úäşÿÿÿÿ8ÇŠäš.
-e
-java:S1128"HRemove this unused import 'org.springframework.context.annotation.Bean'.(‚î‰Ş8ÇŠäš.
-X
-java:S1128";Remove this unused import 'org.apache.commons.logging.Log'.(Å¼î²8ÇŠäš.
-_
-java:S1128"BRemove this unused import 'org.apache.commons.logging.LogFactory'.(Ç„Í8ÇŠäš.

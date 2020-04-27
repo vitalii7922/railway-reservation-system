@@ -30,8 +30,7 @@ public class PassengerDao extends AbstractDao<Passenger> {
     }
 
     public List<Passenger> findAllPassengersByTrainNumber(int trainNumber) {
-        String queryString = "SELECT p FROM Passenger p inner join Ticket t on p.id = t.passenger.id " +
-                "where t.train.number = :trainNumber";
+        String queryString = "SELECT p FROM Passenger p inner join Ticket t on p.id = t.passenger.id where t.train.number = :trainNumber";
         Query query = entityManager.createQuery(queryString);
         query.setParameter("trainNumber", trainNumber);
         return query.getResultList();

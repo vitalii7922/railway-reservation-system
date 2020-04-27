@@ -8,6 +8,7 @@ import com.tsystems.project.dto.PassengerLexicographicalOrder;
 import com.tsystems.project.dto.PassengerTrainDto;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -15,22 +16,24 @@ import org.springframework.util.CollectionUtils;
 import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
 public class PassengerService {
+
     @Autowired
     PassengerDao passengerDao;
 
     @Autowired
     PassengerConverter passengerConverter;
 
-
     private static final Log log = LogFactory.getLog(PassengerService.class);
 
     @Transactional
-    public PassengerDto addPassenger(PassengerTrainDto passengerTrainDto) {
+    public PassengerDto addPassenger( PassengerTrainDto passengerTrainDto) {
         Passenger passenger = new Passenger();
         passenger.setFirstName(passengerTrainDto.getFirstName().toUpperCase());
         passenger.setSecondName(passengerTrainDto.getSecondName().toUpperCase());
@@ -40,8 +43,8 @@ public class PassengerService {
     }
 
 
-    public PassengerDto getPassenger(PassengerTrainDto passengerTrainDto) {
-        PassengerDto passengerDto = new PassengerDto();
+    public PassengerDto getPassenger(@NotNull PassengerTrainDto passengerTrainDto) {
+        PassengerDto passengerDto = null;
         Passenger passenger = passengerDao.findByPersonalData(passengerTrainDto.getFirstName(),
                 passengerTrainDto.getSecondName(), LocalDate.parse(passengerTrainDto.getBirthDate()));
         if (passenger != null) {
@@ -55,10 +58,10 @@ public class PassengerService {
     }
 
     public List<PassengerDto> getPassengers(int trainNumber) {
-        List<Passenger> passengers = passengerDao.findAllPassengersByTrainNumber(trainNumber);
+        Set<Passenger> passengerSet = new HashSet<>(passengerDao.findAllPassengersByTrainNumber(trainNumber));
         List<PassengerDto> passengersDto = new ArrayList<>();
-        if (!CollectionUtils.isEmpty(passengers)) {
-            passengersDto = passengers.stream()
+        if (!CollectionUtils.isEmpty(passengerSet)) {
+            passengersDto = passengerSet.stream()
                     .map(p -> passengerConverter.convertToPassengerDtoAddDay(p))
                     .collect(Collectors.toList());
             passengersDto.sort(new PassengerLexicographicalOrder());
