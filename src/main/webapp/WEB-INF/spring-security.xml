@@ -32,7 +32,7 @@
 				users-by-username-query=
 					"select username,password, enabled from users where username=?"
 				authorities-by-username-query=
-					"select username, role from user_roles where username =?  "/>
+					"select username, role from user_roles where username =?"/>
 		</authentication-provider>
 	</authentication-manager>
 	<jdbc:embedded-database id="dataSource"/>

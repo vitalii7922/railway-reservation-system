@@ -4,10 +4,9 @@ import com.tsystems.project.converter.StationConverter;
 import com.tsystems.project.dao.StationDao;
 import com.tsystems.project.dto.StationDto;
 import com.tsystems.project.model.Station;
-import com.tsystems.project.sender.Sender;
+import com.tsystems.project.sender.StationSender;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,7 +23,7 @@ public class StationService {
     StationConverter stationConverter;
 
     @Autowired
-    Sender sender;
+    StationSender sender;
 
     private static final Log log = LogFactory.getLog(StationService.class);
 

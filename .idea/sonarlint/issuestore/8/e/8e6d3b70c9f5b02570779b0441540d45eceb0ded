@@ -1,12 +1,12 @@
 
-l Web:TableHeaderHasIdOrScopeCheck"";Add either an 'id' or a 'scope' attribute to this <th> tag.(ŸÈ‰şûÿÿÿÿ
-D	Web:S1827-")Remove this deprecated "align" attribute.(øæ8Ôßåè“.
 n Web:TableHeaderHasIdOrScopeCheck$";Add either an 'id' or a 'scope' attribute to this <th> tag.(İÿì8ß’¦ˆ”.
-C	Web:S1827")Remove this deprecated "align" attribute.(×—¢úÿÿÿÿ
-C	Web:S1827")Remove this deprecated "align" attribute.(È¥±“üÿÿÿÿ
-J	Web:S1827 ")Remove this deprecated "align" attribute.(¼ø†şÿÿÿÿ8ß’¦ˆ”.
-g Web:TableHeaderHasIdOrScopeCheck#";Add either an 'id' or a 'scope' attribute to this <th> tag.(ÌÇ•å
->	Web:S1827")Remove this deprecated "align" attribute.(ÑÆŞÛ
 g Web:TableHeaderHasIdOrScopeCheck!";Add either an 'id' or a 'scope' attribute to this <th> tag.(½ì¬Ó
+l Web:TableHeaderHasIdOrScopeCheck"";Add either an 'id' or a 'scope' attribute to this <th> tag.(ŸÈ‰şûÿÿÿÿ
+C	Web:S1827")Remove this deprecated "align" attribute.(×—¢úÿÿÿÿ
+D	Web:S1827-")Remove this deprecated "align" attribute.(øæ8Ôßåè“.
+>	Web:S1827")Remove this deprecated "align" attribute.(ÑÆŞÛ
+J	Web:S1827 ")Remove this deprecated "align" attribute.(¼ø†şÿÿÿÿ8ß’¦ˆ”.
 C	Web:S1827")Remove this deprecated "align" attribute.(á…–ÿÿÿÿÿ
 MWeb:TableWithoutCaptionCheck" Add a description to this table.(È¥±“üÿÿÿÿ
+C	Web:S1827")Remove this deprecated "align" attribute.(È¥±“üÿÿÿÿ
+g Web:TableHeaderHasIdOrScopeCheck#";Add either an 'id' or a 'scope' attribute to this <th> tag.(ÌÇ•å

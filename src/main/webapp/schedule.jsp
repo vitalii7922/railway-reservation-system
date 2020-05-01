@@ -5,7 +5,6 @@
 <head>
     <title>Railway reservation system</title>
     <title>Title</title>
-
     <style>
         <%@include file='resources/trains.css'%>
     </style>

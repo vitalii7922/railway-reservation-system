@@ -3,7 +3,7 @@ package com.tsystems.javaschool.test;
 import com.tsystems.project.converter.StationConverter;
 import com.tsystems.project.dao.StationDao;
 import com.tsystems.project.model.Station;
-import com.tsystems.project.sender.Sender;
+import com.tsystems.project.sender.StationSender;
 import com.tsystems.project.service.StationService;
 import org.junit.Before;
 import org.junit.Test;
@@ -26,7 +26,7 @@ public class StationServiceTest {
     StationConverter stationConverter;
 
     @Mock
-    Sender sender;
+    StationSender stationSender;
 
     @Before
     public void setUp() {
@@ -43,7 +43,7 @@ public class StationServiceTest {
     }
 
     public void resetMocks() {
-        Mockito.reset(stationDao, sender, stationConverter);
+        Mockito.reset(stationDao, stationSender, stationConverter);
     }
 
 }

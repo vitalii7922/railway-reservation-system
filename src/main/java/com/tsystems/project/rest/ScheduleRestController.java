@@ -22,10 +22,10 @@ public class ScheduleRestController {
 
     @ResponseBody
     @GetMapping(value = "/schedules/{stationId}")
-    public JsonArray getSchedule(@PathVariable("stationId") long stationId) {
-        List<ScheduleDto> scheduleDtos = scheduleService.getSchedulesByStationId(stationId);
+    public JsonArray getSchedules(@PathVariable("stationId") long stationId) {
+        List<ScheduleDto> scheduleDtoList = scheduleService.getTodaySchedulesByStationId(stationId);
         Gson gson = new Gson();
-        JsonElement element = gson.toJsonTree(scheduleDtos, new TypeToken<List<ScheduleDto>>() {}.getType());
+        JsonElement element = gson.toJsonTree(scheduleDtoList, new TypeToken<List<ScheduleDto>>() {}.getType());
         return element.getAsJsonArray();
     }
 }

@@ -169,8 +169,6 @@ u
 Esrc/main/test/java/com/tsystems/javaschool/test/TrainServiceTest.java,6\5\65ec94a4f725bd76d3cca9e04b2f469dbd01dfef
 ^
 .src/main/webapp/WEB-INF/applicationContext.xml,0\9\098550351661f776bec95040b2d50042c4599987
-e
-5src/main/java/com/tsystems/project/sender/Sender.java,b\a\ba020e9c0a35cb19a8c1037940cbf5155b79a7cc
 p
 @src/main/java/com/tsystems/project/validator/TripsValidator.java,1\7\1790f6b1a26039c582f615d1a24070694906ed89
 l
@@ -207,3 +205,7 @@ g
 +src/main/webapp/WEB-INF/spring-database.xml,b\3\b3e903cc07b6c2371b197a259662c174a924f445
 [
 +src/main/webapp/WEB-INF/spring-security.xml,1\c\1c32f00779ff5236a44927df8f30826d3fbdc472
+m
+=src/main/java/com/tsystems/project/sender/ScheduleSender.java,e\d\ed41bb3d9227941e4fb626911b9cdca362286eed
+l
+<src/main/java/com/tsystems/project/sender/StationSender.java,b\f\bf6cee6dfc624035754462505dd4e52b2587fb9f
