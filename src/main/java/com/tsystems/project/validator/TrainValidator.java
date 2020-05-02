@@ -59,7 +59,8 @@ public class TrainValidator implements Validator {
             LocalDateTime timeDeparture = LocalDateTime.parse(trainDto.getDepartureTime());
             LocalDateTime timeArrival = LocalDateTime.parse(trainDto.getArrivalTime());
             if (timeDeparture.isAfter(timeArrival)) {
-                errors.rejectValue("departureTime", "incorrect.time.period", "Time departure is after time arrival");
+                errors.rejectValue("departureTime", "incorrect.time.period",
+                        "Time departure is after time arrival");
             }
         } catch (DateTimeParseException e) {
             log.error(e);

@@ -8,17 +8,13 @@ import com.tsystems.project.dto.PassengerLexicographicalOrder;
 import com.tsystems.project.dto.PassengerTrainDto;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
 import javax.transaction.Transactional;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -43,7 +39,7 @@ public class PassengerService {
     }
 
 
-    public PassengerDto getPassenger(@NotNull PassengerTrainDto passengerTrainDto) {
+    public PassengerDto getPassenger(PassengerTrainDto passengerTrainDto) {
         PassengerDto passengerDto = null;
         Passenger passenger = passengerDao.findByPersonalData(passengerTrainDto.getFirstName(),
                 passengerTrainDto.getSecondName(), LocalDate.parse(passengerTrainDto.getBirthDate()));
@@ -63,8 +59,8 @@ public class PassengerService {
         if (!CollectionUtils.isEmpty(passengerSet)) {
             passengersDto = passengerSet.stream()
                     .map(p -> passengerConverter.convertToPassengerDtoAddDay(p))
+                    .sorted(new PassengerLexicographicalOrder())
                     .collect(Collectors.toList());
-            passengersDto.sort(new PassengerLexicographicalOrder());
         }
         return passengersDto;
     }

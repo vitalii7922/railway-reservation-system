@@ -26,8 +26,6 @@ public class PassengerValidator extends Verification implements Validator {
     @Autowired
     TrainService trainService;
 
-
-
     Pattern namePattern = Pattern.compile("[\\d|\\s*]", Pattern.CASE_INSENSITIVE);
     Pattern birthDate = Pattern.compile("\\d{4}.\\d{2}.\\d{2}", Pattern.CASE_INSENSITIVE);
 

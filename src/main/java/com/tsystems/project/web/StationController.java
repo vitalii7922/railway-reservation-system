@@ -18,7 +18,7 @@ class StationController {
     private String messageStation = "messageStation";
 
     @ResponseBody
-    @PostMapping(value = "/station")
+    @PostMapping(value = "/admin/station")
     public ModelAndView addStation(@RequestParam("station") String stationName, Model model) {
         StationDto stationDto = stationService.addStation(stationName);
         if (stationDto != null) {
@@ -29,7 +29,6 @@ class StationController {
         return new ModelAndView("menu.jsp");
     }
 
-    @ResponseBody
     @GetMapping(value = "/stations-all")
     public ModelAndView getStations(Model model) {
         List<StationDto> stations = stationService.getAllStations();

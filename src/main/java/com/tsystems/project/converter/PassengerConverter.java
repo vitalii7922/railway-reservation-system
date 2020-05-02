@@ -28,5 +28,4 @@ public class PassengerConverter {
         }
         return passengerDto;
     }
-
 }

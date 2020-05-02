@@ -6,6 +6,7 @@ import com.tsystems.project.service.TrainService;
 import com.tsystems.project.validator.TripsValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.CollectionUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -28,7 +29,7 @@ public class TrainScheduleController {
                                  @RequestParam("time_arrival") String timeArrival, ModelAndView model) {
         List<TrainDto> trains = trainService.getTrainsByStations(trainService.initializeTrainDto(stationNameA,
                 stationNameB, timeDeparture, timeArrival));
-        if (trains != null && !trains.isEmpty()) {
+        if (CollectionUtils.isEmpty(trains)) {
             model.setViewName("trips.jsp");
             model.addObject("timeDeparture", timeDeparture);
             model.addObject("timeArrival", timeArrival);
@@ -43,7 +44,7 @@ public class TrainScheduleController {
     }
 
     @ResponseBody
-    @PostMapping(value = "/trips")
+    @PostMapping(value = "/admin/trips")
     public ModelAndView addTrain(@ModelAttribute("trainDto") TrainDto trainDto,
                                  BindingResult bindingResult,
                                  ModelAndView modelAndView)  {

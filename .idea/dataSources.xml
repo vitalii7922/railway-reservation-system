@@ -7,5 +7,11 @@
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
       <jdbc-url>jdbc:mysql://localhost:3306/railways?serverTimezone=UTC</jdbc-url>
     </data-source>
+    <data-source source="LOCAL" name="railways@localhost [2]" uuid="58306daa-b4bb-4c5c-bcb4-6e1c2f1160ed">
+      <driver-ref>mysql.8</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://localhost:3306/railways?serverTimezone=UTC</jdbc-url>
+    </data-source>
   </component>
 </project>

@@ -14,9 +14,9 @@
     <button  class=button type="submit">Home</button>
 </form>
 
-<form action="menu.jsp" align="right">
+<%--<form action="admin/menu.jsp" align="right">
     <button  class=button type="submit">Menu</button><br>
-</form>
+</form>--%>
 
 <h1 align="center" class="font"> List of stations </h1>
 

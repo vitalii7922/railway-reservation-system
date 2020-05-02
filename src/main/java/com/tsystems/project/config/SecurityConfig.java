@@ -22,10 +22,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     public void configAuthentication(@NotNull AuthenticationManagerBuilder auth) throws Exception {
         System.out.println("-----------DB---------------");
-        */
-/*auth
-                .inMemoryAuthentication()
-                .withUser("user").password("password").roles("USER");*//*
+        auth.inMemoryAuthentication()
+                .withUser("user").password("password").roles("USER");
 
         auth.jdbcAuthentication().dataSource(dataSource)
                 .usersByUsernameQuery(
@@ -40,7 +38,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
         .antMatchers("/menu.jsp").access("hasRole('ROLE_ADMIN')")
                 .and()
-                .formLogin().loginPage("/login.jsp").failureUrl("/login?error")
+                .formLogin().loginPage("/login.jsp").failureUrl("/login?error").permitAll()
                 .usernameParameter("username").passwordParameter("password")
                 .and()
                 .logout().logoutSuccessUrl("/login?logout")

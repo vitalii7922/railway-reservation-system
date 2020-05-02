@@ -4,6 +4,7 @@ import com.tsystems.project.service.ScheduleService;
 import com.tsystems.project.service.StationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -23,7 +24,7 @@ public class ScheduleController {
     @GetMapping(value = "/schedules")
     public ModelAndView getSchedule(@RequestParam("stationId") long stationId, ModelAndView model) {
         List<ScheduleDto> schedules = scheduleService.getSchedulesByStationId(stationId);
-        if (schedules != null && !schedules.isEmpty()) {
+        if (CollectionUtils.isEmpty(schedules)) {
             model.setViewName("schedule.jsp");
             model.addObject("schedule", schedules.get(0));
             model.addObject("schedules", schedules);

@@ -14,7 +14,8 @@ public class TicketDao extends AbstractDao<Ticket> {
     }
 
     public Ticket findByPassenger(TrainDto trainDto, PassengerDto passenger) {
-        String queryString = "SELECT t FROM Ticket t INNER JOIN Train train ON t.train.id = train.id where train.id = :trainId and t.passenger.id = :passengerId";
+        String queryString = "SELECT t FROM Ticket t INNER JOIN Train train ON t.train.id = train.id where " +
+                "train.id = :trainId and t.passenger.id = :passengerId";
         Query query = entityManager.createQuery(queryString);
         query.setParameter("trainId", trainDto.getId());
         query.setParameter("passengerId", passenger.getId());

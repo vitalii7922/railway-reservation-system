@@ -1,5 +1,4 @@
 package com.tsystems.project.service;
-
 import com.tsystems.project.converter.ScheduleConverter;
 import com.tsystems.project.converter.TimeConverter;
 import com.tsystems.project.dao.ScheduleDao;
@@ -14,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;

@@ -10,7 +10,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-
 import java.util.List;
 import javax.validation.Valid;
 
@@ -23,7 +22,7 @@ public class TrainController {
     TrainValidator trainValidator;
 
     @ResponseBody
-    @PostMapping(value = "/train")
+    @PostMapping(value = "/admin/train")
     public ModelAndView addTrain(@RequestParam("train_number") int trainNumber, ModelAndView model) {
         TrainDto train = trainService.getTrainByNumber(trainNumber);
         model.addObject("train", trainNumber);
@@ -38,7 +37,7 @@ public class TrainController {
     }
 
     @ResponseBody
-    @PostMapping(value = "/trip")
+    @PostMapping(value = "/admin/trip")
     public ModelAndView addTrain(@Valid @ModelAttribute("trainDto") TrainDto trainDto,
                                  BindingResult bindingResult, Model model) {
         model.addAttribute("train", trainDto.getNumber());
@@ -53,7 +52,7 @@ public class TrainController {
     }
 
     @ResponseBody
-    @GetMapping(value = "/trains")
+    @GetMapping(value = "/admin/trains")
     public ModelAndView getTrain(ModelAndView model) {
         List<TrainDto> trains = trainService.getAllTrains();
         model.setViewName("menu.jsp");

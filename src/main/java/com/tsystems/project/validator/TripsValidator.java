@@ -10,6 +10,7 @@ import com.tsystems.project.service.StationService;
 import com.tsystems.project.service.TrainService;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
@@ -34,12 +35,12 @@ public class TripsValidator implements Validator {
     private Log log = LogFactory.getLog(TrainValidator.class);
 
     @Override
-    public boolean supports(Class<?> aClass) {
+    public boolean supports(@NotNull Class<?> aClass) {
         return Train.class.equals(aClass);
     }
 
     @Override
-    public void validate(Object o, Errors errors) {
+    public void validate(@NotNull Object o, @NotNull Errors errors) {
         TrainDto trainDto = (TrainDto) o;
         try {
             LocalDateTime timeArrival = LocalDateTime.parse(trainDto.getArrivalTime());

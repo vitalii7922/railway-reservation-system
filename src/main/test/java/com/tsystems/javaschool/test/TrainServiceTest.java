@@ -37,16 +37,16 @@ public class TrainServiceTest {
     private TrainConverter trainConverterMock;
 
     @Mock
-    private StationService stationService;
+    private StationService stationServiceMock;
 
     @Spy
     private TimeConverter timeConverter;
 
     @Mock
-    TrainHelper trainHelper;
+    TrainHelper trainHelperMock;
 
     @Mock
-    private ScheduleService scheduleService;
+    private ScheduleService scheduleServiceMock;
 
     @InjectMocks
     private TrainService trainService;
@@ -64,7 +64,7 @@ public class TrainServiceTest {
                 "Moscow", "Krasnodar");
         Station station = new Station();
         station.setName("Moscow");
-        when(stationService.getStationByName("Moscow")).thenReturn(station);
+        when(stationServiceMock.getStationByName("Moscow")).thenReturn(station);
         assertThat(trainService.addTrain(trainDto), is(notNullValue()));
         resetMocks();
     }
@@ -123,7 +123,7 @@ public class TrainServiceTest {
         };
 
         when(trainDaoMock.findAll()).thenReturn(List.of(train1, train2));
-        when(trainHelper.getTrainsBetweenExtremeStations(Arrays.asList(train1, train2)))
+        when(trainHelperMock.getTrainsBetweenExtremeStations(Arrays.asList(train1, train2)))
                 .thenReturn(Arrays.asList(trainDto1, trainDto2));
         List<TrainDto> trainDtoListResult = trainService.getAllTrains();
         for (int i = 0; i < trainDtoListResult.size(); i++) {
@@ -148,10 +148,10 @@ public class TrainServiceTest {
 
         Train train = new Train(1, 100, List.of(scheduleDeparture, scheduleArrival),
                 originStation, destinationStation);
-        when(stationService.getStationByName("Saint-Petersburg")).thenReturn(originStation);
-        when(stationService.getStationByName("Moscow")).thenReturn(destinationStation);
-        when(trainDaoMock.findByStations(stationService.getStationByName("Saint-Petersburg").getId(),
-                stationService.getStationByName("Moscow").getId(),
+        when(stationServiceMock.getStationByName("Saint-Petersburg")).thenReturn(originStation);
+        when(stationServiceMock.getStationByName("Moscow")).thenReturn(destinationStation);
+        when(trainDaoMock.findByStations(stationServiceMock.getStationByName("Saint-Petersburg").getId(),
+                stationServiceMock.getStationByName("Moscow").getId(),
                 timeConverter.reversedConvertDateTime("12-04-2020 12:00"),
                 timeConverter.reversedConvertDateTime("13-04-2020 01:00"))).thenReturn(List.of(train));
 
@@ -168,7 +168,7 @@ public class TrainServiceTest {
                 add(trainFounded);
             }
         };
-        when(trainHelper.searchTrainBetweenExtremeStations(List.of(train))).thenReturn(trainDtoListFounded);
+        when(trainHelperMock.searchTrainBetweenExtremeStations(List.of(train))).thenReturn(trainDtoListFounded);
 
         for (TrainDto t : trainDtoListFounded) {
             String departureStation = t.getOriginStation();
@@ -184,7 +184,7 @@ public class TrainServiceTest {
         resetMocks();
     }
     public void resetMocks() {
-        Mockito.reset(trainDaoMock, stationService, scheduleService, trainConverterMock, timeConverter);
+        Mockito.reset(trainDaoMock, stationServiceMock, scheduleServiceMock, trainConverterMock, timeConverter);
     }
 
 }

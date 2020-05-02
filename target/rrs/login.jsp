@@ -16,9 +16,8 @@
         Login
     </h1>
 </header>
-<%--<sec:authorize access="hasRole('ROLE_USER')">--%>
-<%--action="<c:url value="/j_spring_security_check" var="loginUrl"/>"--%>
-<form action="login"  method="post">
+<c:url value="/j_spring_security_check" var="loginUrl"/>
+<form action="${loginUrl}"  method="post">
     <div class="text" align="center">
         <p class="message">${message}</p>
         <label><strong>Username</strong></label><br>
@@ -30,14 +29,9 @@
         <label>
             <input type="password" placeholder="Enter Password" name="password" required>
         </label><br>
-<%--        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>--%>
-        <%--<input type="hidden" name="${_csrf.parameterName}"
-               value="${_csrf.token}" />--%>
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
         <button type="submit">Login</button>
     </div>
-
 </form>
-<%--</sec:authorize>--%>
-
 </body>
 </html>

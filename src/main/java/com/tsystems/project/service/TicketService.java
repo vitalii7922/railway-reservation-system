@@ -1,5 +1,4 @@
 package com.tsystems.project.service;
-
 import com.tsystems.project.converter.TicketConverter;
 import com.tsystems.project.dao.TicketDao;
 import com.tsystems.project.model.Passenger;
@@ -32,7 +31,6 @@ public class TicketService {
     TicketConverter ticketConverter;
 
     private static final Log log = LogFactory.getLog(TicketService.class);
-
 
     @Transactional
     public TicketDto addTicket(PassengerTrainDto passengerTrainDto, PassengerDto passengerDto) {
