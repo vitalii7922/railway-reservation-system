@@ -55,3 +55,4 @@ TrainServiceTest: add a train, get a train, get list of all trains, get list of 
 ##Screenshots of the application
 ![Search trains](https://github.com/vitalii7922/railway-reservation-system/blob/refactoring/src/main/java/com/tsystems/project/db/searchTrains.jpg)
 
+
