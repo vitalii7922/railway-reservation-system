@@ -53,10 +53,12 @@ TrainServiceTest: add a train, get a train, get list of all trains, get list of 
 
 ---
 ## Screenshots of the application
+
+### Search trains
 ![Search trains](https://github.com/vitalii7922/railway-reservation-system/blob/refactoring/src/main/java/com/tsystems/project/db/searchTrains.jpg)
 
-![Search trains](https://github.com/vitalii7922/railway-reservation-system/blob/refactoring/src/main/java/com/tsystems/project/db/sch.jpg)
+### Schedule
+![Schedule](https://github.com/vitalii7922/railway-reservation-system/blob/refactoring/src/main/java/com/tsystems/project/db/sch.jpg)
 
-![Search trains](https://github.com/vitalii7922/railway-reservation-system/blob/refactoring/src/main/java/com/tsystems/project/db/sch.jpg)
-
-![Search trains](https://github.com/vitalii7922/railway-reservation-system/blob/refactoring/src/main/java/com/tsystems/project/db/trains.jpg)
+### Train list
+![train list](https://github.com/vitalii7922/railway-reservation-system/blob/refactoring/src/main/java/com/tsystems/project/db/trains.jpg)
