@@ -9,8 +9,6 @@ I
 src/main/webapp/index.jsp,8\e\8e6d3b70c9f5b02570779b0441540d45eceb0ded
 m
 =src/main/java/com/tsystems/project/web/StationController.java,1\6\16f9143d7fc7785c4f4e5e3a059bda3f46e440c1
-H
-src/main/webapp/menu.jsp,6\7\671fde2a78fbd3479793a5502b8584b419c99f8b
 n
 >src/main/java/com/tsystems/project/service/StationService.java,e\a\ea98c7df661b8ebf2452ba4f90d9a12fbf8156ab
 o
@@ -37,8 +35,6 @@ S
 #src/main/webapp/resources/style.css,1\d\1d65978f36dc1db1fdcb53724da4c1ea93696fb4
 h
 8src/main/java/com/tsystems/project/dao/PassengerDao.java,e\c\ecc5c835c7bddf30e1efc7e46441ab09f8f23fc7
-N
-src/main/webapp/trainsList.jsp,c\2\c2b3788a6e7a8a121c32383edf7127a152d3b485
 I
 src/main/webapp/trips.jsp,b\5\b55051a65ecc975fba5e906898a604acfac7f628
 s
@@ -56,21 +52,15 @@ m
 p
 @src/main/java/com/tsystems/project/service/PassengerService.java,6\3\6309d46655a1438f3ded9d3b9d585b6e3117a053
 g
-7src/main/java/com/tsystems/project/config/ModelMap.java,6\0\6025b9baed39577e00b794fb9c9f59b60d955a52
-g
 7src/main/java/com/tsystems/project/dto/ScheduleDto.java,9\f\9f61632079521fb7fcb060dc88bac1fc76fcc8b2
 d
 4src/main/java/com/tsystems/project/dto/TrainDto.java,a\b\ab8888984afb71812a496e62d678f14ea11724ba
-C
-target/rrs/menu.jsp,a\5\a51ac18d5f4e60a13ee22b268f5ff2b9e34c012b
 G
 target/rrs/schedule.jsp,8\1\8149d032f657d140e4b41ef87a9475cdf8389571
 F
 target/rrs/station.jsp,8\9\89d26e8649b0066cdc58bce873341694cb82dc2a
 f
 6src/main/java/com/tsystems/project/dto/StationDto.java,3\9\394d7c4180dbd04cf83bce15a15939be21cdb872
-I
-target/rrs/trainsList.jsp,7\2\72ea881fb12a4453ecbb80a875c76da18d564e14
 h
 8src/main/java/com/tsystems/project/config/AppConfig.java,4\3\43c13d88595a6817eefc3d1f372fb971f8eaaa7b
 h
@@ -95,12 +85,6 @@ c
 3target/rrs/WEB-INF/classes/META-INF/persistence.xml,1\5\1587b16de9e0d8a33385083098c5ec06b583612f
 h
 8src/main/java/com/tsystems/project/dto/PassengerDto.java,0\8\08e41280f5eb35ad65218e4f266539f49b95f447
-d
-4src/main/java/com/tsystems/project/dao/AdminDao.java,1\9\199288ee4ff83678de0cd5ecb5614de73d96709b
-l
-<src/main/java/com/tsystems/project/service/AdminService.java,5\d\5d833c66a770dac2cb17b2ea3bcd802ebd984e59
-R
-"src/main/webapp/passenger_list.jsp,6\2\626ea4fe6a900e8c8e03685660d083ac3c81e56b
 J
 src/main/webapp/ticket.jsp,4\8\4875c6c05a067552108610e27654d815fda6efe0
 I
@@ -117,26 +101,16 @@ D
 target/rrs/login.jsp,4\3\4323a45a2a61dc7a5e883998651308b1c9891a64
 H
 target/rrs/passenger.jsp,a\8\a8e56e4b33c9e1c863323c0fce680fb079bdcf8a
-M
-target/rrs/passenger_list.jsp,d\b\dbbec879d88fe0089442321909a1ada9cb286cfa
 E
 target/rrs/ticket.jsp,a\7\a7fcf70c950c8bd5b209e02363c16d9f4a030079
 j
 :src/main/java/com/tsystems/project/helper/TrainHelper.java,5\3\538c0b9d965d4517b940ac045038d64c422b2241
-p
-@src/main/java/com/tsystems/project/config/ApplicationConfig.java,5\0\50de7a083188cb6d082253e5245c8e1cf29c7948
-g
-7src/main/java/com/tsystems/project/web/LoginFilter.java,4\2\42757ae7f586df22778bd659b73e204db6bcf26b
-m
-=src/main/java/com/tsystems/project/config/SecurityConfig.java,6\4\64c967bef933d273cb3a5434333a98bb66c2271d
 k
 ;src/main/java/com/tsystems/project/dto/TrainStationDto.java,f\a\fa7cc8096ec1f42d1b3647528efb75437446869d
 s
 Csrc/main/java/com/tsystems/project/converter/ScheduleConverter.java,7\0\70c08cefd79b9a850391a30b4da11295107d18bb
 o
 ?src/main/java/com/tsystems/project/converter/TimeConverter.java,9\9\992b2c36c8ed3161c4a05f7ad195fcd8ac901495
-m
-=src/main/java/com/tsystems/project/helper/ScheduleHelper.java,9\c\9c16114d8756d075e081f9bc3d0329dd7b653770
 l
 <src/main/java/com/tsystems/project/service/SeatsService.java,b\d\bd0b91282fdfbfe3986e7a51af9590b8ee1620ef
 S
@@ -145,22 +119,14 @@ R
 "src/main/webapp/resources/menu.css,d\a\da04c2593b6e7c5b3c255d2eff44e8e9be7d2f6b
 T
 $src/main/webapp/resources/trains.css,c\6\c6f845392133ca6912e75da5cb6b93e482b9de49
-I
-src/main/webapp/seats.jsp,1\f\1ffefb06093737c11bc03517d91fb9fec047a0c5
 N
 target/rrs/resources/login.css,8\d\8dd56fa9a6cd36ea7102f1d70a7370a87af0a791
 M
 target/rrs/resources/menu.css,c\d\cd20bf9c9772ee8563dd3fb5a4a0ae2874d96d10
 O
 target/rrs/resources/trains.css,a\a\aa4dbb42feaee444bae4c235a1e5e045b365fcec
-D
-target/rrs/seats.jsp,2\1\217fe8987f6ed4c69d1f492e13b260f66a00bbf7
 y
 Isrc/main/java/com/tsystems/project/dto/PassengerLexicographicalOrder.java,3\0\30df86530028297bf9e6a090440529629538dca9
-J
-src/main/webapp/trains.jsp,2\c\2c03f24bb9d6b67f079f16d8d360e36ecf012ba4
-I
-src/main/webapp/train.jsp,8\4\84d8b6d3a4a5fbbeca854c2a372a99ccd925ace6
 l
 <src/main/java/com/tsystems/project/dto/TrainScheduleDto.java,8\2\821641e88527b79fba69bb38b5824fe3400e732e
 p
@@ -195,8 +161,6 @@ y
 Isrc/main/test/java/com/tsystems/javaschool/test/PassengerServiceTest.java,6\b\6b19c429ce7a55105e040dbd4c06f474743928bd
 w
 Gsrc/main/test/java/com/tsystems/javaschool/test/StationServiceTest.java,d\d\ddebb7979988c02f2b0e3b89de6111b39a0cd733
-c
-3src/main/java/com/tsystems/project/model/Admin.java,4\d\4d1fdcafd4f64296f82d5e9fab034c0adcd141ea
 g
 7src/main/java/com/tsystems/project/model/Passenger.java,f\6\f6f0077c489056c54e68a38a9d7015748253d73e
 \
@@ -209,3 +173,29 @@ m
 =src/main/java/com/tsystems/project/sender/ScheduleSender.java,e\d\ed41bb3d9227941e4fb626911b9cdca362286eed
 l
 <src/main/java/com/tsystems/project/sender/StationSender.java,b\f\bf6cee6dfc624035754462505dd4e52b2587fb9f
+Y
+)target/rrs/WEB-INF/applicationContext.xml,7\6\768b497dc4205e1e97b688dea54900237515c8fb
+V
+&target/rrs/WEB-INF/spring-security.xml,4\d\4d3fea26bf1362f819db297b36c13e3ce1436031
+v
+Fsrc/main/test/java/com/tsystems/javaschool/test/TicketServiceTest.java,b\f\bf67770baa0fe8ffc3da59f52935dec62b078ee4
+f
+6src/main/java/com/tsystems/project/model/Schedule.java,3\6\369919bfdb3a658399b81a8229258d26971e961b
+d
+4src/main/java/com/tsystems/project/model/Ticket.java,8\f\8fc97227daa7df26b73a179ac97bf9c56b93b664
+c
+3src/main/java/com/tsystems/project/model/Train.java,5\9\59ecd172dae0c27dedb5f3380e72c7e62e40e213
+N
+src/main/webapp/admin/menu.jsp,f\0\f005056552faf446ebdc3bdf0dea9642f2719036
+O
+src/main/webapp/admin/seats.jsp,3\7\37eeadde2e2ec2220590b61910d7f02b2ddf870e
+O
+src/main/webapp/admin/train.jsp,c\e\ce127a421242bad9e9c64c7a6248a690d60ba486
+P
+ src/main/webapp/admin/trains.jsp,7\3\735cf628fe5cd613a4de86ade04288b5444e15e3
+T
+$src/main/webapp/admin/trainsList.jsp,2\4\2477709858e93d82b216d02d5cc1f69dc52ccb5e
+X
+(src/main/webapp/admin/passenger_list.jsp,a\3\a36fe7f9c12786d0decb27a603c23cad8e925fd7
+9
+	README.md,8\e\8ec9a00bfd09b3190ac6b22251dbb1aa95a0579d

@@ -29,6 +29,7 @@ class StationController {
         return new ModelAndView("menu.jsp");
     }
 
+    @ResponseBody
     @GetMapping(value = "/stations-all")
     public ModelAndView getStations(Model model) {
         List<StationDto> stations = stationService.getAllStations();

@@ -16,7 +16,7 @@ public class TrainDao extends AbstractDao<Train> {
         super(Train.class);
     }
 
-    public Train findByStationDeparture(int trainNumber, String name) {
+    public Train findByDepartureStation(int trainNumber, String name) {
         String queryString = "SELECT t FROM Train t WHERE (t.originStation.name) = :name and t.number = :trainNumber";
         return getTrain(trainNumber, name, queryString);
     }
@@ -34,17 +34,17 @@ public class TrainDao extends AbstractDao<Train> {
         }
     }
 
-    public Train findByStationArrival(int trainNumber, String name) {
+    public Train findByArrivalStation(int trainNumber, String name) {
         String queryString = "SELECT t FROM Train t WHERE (t.destinationStation.name) = :name and t.number = :trainNumber";
         return getTrain(trainNumber, name, queryString);
     }
 
-    public List<Train> findTrainsByNumber(int number) {
+    public List<Train> findTrainListByNumber(int number) {
         String queryString = "SELECT t FROM Train t WHERE (t.number) = :number";
         Query query = entityManager.createQuery(queryString);
         query.setParameter(trainNumber, number);
         return query.getResultList();
-        }
+    }
 
     public Train findByNumber(int number) {
         String queryString = "select t from Train t inner join Station s on  s.id=t.originStation.id " +
@@ -59,7 +59,7 @@ public class TrainDao extends AbstractDao<Train> {
         }
     }
 
-    public List<Train> findByStations(long fromId, long toId, LocalDateTime departureTime, LocalDateTime arrivalTime) {
+    public List<Train> findByStationsIdAtGivenTerm(long fromId, long toId, LocalDateTime departureTime, LocalDateTime arrivalTime) {
         String queryString1 = "select t from Train t inner join Schedule s on t.id = s.train.id " +
                 "where t.originStation.id = :fromId and s.departureTime >= :departureTime";
         String queryString2 = "select t from Train t inner join Schedule s on t.id = s.train.id " +
@@ -76,11 +76,14 @@ public class TrainDao extends AbstractDao<Train> {
         return trains;
     }
 
-    public List<Train> findAllTrainsBetweenTwoStations(long trainDepartureId, long trainArrivalId) {
-        String queryString1 = "select t from Train t where t.id >= :trainDepartureId and t.id <= :trainArrivalId";
-        Query query = entityManager.createQuery(queryString1);
+    public List<Train> findTrainListByTrainDepartureAndArrivalId(int trainNumber, long trainDepartureId,
+                                                                 long trainArrivalId) {
+        String queryString = "select t from Train t where t.number = :trainNumber and t.id >= :trainDepartureId " +
+                "and t.id <= :trainArrivalId";
+        Query query = entityManager.createQuery(queryString);
         query.setParameter("trainDepartureId", trainDepartureId);
         query.setParameter("trainArrivalId", trainArrivalId);
+        query.setParameter("trainNumber", trainNumber);
         return query.getResultList();
     }
 

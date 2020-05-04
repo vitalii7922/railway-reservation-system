@@ -7,7 +7,6 @@ import com.tsystems.project.dto.PassengerTrainDto;
 import com.tsystems.project.dto.TrainDto;
 import com.tsystems.project.service.TicketService;
 import com.tsystems.project.service.TrainService;
-import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import java.time.LocalDateTime;
@@ -26,11 +25,11 @@ public abstract class Verification {
     @Autowired
     TicketService ticketService;
 
-    public boolean verifyTime(@NotNull TrainDto trainDto) {
+    public boolean verifyTimeDeparture(TrainDto trainDto) {
         return timeDifference(trainDto.getDepartureTime());
     }
 
-    public boolean verifyTime(@NotNull PassengerTrainDto passengerTrainDto) {
+    public boolean verifyTimeDeparture(PassengerTrainDto passengerTrainDto) {
         return timeDifference(passengerTrainDto.getDepartureTime());
     }
 
@@ -40,22 +39,22 @@ public abstract class Verification {
         return minutes <= 10;
     }
 
-    public boolean verifySeats(TrainDto trainDto) {
+    public boolean verifyFreeSeats(TrainDto trainDto) {
         Train trainDeparture = trainService.getTrainByOriginStation(trainDto);
         Train trainArrival = trainService.getTrainByDestinationStation(trainDto);
-        List<Train> trains = trainService.getTrainsBetweenTwoStations(trainDeparture, trainArrival);
+        List<Train> trains = trainService.getTrainListByTrainsId(trainDeparture, trainArrival);
         return !trains.stream().allMatch(t -> t.getSeats() > 0);
     }
 
-    public boolean verifySeats(@NotNull PassengerTrainDto passengerTrainDto) {
+    public boolean verifyFreeSeats(PassengerTrainDto passengerTrainDto) {
         TrainDto trainDto = new TrainDto();
         trainDto.setNumber(passengerTrainDto.getTrainNumber());
         trainDto.setOriginStation(passengerTrainDto.getOriginStation());
         trainDto.setDestinationStation(passengerTrainDto.getDestinationStation());
-        return verifySeats(trainDto);
+        return verifyFreeSeats(trainDto);
     }
 
-    public boolean verifyPassenger(@NotNull List<TrainDto> trainDtoList, PassengerDto passengerDto) {
+    public boolean verifyPassenger(List<TrainDto> trainDtoList, PassengerDto passengerDto) {
         for (TrainDto trainDto : trainDtoList) {
             if (ticketService.getTicketByPassenger(trainDto, passengerDto) != null) {
                 return true;

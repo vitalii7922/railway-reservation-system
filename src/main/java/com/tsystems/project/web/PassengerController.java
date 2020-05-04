@@ -8,6 +8,7 @@ import com.tsystems.project.service.TrainService;
 import com.tsystems.project.validator.PassengerValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.CollectionUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -55,14 +56,14 @@ public class PassengerController {
     public ModelAndView getPassengers(@RequestParam("trainNumber") int trainNumber,
                                      ModelAndView model) {
         List<PassengerDto> passengersDto = passengerService.getPassengers(trainNumber);
-        if (passengersDto != null && !passengersDto.isEmpty()) {
+        if (!CollectionUtils.isEmpty(passengersDto)) {
             model.addObject("passengers", passengersDto);
             model.addObject("train", trainNumber);
             model.setViewName("passenger_list.jsp");
             return model;
         } else {
             model.addObject("message", "no passengers on train " + trainNumber);
-            model.addObject("listOfTrains", trainService.getAllTrains());
+            model.addObject("listOfTrains", trainService.getTrainList());
             model.setViewName("trainsList.jsp");
             return model;
         }

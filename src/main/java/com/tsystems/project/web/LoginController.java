@@ -1,6 +1,4 @@
 package com.tsystems.project.web;
-import com.tsystems.project.service.AdminService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -8,9 +6,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class LoginController {
-
-    @Autowired
-    AdminService adminService;
 
     @ResponseBody
     @GetMapping(value = "/login")
@@ -25,15 +20,6 @@ public class LoginController {
         }
         modelAndView.setViewName("login.jsp");
         return modelAndView;
-    }
-
-    @ResponseBody
-    @GetMapping(value = "/403")
-    public ModelAndView accessDenied() {
-        ModelAndView model = new ModelAndView();
-        model.addObject("message", "You don't have the access");
-        model.setViewName("login.jsp");
-        return model;
     }
 }
 

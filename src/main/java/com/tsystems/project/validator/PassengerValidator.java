@@ -6,7 +6,6 @@ import com.tsystems.project.dto.PassengerDto;
 import com.tsystems.project.dto.PassengerTrainDto;
 import com.tsystems.project.model.Train;
 import com.tsystems.project.service.PassengerService;
-import com.tsystems.project.service.TrainService;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -23,9 +22,6 @@ public class PassengerValidator extends Verification implements Validator {
     @Autowired
     PassengerService passengerService;
 
-    @Autowired
-    TrainService trainService;
-
     Pattern namePattern = Pattern.compile("[\\d|\\s*]", Pattern.CASE_INSENSITIVE);
     Pattern birthDate = Pattern.compile("\\d{4}.\\d{2}.\\d{2}", Pattern.CASE_INSENSITIVE);
 
@@ -37,11 +33,11 @@ public class PassengerValidator extends Verification implements Validator {
     @Override
     public void validate(@NotNull Object o, @NotNull Errors errors) {
         PassengerTrainDto passengerTrainDto = (PassengerTrainDto) o;
-        if (verifySeats(passengerTrainDto)) {
+        if (verifyFreeSeats(passengerTrainDto)) {
             errors.rejectValue("seats", "free.seats", "No free seats on train "
                     + passengerTrainDto.getTrainNumber());
         }
-        if (verifyTime(passengerTrainDto)) {
+        if (verifyTimeDeparture(passengerTrainDto)) {
             errors.rejectValue("departureTime", "after.permitted.time",
                     "You cannot buy a ticket 10 minutes before time departure");
         }
@@ -66,7 +62,7 @@ public class PassengerValidator extends Verification implements Validator {
             trainDto.setDestinationStation(passengerTrainDto.getDestinationStation());
             Train trainDeparture =  trainService.getTrainByOriginStation(trainDto);
             Train trainArrival = trainService.getTrainByDestinationStation(trainDto);
-            List<TrainDto> trainList = trainService.getTrainsDtoBetweenTwoStations(trainDeparture, trainArrival);
+            List<TrainDto> trainList = trainService.getTrainListDtoByTrainsId(trainDeparture, trainArrival);
             if (passenger != null && verifyPassenger(trainList, passenger)) {
                 errors.rejectValue("trainNumber", "booked.ticket",
                         "you have already bought a ticket on train " + passengerTrainDto.getTrainNumber());

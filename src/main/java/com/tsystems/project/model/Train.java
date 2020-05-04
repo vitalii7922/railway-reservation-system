@@ -22,7 +22,7 @@ public class Train implements Serializable {
     @JoinColumn(name = "originStation_id")
     private Station originStation;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne
     @JoinColumn(name = "destinationStation_id")
     private Station destinationStation;
 

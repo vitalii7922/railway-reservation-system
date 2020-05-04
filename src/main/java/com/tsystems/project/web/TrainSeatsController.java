@@ -14,11 +14,12 @@ import java.util.Map;
 
 @Controller
 public class TrainSeatsController {
+
     @Autowired
     SeatsService seatsService;
 
     @ResponseBody
-    @GetMapping(value = "admin/seats")
+    @GetMapping(value = "/admin/seats")
     public ModelAndView getSeats(@RequestParam("train_number") int trainNumber, ModelAndView model) {
         List<TrainDto> trains = seatsService.getTrainByNumber(trainNumber);
         model.setViewName("seats.jsp");

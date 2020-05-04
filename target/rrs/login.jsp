@@ -12,13 +12,13 @@
 </head>
 <body>
 <header>
-    <h1 class="text" align="center">
+    <h1 class="text">
         Login
     </h1>
 </header>
 <c:url value="/j_spring_security_check" var="loginUrl"/>
 <form action="${loginUrl}"  method="post">
-    <div class="text" align="center">
+    <div class="text">
         <p class="message">${message}</p>
         <label><strong>Username</strong></label><br>
         <label>

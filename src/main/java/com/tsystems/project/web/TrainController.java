@@ -7,6 +7,7 @@ import com.tsystems.project.validator.TrainValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.CollectionUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -29,7 +30,7 @@ public class TrainController {
         if (train == null) {
             model.setViewName("train.jsp");
         } else {
-            List<TrainStationDto> trains = trainService.getAllTrainsByNumber(trainNumber);
+            List<TrainStationDto> trains = trainService.getTrainRoutByTrainNumber(trainNumber);
             model.setViewName("trains.jsp");
             model.addObject("trainList", trains);
         }
@@ -38,7 +39,7 @@ public class TrainController {
 
     @ResponseBody
     @PostMapping(value = "/admin/trip")
-    public ModelAndView addTrain(@Valid @ModelAttribute("trainDto") TrainDto trainDto,
+    public ModelAndView addTrip(@Valid @ModelAttribute("trainDto") TrainDto trainDto,
                                  BindingResult bindingResult, Model model) {
         model.addAttribute("train", trainDto.getNumber());
         trainValidator.validate(trainDto, bindingResult);
@@ -46,17 +47,17 @@ public class TrainController {
             return new ModelAndView("train.jsp", bindingResult.getModel());
         }
         trainService.addTrain(trainDto);
-        List<TrainStationDto> trains = trainService.getAllTrainsByNumber(trainDto.getNumber());
+        List<TrainStationDto> trains = trainService.getTrainRoutByTrainNumber(trainDto.getNumber());
         model.addAttribute("trainList", trains);
         return new ModelAndView("trains.jsp");
     }
 
     @ResponseBody
     @GetMapping(value = "/admin/trains")
-    public ModelAndView getTrain(ModelAndView model) {
-        List<TrainDto> trains = trainService.getAllTrains();
+    public ModelAndView getTrainList(ModelAndView model) {
+        List<TrainDto> trains = trainService.getTrainList();
         model.setViewName("menu.jsp");
-        if (trains != null && !trains.isEmpty()) {
+        if (!CollectionUtils.isEmpty(trains)) {
             model.setViewName("trainsList.jsp");
             model.addObject("listOfTrains", trains);
         } else {

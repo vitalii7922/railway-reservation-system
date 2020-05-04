@@ -2,7 +2,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <title>Railway reservation system</title>
     <title>Title</title>
@@ -20,19 +21,20 @@
 </div>
 
 <div class="style_gap" align="center">
-    <h1 align="center" class="font">
+    <h1 class="font">
         Train number: ${train}
     </h1>
     <br>
     <br>
-    <table align="center">
-        <tr align="left">
-            <th>Origin station</th>
-            <th>Destination station</th>
-            <th>Number of seats</th>
-            <th>Departure date</th>
-            <th>Arrival date</th>
-            <th></th>
+    <table class="table_style">
+        <caption></caption>
+        <tr>
+            <th scope="col">Origin station</th>
+            <th scope="col">Destination station</th>
+            <th scope="col">Number of seats</th>
+            <th scope="col">Departure date</th>
+            <th scope="col">Arrival date</th>
+            <th scope="col"></th>
         </tr>
         <tr>
                 <%--@elvariable id="trainDto" type="com.tsystems.project"--%>

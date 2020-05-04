@@ -28,7 +28,7 @@ public class TicketController {
         if (result.hasErrors()) {
             trainDto.setDepartureTime(trainDto.getAllTrainsDepartureTime());
             trainDto.setArrivalTime(trainDto.getAllTrainsArrivalTime());
-            List<TrainDto> trains = trainService.getTrainsByStations(trainDto);
+            List<TrainDto> trains = trainService.getTrainListBetweenTwoPoints(trainDto);
             model.addObject("trains", trains);
             model.addObject("train", trains.get(0));
             model.setViewName("trips.jsp");

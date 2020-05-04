@@ -27,9 +27,9 @@ public class TrainScheduleController {
                                  @RequestParam("to") String stationNameB,
                                  @RequestParam("time_departure") String timeDeparture,
                                  @RequestParam("time_arrival") String timeArrival, ModelAndView model) {
-        List<TrainDto> trains = trainService.getTrainsByStations(trainService.initializeTrainDto(stationNameA,
+        List<TrainDto> trains = trainService.getTrainListBetweenTwoPoints(trainService.initializeTrainDto(stationNameA,
                 stationNameB, timeDeparture, timeArrival));
-        if (CollectionUtils.isEmpty(trains)) {
+        if (!CollectionUtils.isEmpty(trains)) {
             model.setViewName("trips.jsp");
             model.addObject("timeDeparture", timeDeparture);
             model.addObject("timeArrival", timeArrival);
@@ -45,7 +45,7 @@ public class TrainScheduleController {
 
     @ResponseBody
     @PostMapping(value = "/admin/trips")
-    public ModelAndView addTrain(@ModelAttribute("trainDto") TrainDto trainDto,
+    public ModelAndView addTrips(@ModelAttribute("trainDto") TrainDto trainDto,
                                  BindingResult bindingResult,
                                  ModelAndView modelAndView)  {
         modelAndView.setViewName("trains.jsp");
@@ -54,14 +54,14 @@ public class TrainScheduleController {
         tripsValidator.validate(trainDto, bindingResult);
         List<TrainStationDto> trains;
         if (bindingResult.hasErrors()) {
-            trains = trainService.getAllTrainsByNumber(trainDto.getNumber());
+            trains = trainService.getTrainRoutByTrainNumber(trainDto.getNumber());
             modelAndView.addObject("trainList", trains);
             modelAndView.addObject(bindingResult.getModel());
             return modelAndView;
         }
         trainDto.setOriginStation(train.getDestinationStation());
         trainService.addTrain(trainDto);
-        trains = trainService.getAllTrainsByNumber(trainDto.getNumber());
+        trains = trainService.getTrainRoutByTrainNumber(trainDto.getNumber());
         modelAndView.addObject("trainList", trains);
         return modelAndView;
     }

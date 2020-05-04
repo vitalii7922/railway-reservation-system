@@ -1,6 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <title>Railway reservation system</title>
     <style>
@@ -11,20 +12,21 @@
     <button  class=button type="submit">Menu</button><br>
 </form>
     <div class="style_gap">
-        <h1 class="font" align="center">
+        <h1 class="font">
             Train number: ${train}
         </h1>
-        <table align="center">
-            <tr align="left">
-                <th class="font">From</th>
-                <th class="font">To</th>
-                <th class="font">Free seats</th>
+        <table class="table_style_list_trains">
+            <caption></caption>
+            <tr>
+                <th class="font" scope="col">From</th>
+                <th class="font" scope="col">To</th>
+                <th class="font" scope="col">Free seats</th>
             </tr>
         <c:forEach items="${trains}" var="train">
             <tr>
                 <td>${train.originStation}</td>
                 <td>${train.destinationStation}</td>
-                <td align="center">${train.seats}</td>
+                <td>${train.seats}</td>
             </tr>
         </c:forEach>
     </div>

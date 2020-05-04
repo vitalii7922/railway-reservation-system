@@ -7,20 +7,8 @@
 	http://www.springframework.org/schema/security
 	http://www.springframework.org/schema/security/spring-security-3.2.xsd http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd">
 
-    <!-- enable use-expressions -->
     <http auto-config="true" use-expressions="true">
-        <!--<intercept-url pattern="/admin/menu.jsp" access="hasRole('ROLE_ADMIN')"/>
-        <intercept-url pattern="/admin/passenger_list.jsp" access="hasRole('ROLE_ADMIN')"/>
-        <intercept-url pattern="/admin/seats.jsp" access="hasRole('ROLE_ADMIN')"/>
-        <intercept-url pattern="/admin/train.jsp" access="hasRole('ROLE_ADMIN')"/>
-        <intercept-url pattern="/trip" access="hasRole('ROLE_ADMIN')"/>
-        <intercept-url pattern="/trips" access="hasRole('ROLE_ADMIN')"/>
-        <intercept-url pattern="/trains" access="hasRole('ROLE_ADMIN')"/>
-        <intercept-url pattern="/seats" access="hasRole('ROLE_ADMIN')"/>
-        <intercept-url pattern="/passengers" access="hasRole('ROLE_ADMIN')"/>
-        <intercept-url pattern="/station" access="hasRole('ROLE_ADMIN')"/>-->
         <intercept-url pattern="/admin/*" access="hasRole('ROLE_ADMIN')"/>
-        <!-- access denied page -->
 
         <form-login login-page="/login.jsp"
                     default-target-url="/admin/menu.jsp"
@@ -28,14 +16,9 @@
                     username-parameter="username"
                     password-parameter="password"/>
         <logout logout-success-url="/login?logout"/>
-        <access-denied-handler error-page="/403"/>
-        <!--		<logout logout-url="/logout"/>-->
-        <!--		<logout logout-url="/login?logout"/>-->
-        <!-- enable csrf protection -->
-        <!--		<csrf/>-->
+<!--        <access-denied-handler error-page="/403"/>-->
     </http>
 
-    <!-- Select users and user_roles from database -->
     <authentication-manager>
         <authentication-provider>
             <jdbc-user-service data-source-ref="dataSource"

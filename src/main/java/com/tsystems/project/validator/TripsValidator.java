@@ -32,7 +32,7 @@ public class TripsValidator implements Validator {
     @Autowired
     ScheduleService scheduleService;
 
-    private Log log = LogFactory.getLog(TrainValidator.class);
+    private Log log = LogFactory.getLog(TripsValidator.class);
 
     @Override
     public boolean supports(@NotNull Class<?> aClass) {
@@ -49,7 +49,7 @@ public class TripsValidator implements Validator {
             TrainDto train = trainService.getTrainByNumber(trainDto.getNumber());
             Schedule schedule = scheduleService.getScheduleByTrainId(train.getId());
             LocalDateTime time = schedule.getArrivalTime();
-            List<TrainStationDto> trains = trainService.getAllTrainsByNumber(trainDto.getNumber());
+            List<TrainStationDto> trains = trainService.getTrainRoutByTrainNumber(trainDto.getNumber());
 
             if (timeDeparture.isAfter(timeArrival)) {
                 errors.rejectValue("departureTime", "incorrect.time.period",
@@ -58,7 +58,7 @@ public class TripsValidator implements Validator {
 
             if (time.isAfter(timeDeparture)) {
                 errors.rejectValue("arrivalTime", "incorrect.time.period",
-                        "Arrival time is after departure time");
+                        "Arrival time from last station is after departure time");
             }
 
             Station from = stationService.getStationByName(train.getDestinationStation());

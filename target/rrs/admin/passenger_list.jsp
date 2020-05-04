@@ -1,7 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <title>Railway reservation system</title>
     <title>Title</title>
@@ -15,16 +16,17 @@
     <button  class=button type="submit">Menu</button><br>
 </form>
 <div class="style_gap">
-    <h1 class="font" align="center">
+    <h1 class="font">
         List of passengers<br>
         Train number: ${train}
     </h1>
 
-    <table class = table align=center>
-        <tr align="left">
-            <th class="th">First name</th>
-            <th class="th">Last name</th>
-            <th class="th">Birth date</th>
+    <table class = "table">
+        <caption></caption>
+        <tr>
+            <th class="th" scope="col">First name</th>
+            <th class="th" scope="col">Last name</th>
+            <th class="th" scope="col">Birth date</th>
         </tr>
         <c:forEach items="${passengers}" var="passenger">
             <tr>

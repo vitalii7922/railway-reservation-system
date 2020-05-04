@@ -12,6 +12,7 @@ import com.tsystems.project.service.TicketService;
 import com.tsystems.project.service.TrainService;
 import com.tsystems.project.validator.TrainTicketValidator;
 import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.*;
@@ -104,7 +105,7 @@ public class TicketServiceTest {
 
         when(trainService.getTrainByOriginStation(new TrainDto())).thenReturn(train1);
         when(trainService.getTrainByDestinationStation(new TrainDto())).thenReturn(train2);
-        when(trainService.getTrainsBetweenTwoStations(train1, train2)).thenReturn(trainList);
+        when(trainService.getTrainListByTrainsId(train1, train2)).thenReturn(trainList);
         when(passengerService.getPassengerById(passengerDto.getId())).thenReturn(passenger);
         Ticket ticket = new Ticket();
         ticket.setTrain(train1);
@@ -123,11 +124,10 @@ public class TicketServiceTest {
         ticketDto.setDepartureTime("01-01-2020 17:00");
         ticketDto.setArrivalTime("03-01-2020 17:00");
         assertTrue(EqualsBuilder.reflectionEquals(ticketDto, ticketService.addTicket(passengerTrainDto, passengerDto)));
-        resetMocks();
     }
 
     @Test
-    public void TestVerifySeats() {
+    public void TestVerifyFreeSeats() {
         TrainDto trainDto = new TrainDto();
         trainDto.setOriginStation("Moscow");
         trainDto.setDestinationStation("Saint-Petersburg");
@@ -137,8 +137,8 @@ public class TicketServiceTest {
         train.setSeats(10);
         when(trainService.getTrainByOriginStation(trainDto)).thenReturn(train);
         when(trainService.getTrainByDestinationStation(trainDto)).thenReturn(train);
-        when(trainService.getTrainsBetweenTwoStations(train, train)).thenReturn(List.of(train));
-        assertFalse(trainTicketValidator.verifySeats(trainDto));
+        when(trainService.getTrainListByTrainsId(train, train)).thenReturn(List.of(train));
+        assertFalse(trainTicketValidator.verifyFreeSeats(trainDto));
     }
 
     @Test
@@ -151,14 +151,13 @@ public class TicketServiceTest {
     }
 
     @Test
-    public void TestVerifyTime() {
+    public void TestVerifyTimeDeparture() {
         TrainDto trainDto = new TrainDto();
         trainDto.setDepartureTime("08-05-2020 12:00");
-        assertFalse(trainTicketValidator.verifyTime(trainDto));
+        assertFalse(trainTicketValidator.verifyTimeDeparture(trainDto));
     }
 
-
-
+    @After
     public void resetMocks() {
         Mockito.reset(ticketDao, passengerService, trainService);
     }

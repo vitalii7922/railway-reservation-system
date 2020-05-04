@@ -3,10 +3,10 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <title>Railway reservation system</title>
-
     <style>
         <%@include file='../resources/trains.css'%>
     </style>
@@ -18,17 +18,18 @@
 </form>
 
 <div align="center">
-    <h1 class="font" align="center">
+    <h1 class="font">
         Train number: ${train}
     </h1>
-    <p align="center" class="message">${message}</p>
+    <p class="message">${message}</p>
 
-    <table align="center">
+    <table class="table_style">
+        <caption></caption>
         <tr>
-            <th>Destination station</th>
-            <th>Number of seats</th>
-            <th>Departure time</th>
-            <th>Arrival time</th>
+            <th scope="col">Destination station</th>
+            <th scope="col">Number of seats</th>
+            <th scope="col">Departure time</th>
+            <th scope="col">Arrival time</th>
         </tr>
         <tr>
                 <%--@elvariable id="trainDto" type="com.tsystems.project"--%>
@@ -56,17 +57,18 @@
         </tr>
     </table>
 </div>
-<table align=center>
+<table class="table_style_list_trains">
+    <caption></caption>
     <tr>
-        <th class="th">Station</th>
-        <th class="th">Arrival time</th>
-        <th class="th">Departure time</th>
+        <th class="th" scope="col">Station</th>
+        <th class="th" scope="col">Arrival time</th>
+        <th class="th" scope="col">Departure time</th>
     </tr>
     <c:forEach items="${trainList}" var="train">
         <tr>
-            <td>${train.station}</td>
-            <td>${train.arrivalTime}</td>
-            <td>${train.departureTime}</td>
+            <td class="td_padding">${train.station}</td>
+            <td class="td_padding">${train.arrivalTime}</td>
+            <td class="td_padding">${train.departureTime}</td>
         </tr>
     </c:forEach>
 </table>

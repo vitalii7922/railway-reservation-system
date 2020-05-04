@@ -42,7 +42,7 @@ public class TicketService {
         Train trainArrival = trainService.getTrainByDestinationStation(trainDto);
         TicketDto ticketDto;
 
-        List<Train> trains = trainService.getTrainsBetweenTwoStations(trainDeparture, trainArrival);
+        List<Train> trains = trainService.getTrainListByTrainsId(trainDeparture, trainArrival);
         Passenger passenger = passengerService.getPassengerById(passengerDto.getId());
         Ticket t = null;
         for (Train train : trains) {

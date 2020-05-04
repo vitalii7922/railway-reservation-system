@@ -3,6 +3,7 @@ package com.tsystems.project.dto;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.util.Objects;
 
 public class TrainDto implements Serializable, Comparable<TrainDto> {
 
@@ -28,20 +29,17 @@ public class TrainDto implements Serializable, Comparable<TrainDto> {
 
     String allTrainsDepartureTime;
 
-    public TrainDto(int number, int seats, String departureTime, String arrivalTime,
-                    @NotNull(message = "Origin station must not be empty")
-                    @NotEmpty(message = "Origin station must not be empty") String originStation,
-                    @NotNull(message = "Destination station must not be empty")
-                    @NotEmpty(message = "Destination station must not be empty") String destinationStation) {
+    public TrainDto() {
+    }
+
+    public TrainDto(int number, int seats, String departureTime, String arrivalTime, String originStation,
+                    String destinationStation) {
         this.number = number;
         this.seats = seats;
         this.arrivalTime = arrivalTime;
         this.departureTime = departureTime;
         this.originStation = originStation;
         this.destinationStation = destinationStation;
-    }
-
-    public TrainDto() {
     }
 
     public String getAllTrainsArrivalTime() {
@@ -114,6 +112,19 @@ public class TrainDto implements Serializable, Comparable<TrainDto> {
 
     public void setDestinationStation(String destinationStation) {
         this.destinationStation = destinationStation;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof TrainDto)) return false;
+        TrainDto trainDto = (TrainDto) o;
+        return getNumber() == trainDto.getNumber();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getNumber());
     }
 
     @Override

@@ -4,7 +4,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <title>Railway reservation system</title>
     <style>
@@ -16,29 +17,30 @@
     <button class=button type="submit">Menu</button>
     <br>
 </form>
-<div class="style_gap">
-    <h1 class="font" align="center">
+<div>
+    <h1 class="font">
         List of trains
     </h1>
-    <p align="center" class="message">
+    <p class="message">
         ${message}
     </p>
-    <table class=table align=center>
-        <tr align="left">
-            <th class="th">Number</th>
-            <th class="th">From</th>
-            <th class="th">Departure time</th>
-            <th class="th">To</th>
-            <th class="th">Arrival time</th>
+    <table class="table_style">
+        <caption></caption>
+        <tr>
+            <th class="th" scope="col">Number</th>
+            <th class="th" scope="col">From</th>
+            <th class="th" scope="col">Departure time</th>
+            <th class="th" scope="col">To</th>
+            <th class="th" scope="col">Arrival time</th>
         </tr>
         <jsp:useBean id="listOfTrains" scope="request" type="java.util.List"/>
         <c:forEach items="${listOfTrains}" var="train">
             <tr>
-                <td align="center">${train.number}</td>
-                <td>${train.originStation}</td>
-                <td>${train.departureTime}</td>
-                <td>${train.destinationStation}</td>
-                <td>${train.arrivalTime}</td>
+                <td class="td_padding">${train.number}</td>
+                <td class="td_padding">${train.originStation}</td>
+                <td class="td_padding">${train.departureTime}</td>
+                <td class="td_padding">${train.destinationStation}</td>
+                <td class="td_padding">${train.arrivalTime}</td>
                 <form action="passengers">
                     <td>
                         <button>Passengers</button>

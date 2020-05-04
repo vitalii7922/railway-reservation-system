@@ -13,11 +13,11 @@ public class TicketConverter {
     @Autowired
     TimeConverter timeConverter;
 
-    public TicketDto convertToTicketDto(Ticket t, PassengerDto passengerDto, Train trainDeparture, Train trainArrival) {
+    public TicketDto convertToTicketDto(Ticket ticket, PassengerDto passengerDto, Train trainDeparture, Train trainArrival) {
         TicketDto ticketDto = new TicketDto();
-        if (t != null && passengerDto != null && trainArrival != null && trainDeparture != null) {
+        if (ticket != null && passengerDto != null && trainArrival != null && trainDeparture != null) {
             ticketDto.setTrainNumber(trainDeparture.getNumber());
-            ticketDto.setId(t.getId());
+            ticketDto.setId(ticket.getId());
             ticketDto.setFirstName(passengerDto.getFirstName());
             ticketDto.setLastName(passengerDto.getSecondName());
             ticketDto.setBirthDate(passengerDto.getBirthDate());

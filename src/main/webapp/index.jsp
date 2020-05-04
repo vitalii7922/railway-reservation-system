@@ -12,37 +12,46 @@
 </head>
 <body>
 <header>
-    <div class = "line" align = right>
+    <div class = "line">
         <a href="login.jsp">
             Administrator
         </a>
     </div>
 </header>
-<div class="text"  align = center>
+<div class="text" >
     <h1>
         Railway reservation system
     </h1>
 </div>
 <div class="text">
-    <p align=center>
+    <p style = "text-align: center;">
         Choose stations for a trip:
     </p>
     <form action="trips">
-    <table class = table align=center>
-        <tr align="left">
-            <th>From</th>
-            <th>To</th>
-            <th>Departure time</th>
-            <th>Arrival time</th>
+    <table class = "table">
+        <caption></caption>
+        <tr class="text-align: center;">
+            <th scope="col">From</th>
+            <th scope="col">To</th>
+            <th scope="col">Departure time</th>
+            <th scope="col">Arrival time</th>
         </tr>
         <tr class=dark>
-                <td><input type="text" name="from" placeholder="From"></td>
-                <td><input type="text" name="to" placeholder="To"></td>
-                <td><input type="datetime-local" name=time_departure required></td>
-                <td><input type="datetime-local" name=time_arrival required></td>
+                <td><label>
+                    <input type="text" name="from" placeholder="From">
+                </label></td>
+                <td><label>
+                    <input type="text" name="to" placeholder="To">
+                </label></td>
+                <td><label>
+                    <input type="datetime-local" name=time_departure required>
+                </label></td>
+                <td><label>
+                    <input type="datetime-local" name=time_arrival required>
+                </label></td>
                 <td><button type="submit">Find</button></td>
         </tr>
-        <p align="center" class="message">${message}</p>
+        <p class="message">${message}</p>
     </table>
     </form>
     <div>

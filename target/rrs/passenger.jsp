@@ -1,8 +1,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<html>
-<head>
+<!DOCTYPE html>
+<html lang="en">
+    <head>
     <title>Railway reservation system</title>
     <title>Title</title>
     <style>
@@ -17,7 +18,7 @@
     <br>
 </form>
 <header>
-    <h1 class="text" align="center">
+    <h1 class="text">
         Enter personal data
     </h1>
 </header>

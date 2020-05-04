@@ -20,11 +20,10 @@ public class ScheduleController {
     ScheduleService scheduleService;
 
     @ResponseBody
-
     @GetMapping(value = "/schedules")
     public ModelAndView getSchedule(@RequestParam("stationId") long stationId, ModelAndView model) {
         List<ScheduleDto> schedules = scheduleService.getSchedulesByStationId(stationId);
-        if (CollectionUtils.isEmpty(schedules)) {
+        if (!CollectionUtils.isEmpty(schedules)) {
             model.setViewName("schedule.jsp");
             model.addObject("schedule", schedules.get(0));
             model.addObject("schedules", schedules);

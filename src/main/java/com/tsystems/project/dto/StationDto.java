@@ -3,6 +3,7 @@ package com.tsystems.project.dto;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class StationDto implements Serializable, Comparable<StationDto>  {
 
@@ -24,6 +25,20 @@ public class StationDto implements Serializable, Comparable<StationDto>  {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof StationDto)) return false;
+        StationDto that = (StationDto) o;
+        return getId() == that.getId() &&
+                getName().equals(that.getName());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getName());
     }
 
     @Override

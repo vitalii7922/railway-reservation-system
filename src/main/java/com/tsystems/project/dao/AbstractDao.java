@@ -20,7 +20,7 @@ public abstract class AbstractDao<T extends Serializable> {
     }
 
     public T findOne(long id) {
-        return (T) entityManager.find(clazz, id);
+        return entityManager.find(clazz, id);
     }
 
     public List findAll() {
@@ -36,9 +36,5 @@ public abstract class AbstractDao<T extends Serializable> {
 
     public void update(T entity) {
         entityManager.merge(entity);
-    }
-
-    public void delete(T entity) {
-        entityManager.remove(entity);
     }
 }

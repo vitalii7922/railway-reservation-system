@@ -8,7 +8,6 @@ import com.tsystems.project.dto.ScheduleDto;
 import com.tsystems.project.sender.ScheduleSender;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,9 +24,6 @@ public class ScheduleService {
     ScheduleDao scheduleDao;
 
     @Autowired
-    ModelMapper modelMapper;
-
-    @Autowired
     ScheduleConverter scheduleConverter;
 
     @Autowired
@@ -36,7 +32,6 @@ public class ScheduleService {
     @Autowired
     ScheduleSender sender;
 
-    private Log log = LogFactory.getLog(ScheduleService.class);
 
     @Transactional
     public void addSchedule(Train train, LocalDateTime departureTime, LocalDateTime arrivalTime) {

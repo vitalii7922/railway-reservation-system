@@ -853,6 +853,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/com/tsystems/project/web/TrainSeatsController.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/main/java/converter/TrainConverter.java">
           <value>
             <set />
@@ -973,7 +978,32 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/main/webapp/admin/menu.jsp">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/webapp/admin/passenger_list.jsp">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/webapp/admin/seats.jsp">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/webapp/admin/train.jsp">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/main/webapp/admin/trains.jsp">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/webapp/admin/trainsList.jsp">
           <value>
             <set />
           </value>
@@ -1009,6 +1039,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/src/main/webapp/resources/menu.css">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/webapp/resources/style.css">
           <value>
             <set />
           </value>
@@ -1078,27 +1113,32 @@
             <set />
           </value>
         </entry>
-        <entry key="$PROJECT_DIR$/src/main/java/com/tsystems/project/converter/ScheduleConverter.java">
+        <entry key="$PROJECT_DIR$/src/main/java/com/tsystems/project/converter/TicketConverter.java">
           <value>
             <set />
           </value>
         </entry>
-        <entry key="$PROJECT_DIR$/src/main/java/com/tsystems/project/converter/TimeConverter.java">
+        <entry key="$PROJECT_DIR$/src/main/java/com/tsystems/project/dao/TrainDao.java">
           <value>
             <set />
           </value>
         </entry>
-        <entry key="$PROJECT_DIR$/src/main/java/com/tsystems/project/rest/ScheduleRestController.java">
+        <entry key="$PROJECT_DIR$/src/main/java/com/tsystems/project/helper/TrainHelper.java">
           <value>
             <set />
           </value>
         </entry>
-        <entry key="$PROJECT_DIR$/src/main/java/com/tsystems/project/sender/ScheduleSender.java">
+        <entry key="$PROJECT_DIR$/src/main/java/com/tsystems/project/model/Schedule.java">
           <value>
             <set />
           </value>
         </entry>
-        <entry key="$PROJECT_DIR$/src/main/java/com/tsystems/project/sender/StationSender.java">
+        <entry key="$PROJECT_DIR$/src/main/java/com/tsystems/project/model/Station.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/com/tsystems/project/model/Train.java">
           <value>
             <set />
           </value>
@@ -1108,12 +1148,87 @@
             <set />
           </value>
         </entry>
-        <entry key="$PROJECT_DIR$/src/main/test/java/com/tsystems/javaschool/test/PassengerServiceTest.java">
+        <entry key="$PROJECT_DIR$/src/main/java/com/tsystems/project/service/TrainService.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/com/tsystems/project/validator/PassengerValidator.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/com/tsystems/project/validator/TrainTicketValidator.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/com/tsystems/project/validator/TripsValidator.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/com/tsystems/project/validator/Verification.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/test/java/com/tsystems/javaschool/test/StationServiceTest.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/test/java/com/tsystems/javaschool/test/TicketServiceTest.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/test/java/com/tsystems/javaschool/test/TrainServiceTest.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/webapp/admin/train.jsp">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/webapp/admin/trains.jsp">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/webapp/admin/trainsList.jsp">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/webapp/passenger.jsp">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/webapp/resources/login.css">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/webapp/resources/trains.css">
           <value>
             <set />
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/src/main/webapp/schedule.jsp">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/webapp/station.jsp">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/webapp/trips.jsp">
           <value>
             <set />
           </value>

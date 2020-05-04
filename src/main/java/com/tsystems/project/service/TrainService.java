@@ -10,11 +10,9 @@ import com.tsystems.project.dto.TrainStationDto;
 import com.tsystems.project.helper.TrainHelper;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
-
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.*;
@@ -71,29 +69,29 @@ public class TrainService {
     }
 
     @Transactional
-    public List<TrainStationDto> getAllTrainsByNumber(int trainNumber) {
-        List<Train> trains = trainDao.findTrainsByNumber(trainNumber);
-        List<TrainDto> trainsDto = new ArrayList<>();
+    public List<TrainStationDto> getTrainRoutByTrainNumber(int trainNumber) {
+        List<Train> trains = trainDao.findTrainListByNumber(trainNumber);
+        List<TrainDto> trainListDto = new ArrayList<>();
         if (!CollectionUtils.isEmpty(trains)) {
-            trainsDto = trains.stream()
+            trainListDto = trains.stream()
                     .map(t -> trainConverter.convertToTrainDto(t)).collect(Collectors.toList());
         }
-        return trainHelper.getTrainPath(trainsDto);
+        return trainHelper.getTrainRout(trainListDto);
     }
 
     @Transactional
-    public List<TrainDto> getAllTrains() {
+    public List<TrainDto> getTrainList() {
         List<Train> trains = trainDao.findAll();
         List<TrainDto> trainsDto = new ArrayList<>();
         if (!CollectionUtils.isEmpty(trains)) {
-            trainsDto = trainHelper.getTrainsBetweenExtremeStations(trains);
+            trainsDto = trainHelper.getTrainListBetweenExtremeStations(trains);
             Collections.sort(trainsDto);
         }
         return trainsDto;
     }
 
     @Transactional
-    public List<TrainDto> getTrainsByStations(TrainDto trainDto) {
+    public List<TrainDto> getTrainListBetweenTwoPoints(TrainDto trainDto) {
         List<TrainDto> trainsDto = new ArrayList<>();
         if (trainDto.getDepartureTime().matches("\\d{2}-\\d{2}-\\d{4}\\s{1}\\d{2}:\\d{2}")) {
             trainDto.setDepartureTime(timeConverter.reversedConvertDateTime(trainDto.getDepartureTime()).toString());
@@ -108,33 +106,35 @@ public class TrainService {
         Station originStation = stationService.getStationByName(trainDto.getOriginStation());
         Station destinationStation = stationService.getStationByName(trainDto.getDestinationStation());
         if (originStation != null && destinationStation != null) {
-            trains = trainDao.findByStations(originStation.getId(),
+            trains = trainDao.findByStationsIdAtGivenTerm(originStation.getId(),
                     destinationStation.getId(),
                     departureTime, arrivalTime);
             if (!CollectionUtils.isEmpty(trains)) {
-                trainsDto = trainHelper.searchTrainBetweenExtremeStations(trains);
+                trainsDto = trainHelper.searchTrainsBetweenTwoPoints(trains);
                 Collections.sort(trainsDto);
             }
         }
         return trainsDto;
     }
 
-    public Train getTrainByOriginStation( TrainDto trainDto) {
-        return trainDao.findByStationDeparture(trainDto.getNumber(), trainDto.getOriginStation());
+    public Train getTrainByOriginStation(TrainDto trainDto) {
+        return trainDao.findByDepartureStation(trainDto.getNumber(), trainDto.getOriginStation());
     }
 
-    public Train getTrainByDestinationStation( TrainDto trainDto) {
-        return trainDao.findByStationArrival(trainDto.getNumber(), trainDto.getDestinationStation());
+    public Train getTrainByDestinationStation(TrainDto trainDto) {
+        return trainDao.findByArrivalStation(trainDto.getNumber(), trainDto.getDestinationStation());
     }
 
     @Transactional
-    public List<TrainDto> getTrainsDtoBetweenTwoStations(Train trainDeparture, Train trainArrival) {
-        List<Train> trains = trainDao.findAllTrainsBetweenTwoStations(trainDeparture.getId(), trainArrival.getId());
+    public List<TrainDto> getTrainListDtoByTrainsId(Train trainDeparture, Train trainArrival) {
+        List<Train> trains = trainDao.findTrainListByTrainDepartureAndArrivalId(trainDeparture.getNumber(),
+                                                                        trainDeparture.getId(), trainArrival.getId());
         return trains.stream().map(t -> trainConverter.convertToTrainDto(t)).collect(Collectors.toList());
     }
 
-    public List<Train> getTrainsBetweenTwoStations( Train trainDeparture, Train trainArrival) {
-        return trainDao.findAllTrainsBetweenTwoStations(trainDeparture.getId(), trainArrival.getId());
+    public List<Train> getTrainListByTrainsId(Train trainDeparture, Train trainArrival) {
+        return trainDao.findTrainListByTrainDepartureAndArrivalId(trainDeparture.getNumber(),
+                                                                        trainDeparture.getId(), trainArrival.getId());
     }
 
     public void updateTrain(Train train) {

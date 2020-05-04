@@ -7,7 +7,6 @@
     <bean id="trainService" class="com.tsystems.project.service.TrainService" />
     <bean id="trainDao" class="com.tsystems.project.dao.TrainDao" />
     <bean id="hibernateSpring" class="com.tsystems.project.config.SprConfig" />
-    <bean id="modelMap" class="com.tsystems.project.config.ModelMap" />
     <bean id="trainConverter" class="com.tsystems.project.converter.TrainConverter" />
     <bean id="timeConverter" class="com.tsystems.project.converter.TimeConverter" />
     <bean id="trainHelper" class="com.tsystems.project.helper.TrainHelper" />

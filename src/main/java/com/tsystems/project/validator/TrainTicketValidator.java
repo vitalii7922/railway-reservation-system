@@ -18,11 +18,11 @@ public class TrainTicketValidator extends Verification implements Validator {
     public void validate(@NotNull Object o, @NotNull Errors errors) {
         TrainDto trainDto = (TrainDto) o;
 
-        if (verifyTime(trainDto)) {
+        if (verifyTimeDeparture(trainDto)) {
             errors.rejectValue("departureTime", "after.permitted.time",
                     "You cannot buy a ticket 10 minutes before time departure");
         }
-        if (verifySeats(trainDto)) {
+        if (verifyFreeSeats(trainDto)) {
             errors.rejectValue("seats", "train.full",
                     "No free seats on train " + trainDto.getNumber());
         }
