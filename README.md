@@ -18,3 +18,11 @@ Railway reservation system provides:
 ---
 ## DB schema
 ![Image description](https://github.com/vitalii7922/railway-reservation-system/blob/refactoring/src/main/java/com/tsystems/project/db/db.jpg)
+
+---
+Used css files in applications: login.css, menu.css, trains.css, style.css, screen.css
+
+---
+## Architecture of the project
+![Image description](https://github.com/vitalii7922/railway-reservation-system/blob/refactoring/src/main/java/com/tsystems/project/db/Architecture.jpg)
+
