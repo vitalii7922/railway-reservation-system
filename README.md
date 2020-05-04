@@ -26,3 +26,22 @@ Used css files in applications: login.css, menu.css, trains.css, style.css, scre
 ## Architecture of the project
 ![Image description](https://github.com/vitalii7922/railway-reservation-system/blob/refactoring/src/main/java/com/tsystems/project/db/Architecture.jpg)
 
+---
+## Service level description
+Service level consists of:
+- Passenger service: add passengers to DB, get passengers data by id, get list of passengers are registered on a train
+- Schedule service:   add a schedule on a train, get a schedule of a train, get list of schedules on a station
+- Seats service: get a train between two stations by number
+- Station service: add a station, get a station by id, get list of stations
+- Ticket service: add a ticket to a train, get a ticket by passenger data
+- Train service: add a train, get rout of a train by number, get list of trains between two points, get list of all trains, get list of a train between extreme stations, get a train object by an origin station, get a train object by a destination station.
+
+---
+## DAO layer description
+DAO layer consists of: 
+- Passenger DAO has methods: find passenger by personal data, find all passengers are registered on a train by train number;
+-  Schedule DAO has methods: find schedule of a train by a train id, find list of schedules by station id;
+- Station DAO has methods: find station by name;
+- Ticket DAO has methods: find a ticket by a passenger data;
+- Train DAO has methods: find a train by departure and arrival station name, find list of trains by a train number, find list of trains, by stations id at given term, find list of trains by train departure and arrival id.
+
