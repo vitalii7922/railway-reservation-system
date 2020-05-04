@@ -45,3 +45,13 @@ DAO layer consists of:
 - Ticket DAO has methods: find a ticket by a passenger data;
 - Train DAO has methods: find a train by departure and arrival station name, find list of trains by a train number, find list of trains, by stations id at given term, find list of trains by train departure and arrival id.
 
+---
+## Junit tests description:
+StationServiceTest: add a station
+StationServiceTest: add a ticket, verify free seats, verify passenger data, and verify time departure
+TrainServiceTest: add a train, get a train, get list of all trains, get list of all trains between two points. 
+
+---
+##Screenshots of the application
+![Search trains](https://github.com/vitalii7922/railway-reservation-system/blob/refactoring/src/main/java/com/tsystems/project/db/searchTrains.jpg)
+
