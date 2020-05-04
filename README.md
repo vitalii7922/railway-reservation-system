@@ -5,4 +5,16 @@
 -	Services for staff: add stations, add rout of trains, view passengers that are registered on a train and view all trains.
 
 ---
-hello
+## List of used technologies
+
+-	Maven
+-	Hibernate
+-	Spring framework, EJB
+-	MySQL
+-	JSP, JSF
+-	Tomcat, WildFly
+-	ActiveMQ
+
+---
+DB schema
+![Image description](https://github.com/vitalii7922/railway-reservation-system/blob/refactoring/src/main/java/com/tsystems/project/db/DBschema.jpg)
