@@ -52,7 +52,11 @@ StationServiceTest: add a ticket, verify free seats, verify passenger data, and 
 TrainServiceTest: add a train, get a train, get list of all trains, get list of all trains between two points. 
 
 ---
-##Screenshots of the application
+## Screenshots of the application
 ![Search trains](https://github.com/vitalii7922/railway-reservation-system/blob/refactoring/src/main/java/com/tsystems/project/db/searchTrains.jpg)
 
+![Search trains](https://github.com/vitalii7922/railway-reservation-system/blob/refactoring/src/main/java/com/tsystems/project/db/sch.jpg)
 
+![Search trains](https://github.com/vitalii7922/railway-reservation-system/blob/refactoring/src/main/java/com/tsystems/project/db/sch.jpg)
+
+![Search trains](https://github.com/vitalii7922/railway-reservation-system/blob/refactoring/src/main/java/com/tsystems/project/db/trains.jpg)
