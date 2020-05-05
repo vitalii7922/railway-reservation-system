@@ -8,7 +8,6 @@ import com.tsystems.project.dto.PassengerLexicographicalOrder;
 import com.tsystems.project.dto.PassengerTrainDto;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
@@ -17,19 +16,31 @@ import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
 
+
+/**
+ * author Vitalii Nefedov
+ */
 @Service
 public class PassengerService {
 
-    @Autowired
-    PassengerDao passengerDao;
+    private final PassengerDao passengerDao;
 
-    @Autowired
-    PassengerConverter passengerConverter;
+    private final PassengerConverter passengerConverter;
 
     private static final Log log = LogFactory.getLog(PassengerService.class);
 
+    public PassengerService(PassengerDao passengerDao, PassengerConverter passengerConverter) {
+        this.passengerDao = passengerDao;
+        this.passengerConverter = passengerConverter;
+    }
+
+
+    /**
+     * @param passengerTrainDto contains firstName, secondName, birthDate
+     * @return passengerDto
+     */
     @Transactional
-    public PassengerDto addPassenger( PassengerTrainDto passengerTrainDto) {
+    public PassengerDto addPassenger(PassengerTrainDto passengerTrainDto) {
         Passenger passenger = new Passenger();
         passenger.setFirstName(passengerTrainDto.getFirstName().toUpperCase());
         passenger.setSecondName(passengerTrainDto.getSecondName().toUpperCase());
@@ -39,6 +50,10 @@ public class PassengerService {
     }
 
 
+    /**
+     * @param passengerTrainDto contains firstName, secondName, birthDate
+     * @return passengerDto
+     */
     public PassengerDto getPassenger(PassengerTrainDto passengerTrainDto) {
         PassengerDto passengerDto = null;
         Passenger passenger = passengerDao.findByPersonalData(passengerTrainDto.getFirstName(),
@@ -49,19 +64,28 @@ public class PassengerService {
         return passengerDto;
     }
 
+
+    /**
+     * @param passengerId identification of a passenger
+     * @return passenger model
+     */
     public Passenger getPassengerById(long passengerId) {
         return passengerDao.findOne(passengerId);
     }
 
+    /**
+     * @param trainNumber train number
+     * @return passengerDtoList
+     */
     public List<PassengerDto> getPassengers(int trainNumber) {
         Set<Passenger> passengerSet = new HashSet<>(passengerDao.findAllPassengersByTrainNumber(trainNumber));
-        List<PassengerDto> passengersDto = new ArrayList<>();
+        List<PassengerDto> passengerDtoList = new ArrayList<>();
         if (!CollectionUtils.isEmpty(passengerSet)) {
-            passengersDto = passengerSet.stream()
+            passengerDtoList = passengerSet.stream()
                     .map(p -> passengerConverter.convertToPassengerDtoAddDay(p))
                     .sorted(new PassengerLexicographicalOrder())
                     .collect(Collectors.toList());
         }
-        return passengersDto;
+        return passengerDtoList;
     }
 }

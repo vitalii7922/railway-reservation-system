@@ -10,6 +10,9 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.persistence.EntityManagerFactory;
 
+/**
+ * author Vitalii Nefedov
+ */
 @Configuration
 @ComponentScan(basePackages = "com.tsystems.project.dao")
 @EnableTransactionManagement

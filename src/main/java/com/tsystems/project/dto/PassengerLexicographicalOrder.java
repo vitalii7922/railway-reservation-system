@@ -2,6 +2,9 @@ package com.tsystems.project.dto;
 
 import java.util.Comparator;
 
+/**
+ * author Vitalii Nefedov
+ */
 public class PassengerLexicographicalOrder implements Comparator<PassengerDto> {
 
     @Override

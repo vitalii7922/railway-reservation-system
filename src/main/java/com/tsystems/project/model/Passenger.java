@@ -1,10 +1,14 @@
 package com.tsystems.project.model;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * author Vitalii Nefedov
+ */
 @Entity
 public class Passenger implements Serializable {
     @Id

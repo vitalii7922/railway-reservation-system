@@ -4,6 +4,9 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 
+/**
+ * author Vitalii Nefedov
+ */
 @Entity
 public class Station implements Serializable {
     @Id
@@ -28,6 +31,7 @@ public class Station implements Serializable {
     public Station(String name) {
         this.name = name;
     }
+
     public long getId() {
         return id;
     }

@@ -25,7 +25,7 @@ public class StationServiceTest {
     @Spy
     StationConverter stationConverter;
 
-    @Mock
+    @Spy
     StationSender stationSender;
 
     @Before
@@ -43,7 +43,7 @@ public class StationServiceTest {
 
     @After
     public void resetMocks() {
-        Mockito.reset(stationDao, stationSender, stationConverter);
+        Mockito.reset(stationDao);
     }
 
 }

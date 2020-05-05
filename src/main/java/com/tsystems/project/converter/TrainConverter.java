@@ -2,15 +2,24 @@ package com.tsystems.project.converter;
 
 import com.tsystems.project.model.Train;
 import com.tsystems.project.dto.TrainDto;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+/**
+ * author Vitalii Nefedov
+ */
 @Component
 public class TrainConverter {
 
-    @Autowired
-    TimeConverter timeConverter;
+    private final TimeConverter timeConverter;
 
+    public TrainConverter(TimeConverter timeConverter) {
+        this.timeConverter = timeConverter;
+    }
+
+    /**
+     * @param train model
+     * @return trainDto
+     */
     public TrainDto convertToTrainDto(Train train) {
         TrainDto trainDto = null;
         if (train != null) {

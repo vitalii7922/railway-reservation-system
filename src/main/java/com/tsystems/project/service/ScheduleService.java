@@ -1,4 +1,5 @@
 package com.tsystems.project.service;
+
 import com.tsystems.project.converter.ScheduleConverter;
 import com.tsystems.project.converter.TimeConverter;
 import com.tsystems.project.dao.ScheduleDao;
@@ -6,33 +7,44 @@ import com.tsystems.project.model.Schedule;
 import com.tsystems.project.model.Train;
 import com.tsystems.project.dto.ScheduleDto;
 import com.tsystems.project.sender.ScheduleSender;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
+
+/**
+ * author Vitalii Nefedov
+ */
+
 @Service
 public class ScheduleService {
 
-    @Autowired
-    ScheduleDao scheduleDao;
+    private final ScheduleDao scheduleDao;
 
-    @Autowired
-    ScheduleConverter scheduleConverter;
+    private final ScheduleConverter scheduleConverter;
 
-    @Autowired
-    TimeConverter timeConverter;
+    private final TimeConverter timeConverter;
 
-    @Autowired
-    ScheduleSender sender;
+    private final ScheduleSender sender;
 
+    public ScheduleService(ScheduleDao scheduleDao, ScheduleConverter scheduleConverter, TimeConverter timeConverter,
+                           ScheduleSender sender) {
+        this.scheduleDao = scheduleDao;
+        this.scheduleConverter = scheduleConverter;
+        this.timeConverter = timeConverter;
+        this.sender = sender;
+    }
 
+    /**
+     * @param train         train model
+     * @param departureTime departure time of a train
+     * @param arrivalTime   arrival time of a train
+     */
     @Transactional
     public void addSchedule(Train train, LocalDateTime departureTime, LocalDateTime arrivalTime) {
         Schedule scheduleDeparture = new Schedule();
@@ -51,15 +63,23 @@ public class ScheduleService {
         }
     }
 
+    /**
+     * @param id identification of a schedule
+     * @return schedule model
+     */
     public Schedule getScheduleByTrainId(long id) {
         return scheduleDao.findByTrainId(id);
     }
 
+    /**
+     * @param id identification of a schedule
+     * @return scheduleDtoList on a particular station
+     */
     public List<ScheduleDto> getSchedulesByStationId(long id) {
         List<Schedule> schedules = scheduleDao.findByStationId(id);
         List<ScheduleDto> scheduleDtoList = new ArrayList<>();
         if (!CollectionUtils.isEmpty(schedules)) {
-            scheduleDtoList = schedules.stream().map(s -> scheduleConverter.convertToScheduleDto(s))
+            scheduleDtoList = schedules.stream().map(scheduleConverter::convertToScheduleDto)
                     .collect(Collectors.toList());
             List<Long> trainsId = new ArrayList<>();
             for (int i = 0; i < scheduleDtoList.size(); i++) {
@@ -82,6 +102,14 @@ public class ScheduleService {
         return scheduleDtoList;
     }
 
+
+    /**
+     *
+     * delete from list of schedules that are not today's
+     *
+     * @param id identification of a schedule
+     * @return scheduleDtoList at a current day
+     */
     public List<ScheduleDto> getTodaySchedulesByStationId(long id) {
         List<ScheduleDto> scheduleDtoList = getSchedulesByStationId(id);
         scheduleDtoList.removeIf(scheduleDto -> (scheduleDto.getDepartureTime() != null &&
@@ -89,9 +117,9 @@ public class ScheduleService {
                 scheduleDto.getArrivalTime() != null &&
                 !timeConverter.reversedConvertDateTime(scheduleDto.getArrivalTime()).toLocalDate().equals(LocalDate.now())) ||
                 (scheduleDto.getDepartureTime() == null && scheduleDto.getArrivalTime() != null &&
-                !timeConverter.reversedConvertDateTime(scheduleDto.getArrivalTime()).toLocalDate().equals(LocalDate.now())) ||
+                        !timeConverter.reversedConvertDateTime(scheduleDto.getArrivalTime()).toLocalDate().equals(LocalDate.now())) ||
                 (scheduleDto.getArrivalTime() == null && scheduleDto.getDepartureTime() != null &&
-                !timeConverter.reversedConvertDateTime(scheduleDto.getDepartureTime()).toLocalDate().equals(LocalDate.now())));
+                        !timeConverter.reversedConvertDateTime(scheduleDto.getDepartureTime()).toLocalDate().equals(LocalDate.now())));
         return scheduleDtoList;
     }
 }

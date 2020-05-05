@@ -1,10 +1,11 @@
 package com.tsystems.project.dto;
 
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Objects;
 
+/**
+ * author Vitalii Nefedov
+ */
 public class TrainDto implements Serializable, Comparable<TrainDto> {
 
     private long id;
@@ -17,19 +18,23 @@ public class TrainDto implements Serializable, Comparable<TrainDto> {
 
     String departureTime;
 
-    @NotNull(message = "Origin station must not be empty")
-    @NotEmpty(message = "Origin station must not be empty")
+
     private String originStation;
 
-    @NotNull(message = "Destination station must not be empty")
-    @NotEmpty(message = "Destination station must not be empty")
+
     private String destinationStation;
 
     String allTrainsArrivalTime;
 
     String allTrainsDepartureTime;
 
+
     public TrainDto() {
+    }
+
+    public TrainDto(String originStation, String destinationStation) {
+        this.originStation = originStation;
+        this.destinationStation = destinationStation;
     }
 
     public TrainDto(int number, int seats, String departureTime, String arrivalTime, String originStation,

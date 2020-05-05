@@ -11,36 +11,56 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+
 import java.util.List;
 import javax.validation.Valid;
 
+/**
+ * author Vitalii Nefedov
+ */
+
 @Controller
 public class TrainController {
-    @Autowired
-    TrainService trainService;
+    private final TrainService trainService;
+
+    private final TrainValidator trainValidator;
 
     @Autowired
-    TrainValidator trainValidator;
-
-    @ResponseBody
-    @PostMapping(value = "/admin/train")
-    public ModelAndView addTrain(@RequestParam("train_number") int trainNumber, ModelAndView model) {
-        TrainDto train = trainService.getTrainByNumber(trainNumber);
-        model.addObject("train", trainNumber);
-        if (train == null) {
-            model.setViewName("train.jsp");
-        } else {
-            List<TrainStationDto> trains = trainService.getTrainRoutByTrainNumber(trainNumber);
-            model.setViewName("trains.jsp");
-            model.addObject("trainList", trains);
-        }
-        return model;
+    public TrainController(TrainService trainService, TrainValidator trainValidator) {
+        this.trainService = trainService;
+        this.trainValidator = trainValidator;
     }
 
+    /**
+     * @param trainNumber  train number
+     * @param modelAndView model and view
+     * @return model(train rout) and view(trains.jsp)
+     */
+    @ResponseBody
+    @PostMapping(value = "/admin/train")
+    public ModelAndView addTrain(@RequestParam("train_number") int trainNumber, ModelAndView modelAndView) {
+        TrainDto train = trainService.getTrainByNumber(trainNumber);
+        modelAndView.addObject("train", trainNumber);
+        if (train == null) {
+            modelAndView.setViewName("train.jsp");
+        } else {
+            List<TrainStationDto> trains = trainService.getTrainRoutByTrainNumber(trainNumber);
+            modelAndView.setViewName("trains.jsp");
+            modelAndView.addObject("trainList", trains);
+        }
+        return modelAndView;
+    }
+
+    /**
+     * @param trainDto      train data
+     * @param bindingResult result of validation
+     * @param model         model
+     * @return model and view
+     */
     @ResponseBody
     @PostMapping(value = "/admin/trip")
     public ModelAndView addTrip(@Valid @ModelAttribute("trainDto") TrainDto trainDto,
-                                 BindingResult bindingResult, Model model) {
+                                BindingResult bindingResult, Model model) {
         model.addAttribute("train", trainDto.getNumber());
         trainValidator.validate(trainDto, bindingResult);
         if (bindingResult.hasErrors()) {
@@ -52,17 +72,21 @@ public class TrainController {
         return new ModelAndView("trains.jsp");
     }
 
+    /**
+     * @param modelAndView model and view
+     * @return model and view
+     */
     @ResponseBody
     @GetMapping(value = "/admin/trains")
-    public ModelAndView getTrainList(ModelAndView model) {
+    public ModelAndView getTrainList(ModelAndView modelAndView) {
         List<TrainDto> trains = trainService.getTrainList();
-        model.setViewName("menu.jsp");
+        modelAndView.setViewName("menu.jsp");
         if (!CollectionUtils.isEmpty(trains)) {
-            model.setViewName("trainsList.jsp");
-            model.addObject("listOfTrains", trains);
+            modelAndView.setViewName("trainsList.jsp");
+            modelAndView.addObject("listOfTrains", trains);
         } else {
-            model.addObject("messageTrain", "no trains");
+            modelAndView.addObject("messageTrain", "no trains");
         }
-        return model;
+        return modelAndView;
     }
 }

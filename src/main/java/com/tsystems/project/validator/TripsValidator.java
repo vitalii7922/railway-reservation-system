@@ -11,7 +11,6 @@ import com.tsystems.project.service.TrainService;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.jetbrains.annotations.NotNull;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
@@ -21,24 +20,38 @@ import java.time.format.DateTimeParseException;
 import java.util.*;
 
 
+/**
+ * author Vitalii Nefedov
+ */
+
 @Component
 public class TripsValidator implements Validator {
-    @Autowired
-    StationService stationService;
+    private final StationService stationService;
 
-    @Autowired
-    TrainService trainService;
+    private final TrainService trainService;
 
-    @Autowired
-    ScheduleService scheduleService;
+    private final ScheduleService scheduleService;
 
     private Log log = LogFactory.getLog(TripsValidator.class);
+
+    public TripsValidator(StationService stationService, TrainService trainService, ScheduleService scheduleService) {
+        this.stationService = stationService;
+        this.trainService = trainService;
+        this.scheduleService = scheduleService;
+    }
 
     @Override
     public boolean supports(@NotNull Class<?> aClass) {
         return Train.class.equals(aClass);
     }
 
+    /**
+     * verify that destination station exist in DB, destination station is not in a route
+     * and time departure of a train is before or equal departure time
+     *
+     * @param o      object
+     * @param errors errors
+     */
     @Override
     public void validate(@NotNull Object o, @NotNull Errors errors) {
         TrainDto trainDto = (TrainDto) o;
@@ -48,7 +61,7 @@ public class TripsValidator implements Validator {
 
             TrainDto train = trainService.getTrainByNumber(trainDto.getNumber());
             Schedule schedule = scheduleService.getScheduleByTrainId(train.getId());
-            LocalDateTime time = schedule.getArrivalTime();
+            LocalDateTime arrivalTimeLastStation = schedule.getArrivalTime();
             List<TrainStationDto> trains = trainService.getTrainRoutByTrainNumber(trainDto.getNumber());
 
             if (timeDeparture.isAfter(timeArrival)) {
@@ -56,7 +69,7 @@ public class TripsValidator implements Validator {
                         "Departure time is after arrival time");
             }
 
-            if (time.isAfter(timeDeparture)) {
+            if (arrivalTimeLastStation.isAfter(timeDeparture)) {
                 errors.rejectValue("arrivalTime", "incorrect.time.period",
                         "Arrival time from last station is after departure time");
             }
@@ -67,7 +80,7 @@ public class TripsValidator implements Validator {
             if (from == null) {
                 errors.rejectValue("originStation", "incorrect.station.name",
                         "Origin station is empty line or doesn't" +
-                        " exist in DB");
+                                " exist in DB");
             }
 
             if (to == null) {
@@ -77,7 +90,7 @@ public class TripsValidator implements Validator {
 
             if (to != null && trains.stream().anyMatch(t -> t.getStation().equalsIgnoreCase(to.getName()))) {
                 errors.rejectValue("destinationStation", "incorrect.station.path",
-                        "destination station in a path");
+                        "destination station in a rout");
             }
         } catch (DateTimeParseException e) {
             log.error(e);

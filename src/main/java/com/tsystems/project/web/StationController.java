@@ -7,28 +7,48 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+
 import java.util.List;
+
+/**
+ * author Vitalii Nefedov
+ */
 
 @Controller
 class StationController {
 
-    @Autowired
-    StationService stationService;
+    private final StationService stationService;
 
     private String messageStation = "messageStation";
 
-    @ResponseBody
-    @PostMapping(value = "/admin/station")
-    public ModelAndView addStation(@RequestParam("station") String stationName, Model model) {
-        StationDto stationDto = stationService.addStation(stationName);
-        if (stationDto != null) {
-            model.addAttribute(messageStation, "Station " + stationDto.getName() + " has been added");
-        } else {
-            model.addAttribute(messageStation, "Station " + stationName + " exists or you entered empty line");
-        }
-        return new ModelAndView("menu.jsp");
+    @Autowired
+    public StationController(StationService stationService) {
+        this.stationService = stationService;
     }
 
+    /**
+     * @param stationName  name of station
+     * @param modelAndView modelAndView
+     * @return view(menu.jsp) with model(message)
+     */
+    @ResponseBody
+    @PostMapping(value = "/admin/station")
+    public ModelAndView addStation(@ModelAttribute("station") String stationName, ModelAndView modelAndView) {
+        StationDto stationDto = stationService.addStation(stationName);
+        if (stationDto != null) {
+            modelAndView.addObject(messageStation, "Station " + stationDto.getName() + " has been added");
+        } else {
+            modelAndView.addObject(messageStation, "Station " + stationName + " exists in DB or you" +
+                    " entered incorrect name format");
+        }
+        modelAndView.setViewName("menu.jsp");
+        return modelAndView;
+    }
+
+    /**
+     * @param model model
+     * @return ModelAndView with list of stations
+     */
     @ResponseBody
     @GetMapping(value = "/stations-all")
     public ModelAndView getStations(Model model) {
@@ -39,7 +59,7 @@ class StationController {
             return new ModelAndView("station.jsp");
         } else {
             model.addAttribute(messageStation, "no stations");
-            return new ModelAndView("menu.jsp");
+            return new ModelAndView("index.jsp");
         }
     }
 }

@@ -2,6 +2,9 @@ package com.tsystems.project.dto;
 
 import java.io.Serializable;
 
+/**
+ * author Vitalii Nefedov
+ */
 public class TrainStationDto implements Serializable {
     private String station;
     private String departureTime;

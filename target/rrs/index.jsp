@@ -58,6 +58,7 @@
         <form action="stations-all" align="center">
             <button  class=button_index type="submit">List of stations</button><br>
         </form>
+        <p class="message">${messageStation}</p>
     </div>
 </div>
 </body>

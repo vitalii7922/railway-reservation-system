@@ -5,7 +5,10 @@ import org.jetbrains.annotations.NotNull;
 import java.io.Serializable;
 import java.util.Objects;
 
-public class StationDto implements Serializable, Comparable<StationDto>  {
+/**
+ * author Vitalii Nefedov
+ */
+public class StationDto implements Serializable, Comparable<StationDto> {
 
     private long id;
 
@@ -43,6 +46,6 @@ public class StationDto implements Serializable, Comparable<StationDto>  {
 
     @Override
     public int compareTo(@NotNull StationDto o) {
-         return name.compareTo(o.name);
+        return name.compareTo(o.name);
     }
 }

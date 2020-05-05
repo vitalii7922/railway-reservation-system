@@ -17,7 +17,7 @@
     </h1>
 </header>
 <c:url value="/j_spring_security_check" var="loginUrl"/>
-<form action="${loginUrl}"  method="post">
+<form action="${loginUrl}" method="post">
     <div class="text">
         <p class="message">${message}</p>
         <label><strong>Username</strong></label><br>
@@ -29,7 +29,7 @@
         <label>
             <input type="password" placeholder="Enter Password" name="password" required>
         </label><br>
-        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
         <button type="submit">Login</button>
     </div>
 </form>

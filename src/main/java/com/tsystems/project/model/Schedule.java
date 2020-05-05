@@ -1,11 +1,13 @@
 package com.tsystems.project.model;
 
 
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
+/**
+ * author Vitalii Nefedov
+ */
 @Entity
 public class Schedule implements Serializable {
     @Id

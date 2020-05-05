@@ -43,6 +43,7 @@
                     <form:errors path="destinationStation" cssClass="message"/><br>
                     <form:errors path="departureTime" cssClass="message"/><br>
                     <form:errors path="arrivalTime" cssClass="message"/><br>
+                    <jsp:useBean id="train" scope="request" type="java.lang.Integer"/>
                     <form:input type="hidden" path="number" value="${train}"/>
                     <td><form:input type="text" placeholder="Origin station" path="originStation"/></td>
                     <td><form:input type="text" placeholder="Destination station" path="destinationStation"/></td>
@@ -56,6 +57,7 @@
                 </form:form>
         </tr>
     </table>
+    <%--@elvariable id="listOfStations" type="java.util.List"--%>
     <c:forEach items="${listOfStations}" var="stationsNames">
     <tr>
         <td>${stationsNames}</td>

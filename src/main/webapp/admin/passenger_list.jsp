@@ -28,6 +28,7 @@
             <th class="th" scope="col">Last name</th>
             <th class="th" scope="col">Birth date</th>
         </tr>
+        <jsp:useBean id="passengers" scope="request" type="java.util.List"/>
         <c:forEach items="${passengers}" var="passenger">
             <tr>
                 <td>${passenger.firstName}</td>

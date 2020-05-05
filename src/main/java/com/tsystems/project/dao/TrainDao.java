@@ -3,10 +3,14 @@ package com.tsystems.project.dao;
 import com.tsystems.project.model.Train;
 import org.jetbrains.annotations.Nullable;
 import org.springframework.stereotype.Repository;
+
 import java.time.LocalDateTime;
 import java.util.List;
 import javax.persistence.Query;
 
+/**
+ * author Vitalii Nefedov
+ */
 @Repository
 public class TrainDao extends AbstractDao<Train> {
 
@@ -16,11 +20,26 @@ public class TrainDao extends AbstractDao<Train> {
         super(Train.class);
     }
 
+    /**
+     * find train by station departure name
+     *
+     * @param trainNumber train number
+     * @param name        station name
+     * @return train model
+     */
     public Train findByDepartureStation(int trainNumber, String name) {
         String queryString = "SELECT t FROM Train t WHERE (t.originStation.name) = :name and t.number = :trainNumber";
         return getTrain(trainNumber, name, queryString);
     }
 
+    /**
+     * find a train by a station name
+     *
+     * @param trainNumber train number
+     * @param name        station name
+     * @param queryString query
+     * @return train
+     */
     @Nullable
     private Train getTrain(int trainNumber, String name, String queryString) {
         Query query = entityManager.createQuery(queryString);
@@ -34,11 +53,22 @@ public class TrainDao extends AbstractDao<Train> {
         }
     }
 
+    /**
+     * find a train by a station arrival name and a train number
+     *
+     * @param trainNumber train number
+     * @param name        station name
+     * @return train
+     */
     public Train findByArrivalStation(int trainNumber, String name) {
         String queryString = "SELECT t FROM Train t WHERE (t.destinationStation.name) = :name and t.number = :trainNumber";
         return getTrain(trainNumber, name, queryString);
     }
 
+    /**
+     * @param number train number
+     * @return list of trains
+     */
     public List<Train> findTrainListByNumber(int number) {
         String queryString = "SELECT t FROM Train t WHERE (t.number) = :number";
         Query query = entityManager.createQuery(queryString);
@@ -46,6 +76,10 @@ public class TrainDao extends AbstractDao<Train> {
         return query.getResultList();
     }
 
+    /**
+     * @param number train number
+     * @return train model
+     */
     public Train findByNumber(int number) {
         String queryString = "select t from Train t inner join Station s on  s.id=t.originStation.id " +
                 "where (t.number) = :number";
@@ -59,7 +93,15 @@ public class TrainDao extends AbstractDao<Train> {
         }
     }
 
-    public List<Train> findByStationsIdAtGivenTerm(long fromId, long toId, LocalDateTime departureTime, LocalDateTime arrivalTime) {
+    /**
+     * @param fromId station departure id
+     * @param toId station arrival id
+     * @param departureTime departure time
+     * @param arrivalTime arrival time
+     * @return list of trains
+     */
+    public List<Train> findByStationsIdAtGivenTerm(long fromId, long toId, LocalDateTime departureTime,
+                                                   LocalDateTime arrivalTime) {
         String queryString1 = "select t from Train t inner join Schedule s on t.id = s.train.id " +
                 "where t.originStation.id = :fromId and s.departureTime >= :departureTime";
         String queryString2 = "select t from Train t inner join Schedule s on t.id = s.train.id " +
@@ -76,6 +118,13 @@ public class TrainDao extends AbstractDao<Train> {
         return trains;
     }
 
+    /**
+     *
+     * @param trainNumber train number
+     * @param trainDepartureId train departure id
+     * @param trainArrivalId train arrival id
+     * @return list of trains
+     */
     public List<Train> findTrainListByTrainDepartureAndArrivalId(int trainNumber, long trainDepartureId,
                                                                  long trainArrivalId) {
         String queryString = "select t from Train t where t.number = :trainNumber and t.id >= :trainDepartureId " +
@@ -87,6 +136,10 @@ public class TrainDao extends AbstractDao<Train> {
         return query.getResultList();
     }
 
+    /**
+     * @param number train number
+     * @return list of trains
+     */
     public List<Train> findAllByNumber(int number) {
         String queryString = "select t from Train t where t.number = :number";
         Query query = entityManager.createQuery(queryString);

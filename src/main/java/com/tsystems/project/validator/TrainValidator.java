@@ -1,15 +1,12 @@
 package com.tsystems.project.validator;
 
-import com.tsystems.project.converter.TimeConverter;
 import com.tsystems.project.model.Station;
 import com.tsystems.project.model.Train;
 import com.tsystems.project.dto.TrainDto;
 import com.tsystems.project.service.StationService;
-import com.tsystems.project.service.TrainService;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.jetbrains.annotations.NotNull;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
@@ -17,25 +14,34 @@ import org.springframework.validation.Validator;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
+/**
+ * author Vitalii Nefedov
+ */
+
 @Component
 public class TrainValidator implements Validator {
 
-    @Autowired
-    StationService stationService;
+    private final StationService stationService;
 
-    @Autowired
-    TimeConverter timeConverter;
-
-    @Autowired
-    TrainService trainService;
 
     private Log log = LogFactory.getLog(TrainValidator.class);
+
+    public TrainValidator(StationService stationService) {
+        this.stationService = stationService;
+    }
 
     @Override
     public boolean supports(@NotNull Class<?> aClass) {
         return Train.class.equals(aClass);
     }
 
+    /**
+     * verify that origin and destination stations exist in DB, origin and destination stations are not the same
+     * and time departure of a train is before or equal departure time
+     *
+     * @param o      object
+     * @param errors errors
+     */
     @Override
     public void validate(@NotNull Object o, @NotNull Errors errors) {
         TrainDto trainDto = (TrainDto) o;
@@ -64,6 +70,8 @@ public class TrainValidator implements Validator {
             }
         } catch (DateTimeParseException e) {
             log.error(e);
+            errors.rejectValue("departureTime", "incorrect.time.format",
+                    "incorrect departure time or arrival time format");
         }
     }
 }

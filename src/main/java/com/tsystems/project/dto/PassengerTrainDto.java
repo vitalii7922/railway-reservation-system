@@ -3,6 +3,9 @@ package com.tsystems.project.dto;
 import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 
+/**
+ * author Vitalii Nefedov
+ */
 public class PassengerTrainDto implements Serializable {
 
     private int trainNumber;

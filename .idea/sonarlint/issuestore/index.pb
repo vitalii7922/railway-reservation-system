@@ -127,8 +127,6 @@ O
 target/rrs/resources/trains.css,a\a\aa4dbb42feaee444bae4c235a1e5e045b365fcec
 y
 Isrc/main/java/com/tsystems/project/dto/PassengerLexicographicalOrder.java,3\0\30df86530028297bf9e6a090440529629538dca9
-l
-<src/main/java/com/tsystems/project/dto/TrainScheduleDto.java,8\2\821641e88527b79fba69bb38b5824fe3400e732e
 p
 @src/main/java/com/tsystems/project/validator/TrainValidator.java,9\9\99debd46b522a884e913693c6c210c248511bf0c
 u

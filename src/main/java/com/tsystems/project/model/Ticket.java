@@ -3,6 +3,9 @@ package com.tsystems.project.model;
 import javax.persistence.*;
 import java.io.Serializable;
 
+/**
+ * author Vitalii Nefedov
+ */
 @Entity
 public class Ticket implements Serializable {
     @Id

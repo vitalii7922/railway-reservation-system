@@ -1,4 +1,5 @@
 package com.tsystems.project.service;
+
 import com.tsystems.project.converter.TicketConverter;
 import com.tsystems.project.dao.TicketDao;
 import com.tsystems.project.model.Passenger;
@@ -10,28 +11,42 @@ import com.tsystems.project.dto.TicketDto;
 import com.tsystems.project.dto.TrainDto;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
 
+/**
+ * author Vitalii Nefedov
+ */
+
 @Service
 public class TicketService {
-    @Autowired
-    TicketDao ticketDao;
+    private final TicketDao ticketDao;
 
-    @Autowired
-    PassengerService passengerService;
+    private final PassengerService passengerService;
 
-    @Autowired
-    TrainService trainService;
+    private final TrainService trainService;
 
-    @Autowired
-    TicketConverter ticketConverter;
+    private final TicketConverter ticketConverter;
 
     private static final Log log = LogFactory.getLog(TicketService.class);
 
+    public TicketService(TicketDao ticketDao, PassengerService passengerService, TrainService trainService,
+                         TicketConverter ticketConverter) {
+        this.ticketDao = ticketDao;
+        this.passengerService = passengerService;
+        this.trainService = trainService;
+        this.ticketConverter = ticketConverter;
+    }
+
+    /**
+     * decrease number of seats, add passenger to a train, add a ticket, update train data
+     *
+     * @param passengerTrainDto contains train number, origin station name, destination station name
+     * @param passengerDto      contains firstName, secondName, birthDate
+     * @return ticketDto
+     */
     @Transactional
     public TicketDto addTicket(PassengerTrainDto passengerTrainDto, PassengerDto passengerDto) {
         TrainDto trainDto = new TrainDto();
@@ -56,10 +71,17 @@ public class TicketService {
             t = ticketDao.create(t);
         }
         ticketDto = ticketConverter.convertToTicketDto(t, passengerDto, trainDeparture, trainArrival);
-        log.info("---------ticket has been added--------------");
+        log.info("---------ticket has been added--------------Passenger data: " +
+                passenger.getFirstName() + " " + passenger.getSecondName() + " " + passenger.getBirthDate());
         return ticketDto;
     }
 
+
+    /**
+     * @param trainDto     contains train id
+     * @param passengerDto contains passenger id
+     * @return ticket model
+     */
     public Ticket getTicketByPassenger(TrainDto trainDto, PassengerDto passengerDto) {
         return ticketDao.findByPassenger(trainDto, passengerDto);
     }

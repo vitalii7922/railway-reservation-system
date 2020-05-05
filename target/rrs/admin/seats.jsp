@@ -22,6 +22,7 @@
                 <th class="font" scope="col">To</th>
                 <th class="font" scope="col">Free seats</th>
             </tr>
+        <jsp:useBean id="trains" scope="request" type="java.util.List"/>
         <c:forEach items="${trains}" var="train">
             <tr>
                 <td>${train.originStation}</td>

@@ -4,6 +4,9 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 
+/**
+ * author Vitalii Nefedov
+ */
 @Entity
 public class Train implements Serializable {
 

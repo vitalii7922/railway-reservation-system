@@ -4,15 +4,27 @@ import com.tsystems.project.model.Ticket;
 import com.tsystems.project.model.Train;
 import com.tsystems.project.dto.PassengerDto;
 import com.tsystems.project.dto.TicketDto;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+/**
+ * author Vitalii Nefedov
+ */
 @Component
 public class TicketConverter {
 
-    @Autowired
-    TimeConverter timeConverter;
+    private final TimeConverter timeConverter;
 
+    public TicketConverter(TimeConverter timeConverter) {
+        this.timeConverter = timeConverter;
+    }
+
+    /**
+     * @param ticket         model
+     * @param passengerDto   passenger data
+     * @param trainDeparture departure time of a train
+     * @param trainArrival   arrival time of a train
+     * @return ticketDto
+     */
     public TicketDto convertToTicketDto(Ticket ticket, PassengerDto passengerDto, Train trainDeparture, Train trainArrival) {
         TicketDto ticketDto = new TicketDto();
         if (ticket != null && passengerDto != null && trainArrival != null && trainDeparture != null) {

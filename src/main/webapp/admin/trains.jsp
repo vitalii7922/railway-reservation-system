@@ -64,6 +64,7 @@
         <th class="th" scope="col">Arrival time</th>
         <th class="th" scope="col">Departure time</th>
     </tr>
+    <jsp:useBean id="trainList" scope="request" type="java.util.List"/>
     <c:forEach items="${trainList}" var="train">
         <tr>
             <td class="td_padding">${train.station}</td>

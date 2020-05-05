@@ -3,6 +3,9 @@ package com.tsystems.project.dto;
 import java.io.Serializable;
 import java.time.LocalDate;
 
+/**
+ * author Vitalii Nefedov
+ */
 public class PassengerDto implements Serializable {
 
     private long id;

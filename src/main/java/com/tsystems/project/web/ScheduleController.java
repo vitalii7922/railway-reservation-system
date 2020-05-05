@@ -1,4 +1,5 @@
 package com.tsystems.project.web;
+
 import com.tsystems.project.dto.ScheduleDto;
 import com.tsystems.project.service.ScheduleService;
 import com.tsystems.project.service.StationService;
@@ -10,29 +11,42 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
+/**
+ * author Vitalii Nefedov
+ */
+
 @Controller
 public class ScheduleController {
 
-    @Autowired
-    StationService stationService;
+    private final StationService stationService;
+
+    private final ScheduleService scheduleService;
 
     @Autowired
-    ScheduleService scheduleService;
+    public ScheduleController(StationService stationService, ScheduleService scheduleService) {
+        this.stationService = stationService;
+        this.scheduleService = scheduleService;
+    }
 
+    /**
+     * @param stationId    station identification
+     * @param modelAndView model and view
+     * @return model(schedule on a station) and view
+     */
     @ResponseBody
     @GetMapping(value = "/schedules")
-    public ModelAndView getSchedule(@RequestParam("stationId") long stationId, ModelAndView model) {
+    public ModelAndView getSchedule(@RequestParam("stationId") long stationId, ModelAndView modelAndView) {
         List<ScheduleDto> schedules = scheduleService.getSchedulesByStationId(stationId);
         if (!CollectionUtils.isEmpty(schedules)) {
-            model.setViewName("schedule.jsp");
-            model.addObject("schedule", schedules.get(0));
-            model.addObject("schedules", schedules);
+            modelAndView.setViewName("schedule.jsp");
+            modelAndView.addObject("schedule", schedules.get(0));
+            modelAndView.addObject("schedules", schedules);
         } else {
-            model.setViewName("station.jsp");
-            model.addObject("listOfParams", stationService.getAllStations());
-            model.addObject("message", "no trains on station " +
+            modelAndView.setViewName("station.jsp");
+            modelAndView.addObject("listOfParams", stationService.getAllStations());
+            modelAndView.addObject("message", "no trains on station " +
                     stationService.getStationById(stationId).getName());
         }
-        return model;
+        return modelAndView;
     }
 }

@@ -16,6 +16,9 @@ import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 import java.util.Properties;
 
+/**
+ * author Vitalii Nefedov
+ */
 @Configuration
 @EnableTransactionManagement
 @ComponentScan(basePackages = {"com.tsystems.project.dao"})

@@ -35,7 +35,7 @@ public class TicketServiceTest {
     TicketDao ticketDao;
 
     @Mock
-    PassengerService passengerService;
+    PassengerService passengerServiceMock;
 
     @InjectMocks
     TicketService ticketService;
@@ -102,11 +102,10 @@ public class TicketServiceTest {
             }
         };
 
-
         when(trainService.getTrainByOriginStation(new TrainDto())).thenReturn(train1);
         when(trainService.getTrainByDestinationStation(new TrainDto())).thenReturn(train2);
         when(trainService.getTrainListByTrainsId(train1, train2)).thenReturn(trainList);
-        when(passengerService.getPassengerById(passengerDto.getId())).thenReturn(passenger);
+        when(passengerServiceMock.getPassengerById(passengerDto.getId())).thenReturn(passenger);
         Ticket ticket = new Ticket();
         ticket.setTrain(train1);
         ticket.setPassenger(passenger);
@@ -159,6 +158,6 @@ public class TicketServiceTest {
 
     @After
     public void resetMocks() {
-        Mockito.reset(ticketDao, passengerService, trainService);
+        Mockito.reset(ticketDao, passengerServiceMock, trainService);
     }
 }

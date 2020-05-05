@@ -4,9 +4,16 @@ import com.tsystems.project.dto.StationDto;
 import com.tsystems.project.model.Station;
 import org.springframework.stereotype.Component;
 
+/**
+ * author Vitalii Nefedov
+ */
 @Component
 public class StationConverter {
 
+    /**
+     * @param station model
+     * @return stationDto
+     */
     public StationDto convertToStationDto(Station station) {
         StationDto stationDto = new StationDto();
         if (station != null) {

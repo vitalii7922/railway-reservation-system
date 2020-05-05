@@ -14,18 +14,29 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+/**
+ * author Vitalii Nefedov
+ */
 @RestController
 public class ScheduleRestController {
 
-    @Autowired
-    ScheduleService scheduleService;
+    private final ScheduleService scheduleService;
 
+    public ScheduleRestController(ScheduleService scheduleService) {
+        this.scheduleService = scheduleService;
+    }
+
+    /**
+     * @param stationId station identification
+     * @return json array of schedules
+     */
     @ResponseBody
     @GetMapping(value = "/schedules/{stationId}")
     public JsonArray getSchedules(@PathVariable("stationId") long stationId) {
         List<ScheduleDto> scheduleDtoList = scheduleService.getTodaySchedulesByStationId(stationId);
         Gson gson = new Gson();
-        JsonElement element = gson.toJsonTree(scheduleDtoList, new TypeToken<List<ScheduleDto>>() {}.getType());
+        JsonElement element = gson.toJsonTree(scheduleDtoList, new TypeToken<List<ScheduleDto>>() {
+        }.getType());
         return element.getAsJsonArray();
     }
 }

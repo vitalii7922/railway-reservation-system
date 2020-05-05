@@ -2,15 +2,26 @@ package com.tsystems.project.converter;
 
 import com.tsystems.project.model.Schedule;
 import com.tsystems.project.dto.ScheduleDto;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+/**
+ * author Vitalii Nefedov
+ */
 @Component
 public class ScheduleConverter {
 
-    @Autowired
-    TimeConverter timeConverter;
+    private final TimeConverter timeConverter;
 
+    public ScheduleConverter(TimeConverter timeConverter) {
+        this.timeConverter = timeConverter;
+    }
+
+    /**
+     * convert schedule model to schedule dto
+     *
+     * @param schedule model
+     * @return scheduleDto
+     */
     public ScheduleDto convertToScheduleDto(Schedule schedule) {
         ScheduleDto scheduleDto = new ScheduleDto();
         if (schedule != null) {

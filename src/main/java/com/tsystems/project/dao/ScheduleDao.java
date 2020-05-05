@@ -2,9 +2,13 @@ package com.tsystems.project.dao;
 
 import com.tsystems.project.model.Schedule;
 import org.springframework.stereotype.Repository;
+
 import javax.persistence.Query;
 import java.util.List;
 
+/**
+ * author Vitalii Nefedov
+ */
 @Repository
 public class ScheduleDao extends AbstractDao<Schedule> {
 
@@ -12,6 +16,10 @@ public class ScheduleDao extends AbstractDao<Schedule> {
         super(Schedule.class);
     }
 
+    /**
+     * @param id train identification
+     * @return schedule model
+     */
     public Schedule findByTrainId(long id) {
         String queryString = "SELECT s FROM Schedule s WHERE (s.train.id) = :id";
         Query query = entityManager.createQuery(queryString);
@@ -25,6 +33,12 @@ public class ScheduleDao extends AbstractDao<Schedule> {
     }
 
 
+    /**
+     * find list of schedules by station id
+     *
+     * @param id station identification
+     * @return list of schedules
+     */
     public List<Schedule> findByStationId(long id) {
         String queryString = "SELECT s FROM Schedule s WHERE (s.station.id) = :id";
         Query query = entityManager.createQuery(queryString);

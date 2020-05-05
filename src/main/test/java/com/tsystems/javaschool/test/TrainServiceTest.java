@@ -96,7 +96,6 @@ public class TrainServiceTest {
         Assert.assertEquals(1, trainService.getTrainByNumber(1).getNumber());
 
         Assert.assertTrue(EqualsBuilder.reflectionEquals(trainDto, trainService.getTrainByNumber(1)));
-        resetMocks();
     }
 
     @Test
@@ -134,9 +133,7 @@ public class TrainServiceTest {
 
     @Test
     public void testGetAllTrainsByStations() {
-        TrainDto trainDto = new TrainDto();
-        trainDto.setOriginStation("Saint-Petersburg");
-        trainDto.setDestinationStation("Moscow");
+        TrainDto trainDto = new TrainDto("Saint-Petersburg", "Moscow");
         trainDto.setDepartureTime("12-04-2020 12:00");
         trainDto.setArrivalTime("13-04-2020 01:00");
 
@@ -156,11 +153,9 @@ public class TrainServiceTest {
                 timeConverter.reversedConvertDateTime("12-04-2020 12:00"),
                 timeConverter.reversedConvertDateTime("13-04-2020 01:00"))).thenReturn(List.of(train));
 
-        TrainDto trainFounded = new TrainDto();
+        TrainDto trainFounded = new TrainDto("Saint-Petersburg","Moscow");
         trainFounded.setNumber(1);
         trainFounded.setSeats(100);
-        trainFounded.setOriginStation("Saint-Petersburg");
-        trainFounded.setDestinationStation("Moscow");
         trainFounded.setDepartureTime("12-04-2020 16:00");
         trainFounded.setArrivalTime("13-04-2020 00:30");
 
@@ -182,7 +177,6 @@ public class TrainServiceTest {
                     timeConverter.reversedConvertDateTime(t.getArrivalTime())
                             .isBefore(timeConverter.reversedConvertDateTime(trainDto.getArrivalTime())));
         }
-        resetMocks();
     }
 
     @After
