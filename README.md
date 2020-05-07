@@ -23,10 +23,6 @@ Railway reservation system provides:
 Used css files in applications: login.css, menu.css, trains.css, style.css, screen.css
 
 ---
-## Architecture of the project
-![Image description](https://github.com/vitalii7922/railway-reservation-system/blob/refactoring/src/main/java/com/tsystems/project/db/Architecture.jpg)
-
----
 ## Service level description
 Service level consists of:
 - Passenger service: add passengers to DB, get passengers data by id, get list of passengers are registered on a train
