@@ -73,7 +73,7 @@ public class PassengerController {
      * @return model and view
      */
     @ResponseBody
-    @GetMapping(value = "admin/passengers")
+    @GetMapping(value = "/employee/passengers")
     public ModelAndView getPassengers(@RequestParam("trainNumber") int trainNumber,
                                       ModelAndView modelAndView) {
         List<PassengerDto> passengersDto = passengerService.getPassengers(trainNumber);

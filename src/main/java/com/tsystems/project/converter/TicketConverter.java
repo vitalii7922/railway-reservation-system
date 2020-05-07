@@ -19,7 +19,7 @@ public class TicketConverter {
     }
 
     /**
-     * @param ticket         model
+     * @param ticket         ticket
      * @param passengerDto   passenger data
      * @param trainDeparture departure time of a train
      * @param trainArrival   arrival time of a train

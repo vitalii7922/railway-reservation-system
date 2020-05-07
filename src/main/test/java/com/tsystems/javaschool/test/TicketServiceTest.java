@@ -1,5 +1,6 @@
 package com.tsystems.javaschool.test;
 
+import com.tsystems.project.converter.TicketConverter;
 import com.tsystems.project.converter.TimeConverter;
 import com.tsystems.project.dao.TicketDao;
 import com.tsystems.project.dto.PassengerDto;
@@ -11,7 +12,6 @@ import com.tsystems.project.service.PassengerService;
 import com.tsystems.project.service.TicketService;
 import com.tsystems.project.service.TrainService;
 import com.tsystems.project.validator.TrainTicketValidator;
-import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -19,20 +19,18 @@ import org.mockito.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 import static org.mockito.Mockito.when;
 
 public class TicketServiceTest {
 
     @Mock
-    TrainService trainService;
+    TrainService trainServiceMock;
 
     @Mock
-    TicketDao ticketDao;
+    TicketDao ticketDaoMock;
 
     @Mock
     PassengerService passengerServiceMock;
@@ -46,8 +44,13 @@ public class TicketServiceTest {
     @InjectMocks
     TrainTicketValidator trainTicketValidator;
 
+
     @Spy
     TimeConverter timeConverter;
+
+    @Mock
+    TicketConverter ticketConverterMock;
+
 
 
 
@@ -58,71 +61,65 @@ public class TicketServiceTest {
 
     @Test
     public void testAddTicket() {
-        Train train1 = new Train();
-        train1.setNumber(1);
+        //initialize train
+        Train train = new Train();
+        train.setNumber(1);
         Station originStation1 = new Station();
         originStation1.setName("Moscow");
         Station destinationStation1 = new Station();
         destinationStation1.setName("Saint-Petersburg");
         Schedule schedule1 = new Schedule();
         schedule1.setDepartureTime(LocalDateTime.parse("2020-01-01T17:00"));
-        train1.setOriginStation(originStation1);
-        train1.setDestinationStation(destinationStation1);
-        train1.setSeats(10);
-        train1.setSchedules(List.of(schedule1));
-
-        Train train2 = new Train();
-        train2.setNumber(1);
-        Station originsStation2 = new Station();
-        originsStation2.setName("Saint-Petersburg");
-        Station destinationStation2 = new Station();
-        Schedule schedule2 = new Schedule();
-        schedule2.setArrivalTime(LocalDateTime.parse("2020-01-03T17:00"));
-        destinationStation2.setName("Krasnodar");
-        train2.setOriginStation(originsStation2);
-        train2.setDestinationStation(destinationStation2);
-        train2.setSeats(10);
-
+        train.setOriginStation(originStation1);
+        train.setDestinationStation(destinationStation1);
+        train.setSeats(10);
+        train.setSchedules(List.of(schedule1));
+        //initialize passengerTrainDto
         PassengerTrainDto passengerTrainDto = new PassengerTrainDto();
         passengerTrainDto.setTrainNumber(1);
         passengerTrainDto.setOriginStation("Moscow");
         passengerTrainDto.setDestinationStation("Krasnodar");
-
+        //initialize passengerDto
         PassengerDto passengerDto = new PassengerDto();
         passengerDto.setId(1);
         Passenger passenger = new Passenger();
         passenger.setBirthDate(LocalDate.parse("2000-01-01"));
         passenger.setFirstName("Ivan");
         passenger.setSecondName("Ivanov");
-
-        List<Train> trainList = new ArrayList<>() {
-            {
-                add(train1);
-                add(train2);
-            }
-        };
-
-        when(trainService.getTrainByOriginStation(new TrainDto())).thenReturn(train1);
-        when(trainService.getTrainByDestinationStation(new TrainDto())).thenReturn(train2);
-        when(trainService.getTrainListByTrainsId(train1, train2)).thenReturn(trainList);
+        TrainDto trainDtoDeparture = new TrainDto();
+        TrainDto trainDtoArrival = new TrainDto();
+        when(trainServiceMock.getTrainByOriginStation(trainDtoDeparture)).thenReturn(train);
+        when(trainServiceMock.getTrainByDestinationStation(trainDtoArrival)).thenReturn(train);
+        when(trainServiceMock.getTrainListByTrainsId(train, train)).thenReturn(List.of(train));
         when(passengerServiceMock.getPassengerById(passengerDto.getId())).thenReturn(passenger);
+
         Ticket ticket = new Ticket();
-        ticket.setTrain(train1);
-        ticket.setPassenger(passenger);
+        ticket.setTrain(train);
+        ticket.setPassenger(passengerServiceMock.getPassengerById(passengerDto.getId()));
         ticket.setId(1);
-        when(ticketDao.create(ticket)).thenReturn(ticket);
+        when(ticketDaoMock.create(ticket)).thenReturn(ticket);
 
         TicketDto ticketDto = new TicketDto();
         ticketDto.setTrainNumber(1);
         ticketDto.setId(1);
         ticketDto.setFirstName("Ivan");
-        ticketDto.setFirstName("Ivanov");
+        ticketDto.setLastName("Ivanov");
         ticketDto.setBirthDate(LocalDate.parse("2000-01-01"));
         ticketDto.setStationOrigin("Moscow");
         ticketDto.setStationDeparture("Krasnodar");
         ticketDto.setDepartureTime("01-01-2020 17:00");
         ticketDto.setArrivalTime("03-01-2020 17:00");
-        assertTrue(EqualsBuilder.reflectionEquals(ticketDto, ticketService.addTicket(passengerTrainDto, passengerDto)));
+
+
+        when(ticketConverterMock.convertToTicketDto(ticketDaoMock.create(ticket), passengerDto,
+                trainServiceMock.getTrainByOriginStation(new TrainDto()),
+                trainServiceMock.getTrainByDestinationStation(new TrainDto()))).thenReturn(ticketDto);
+
+        TicketDto ticketDtoResult = ticketConverterMock.convertToTicketDto(ticketDaoMock.create(ticket), passengerDto,
+                trainServiceMock.getTrainByOriginStation(new TrainDto()),
+                trainServiceMock.getTrainByDestinationStation(new TrainDto()));
+
+        assertEquals("Ivan", ticketService.addTicket(passengerTrainDto, passengerDto).getFirstName());
     }
 
     @Test
@@ -134,9 +131,9 @@ public class TicketServiceTest {
 
         Train train = new Train();
         train.setSeats(10);
-        when(trainService.getTrainByOriginStation(trainDto)).thenReturn(train);
-        when(trainService.getTrainByDestinationStation(trainDto)).thenReturn(train);
-        when(trainService.getTrainListByTrainsId(train, train)).thenReturn(List.of(train));
+        when(trainServiceMock.getTrainByOriginStation(trainDto)).thenReturn(train);
+        when(trainServiceMock.getTrainByDestinationStation(trainDto)).thenReturn(train);
+        when(trainServiceMock.getTrainListByTrainsId(train, train)).thenReturn(List.of(train));
         assertFalse(trainTicketValidator.verifyFreeSeats(trainDto));
     }
 
@@ -158,6 +155,6 @@ public class TicketServiceTest {
 
     @After
     public void resetMocks() {
-        Mockito.reset(ticketDao, passengerServiceMock, trainService);
+        Mockito.reset(ticketDaoMock, passengerServiceMock, trainServiceMock, timeConverter);
     }
 }

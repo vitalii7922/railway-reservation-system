@@ -71,7 +71,7 @@ public class TicketService {
             t = ticketDao.create(t);
         }
         ticketDto = ticketConverter.convertToTicketDto(t, passengerDto, trainDeparture, trainArrival);
-        log.info("---------ticket has been added--------------Passenger data: " +
+        log.info("---------ticket has been added--------Passenger data: " +
                 passenger.getFirstName() + " " + passenger.getSecondName() + " " + passenger.getBirthDate());
         return ticketDto;
     }

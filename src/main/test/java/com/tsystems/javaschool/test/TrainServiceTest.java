@@ -72,16 +72,17 @@ public class TrainServiceTest {
 
     @Test
     public void testGetTrain() {
+        //initialize schedule
         Schedule scheduleDeparture = new Schedule();
         scheduleDeparture.setDepartureTime(LocalDateTime.parse("2020-04-15T16:00"));
         Schedule scheduleArrival = new Schedule();
         scheduleArrival.setArrivalTime(LocalDateTime.parse("2020-04-16T16:00"));
         Station originStation = new Station("Moscow");
         Station destinationStation = new Station("Krasnodar");
-
+        //initialize train
         Train train = new Train(1, 100, List.of(scheduleDeparture, scheduleArrival),
                 originStation, destinationStation);
-
+        //initialize train dto
         TrainDto trainDto = new TrainDto();
         trainDto.setNumber(1);
         trainDto.setSeats(100);
@@ -92,25 +93,25 @@ public class TrainServiceTest {
 
         when(trainDaoMock.findByNumber(1)).thenReturn(train);
         when(trainConverterMock.convertToTrainDto(trainDaoMock.findByNumber(1))).thenReturn(trainDto);
-
         Assert.assertEquals(1, trainService.getTrainByNumber(1).getNumber());
-
         Assert.assertTrue(EqualsBuilder.reflectionEquals(trainDto, trainService.getTrainByNumber(1)));
     }
 
     @Test
     public void testGetTrainList() {
+        //initialize schedule
         Schedule scheduleDeparture = new Schedule();
         scheduleDeparture.setDepartureTime(LocalDateTime.parse("2020-04-15T16:00"));
         Schedule scheduleArrival = new Schedule();
         scheduleArrival.setArrivalTime(LocalDateTime.parse("2020-04-16T16:00"));
         Station originStation = new Station("Moscow");
         Station destinationStation = new Station("Krasnodar");
+        //initialize list of trains
         Train train1 = new Train(1, 100, List.of(scheduleDeparture, scheduleArrival),
                 originStation, destinationStation);
         Train train2 = new Train(2, 50, List.of(scheduleDeparture, scheduleArrival),
                 originStation, destinationStation);
-
+        //initialize list of trainDto
         TrainDto trainDto1 = new TrainDto(1, 100, "15-04-2020 16:00",
                 "16-04-2020 16:00", "Moscow", "Krasnodar");
         TrainDto trainDto2 = new TrainDto(2, 50, "15-04-2020 16:00",
@@ -125,6 +126,7 @@ public class TrainServiceTest {
         when(trainDaoMock.findAll()).thenReturn(List.of(train1, train2));
         when(trainHelperMock.getTrainListBetweenExtremeStations(Arrays.asList(train1, train2)))
                 .thenReturn(Arrays.asList(trainDto1, trainDto2));
+
         List<TrainDto> trainDtoListResult = trainService.getTrainList();
         for (int i = 0; i < trainDtoListResult.size(); i++) {
             Assert.assertTrue(EqualsBuilder.reflectionEquals(trainDtoListResult.get(i), trainDtoListExpected.get(i)));
@@ -132,18 +134,19 @@ public class TrainServiceTest {
     }
 
     @Test
-    public void testGetAllTrainsByStations() {
+    public void testGetTrainListBetweenTwoPoints() {
+        //initialize trainDto
         TrainDto trainDto = new TrainDto("Saint-Petersburg", "Moscow");
         trainDto.setDepartureTime("12-04-2020 12:00");
         trainDto.setArrivalTime("13-04-2020 01:00");
-
+        //initialize schedule
         Schedule scheduleDeparture = new Schedule();
         scheduleDeparture.setDepartureTime(LocalDateTime.parse("2020-04-12T16:00"));
         Schedule scheduleArrival = new Schedule();
         scheduleArrival.setArrivalTime(LocalDateTime.parse("2020-04-13T00:30"));
         Station originStation = new Station("Saint-Petersburg");
         Station destinationStation = new Station("Moscow");
-
+        //initialize train
         Train train = new Train(1, 100, List.of(scheduleDeparture, scheduleArrival),
                 originStation, destinationStation);
         when(stationServiceMock.getStationByName("Saint-Petersburg")).thenReturn(originStation);
@@ -152,7 +155,7 @@ public class TrainServiceTest {
                 stationServiceMock.getStationByName("Moscow").getId(),
                 timeConverter.reversedConvertDateTime("12-04-2020 12:00"),
                 timeConverter.reversedConvertDateTime("13-04-2020 01:00"))).thenReturn(List.of(train));
-
+        //initialize trainDto
         TrainDto trainFounded = new TrainDto("Saint-Petersburg","Moscow");
         trainFounded.setNumber(1);
         trainFounded.setSeats(100);

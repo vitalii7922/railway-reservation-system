@@ -65,7 +65,7 @@ public class TrainService {
         if (train != null) {
             scheduleService.addSchedule(train, LocalDateTime.parse(trainDto.getDepartureTime()),
                     LocalDateTime.parse(trainDto.getArrivalTime()));
-            log.info("--------Train number " + trainDto.getNumber()  + " has been added--------------");
+            log.info("--------Train number " + trainDto.getNumber() + " has been added--------------");
         }
 
         return train;
@@ -101,7 +101,7 @@ public class TrainService {
     }
 
     /**
-     * @return trainsDto list of all trains
+     * @return trainsDtoList
      */
     @Transactional
     public List<TrainDto> getTrainList() {
@@ -118,7 +118,7 @@ public class TrainService {
      * validate departure time and arrival time and search trains between two points
      *
      * @param trainDto contains origin and destination stations, departure and arrival time
-     * @return trainDtoList list of trains between two points
+     * @return trainDtoList
      */
     @Transactional
     public List<TrainDto> getTrainListBetweenTwoPoints(TrainDto trainDto) {
@@ -158,7 +158,7 @@ public class TrainService {
 
     /**
      * @param trainDto contains train number and originStation model
-     * @return train model
+     * @return train
      */
     public Train getTrainByDestinationStation(TrainDto trainDto) {
         return trainDao.findByArrivalStation(trainDto.getNumber(), trainDto.getDestinationStation());
@@ -167,7 +167,7 @@ public class TrainService {
     /**
      * @param trainDeparture contains train departure id
      * @param trainArrival   contains train arrival id
-     * @return list of trains
+     * @return trainList
      */
     @Transactional
     public List<TrainDto> getTrainListDtoByTrainsId(Train trainDeparture, Train trainArrival) {
@@ -182,7 +182,7 @@ public class TrainService {
     }
 
     /**
-     * @param train train model
+     * @param train train
      */
     public void updateTrain(Train train) {
         trainDao.update(train);

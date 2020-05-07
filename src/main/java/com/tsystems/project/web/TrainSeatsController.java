@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+
 import java.util.List;
 import java.util.Map;
 
@@ -29,7 +30,7 @@ public class TrainSeatsController {
      * @return model(number of seats from point A to point B) and view
      */
     @ResponseBody
-    @GetMapping(value = "/admin/seats")
+    @GetMapping(value = "/employee/seats")
     public ModelAndView getSeats(@RequestParam("train_number") int trainNumber, ModelAndView modelAndView) {
         List<TrainDto> trains = seatsService.getTrainByNumber(trainNumber);
         modelAndView.setViewName("seats.jsp");

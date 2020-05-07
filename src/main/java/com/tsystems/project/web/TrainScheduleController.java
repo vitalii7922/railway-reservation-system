@@ -36,7 +36,7 @@ public class TrainScheduleController {
      * @param timeDeparture departure time
      * @param timeArrival   arrival time
      * @param modelAndView  model and view
-     * @return model(list of trains from point A to point B) and view
+     * @return model(list of trains from point A to point B), view(trips.jsp)
      */
     @ResponseBody
     @GetMapping(value = "/trips")
@@ -68,7 +68,7 @@ public class TrainScheduleController {
      * @return model(train rout) and view
      */
     @ResponseBody
-    @PostMapping(value = "/admin/trips")
+    @PostMapping(value = "/employee/trips")
     public ModelAndView addTrips(@ModelAttribute("trainDto") TrainDto trainDto,
                                  BindingResult bindingResult,
                                  ModelAndView modelAndView) {

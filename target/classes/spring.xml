@@ -4,7 +4,6 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
   http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
 
-    <bean id="trainService" class="com.tsystems.project.service.TrainService" />
     <bean id="trainDao" class="com.tsystems.project.dao.TrainDao" />
     <bean id="hibernateSpring" class="com.tsystems.project.config.SprConfig" />
     <bean id="trainConverter" class="com.tsystems.project.converter.TrainConverter" />

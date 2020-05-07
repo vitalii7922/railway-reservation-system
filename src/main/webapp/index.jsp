@@ -14,7 +14,7 @@
 <header>
     <div class = "line">
         <a href="login.jsp">
-            Administrator
+            Employee
         </a>
     </div>
 </header>

@@ -104,10 +104,9 @@ public class ScheduleService {
 
 
     /**
+     * delete elements of list of schedules that are not today's
      *
-     * delete from list of schedules that are not today's
-     *
-     * @param id identification of a schedule
+     * @param id station id
      * @return scheduleDtoList at a current day
      */
     public List<ScheduleDto> getTodaySchedulesByStationId(long id) {

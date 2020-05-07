@@ -34,7 +34,6 @@ public class PassengerService {
         this.passengerConverter = passengerConverter;
     }
 
-
     /**
      * @param passengerTrainDto contains firstName, secondName, birthDate
      * @return passengerDto
@@ -48,7 +47,6 @@ public class PassengerService {
         log.info("----------passenger has been added-------------");
         return passengerConverter.convertToPassengerDto(passengerDao.create(passenger));
     }
-
 
     /**
      * @param passengerTrainDto contains firstName, secondName, birthDate
@@ -64,10 +62,9 @@ public class PassengerService {
         return passengerDto;
     }
 
-
     /**
-     * @param passengerId identification of a passenger
-     * @return passenger model
+     * @param passengerId passenger id
+     * @return passenger
      */
     public Passenger getPassengerById(long passengerId) {
         return passengerDao.findOne(passengerId);
@@ -82,7 +79,7 @@ public class PassengerService {
         List<PassengerDto> passengerDtoList = new ArrayList<>();
         if (!CollectionUtils.isEmpty(passengerSet)) {
             passengerDtoList = passengerSet.stream()
-                    .map(p -> passengerConverter.convertToPassengerDtoAddDay(p))
+                    .map(passengerConverter::convertToPassengerDtoAddDay)
                     .sorted(new PassengerLexicographicalOrder())
                     .collect(Collectors.toList());
         }

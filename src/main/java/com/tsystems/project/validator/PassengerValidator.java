@@ -21,7 +21,7 @@ import java.util.regex.Pattern;
 
 /**
  * validate passenger data before booking a ticket
- *
+ * <p>
  * author Vitalii Nefedov
  */
 @Component

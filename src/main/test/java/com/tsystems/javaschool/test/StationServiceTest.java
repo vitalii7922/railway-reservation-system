@@ -1,5 +1,4 @@
 package com.tsystems.javaschool.test;
-
 import com.tsystems.project.converter.StationConverter;
 import com.tsystems.project.dao.StationDao;
 import com.tsystems.project.model.Station;
@@ -17,7 +16,7 @@ import static org.mockito.Mockito.when;
 public class StationServiceTest {
 
     @Mock
-    StationDao stationDao;
+    StationDao stationDaoMock;
 
     @InjectMocks
     StationService stationService;
@@ -26,7 +25,7 @@ public class StationServiceTest {
     StationConverter stationConverter;
 
     @Spy
-    StationSender stationSender;
+    StationSender sender;
 
     @Before
     public void setUp() {
@@ -37,13 +36,13 @@ public class StationServiceTest {
     public void testAddStation() {
         Station station = new Station();
         station.setName("Moscow");
-        when(stationDao.create(station)).thenReturn(station);
+        when(stationDaoMock.create(station)).thenReturn(station);
         assertThat(stationService.addStation("Moscow"), is(notNullValue()));
     }
 
     @After
     public void resetMocks() {
-        Mockito.reset(stationDao);
+        Mockito.reset(stationDaoMock, stationConverter, sender);
     }
 
 }

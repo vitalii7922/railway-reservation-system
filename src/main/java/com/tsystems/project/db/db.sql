@@ -58,15 +58,20 @@ create table user
 ) engine = InnoDB;
 
 drop table ticket;
-delete from station;
+delete
+from station;
 delete
 from schedule;
-delete from train;
-delete from station;
-delete from ticket;
+delete
+from train;
+delete
+from station;
+delete
+from ticket;
 drop table schedule;
 drop table passenger;
-delete from passenger;
+delete
+from passenger;
 SET GLOBAL time_zone = '+3:00';
 
 alter table user rename to admin;
@@ -114,14 +119,16 @@ CREATE TABLE user_roles
 );
 
 insert into users (username, password, enabled)
-VALUES ('admin', '000', 1);
+VALUES ('employee', '000', 1);
 delete
 from railways.user_roles;
 INSERT INTO user_roles (username, role)
-VALUES ('admin', 'ROLE_ADMIN');
+VALUES ('employee', 'ROLE_EMPLOYEE');
 delete
 from train
 where train.number = 1;
 delete
 from schedule
 where id = 4;
+delete from railways.user_roles where railways.user_roles.user_role_id = 2;
+alter table railways.user_roles change username = ''

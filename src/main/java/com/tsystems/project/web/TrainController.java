@@ -37,7 +37,7 @@ public class TrainController {
      * @return model(train rout) and view(trains.jsp)
      */
     @ResponseBody
-    @PostMapping(value = "/admin/train")
+    @PostMapping(value = "/employee/train")
     public ModelAndView addTrain(@RequestParam("train_number") int trainNumber, ModelAndView modelAndView) {
         TrainDto train = trainService.getTrainByNumber(trainNumber);
         modelAndView.addObject("train", trainNumber);
@@ -58,7 +58,7 @@ public class TrainController {
      * @return model and view
      */
     @ResponseBody
-    @PostMapping(value = "/admin/trip")
+    @PostMapping(value = "/employee/trip")
     public ModelAndView addTrip(@Valid @ModelAttribute("trainDto") TrainDto trainDto,
                                 BindingResult bindingResult, Model model) {
         model.addAttribute("train", trainDto.getNumber());
@@ -77,7 +77,7 @@ public class TrainController {
      * @return model and view
      */
     @ResponseBody
-    @GetMapping(value = "/admin/trains")
+    @GetMapping(value = "/employee/trains")
     public ModelAndView getTrainList(ModelAndView modelAndView) {
         List<TrainDto> trains = trainService.getTrainList();
         modelAndView.setViewName("menu.jsp");

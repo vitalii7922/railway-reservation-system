@@ -13,7 +13,7 @@ import org.springframework.validation.Validator;
 
 /**
  * validate free seats in a train and departure time
- *
+ * <p>
  * author Vitalii Nefedov
  */
 

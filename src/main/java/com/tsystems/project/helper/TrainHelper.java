@@ -31,8 +31,7 @@ public class TrainHelper {
     }
 
     /**
-     *
-     *form list of train dto objects so that each train dto has first and last stations in a route and departure
+     * form list of train dto objects so that each train dto has first and last stations in a route and departure
      * and arrival time accordingly
      *
      * @param trains list of trains
@@ -64,7 +63,6 @@ public class TrainHelper {
     /**
      * form list of train dto objects so that each train dto has first and last points in a route that are chosen
      * by a client at a given term
-     *
      *
      * @param trains list of trains
      * @return trainDtoList

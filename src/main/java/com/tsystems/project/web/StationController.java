@@ -32,7 +32,7 @@ class StationController {
      * @return view(menu.jsp) with model(message)
      */
     @ResponseBody
-    @PostMapping(value = "/admin/station")
+    @PostMapping(value = "/employee/station")
     public ModelAndView addStation(@ModelAttribute("station") String stationName, ModelAndView modelAndView) {
         StationDto stationDto = stationService.addStation(stationName);
         if (stationDto != null) {

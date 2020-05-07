@@ -94,10 +94,10 @@ public class TrainDao extends AbstractDao<Train> {
     }
 
     /**
-     * @param fromId station departure id
-     * @param toId station arrival id
+     * @param fromId        station departure id
+     * @param toId          station arrival id
      * @param departureTime departure time
-     * @param arrivalTime arrival time
+     * @param arrivalTime   arrival time
      * @return list of trains
      */
     public List<Train> findByStationsIdAtGivenTerm(long fromId, long toId, LocalDateTime departureTime,
@@ -119,10 +119,9 @@ public class TrainDao extends AbstractDao<Train> {
     }
 
     /**
-     *
-     * @param trainNumber train number
+     * @param trainNumber      train number
      * @param trainDepartureId train departure id
-     * @param trainArrivalId train arrival id
+     * @param trainArrivalId   train arrival id
      * @return list of trains
      */
     public List<Train> findTrainListByTrainDepartureAndArrivalId(int trainNumber, long trainDepartureId,
