@@ -47,7 +47,7 @@
                     <form:input type="hidden" path="number" value="${train}"/>
                     <td><form:input type="text" placeholder="Origin station" path="originStation"/></td>
                     <td><form:input type="text" placeholder="Destination station" path="destinationStation"/></td>
-                    <td><form:input type="number" value="1" min="1" max="100"
+                    <td><form:input type="number" min="1" max="100"
                                     placeholder="Number of seats" path="seats" required="number"/></td>
                     <td><form:input type="datetime-local" placeholder="Departure time" path="departureTime"/></td>
                     <td><form:input type="datetime-local" placeholder="Arrival time" path="arrivalTime"/></td>

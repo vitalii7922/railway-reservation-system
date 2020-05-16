@@ -55,7 +55,7 @@ public class TrainController {
      * @param trainDto      train data
      * @param bindingResult result of validation
      * @param model         model
-     * @return model and view
+     * @return model and view(train.jsp)
      */
     @ResponseBody
     @PostMapping(value = "/employee/trip")

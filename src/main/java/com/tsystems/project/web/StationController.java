@@ -2,6 +2,8 @@ package com.tsystems.project.web;
 
 import com.tsystems.project.dto.StationDto;
 import com.tsystems.project.service.StationService;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,6 +23,8 @@ class StationController {
 
     private String messageStation = "messageStation";
 
+    private static final Log log = LogFactory.getLog(StationController.class);
+
     @Autowired
     public StationController(StationService stationService) {
         this.stationService = stationService;
@@ -29,13 +33,14 @@ class StationController {
     /**
      * @param stationName  name of station
      * @param modelAndView modelAndView
-     * @return view(menu.jsp) with model(message)
+     * @return modelAndView(menu.jsp)
      */
     @ResponseBody
     @PostMapping(value = "/employee/station")
     public ModelAndView addStation(@ModelAttribute("station") String stationName, ModelAndView modelAndView) {
         StationDto stationDto = stationService.addStation(stationName);
         if (stationDto != null) {
+            log.info("--------Station " + stationDto.getName() + " has been added-------------");
             modelAndView.addObject(messageStation, "Station " + stationDto.getName() + " has been added");
         } else {
             modelAndView.addObject(messageStation, "Station " + stationName + " exists in DB or you" +
@@ -47,7 +52,7 @@ class StationController {
 
     /**
      * @param model model
-     * @return ModelAndView with list of stations
+     * @return ModelAndView(index.jsp) or ModelAndView(station.jsp)
      */
     @ResponseBody
     @GetMapping(value = "/stations-all")

@@ -80,7 +80,7 @@ public class TicketService {
     /**
      * @param trainDto     contains train id
      * @param passengerDto contains passenger id
-     * @return ticket model
+     * @return ticket
      */
     public Ticket getTicketByPassenger(TrainDto trainDto, PassengerDto passengerDto) {
         return ticketDao.findByPassenger(trainDto, passengerDto);

@@ -16,7 +16,7 @@
                     username-parameter="username"
                     password-parameter="password"/>
         <logout logout-success-url="/login?logout"/>
-<!--        <access-denied-handler error-page="/403"/>-->
+        <access-denied-handler error-page="/403"/>
     </http>
 
     <authentication-manager>

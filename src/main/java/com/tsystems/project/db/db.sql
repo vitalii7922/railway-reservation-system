@@ -58,20 +58,8 @@ create table user
 ) engine = InnoDB;
 
 drop table ticket;
-delete
-from station;
-delete
-from schedule;
-delete
-from train;
-delete
-from station;
-delete
-from ticket;
 drop table schedule;
 drop table passenger;
-delete
-from passenger;
 SET GLOBAL time_zone = '+3:00';
 
 alter table user rename to admin;

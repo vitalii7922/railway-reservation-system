@@ -46,7 +46,7 @@ public class PassengerController {
      * @param passengerTrainDto passenger and train data
      * @param bindingResult     result of validation
      * @param modelAndView      model and view
-     * @return modelAndView
+     * @return modelAndView(passenger.jsp or ticket.jsp)
      */
     @ResponseBody
     @PostMapping(value = "/ticket")
@@ -70,7 +70,7 @@ public class PassengerController {
     /**
      * @param trainNumber  train number
      * @param modelAndView modelAndView
-     * @return model and view
+     * @return model and view(passenger_list.jsp or trainList.jsp)
      */
     @ResponseBody
     @GetMapping(value = "/employee/passengers")

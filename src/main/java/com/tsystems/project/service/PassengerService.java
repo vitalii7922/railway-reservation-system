@@ -4,7 +4,7 @@ import com.tsystems.project.converter.PassengerConverter;
 import com.tsystems.project.dao.PassengerDao;
 import com.tsystems.project.model.Passenger;
 import com.tsystems.project.dto.PassengerDto;
-import com.tsystems.project.dto.PassengerLexicographicalOrder;
+import com.tsystems.project.dto.PassengerListOrdered;
 import com.tsystems.project.dto.PassengerTrainDto;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -80,7 +80,7 @@ public class PassengerService {
         if (!CollectionUtils.isEmpty(passengerSet)) {
             passengerDtoList = passengerSet.stream()
                     .map(passengerConverter::convertToPassengerDtoAddDay)
-                    .sorted(new PassengerLexicographicalOrder())
+                    .sorted(new PassengerListOrdered())
                     .collect(Collectors.toList());
         }
         return passengerDtoList;

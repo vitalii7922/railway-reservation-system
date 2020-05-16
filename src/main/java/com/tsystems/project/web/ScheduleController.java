@@ -31,7 +31,7 @@ public class ScheduleController {
     /**
      * @param stationId    station identification
      * @param modelAndView model and view
-     * @return model(schedule on a station) and view
+     * @return model(schedule at a station) and view()
      */
     @ResponseBody
     @GetMapping(value = "/schedules")
@@ -44,7 +44,7 @@ public class ScheduleController {
         } else {
             modelAndView.setViewName("station.jsp");
             modelAndView.addObject("listOfParams", stationService.getAllStations());
-            modelAndView.addObject("message", "no trains on station " +
+            modelAndView.addObject("message", "no trains at station " +
                     stationService.getStationById(stationId).getName());
         }
         return modelAndView;

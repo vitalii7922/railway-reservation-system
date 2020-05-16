@@ -74,7 +74,7 @@ public class ScheduleServiceTest {
         when(scheduleDaoMock.findByStationId(1)).thenReturn(scheduleList);
         when(scheduleConverterMock.convertToScheduleDto(scheduleList.get(0))).thenReturn(scheduleDto);
 
-        assertEquals(scheduleService.getSchedulesByStationId(1).get(0).getDepartureTime(), "01-01-2020 10:00");
+        assertEquals("01-01-2020 10:00", scheduleService.getSchedulesByStationId(1).get(0).getDepartureTime());
     }
 
     @Test

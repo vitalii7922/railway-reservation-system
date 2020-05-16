@@ -19,7 +19,7 @@ public class ScheduleConverter {
     }
 
     /**
-     * convert schedule to schedule dto
+     * convert schedule to scheduleDto
      *
      * @param schedule schedule
      * @return scheduleDto

@@ -31,7 +31,7 @@
     <form action="station" method="post" align="center">
         <label class="th">Add stations</label><br>
         <label>
-            <input class="input" type="text" name="station" placeholder="Station name">
+            <input class="input" type="text" name="station" placeholder="Station name" required>
         </label>
         <button class="button" type="submit">add</button>
         <p class="message">${messageStation}</p>

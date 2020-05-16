@@ -5,8 +5,6 @@ import com.tsystems.project.dao.StationDao;
 import com.tsystems.project.dto.StationDto;
 import com.tsystems.project.model.Station;
 import com.tsystems.project.sender.StationSender;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,8 +24,6 @@ public class StationService {
 
     private final StationSender sender;
 
-    private static final Log log = LogFactory.getLog(StationService.class);
-
     public StationService(StationDao stationDao, StationConverter stationConverter, StationSender sender) {
         this.stationDao = stationDao;
         this.stationConverter = stationConverter;
@@ -40,20 +36,17 @@ public class StationService {
      */
     @Transactional
     public StationDto addStation(String name) {
-        StationDto stationDto = null;
         Station station = new Station();
-        if (!name.matches("[\\s*]") && stationDao.findByName(name) == null) {
+        if (!name.matches("\\s*") && stationDao.findByName(name) == null) {
             station.setName(name.toUpperCase());
-            log.info("--------Station " + station.getName() + " has been added-------------");
             sender.send();
-            stationDto = stationConverter.convertToStationDto(stationDao.create(station));
-            return stationDto;
+            return stationConverter.convertToStationDto(stationDao.create(station));
         }
-        return stationDto;
+        return null;
     }
 
     /**
-     * @param id station identification
+     * @param id station id
      * @return station model
      */
     public Station getStationById(long id) {
@@ -62,7 +55,7 @@ public class StationService {
 
     /**
      * @param stationName station name
-     * @return station model
+     * @return station
      */
     public Station getStationByName(String stationName) {
         return stationDao.findByName(stationName);
