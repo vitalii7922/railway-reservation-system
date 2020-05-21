@@ -3,10 +3,4 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
   http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
-
-    <bean id="trainDao" class="com.tsystems.project.dao.TrainDao" />
-    <bean id="hibernateSpring" class="com.tsystems.project.config.SprConfig" />
-    <bean id="trainConverter" class="com.tsystems.project.converter.TrainConverter" />
-    <bean id="timeConverter" class="com.tsystems.project.converter.TimeConverter" />
-    <bean id="trainHelper" class="com.tsystems.project.helper.TrainHelper" />
 </beans>

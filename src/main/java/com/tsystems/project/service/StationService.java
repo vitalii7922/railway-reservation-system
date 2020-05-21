@@ -39,8 +39,9 @@ public class StationService {
         Station station = new Station();
         if (!name.matches("\\s*") && stationDao.findByName(name) == null) {
             station.setName(name.toUpperCase());
-            sender.send();
-            return stationConverter.convertToStationDto(stationDao.create(station));
+            station = stationDao.create(station);
+            sender.init();
+            return stationConverter.convertToStationDto(station);
         }
         return null;
     }

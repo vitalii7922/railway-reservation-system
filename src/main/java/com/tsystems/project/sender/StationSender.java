@@ -4,6 +4,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
 import javax.jms.*;
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -21,7 +22,7 @@ public class StationSender {
     /**
      * send message in a queue to "board" application
      */
-    public void send() {
+    public void init() {
         try {
             initSender("second", "updated");
             log.info("station list updated");

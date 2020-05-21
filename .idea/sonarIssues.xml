@@ -1173,12 +1173,22 @@
             <set />
           </value>
         </entry>
-        <entry key="$PROJECT_DIR$/src/main/java/com/tsystems/project/config/AppConfig.java">
+        <entry key="$PROJECT_DIR$/src/main/java/com/tsystems/project/sender/StationSender.java">
           <value>
             <set />
           </value>
         </entry>
-        <entry key="$PROJECT_DIR$/src/main/resources/spring.xml">
+        <entry key="$PROJECT_DIR$/src/main/java/com/tsystems/project/service/StationService.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/webapp/WEB-INF/applicationContext.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/webapp/WEB-INF/dispatcher-servlet.xml">
           <value>
             <set />
           </value>
