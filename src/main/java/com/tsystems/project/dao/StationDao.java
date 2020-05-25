@@ -1,6 +1,6 @@
 package com.tsystems.project.dao;
 
-import com.tsystems.project.model.Station;
+import com.tsystems.project.domain.Station;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.Query;

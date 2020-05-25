@@ -1,6 +1,6 @@
 package com.tsystems.project.converter;
 
-import com.tsystems.project.model.Schedule;
+import com.tsystems.project.domain.Schedule;
 import com.tsystems.project.dto.ScheduleDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

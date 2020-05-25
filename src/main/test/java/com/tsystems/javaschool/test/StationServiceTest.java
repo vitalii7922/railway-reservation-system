@@ -1,17 +1,21 @@
 package com.tsystems.javaschool.test;
 import com.tsystems.project.converter.StationConverter;
 import com.tsystems.project.dao.StationDao;
-import com.tsystems.project.model.Station;
+import com.tsystems.project.domain.Station;
 import com.tsystems.project.sender.StationSender;
 import com.tsystems.project.service.StationService;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.*;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.when;
+
 
 public class StationServiceTest {
 

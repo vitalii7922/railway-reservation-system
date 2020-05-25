@@ -2,7 +2,7 @@ package com.tsystems.project.service;
 
 import com.tsystems.project.converter.PassengerConverter;
 import com.tsystems.project.dao.PassengerDao;
-import com.tsystems.project.model.Passenger;
+import com.tsystems.project.domain.Passenger;
 import com.tsystems.project.dto.PassengerDto;
 import com.tsystems.project.dto.PassengerListOrdered;
 import com.tsystems.project.dto.PassengerTrainDto;

@@ -1,6 +1,6 @@
 package com.tsystems.project.dao;
 
-import com.tsystems.project.model.Passenger;
+import com.tsystems.project.domain.Passenger;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.Query;

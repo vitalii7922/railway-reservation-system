@@ -1,6 +1,6 @@
 package com.tsystems.project.dao;
 
-import com.tsystems.project.model.Schedule;
+import com.tsystems.project.domain.Schedule;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.Query;

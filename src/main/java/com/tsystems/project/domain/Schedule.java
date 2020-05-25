@@ -1,4 +1,4 @@
-package com.tsystems.project.model;
+package com.tsystems.project.domain;
 
 
 import javax.persistence.*;

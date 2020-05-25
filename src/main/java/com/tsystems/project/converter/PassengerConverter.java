@@ -1,6 +1,6 @@
 package com.tsystems.project.converter;
 
-import com.tsystems.project.model.Passenger;
+import com.tsystems.project.domain.Passenger;
 import com.tsystems.project.dto.PassengerDto;
 import org.springframework.stereotype.Component;
 

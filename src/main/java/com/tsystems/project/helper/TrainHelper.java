@@ -2,7 +2,7 @@ package com.tsystems.project.helper;
 
 import com.tsystems.project.converter.TimeConverter;
 import com.tsystems.project.converter.TrainConverter;
-import com.tsystems.project.model.Train;
+import com.tsystems.project.domain.Train;
 import com.tsystems.project.dto.TrainDto;
 import com.tsystems.project.dto.TrainStationDto;
 import org.apache.commons.logging.Log;

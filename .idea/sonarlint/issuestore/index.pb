@@ -151,12 +151,8 @@ s
 Csrc/main/java/com/tsystems/project/rest/ScheduleRestController.java,e\5\e5aae5b8477ab8f545c17ae30c10f63711b811ac
 r
 Bsrc/main/java/com/tsystems/project/rest/StationRestController.java,3\f\3fefb406f7b553e92f9948971ebe925fc808cdad
-e
-5src/main/java/com/tsystems/project/model/Station.java,6\3\6364f62c22f9a68ec35db2200b67a08c682b6c7e
 w
 Gsrc/main/test/java/com/tsystems/javaschool/test/StationServiceTest.java,d\d\ddebb7979988c02f2b0e3b89de6111b39a0cd733
-g
-7src/main/java/com/tsystems/project/model/Passenger.java,f\6\f6f0077c489056c54e68a38a9d7015748253d73e
 \
 ,src/main/java/com/tsystems/project/db/db.sql,d\b\dbce1c629d8e37241baeae652a93cb21a5162c06
 [
@@ -171,12 +167,6 @@ Y
 )target/rrs/WEB-INF/applicationContext.xml,7\6\768b497dc4205e1e97b688dea54900237515c8fb
 V
 &target/rrs/WEB-INF/spring-security.xml,4\d\4d3fea26bf1362f819db297b36c13e3ce1436031
-f
-6src/main/java/com/tsystems/project/model/Schedule.java,3\6\369919bfdb3a658399b81a8229258d26971e961b
-d
-4src/main/java/com/tsystems/project/model/Ticket.java,8\f\8fc97227daa7df26b73a179ac97bf9c56b93b664
-c
-3src/main/java/com/tsystems/project/model/Train.java,5\9\59ecd172dae0c27dedb5f3380e72c7e62e40e213
 9
 	README.md,8\e\8ec9a00bfd09b3190ac6b22251dbb1aa95a0579d
 V
@@ -201,3 +191,13 @@ Q
 !src/main/webapp/employee/menu.jsp,c\0\c04b745d439828c2f147ba301e3d955dfd7b68cf
 L
 target/rrs/employee/menu.jsp,6\b\6bd564e11b023d87e90be64ad8df3d2c4eb10e76
+d
+4src/main/java/com/tsystems/project/domain/Train.java,b\5\b5aa965e8f529bb8c1d18865a0bf827e75ba45c6
+e
+5src/main/java/com/tsystems/project/domain/Ticket.java,4\8\481ab3da83c3cef4e18d62b2f9255f70c1a99001
+f
+6src/main/java/com/tsystems/project/domain/Station.java,9\9\99a445142830a73adb3f735af717d4d897b5ac2d
+h
+8src/main/java/com/tsystems/project/domain/Passenger.java,6\6\66cfaac9e0b8a603a5a7e5cc7b84dfc1d904d882
+g
+7src/main/java/com/tsystems/project/domain/Schedule.java,1\7\17aed40a655be31a862b43eea9fa8fd9f749a9fd

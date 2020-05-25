@@ -1,6 +1,6 @@
 package com.tsystems.project.dao;
 
-import com.tsystems.project.model.Train;
+import com.tsystems.project.domain.Train;
 import org.jetbrains.annotations.Nullable;
 import org.springframework.stereotype.Repository;
 

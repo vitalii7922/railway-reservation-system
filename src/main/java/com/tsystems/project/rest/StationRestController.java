@@ -4,7 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.tsystems.project.dto.StationDto;
-import com.tsystems.project.model.Station;
+import com.tsystems.project.domain.Station;
 import com.tsystems.project.service.StationService;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;

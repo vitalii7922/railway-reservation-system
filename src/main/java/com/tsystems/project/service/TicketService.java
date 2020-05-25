@@ -2,9 +2,9 @@ package com.tsystems.project.service;
 
 import com.tsystems.project.converter.TicketConverter;
 import com.tsystems.project.dao.TicketDao;
-import com.tsystems.project.model.Passenger;
-import com.tsystems.project.model.Ticket;
-import com.tsystems.project.model.Train;
+import com.tsystems.project.domain.Passenger;
+import com.tsystems.project.domain.Ticket;
+import com.tsystems.project.domain.Train;
 import com.tsystems.project.dto.PassengerDto;
 import com.tsystems.project.dto.PassengerTrainDto;
 import com.tsystems.project.dto.TicketDto;
@@ -12,9 +12,12 @@ import com.tsystems.project.dto.TrainDto;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
 
 import javax.transaction.Transactional;
 import java.util.List;
+
+import static org.springframework.transaction.annotation.Isolation.*;
 
 /**
  * author Vitalii Nefedov

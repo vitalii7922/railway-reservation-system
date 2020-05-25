@@ -1,7 +1,7 @@
 package com.tsystems.project.validator;
 
 import com.tsystems.project.converter.TimeConverter;
-import com.tsystems.project.model.Ticket;
+import com.tsystems.project.domain.Ticket;
 import com.tsystems.project.dto.TrainDto;
 import com.tsystems.project.service.TicketService;
 import com.tsystems.project.service.TrainService;

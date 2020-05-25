@@ -1,7 +1,7 @@
 package com.tsystems.project.validator;
 
-import com.tsystems.project.model.Station;
-import com.tsystems.project.model.Train;
+import com.tsystems.project.domain.Station;
+import com.tsystems.project.domain.Train;
 import com.tsystems.project.dto.TrainDto;
 import com.tsystems.project.service.StationService;
 import org.apache.commons.logging.Log;

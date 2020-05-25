@@ -1,9 +1,8 @@
 package com.tsystems.project.service;
-
 import com.tsystems.project.converter.TimeConverter;
 import com.tsystems.project.dao.TrainDao;
-import com.tsystems.project.model.Station;
-import com.tsystems.project.model.Train;
+import com.tsystems.project.domain.Station;
+import com.tsystems.project.domain.Train;
 import com.tsystems.project.dto.TrainDto;
 import com.tsystems.project.converter.TrainConverter;
 import com.tsystems.project.dto.TrainStationDto;

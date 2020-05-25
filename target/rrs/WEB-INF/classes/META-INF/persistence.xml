@@ -5,7 +5,7 @@
              http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd"
              version="2.2">
     <persistence-unit name="hibernateSpring">
-        <class>com.tsystems.project.model.Station</class>
+        <class>com.tsystems.project.domain.Station</class>
         <properties>
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect"/>
             <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/railways?serverTimezone=UTC"/>

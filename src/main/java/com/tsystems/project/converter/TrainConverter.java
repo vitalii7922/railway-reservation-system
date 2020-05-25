@@ -1,6 +1,6 @@
 package com.tsystems.project.converter;
 
-import com.tsystems.project.model.Train;
+import com.tsystems.project.domain.Train;
 import com.tsystems.project.dto.TrainDto;
 import org.springframework.stereotype.Component;
 

@@ -3,8 +3,8 @@ package com.tsystems.project.service;
 import com.tsystems.project.converter.ScheduleConverter;
 import com.tsystems.project.converter.TimeConverter;
 import com.tsystems.project.dao.ScheduleDao;
-import com.tsystems.project.model.Schedule;
-import com.tsystems.project.model.Train;
+import com.tsystems.project.domain.Schedule;
+import com.tsystems.project.domain.Train;
 import com.tsystems.project.dto.ScheduleDto;
 import com.tsystems.project.sender.ScheduleSender;
 import org.springframework.stereotype.Service;
@@ -77,11 +77,11 @@ public class ScheduleService {
      */
     public List<ScheduleDto> getSchedulesByStationId(long id) {
         List<Schedule> schedules = scheduleDao.findByStationId(id);
-        List<ScheduleDto> scheduleDtoList = new ArrayList<>();
+        List<ScheduleDto> scheduleDtoList;
         if (!CollectionUtils.isEmpty(schedules)) {
             scheduleDtoList = schedules.stream().map(scheduleConverter::convertToScheduleDto)
                     .collect(Collectors.toList());
-            List<Long> trainsId = new ArrayList<>();
+            Set<Long> trainsId = new HashSet<>();
             for (int i = 0; i < scheduleDtoList.size(); i++) {
                 for (int j = i + 1; j < scheduleDtoList.size(); j++) {
                     if (scheduleDtoList.get(i).getTrainNumber() == scheduleDtoList.get(j).getTrainNumber()) {
@@ -99,7 +99,7 @@ public class ScheduleService {
             }
             Collections.sort(scheduleDtoList);
         }
-        return scheduleDtoList;
+        return new ArrayList<>();
     }
 
 

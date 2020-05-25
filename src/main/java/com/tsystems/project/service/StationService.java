@@ -3,7 +3,7 @@ package com.tsystems.project.service;
 import com.tsystems.project.converter.StationConverter;
 import com.tsystems.project.dao.StationDao;
 import com.tsystems.project.dto.StationDto;
-import com.tsystems.project.model.Station;
+import com.tsystems.project.domain.Station;
 import com.tsystems.project.sender.StationSender;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

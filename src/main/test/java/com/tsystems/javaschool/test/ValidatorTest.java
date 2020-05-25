@@ -1,11 +1,10 @@
 package com.tsystems.javaschool.test;
 
-import com.tsystems.project.converter.TicketConverter;
 import com.tsystems.project.converter.TimeConverter;
 import com.tsystems.project.dao.TicketDao;
 import com.tsystems.project.dto.PassengerDto;
 import com.tsystems.project.dto.TrainDto;
-import com.tsystems.project.model.*;
+import com.tsystems.project.domain.*;
 import com.tsystems.project.service.PassengerService;
 import com.tsystems.project.service.TicketService;
 import com.tsystems.project.service.TrainService;

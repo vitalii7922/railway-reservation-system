@@ -1,7 +1,7 @@
 package com.tsystems.project.dao;
 
 import com.tsystems.project.dto.TrainDto;
-import com.tsystems.project.model.Ticket;
+import com.tsystems.project.domain.Ticket;
 import com.tsystems.project.dto.PassengerDto;
 import org.springframework.stereotype.Repository;
 
