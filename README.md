@@ -1,8 +1,8 @@
 ## Description
 
 Railway reservation system provides: 
--	Services for clients, such as look for trains according to a rout from point A to point B at a given term, book tickets for chosen trains and view schedules of trains in a chosen station.
--	Services for staff: add stations, add rout of trains, view passengers that are registered on a train and view all trains.
+-	Services for clients, such as look for trains according to a rout from point A to point B at a given term, book tickets for chosen trains and look through schedules of trains at a chosen station.
+-	Services for employees: add stations, add routs of trains, look through passengers that are registered on a train and  list of trains.
 
 ---
 ## List of used technologies
