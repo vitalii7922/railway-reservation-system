@@ -1,10 +1,11 @@
 package com.tsystems.project.dto;
 
-import com.tsystems.project.domain.Station;
-import org.hamcrest.Matcher;
-
 import java.io.Serializable;
+import java.util.Objects;
 
+/**
+ * author Vitalii Nefedov
+ */
 public class TrainDto implements Serializable, Comparable<TrainDto> {
 
     private long id;
@@ -13,17 +14,54 @@ public class TrainDto implements Serializable, Comparable<TrainDto> {
 
     int seats;
 
-//    private LocalDateTime arrivalTime;
-
-//    private LocalDateTime departureTime;
-
     String arrivalTime;
 
     String departureTime;
 
-    private Station originStation;
 
-    private Station destinationStation;
+    private String originStation;
+
+
+    private String destinationStation;
+
+    String allTrainsArrivalTime;
+
+    String allTrainsDepartureTime;
+
+
+    public TrainDto() {
+    }
+
+    public TrainDto(String originStation, String destinationStation) {
+        this.originStation = originStation;
+        this.destinationStation = destinationStation;
+    }
+
+    public TrainDto(int number, int seats, String departureTime, String arrivalTime, String originStation,
+                    String destinationStation) {
+        this.number = number;
+        this.seats = seats;
+        this.arrivalTime = arrivalTime;
+        this.departureTime = departureTime;
+        this.originStation = originStation;
+        this.destinationStation = destinationStation;
+    }
+
+    public String getAllTrainsArrivalTime() {
+        return allTrainsArrivalTime;
+    }
+
+    public void setAllTrainsArrivalTime(String allTrainsArrivalTime) {
+        this.allTrainsArrivalTime = allTrainsArrivalTime;
+    }
+
+    public String getAllTrainsDepartureTime() {
+        return allTrainsDepartureTime;
+    }
+
+    public void setAllTrainsDepartureTime(String allTrainsDepartureTime) {
+        this.allTrainsDepartureTime = allTrainsDepartureTime;
+    }
 
     public long getId() {
         return id;
@@ -65,23 +103,34 @@ public class TrainDto implements Serializable, Comparable<TrainDto> {
         this.departureTime = departureTime;
     }
 
-    public Station getOriginStation() {
+    public String getOriginStation() {
         return originStation;
     }
 
-    public void setOriginStation(Station originStation) {
+    public void setOriginStation(String originStation) {
         this.originStation = originStation;
     }
 
-    public Station getDestinationStation() {
+    public String getDestinationStation() {
         return destinationStation;
     }
 
-    public void setDestinationStation(Station destinationStation) {
+    public void setDestinationStation(String destinationStation) {
         this.destinationStation = destinationStation;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof TrainDto)) return false;
+        TrainDto trainDto = (TrainDto) o;
+        return getNumber() == trainDto.getNumber();
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(getNumber());
+    }
 
     @Override
     public int compareTo(TrainDto o) {

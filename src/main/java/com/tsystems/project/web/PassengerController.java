@@ -1,106 +1,92 @@
 package com.tsystems.project.web;
 
-import com.tsystems.project.converter.TimeConverter;
 import com.tsystems.project.dto.PassengerDto;
+import com.tsystems.project.dto.PassengerTrainDto;
 import com.tsystems.project.dto.TicketDto;
 import com.tsystems.project.service.PassengerService;
 import com.tsystems.project.service.TicketService;
 import com.tsystems.project.service.TrainService;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import com.tsystems.project.validator.PassengerValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.CollectionUtils;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
+import javax.validation.Valid;
 import java.util.List;
+
+/**
+ * author Vitalii Nefedov
+ */
 
 @Controller
 public class PassengerController {
 
-    @Autowired
-    TicketService ticketService;
+    private final TicketService ticketService;
+
+    private final PassengerService passengerService;
+
+    private final TrainService trainService;
+
+    private final PassengerValidator passengerValidator;
 
     @Autowired
-    PassengerService passengerService;
+    public PassengerController(TicketService ticketService, PassengerService passengerService, TrainService trainService,
+                               PassengerValidator passengerValidator) {
+        this.ticketService = ticketService;
+        this.passengerService = passengerService;
+        this.trainService = trainService;
+        this.passengerValidator = passengerValidator;
+    }
 
-    @Autowired
-    TrainService trainService;
 
-    @Autowired
-    TimeConverter timeConverter;
-
-    private static final String MESSAGE = "message";
-
-    private static final Log log = LogFactory.getLog(PassengerController.class);
-
+    /**
+     * @param passengerTrainDto passenger and train data
+     * @param bindingResult     result of validation
+     * @param modelAndView      model and view
+     * @return modelAndView(passenger.jsp or ticket.jsp)
+     */
     @ResponseBody
-    @GetMapping(value = "/addPassengerTicket")
-    public ModelAndView addPassenger(@RequestParam("trainNumber") int trainNumber,
-                                     @RequestParam("stationA") long stationAId,
-                                     @RequestParam("stationB") long stationBId,
-                                     @RequestParam("first_name") String firstName,
-                                     @RequestParam("last_name") String lastName,
-                                     @RequestParam("date_of_birth") String birthDate,
-                                     @RequestParam("departureTime") String departureTime,
-                                     ModelAndView model) {
-
-        PassengerDto passenger;
-        model.setViewName("passenger.jsp");
-        model.addObject("trainNumber", trainNumber);
-        model.addObject("stationA", stationAId);
-        model.addObject("stationB", stationBId);
-        model.addObject("departureTime", departureTime);
-
-        if (!ticketService.verifySeats(trainNumber, stationAId, stationBId)) {
-            model.addObject(MESSAGE, "no free seats on train " + trainNumber);
-            return model;
+    @PostMapping(value = "/ticket")
+    public ModelAndView addPassengerTicket(@Valid @ModelAttribute("passengerTrainDto") PassengerTrainDto passengerTrainDto,
+                                           BindingResult bindingResult, ModelAndView modelAndView) {
+        modelAndView.setViewName("passenger.jsp");
+        passengerValidator.validate(passengerTrainDto, bindingResult);
+        if (bindingResult.hasErrors()) {
+            return modelAndView.addObject(bindingResult.getModel());
         }
-        if (!ticketService.verifyTime(timeConverter.reversedConvertDateTime(departureTime).toString())) {
-            model.addObject(MESSAGE, "you cannot buy a ticket 10 minutes before the train " + trainNumber + " departures");
-            return model;
-        }
-        if (passengerService.verifyInputPassenger(firstName, lastName)) {
-            model.addObject(MESSAGE, "you added incorrect data");
-            return model;
-        }
-        passenger = passengerService.getPassenger(firstName, lastName, LocalDate.parse(birthDate));
+        PassengerDto passenger = passengerService.getPassenger(passengerTrainDto);
         if (passenger == null) {
-            passenger = passengerService.addPassenger(firstName, lastName, LocalDate.parse(birthDate));
+            passenger = passengerService.addPassenger(passengerTrainDto);
         }
-        if (!ticketService.verifyPassenger(trainNumber, passenger)) {
-            model.addObject(MESSAGE, "you have already bought a ticket on train " + trainNumber);
-            return model;
-        }
-        TicketDto ticketDto = ticketService.addTicket(trainNumber, stationAId, stationBId, passenger);
-        model.addObject("ticket", ticketDto);
-        model.setViewName("ticket.jsp");
-        return model;
+        TicketDto ticketDto = ticketService.addTicket(passengerTrainDto, passenger);
+        modelAndView.addObject("ticket", ticketDto);
+        modelAndView.setViewName("ticket.jsp");
+        return modelAndView;
     }
 
+    /**
+     * @param trainNumber  train number
+     * @param modelAndView modelAndView
+     * @return model and view(passenger_list.jsp or trainList.jsp)
+     */
     @ResponseBody
-    @GetMapping(value = "/getPassengers")
+    @GetMapping(value = "/employee/passengers")
     public ModelAndView getPassengers(@RequestParam("trainNumber") int trainNumber,
-                                     ModelAndView model) {
+                                      ModelAndView modelAndView) {
         List<PassengerDto> passengersDto = passengerService.getPassengers(trainNumber);
-        if (passengersDto != null && !passengersDto.isEmpty()) {
-            model.addObject("passengers", passengersDto);
-            model.addObject("train", trainNumber);
-            model.setViewName("passenger_list.jsp");
-            return model;
+        if (!CollectionUtils.isEmpty(passengersDto)) {
+            modelAndView.addObject("passengers", passengersDto);
+            modelAndView.addObject("train", trainNumber);
+            modelAndView.setViewName("passenger_list.jsp");
+            return modelAndView;
         } else {
-            model.addObject(MESSAGE, "no passengers on train " + trainNumber);
-            model.addObject("listOfTrains", trainService.getAllTrains());
-            model.setViewName("trainsList.jsp");
-            return model;
+            modelAndView.addObject("message", "no passengers on train " + trainNumber);
+            modelAndView.addObject("listOfTrains", trainService.getTrainList());
+            modelAndView.setViewName("trainsList.jsp");
+            return modelAndView;
         }
-    }
-
-    @ExceptionHandler(DateTimeParseException.class)
-    public ModelAndView handleException(Exception e) {
-        log.error(e.getCause());
-        return new ModelAndView("passenger.jsp").addObject(MESSAGE, "incorrect date");
     }
 }

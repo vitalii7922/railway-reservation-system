@@ -1,80 +1,91 @@
 package com.tsystems.project.service;
 
 import com.tsystems.project.converter.TicketConverter;
-import com.tsystems.project.dao.PassengerDao;
 import com.tsystems.project.dao.TicketDao;
-import com.tsystems.project.dao.TrainDao;
 import com.tsystems.project.domain.Passenger;
 import com.tsystems.project.domain.Ticket;
 import com.tsystems.project.domain.Train;
 import com.tsystems.project.dto.PassengerDto;
+import com.tsystems.project.dto.PassengerTrainDto;
 import com.tsystems.project.dto.TicketDto;
+import com.tsystems.project.dto.TrainDto;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
 
 import javax.transaction.Transactional;
-import java.time.DateTimeException;
-import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
 import java.util.List;
+
+import static org.springframework.transaction.annotation.Isolation.*;
+
+/**
+ * author Vitalii Nefedov
+ */
 
 @Service
 public class TicketService {
-    @Autowired
-    TicketDao ticketDao;
+    private final TicketDao ticketDao;
 
-    @Autowired
-    TrainDao trainDao;
+    private final PassengerService passengerService;
 
-    @Autowired
-    PassengerDao passengerDao;
+    private final TrainService trainService;
 
-    @Autowired
-    TicketConverter ticketConverter;
+    private final TicketConverter ticketConverter;
 
     private static final Log log = LogFactory.getLog(TicketService.class);
 
+    public TicketService(TicketDao ticketDao, PassengerService passengerService, TrainService trainService,
+                         TicketConverter ticketConverter) {
+        this.ticketDao = ticketDao;
+        this.passengerService = passengerService;
+        this.trainService = trainService;
+        this.ticketConverter = ticketConverter;
+    }
+
+    /**
+     * decrease number of seats, add passenger to a train, add a ticket, update train data
+     *
+     * @param passengerTrainDto contains train number, origin station name, destination station name
+     * @param passengerDto      contains firstName, secondName, birthDate
+     * @return ticketDto
+     */
     @Transactional
-    public TicketDto addTicket(int trainNumber, long stationFromId, long stationToId, PassengerDto passengerDto) {
-        Train trainDeparture = trainDao.findByStationDepartureId(trainNumber, stationFromId);
-        Train trainArrival = trainDao.findByStationArrivalId(trainNumber, stationToId);
-        TicketDto ticketDto = null;
-        try {
-            List<Train> trains = trainDao.findAllTrainsBetweenTwoStations(trainDeparture.getId(), trainArrival.getId());
-            Ticket t = new Ticket();
-            t.setTrain(trainDeparture);
-            Passenger passenger = passengerDao.findOne(passengerDto.getId());
+    public TicketDto addTicket(PassengerTrainDto passengerTrainDto, PassengerDto passengerDto) {
+        TrainDto trainDto = new TrainDto();
+        trainDto.setNumber(passengerTrainDto.getTrainNumber());
+        trainDto.setOriginStation(passengerTrainDto.getOriginStation());
+        trainDto.setDestinationStation(passengerTrainDto.getDestinationStation());
+        Train trainDeparture = trainService.getTrainByOriginStation(trainDto);
+        Train trainArrival = trainService.getTrainByDestinationStation(trainDto);
+        TicketDto ticketDto;
+
+        List<Train> trains = trainService.getTrainListByTrainsId(trainDeparture, trainArrival);
+        Passenger passenger = passengerService.getPassengerById(passengerDto.getId());
+        Ticket t = null;
+        for (Train train : trains) {
+            t = new Ticket();
+            t.setTrain(train);
             t.setPassenger(passenger);
-            for (Train train : trains) {
-                int seats = train.getSeats();
-                seats--;
-                train.setSeats(seats);
-                trainDao.update(train);
-            }
+            int seats = train.getSeats();
+            seats--;
+            train.setSeats(seats);
+            trainService.updateTrain(train);
             t = ticketDao.create(t);
-            ticketDto = ticketConverter.convertToTicketDto(t, passengerDto, trainDeparture, trainArrival);
-        } catch (NullPointerException e) {
-            log.error(e.getCause());
         }
+        ticketDto = ticketConverter.convertToTicketDto(t, passengerDto, trainDeparture, trainArrival);
+        log.info("---------ticket has been added--------Passenger data: " +
+                passenger.getFirstName() + " " + passenger.getSecondName() + " " + passenger.getBirthDate());
         return ticketDto;
     }
 
-    public boolean verifyTime(String departureTime) throws DateTimeException {
-        long minutes = ChronoUnit.MINUTES.between(LocalDateTime.now(), LocalDateTime.parse(departureTime));
-        return minutes > 10;
-    }
 
-    public boolean verifySeats(int trainNumber, long stationFromId, long stationToId) {
-        Train trainDeparture = trainDao.findByStationDepartureId(trainNumber, stationFromId);
-        Train trainArrival = trainDao.findByStationArrivalId(trainNumber, stationToId);
-        List<Train> trains = trainDao.findAllTrainsBetweenTwoStations(trainDeparture.getId(), trainArrival.getId());
-        return trains.stream().allMatch(t -> t.getSeats() > 0);
-    }
-
-    public boolean verifyPassenger(int trainNumber, PassengerDto passengerDto) {
-        Ticket ticket = ticketDao.findByPassenger(trainNumber, passengerDto);
-        return ticket == null;
+    /**
+     * @param trainDto     contains train id
+     * @param passengerDto contains passenger id
+     * @return ticket
+     */
+    public Ticket getTicketByPassenger(TrainDto trainDto, PassengerDto passengerDto) {
+        return ticketDao.findByPassenger(trainDto, passengerDto);
     }
 }

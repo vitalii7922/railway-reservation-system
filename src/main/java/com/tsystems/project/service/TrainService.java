@@ -1,6 +1,5 @@
 package com.tsystems.project.service;
-
-import com.tsystems.project.dao.ScheduleDao;
+import com.tsystems.project.converter.TimeConverter;
 import com.tsystems.project.dao.TrainDao;
 import com.tsystems.project.domain.Station;
 import com.tsystems.project.domain.Train;
@@ -10,105 +9,201 @@ import com.tsystems.project.dto.TrainStationDto;
 import com.tsystems.project.helper.TrainHelper;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
+
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeParseException;
 import java.util.*;
 import java.util.stream.Collectors;
+
+/**
+ * author Vitalii Nefedov
+ */
 
 @Service
 public class TrainService {
 
-    @Autowired
-    TrainDao trainDao;
+    private final TrainDao trainDao;
 
-    @Autowired
-    ScheduleDao scheduleDao;
+    private final StationService stationService;
 
-    @Autowired
-    ModelMapper modelMapper;
+    private final TrainConverter trainConverter;
 
-    @Autowired
-    TrainConverter trainConverter;
+    private final ScheduleService scheduleService;
 
-    @Autowired
-    TrainHelper trainHelper;
+    private final TimeConverter timeConverter;
+
+    private final TrainHelper trainHelper;
 
     private static final Log log = LogFactory.getLog(TrainService.class);
 
-    @Transactional
-    public TrainDto addTrain(int trainNumber, Station originStation, Station destinationStation, int numberOfSeats) {
-            Train trainDeparture;
-            trainDeparture = new Train();
-            trainDeparture.setNumber(trainNumber);
-            trainDeparture.setOriginStation(originStation);
-            trainDeparture.setDestinationStation(destinationStation);
-            trainDeparture.setSeats(numberOfSeats);
-            Train train = trainDao.create(trainDeparture);
-            return modelMapper.map(train, TrainDto.class);
+    public TrainService(TrainDao trainDao, StationService stationService, TrainConverter trainConverter,
+                        ScheduleService scheduleService, TimeConverter timeConverter, TrainHelper trainHelper) {
+        this.trainDao = trainDao;
+        this.stationService = stationService;
+        this.trainConverter = trainConverter;
+        this.scheduleService = scheduleService;
+        this.timeConverter = timeConverter;
+        this.trainHelper = trainHelper;
     }
 
+    /**
+     * @param trainDto contains trainNumber, originStation model, destinationStation model
+     * @return train model
+     */
+    @Transactional
+    public Train addTrain(TrainDto trainDto) {
+        Train trainDeparture;
+        trainDeparture = new Train();
+        trainDeparture.setNumber(trainDto.getNumber());
+        trainDeparture.setOriginStation(stationService.getStationByName(trainDto.getOriginStation()));
+        trainDeparture.setDestinationStation(stationService.getStationByName(trainDto.getDestinationStation()));
+        trainDeparture.setSeats(trainDto.getSeats());
+        Train train = trainDao.create(trainDeparture);
+        if (train != null) {
+            scheduleService.addSchedule(train, LocalDateTime.parse(trainDto.getDepartureTime()),
+                    LocalDateTime.parse(trainDto.getArrivalTime()));
+            log.info("--------Train number " + trainDto.getNumber() + " has been added--------------");
+        }
+
+        return train;
+    }
+
+    /**
+     * @param number train number
+     * @return trainDto
+     */
     @Transactional
     public TrainDto getTrainByNumber(int number) {
         Train train = trainDao.findByNumber(number);
         TrainDto trainDto = null;
-        try {
-            trainDto = modelMapper.map(train, TrainDto.class);
-        } catch (Exception e) {
-            log.error(e.getCause());
+        if (train != null) {
+            trainDto = trainConverter.convertToTrainDto(train);
         }
-
-        return  trainDto;
+        return trainDto;
     }
 
+    /**
+     * @param trainNumber train number
+     * @return TrainStationDto contains train number, departure time, arrival time and station name
+     */
     @Transactional
-    public List<TrainStationDto> getAllTrainsByNumber(int trainNumber) {
-        List<Train> trains = trainDao.findTrainsByNumber(trainNumber);
-        List<TrainDto> trainsDto = new ArrayList<>();
-        try {
-             trainsDto = trains.stream()
-                    .map(t -> trainConverter.convertToTrainDto(t)).collect(Collectors.toList());
-        } catch (Exception e) {
-            log.error(e.getCause());
+    public List<TrainStationDto> getTrainRoutByTrainNumber(int trainNumber) {
+        List<Train> trains = trainDao.findTrainListByNumber(trainNumber);
+        List<TrainDto> trainListDto = new ArrayList<>();
+        if (!CollectionUtils.isEmpty(trains)) {
+            trainListDto = trains.stream()
+                    .map(trainConverter::convertToTrainDto).collect(Collectors.toList());
         }
-
-        return trainHelper.getTrainPath(trainsDto);
+        return trainHelper.getTrainRout(trainListDto);
     }
 
+    /**
+     * @return trainsDtoList
+     */
     @Transactional
-    public List<TrainDto> getAllTrains() {
-            List<Train> trains = trainDao.findAll();
-            List<TrainDto> trainsDto = new ArrayList<>();
-            try {
-                trainsDto = trainHelper.getTrainBetweenExtremeStations(trains);
-                Collections.sort(trainsDto);
-            } catch (NullPointerException e) {
-                log.error(e.getCause());
+    public List<TrainDto> getTrainList() {
+        List<Train> trains = trainDao.findAll();
+        List<TrainDto> trainDtoList = new ArrayList<>();
+        if (!CollectionUtils.isEmpty(trains)) {
+            trainDtoList = trainHelper.getTrainListBetweenExtremeStations(trains);
+            Collections.sort(trainDtoList);
+        }
+        return trainDtoList;
+    }
+
+    /**
+     * validate departure time and arrival time and search trains between two points
+     *
+     * @param trainDto contains origin and destination stations, departure and arrival time
+     * @return trainDtoList
+     */
+    @Transactional
+    public List<TrainDto> getTrainListBetweenTwoPoints(TrainDto trainDto) {
+        List<TrainDto> trainDtoList = new ArrayList<>();
+        if (trainDto.getDepartureTime().matches("\\d{2}-\\d{2}-\\d{4}\\s{1}\\d{2}:\\d{2}")) {
+            trainDto.setDepartureTime(timeConverter.reversedConvertDateTime(trainDto.getDepartureTime()).toString());
+            trainDto.setArrivalTime(timeConverter.reversedConvertDateTime(trainDto.getArrivalTime()).toString());
+        }
+        LocalDateTime departureTime = LocalDateTime.parse(trainDto.getDepartureTime());
+        LocalDateTime arrivalTime = LocalDateTime.parse(trainDto.getArrivalTime());
+        List<Train> trains;
+        if (departureTime.isAfter(arrivalTime)) {
+            return trainDtoList;
+        }
+        Station originStation = stationService.getStationByName(trainDto.getOriginStation());
+        Station destinationStation = stationService.getStationByName(trainDto.getDestinationStation());
+        if (originStation != null && destinationStation != null) {
+            trains = trainDao.findByStationsIdAtGivenTerm(originStation.getId(),
+                    destinationStation.getId(),
+                    departureTime, arrivalTime);
+            if (!CollectionUtils.isEmpty(trains)) {
+                trainDtoList = trainHelper.searchTrainsBetweenTwoPoints(trains);
+                Collections.sort(trainDtoList);
             }
-        return trainsDto;
+        }
+        return trainDtoList;
     }
 
+
+    /**
+     * @param trainDto contains train number and originStation model
+     * @return trainDto
+     */
+    public Train getTrainByOriginStation(TrainDto trainDto) {
+        return trainDao.findByDepartureStation(trainDto.getNumber(), trainDto.getOriginStation());
+    }
+
+    /**
+     * @param trainDto contains train number and originStation model
+     * @return train
+     */
+    public Train getTrainByDestinationStation(TrainDto trainDto) {
+        return trainDao.findByArrivalStation(trainDto.getNumber(), trainDto.getDestinationStation());
+    }
+
+    /**
+     * @param trainDeparture contains train departure id
+     * @param trainArrival   contains train arrival id
+     * @return trainList
+     */
     @Transactional
-    public List<TrainDto> getTrainsByStations(Station stationA, Station stationB, String timeDeparture, String timeArrival) {
-        List<TrainDto> trainsDto = new ArrayList<>();
-        try {
-            LocalDateTime departureTime = LocalDateTime.parse(timeDeparture);
-            LocalDateTime arrivalTime = LocalDateTime.parse(timeArrival);
-            List<Train> trains;
-            if (departureTime.isAfter(arrivalTime)) {
-                return trainsDto;
-            }
-            trains = trainDao.findByStations(stationA.getId(), stationB.getId(), departureTime, arrivalTime);
+    public List<TrainDto> getTrainListDtoByTrainsId(Train trainDeparture, Train trainArrival) {
+        List<Train> trains = trainDao.findTrainListByTrainDepartureAndArrivalId(trainDeparture.getNumber(),
+                trainDeparture.getId(), trainArrival.getId());
+        return trains.stream().map(trainConverter::convertToTrainDto).collect(Collectors.toList());
+    }
 
-            trainsDto = trainHelper.searchTrainBetweenExtremeStations(trains);
-            Collections.sort(trainsDto);
+    public List<Train> getTrainListByTrainsId(Train trainDeparture, Train trainArrival) {
+        return trainDao.findTrainListByTrainDepartureAndArrivalId(trainDeparture.getNumber(),
+                trainDeparture.getId(), trainArrival.getId());
+    }
 
-        } catch (NullPointerException | DateTimeParseException e) {
-            log.error(e.getCause());
-        }
-        return trainsDto;
+    /**
+     * @param train train
+     */
+    public void updateTrain(Train train) {
+        trainDao.update(train);
+    }
+
+    /**
+     * @param originStation      origin station of a train
+     * @param destinationStation destination station
+     * @param departureTime      departure time of a train
+     * @param arrivalTime        arrival time of a train
+     * @return trainDto
+     */
+    public TrainDto initializeTrainDto(String originStation, String destinationStation, String departureTime,
+                                       String arrivalTime) {
+        TrainDto trainDto = new TrainDto();
+        trainDto.setOriginStation(originStation);
+        trainDto.setDestinationStation(destinationStation);
+        trainDto.setDepartureTime(departureTime);
+        trainDto.setArrivalTime(arrivalTime);
+        trainDto.setAllTrainsDepartureTime(departureTime);
+        trainDto.setAllTrainsArrivalTime(arrivalTime);
+        return trainDto;
     }
 }
+

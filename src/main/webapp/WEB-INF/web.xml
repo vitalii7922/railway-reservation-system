@@ -3,16 +3,6 @@
          xmlns="http://xmlns.jcp.org/xml/ns/javaee"
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
          id="WebApp_ID" version="3.1">
-<!--
-    <filter>
-        <filter-name>springSecurityFilterChain</filter-name>
-        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
-    </filter>
-    <filter-mapping>
-        <filter-name>springSecurityFilterChain</filter-name>
-        <url-pattern>/*</url-pattern>
-    </filter-mapping>
--->
 
 
     <servlet>
@@ -26,55 +16,28 @@
     <url-pattern>/</url-pattern>
   </servlet-mapping>
 
-   <!-- <servlet-mapping>
-        <servlet-name>default</servlet-name>
-        <url-pattern>*.css</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-
-        <servlet-name>default</servlet-name>
-        <url-pattern>*.js</url-pattern>
-    </servlet-mapping>-->
-
-
-
-<!--
     <listener>
-        <listener-class>
-            org.springframework.web.context.ContextLoaderListener
-        </listener-class>
-    </listener>
--->
-
- <!--   <context-param>
-        <param-name> contextConfigLocation </param-name>
-        <param-value>/WEB-INF/dispatcher-servlet.xml</param-value>
-    </context-param>-->
-
-
-
-    <!--<listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
+
     <context-param>
         <param-name>contextConfigLocation</param-name>
-        <param-value>/WEB-INF/security.xml</param-value>
-    </context-param>-->
-
-
- <!--   <display-name>spring-mvc-app1</display-name>
+        <param-value>/WEB-INF/applicationContext.xml,
+                    /WEB-INF/spring-security.xml,
+                    /WEB-INF/spring-database.xml
+        </param-value>
+    </context-param>
+<!--
+     Spring Security
+-->
     <filter>
         <filter-name>springSecurityFilterChain</filter-name>
         <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
     </filter>
+
     <filter-mapping>
         <filter-name>springSecurityFilterChain</filter-name>
         <url-pattern>/*</url-pattern>
-    </filter-mapping>-->
-
-    <!-- spring security configuration -->
-
-    <!-- spring security configuration -->
-
-
+    </filter-mapping>
+    <absolute-ordering/>
 </web-app>

@@ -1,8 +1,14 @@
 package com.tsystems.project.dto;
 
-import java.io.Serializable;
+import org.jetbrains.annotations.NotNull;
 
-public class StationDto implements Serializable {
+import java.io.Serializable;
+import java.util.Objects;
+
+/**
+ * author Vitalii Nefedov
+ */
+public class StationDto implements Serializable, Comparable<StationDto> {
 
     private long id;
 
@@ -22,5 +28,24 @@ public class StationDto implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof StationDto)) return false;
+        StationDto that = (StationDto) o;
+        return getId() == that.getId() &&
+                getName().equals(that.getName());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getName());
+    }
+
+    @Override
+    public int compareTo(@NotNull StationDto o) {
+        return name.compareTo(o.name);
     }
 }

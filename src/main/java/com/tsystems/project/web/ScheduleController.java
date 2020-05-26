@@ -5,37 +5,48 @@ import com.tsystems.project.service.ScheduleService;
 import com.tsystems.project.service.StationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.util.CollectionUtils;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
+/**
+ * author Vitalii Nefedov
+ */
+
 @Controller
 public class ScheduleController {
 
-    @Autowired
-    StationService stationService;
+    private final StationService stationService;
+
+    private final ScheduleService scheduleService;
 
     @Autowired
-    ScheduleService scheduleService;
+    public ScheduleController(StationService stationService, ScheduleService scheduleService) {
+        this.stationService = stationService;
+        this.scheduleService = scheduleService;
+    }
 
+    /**
+     * @param stationId    station identification
+     * @param modelAndView model and view
+     * @return model(schedule at a station) and view()
+     */
     @ResponseBody
-    @GetMapping(value = "/getSchedules")
-    public ModelAndView getSchedule(@RequestParam("stationId") String stationId, ModelAndView model) {
-        long id = Integer.parseInt(stationId);
-        List<ScheduleDto> schedules = scheduleService.getSchedulesByStationId(id);
-        if (schedules != null && !schedules.isEmpty()) {
-            model.setViewName("schedule.jsp");
-            model.addObject("schedule", schedules.get(0));
-            model.addObject("schedules", schedules);
+    @GetMapping(value = "/schedules")
+    public ModelAndView getSchedule(@RequestParam("stationId") long stationId, ModelAndView modelAndView) {
+        List<ScheduleDto> schedules = scheduleService.getSchedulesByStationId(stationId);
+        if (!CollectionUtils.isEmpty(schedules)) {
+            modelAndView.setViewName("schedule.jsp");
+            modelAndView.addObject("schedule", schedules.get(0));
+            modelAndView.addObject("schedules", schedules);
         } else {
-            model.setViewName("station.jsp");
-            model.addObject("listOfParams", stationService.getAllStations());
-            model.addObject("message", "no trains on station " +
-                    stationService.getStationById(id).getName());
+            modelAndView.setViewName("station.jsp");
+            modelAndView.addObject("listOfParams", stationService.getAllStations());
+            modelAndView.addObject("message", "no trains at station " +
+                    stationService.getStationById(stationId).getName());
         }
-        return model;
+        return modelAndView;
     }
 }

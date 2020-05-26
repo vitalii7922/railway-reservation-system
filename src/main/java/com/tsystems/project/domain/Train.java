@@ -4,6 +4,9 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 
+/**
+ * author Vitalii Nefedov
+ */
 @Entity
 public class Train implements Serializable {
 
@@ -22,18 +25,29 @@ public class Train implements Serializable {
     @JoinColumn(name = "originStation_id")
     private Station originStation;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne
     @JoinColumn(name = "destinationStation_id")
     private Station destinationStation;
 
     @OneToMany(mappedBy = "train")
     private List<Ticket> tickets;
 
+    public Train() {
+    }
+
+    public Train(int number, int seats, List<Schedule> schedules, Station originStation, Station destinationStation) {
+        this.number = number;
+        this.seats = seats;
+        this.schedules = schedules;
+        this.originStation = originStation;
+        this.destinationStation = destinationStation;
+    }
+
     public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -84,5 +98,4 @@ public class Train implements Serializable {
     public void setOriginStation(Station originStation) {
         this.originStation = originStation;
     }
-
 }

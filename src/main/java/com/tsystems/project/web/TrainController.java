@@ -1,125 +1,92 @@
 package com.tsystems.project.web;
 
-import com.tsystems.project.domain.Station;
 import com.tsystems.project.dto.TrainDto;
 import com.tsystems.project.dto.TrainStationDto;
-import com.tsystems.project.service.ScheduleService;
-import com.tsystems.project.service.StationService;
 import com.tsystems.project.service.TrainService;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.modelmapper.ModelMapper;
+import com.tsystems.project.validator.TrainValidator;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.util.CollectionUtils;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeParseException;
+
 import java.util.List;
+import javax.validation.Valid;
+
+/**
+ * author Vitalii Nefedov
+ */
 
 @Controller
 public class TrainController {
+    private final TrainService trainService;
+
+    private final TrainValidator trainValidator;
 
     @Autowired
-    StationService stationService;
-
-    @Autowired
-    TrainService trainService;
-
-    @Autowired
-    ScheduleService scheduleService;
-
-    @Autowired
-    ModelMapper modelMapper;
-
-    private int trainNumber;
-
-    private Log log = LogFactory.getLog(TrainController.class);
-
-    @ResponseBody
-    @GetMapping(value = "/addTrain")
-    public ModelAndView addTrain(@RequestParam("train_number") int trainNumber, ModelAndView model) {
-        TrainDto train = trainService.getTrainByNumber(trainNumber);
-        model.addObject("train", trainNumber);
-        if (train == null) {
-            model.setViewName("train.jsp");
-        } else {
-            List<TrainStationDto> trains = trainService.getAllTrainsByNumber(trainNumber);
-            model.setViewName("trains.jsp");
-            model.addObject("listOfStations", trains);
-        }
-        return model;
+    public TrainController(TrainService trainService, TrainValidator trainValidator) {
+        this.trainService = trainService;
+        this.trainValidator = trainValidator;
     }
 
+    /**
+     * @param trainNumber  train number
+     * @param modelAndView model and view
+     * @return model(train rout) and view(trains.jsp)
+     */
     @ResponseBody
-    @GetMapping(value = "/addTrip", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ModelAndView addTrain(/*@RequestBody TrainDto trainDto,*/
-                                 @RequestParam("train_number") int number,
-                                 @RequestParam("origin_station") String originStation,
-                                 @RequestParam("destination_station") String destinationStation,
-                                 @RequestParam("number_of_seats") int numberOfSeats,
-                                 @RequestParam("departure_time") String departureTime,
-                                 @RequestParam("arrival_time") String arrivalTime, ModelAndView modelAndView) {
-
-        modelAndView.addObject("train", number);
-        trainNumber = number;
-        modelAndView.setViewName("train.jsp");
-
-        LocalDateTime timeDeparture = LocalDateTime.parse(departureTime);
-        LocalDateTime timeArrival = LocalDateTime.parse(arrivalTime);
-
-        Station from = stationService.getStationByName(originStation);
-        Station to = stationService.getStationByName(destinationStation);
-
-        if (from == null || to == null) {
-            modelAndView.addObject("message", "you haven't added station or this station doesn't exist in DB");
-            return modelAndView;
-        }
-
-        if (from.getId() == to.getId()) {
-            modelAndView.addObject("message", "origin and destination stations are the same");
-            return modelAndView;
-        }
-
-        if (timeDeparture.isAfter(timeArrival)) {
-            modelAndView.addObject("message", "time departure is after time arrival");
-            return modelAndView;
-        }
-
-        TrainDto train = trainService.addTrain(number, from, to, numberOfSeats);
-
-        if (train != null) {
-            scheduleService.addSchedule(train, timeDeparture, timeArrival);
-            List<TrainStationDto> trains = trainService.getAllTrainsByNumber(train.getNumber());
-            modelAndView.addObject("listOfStations", trains);
+    @PostMapping(value = "/employee/train")
+    public ModelAndView addTrain(@RequestParam("train_number") int trainNumber, ModelAndView modelAndView) {
+        TrainDto train = trainService.getTrainByNumber(trainNumber);
+        modelAndView.addObject("train", trainNumber);
+        if (train == null) {
+            modelAndView.setViewName("train.jsp");
+        } else {
+            List<TrainStationDto> trains = trainService.getTrainRoutByTrainNumber(trainNumber);
             modelAndView.setViewName("trains.jsp");
+            modelAndView.addObject("trainList", trains);
         }
         return modelAndView;
     }
 
+    /**
+     * @param trainDto      train data
+     * @param bindingResult result of validation
+     * @param model         model
+     * @return model and view(train.jsp)
+     */
     @ResponseBody
-    @GetMapping(value = "/getTrains")
-    public ModelAndView getTrain(ModelAndView model) {
-        List<TrainDto> trains = trainService.getAllTrains();
-        model.setViewName("menu.jsp");
-        if (trains != null && !trains.isEmpty()) {
-            model.setViewName("trainsList.jsp");
-            model.addObject("listOfTrains", trains);
-        } else {
-            model.addObject("messageTrain", "no trains");
+    @PostMapping(value = "/employee/trip")
+    public ModelAndView addTrip(@Valid @ModelAttribute("trainDto") TrainDto trainDto,
+                                BindingResult bindingResult, Model model) {
+        model.addAttribute("train", trainDto.getNumber());
+        trainValidator.validate(trainDto, bindingResult);
+        if (bindingResult.hasErrors()) {
+            return new ModelAndView("train.jsp", bindingResult.getModel());
         }
-        return model;
+        trainService.addTrain(trainDto);
+        List<TrainStationDto> trains = trainService.getTrainRoutByTrainNumber(trainDto.getNumber());
+        model.addAttribute("trainList", trains);
+        return new ModelAndView("trains.jsp");
     }
 
-
-    @ExceptionHandler(DateTimeParseException.class)
-    public ModelAndView handleException(Exception e) {
-        ModelAndView modelAndView = new ModelAndView();
-        log.error(e.getCause());
-        modelAndView.addObject("message", "incorrect date format");
-        modelAndView.addObject("train", trainNumber);
-        modelAndView.setViewName("train.jsp");
+    /**
+     * @param modelAndView model and view
+     * @return model and view
+     */
+    @ResponseBody
+    @GetMapping(value = "/employee/trains")
+    public ModelAndView getTrainList(ModelAndView modelAndView) {
+        List<TrainDto> trains = trainService.getTrainList();
+        modelAndView.setViewName("menu.jsp");
+        if (!CollectionUtils.isEmpty(trains)) {
+            modelAndView.setViewName("trainsList.jsp");
+            modelAndView.addObject("listOfTrains", trains);
+        } else {
+            modelAndView.addObject("messageTrain", "no trains");
+        }
         return modelAndView;
     }
 }

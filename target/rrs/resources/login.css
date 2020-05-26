@@ -60,6 +60,10 @@ div{
 .style_gap{
     font-family: 'Poppins', sans-serif;
     margin-top: 100px;
+    align-items: center;
+    text-align: center;
+    margin-right: auto;
+    margin-left: auto;
 }
 
 .button{
@@ -68,4 +72,5 @@ div{
 
 .message {
     color: red;
+    text-align: center;
 }

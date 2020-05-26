@@ -10,11 +10,13 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.persistence.EntityManagerFactory;
 
+/**
+ * author Vitalii Nefedov
+ */
 @Configuration
 @ComponentScan(basePackages = "com.tsystems.project.dao")
 @EnableTransactionManagement
-public
-class SprConfig {
+public class SprConfig {
     @Bean
     public LocalEntityManagerFactoryBean entityManagerFactory() {
         LocalEntityManagerFactoryBean localEmfBean =

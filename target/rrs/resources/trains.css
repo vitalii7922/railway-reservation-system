@@ -20,6 +20,7 @@ button {
 
 .th {
     font-size: 140%;
+    text-align: center;
 }
 
 td {
@@ -28,6 +29,7 @@ td {
 
 .font {
     font-size: 170%;
+    text-align: center;
 }
 
 .button {
@@ -64,6 +66,31 @@ td {
     position: center;
 }
 
+.table_style {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+.table {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+}
+
+.td_padding {
+    padding: 5px 10px 5px 10px;
+}
+
+.table_style_list_trains {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
 .message {
- color: red;
+    color: red;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
 }

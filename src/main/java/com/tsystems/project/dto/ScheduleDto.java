@@ -1,19 +1,47 @@
 package com.tsystems.project.dto;
-import com.tsystems.project.domain.Station;
-import com.tsystems.project.domain.Train;
+
 import java.io.Serializable;
+import java.util.Objects;
 
-
+/**
+ * author Vitalii Nefedov
+ */
 public class ScheduleDto implements Serializable, Comparable<ScheduleDto> {
     long id;
+
+    long trainId;
+
+    int trainNumber;
+
+    String stationName;
 
     private String arrivalTime;
 
     private String departureTime;
 
-    Train train;
+    public long getTrainId() {
+        return trainId;
+    }
 
-    Station station;
+    public void setTrainId(long trainId) {
+        this.trainId = trainId;
+    }
+
+    public int getTrainNumber() {
+        return trainNumber;
+    }
+
+    public void setTrainNumber(int trainNumber) {
+        this.trainNumber = trainNumber;
+    }
+
+    public String getStationName() {
+        return stationName;
+    }
+
+    public void setStationName(String stationName) {
+        this.stationName = stationName;
+    }
 
     public String getArrivalTime() {
         return arrivalTime;
@@ -31,22 +59,6 @@ public class ScheduleDto implements Serializable, Comparable<ScheduleDto> {
         this.departureTime = departureTime;
     }
 
-    public Train getTrain() {
-        return train;
-    }
-
-    public void setTrain(Train train) {
-        this.train = train;
-    }
-
-    public Station getStation() {
-        return station;
-    }
-
-    public void setStation(Station station) {
-        this.station = station;
-    }
-
     public long getId() {
         return id;
     }
@@ -55,9 +67,21 @@ public class ScheduleDto implements Serializable, Comparable<ScheduleDto> {
         this.id = id;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof ScheduleDto)) return false;
+        ScheduleDto that = (ScheduleDto) o;
+        return getTrainNumber() == that.getTrainNumber();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getTrainNumber());
+    }
 
     @Override
     public int compareTo(ScheduleDto o) {
-        return train.getNumber() - o.getTrain().getNumber();
+        return trainNumber - o.getTrainNumber();
     }
 }

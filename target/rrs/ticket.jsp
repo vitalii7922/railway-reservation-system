@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <title>Railway reservation system</title>
     <title>Ticket</title>
@@ -14,7 +15,7 @@
 </form>
 </div>
 
-<div class="font" align="center">
+<div class="font">
     Ticket number: ${ticket.id}<br>
     Train number: ${ticket.trainNumber}<br>
     Origin station: ${ticket.stationOrigin}<br>

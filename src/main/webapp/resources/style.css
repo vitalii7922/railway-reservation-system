@@ -3,12 +3,16 @@
     border-bottom-style: solid;
     border-bottom-color: black;
     font-family: 'Poppins', sans-serif;
+    text-align: right;
 }
 
 .table {
     border: 1px solid black;
     margin-bottom: 100px;
     font-family: 'Poppins', sans-serif;
+    margin-left:auto;
+    margin-right:auto;
+    text-align: center;
 }
 
 .table_print {
@@ -42,6 +46,7 @@ input{
 
 .text{
     font-family: 'Poppins', sans-serif;
+    text-align: center;
 }
 
 button {
@@ -56,5 +61,6 @@ button:hover {
 
 .message {
     color: red;
+    text-align: center;
 }
 

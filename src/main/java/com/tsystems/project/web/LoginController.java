@@ -1,65 +1,49 @@
 package com.tsystems.project.web;
 
-import com.tsystems.project.domain.Admin;
-import com.tsystems.project.service.AdminService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
-
+/**
+ * author Vitalii Nefedov
+ */
 @Controller
 public class LoginController {
 
-    @Autowired
-    AdminService adminService;
+    private String message = "message";
 
-
-   /* @PostMapping(value = "/login")
-    private ModelAndView getModelAndView(HttpServletRequest request,
-                                         @ModelAttribute("login") String login,
-                                         @ModelAttribute("password") String password) {
-        ModelAndView mav;
-        Admin admin = adminService.validate(login, password);
-        if (admin != null) {
-            mav = new ModelAndView("menu.jsp");
-            HttpSession session = request.getSession();
-            session.setAttribute("admin", admin);
-        } else {
-            mav = new ModelAndView("login.jsp");
-            mav.addObject("message", "login or password is wrong");
+    /**
+     * @param error  incorrect password or login entered
+     * @param logout logout information
+     * @return modelAndView(login.jsp)
+     */
+    @ResponseBody
+    @GetMapping(value = "/login")
+    public ModelAndView loginAdminProcess(@RequestParam(value = "error", required = false) String error,
+                                          @RequestParam(value = "logout", required = false) String logout) {
+        ModelAndView modelAndView = new ModelAndView();
+        if (error != null) {
+            modelAndView.addObject(message, "Invalid username or password!");
         }
-        return mav;
-    }*/
-
-    @PostMapping(value = "/login")
-    public ModelAndView loginAdminProcess(HttpServletRequest request,
-                                          @ModelAttribute("login") String login,
-                                          @ModelAttribute("password") String password) {
-        ModelAndView mav;
-        Admin admin = adminService.validate(login, password);
-        if (admin != null) {
-            mav = new ModelAndView("menu.jsp");
-            HttpSession session = request.getSession();
-            session.setAttribute("admin", admin);
-        } else {
-            mav = new ModelAndView("login.jsp");
-            mav.addObject("message", "login or password is wrong");
+        if (logout != null) {
+            modelAndView.addObject(message, "You've been logged out successfully");
         }
-        return mav;
+        modelAndView.setViewName("login.jsp");
+        return modelAndView;
     }
 
-    @GetMapping(value = "/logout")
-    public ModelAndView logOut(HttpServletRequest request, HttpServletResponse response) {
-        ModelAndView mav = new ModelAndView();
-        mav.setViewName("login.jsp");
-        HttpSession session = request.getSession();
-        session.setAttribute("admin", null);
-        return mav;
+    /**
+     * @return model and view(login.jsp)
+     */
+    @ResponseBody
+    @GetMapping(value = "/403")
+    public ModelAndView accessDenied() {
+        ModelAndView model = new ModelAndView();
+        model.addObject(message, "you don't have access");
+        model.setViewName("login.jsp");
+        return model;
+
     }
+
 }
 

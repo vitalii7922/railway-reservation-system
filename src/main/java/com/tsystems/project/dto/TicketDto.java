@@ -2,6 +2,9 @@ package com.tsystems.project.dto;
 
 import java.time.LocalDate;
 
+/**
+ * author Vitalii Nefedov
+ */
 public class TicketDto {
     private long id;
     private String firstName;

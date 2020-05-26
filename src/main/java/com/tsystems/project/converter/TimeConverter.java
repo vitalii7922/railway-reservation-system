@@ -1,42 +1,42 @@
 package com.tsystems.project.converter;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 
-@Configuration
+/**
+ * author Vitalii Nefedov
+ */
+@Component
 public class TimeConverter {
-    private static final String DATE_FORMATTER= "dd-MM-yyyy HH:mm";
+    private static final String DATE_FORMATTER = "dd-MM-yyyy HH:mm";
 
-    private static final Log log = LogFactory.getLog(TimeConverter.class);
-
-    @Bean
-    public TimeConverter transferService() {
-        return new TimeConverter();
-    }
-
+    /**
+     * convert format of date-time from "yyyy-MM-ddTHH:mm" to "dd-MM-yyyy HH:mm"
+     *
+     * @param localDateTime localDateTime
+     * @return formatted local date-time("dd-MM-yyyy HH:mm")
+     */
     public String convertDateTime(LocalDateTime localDateTime) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_FORMATTER);
         return localDateTime.format(formatter);
     }
 
+    /**
+     * convert format of date-time from "dd-MM-yyyy HH:mm" to "yyyy-MM-ddTHH:mm"
+     *
+     * @param localDateTime localDateTime
+     * @return formatted local date-time
+     */
     public LocalDateTime reversedConvertDateTime(String localDateTime) {
-        LocalDateTime time = null;
-        try {
-            int day = Integer.parseInt(localDateTime.substring(0, 2));
-            int month = Integer.parseInt(localDateTime.substring(3, 5));
-            int year = Integer.parseInt(localDateTime.substring(6, 10));
-            int hours = Integer.parseInt(localDateTime.substring(11, 13));
-            int minutes = Integer.parseInt(localDateTime.substring(14, 16));
-            time = LocalDateTime.of(year, month, day, hours, minutes);
-        } catch (DateTimeParseException e) {
-            log.error(e.getCause());
-        }
+        LocalDateTime time;
+        int day = Integer.parseInt(localDateTime.substring(0, 2));
+        int month = Integer.parseInt(localDateTime.substring(3, 5));
+        int year = Integer.parseInt(localDateTime.substring(6, 10));
+        int hours = Integer.parseInt(localDateTime.substring(11, 13));
+        int minutes = Integer.parseInt(localDateTime.substring(14, 16));
+        time = LocalDateTime.of(year, month, day, hours, minutes);
         return time;
     }
 }

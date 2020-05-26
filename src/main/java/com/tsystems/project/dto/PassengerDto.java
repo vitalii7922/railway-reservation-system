@@ -2,8 +2,10 @@ package com.tsystems.project.dto;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.Comparator;
 
+/**
+ * author Vitalii Nefedov
+ */
 public class PassengerDto implements Serializable {
 
     private long id;
@@ -45,8 +47,6 @@ public class PassengerDto implements Serializable {
     public void setId(long id) {
         this.id = id;
     }
-
-
 }
 
 

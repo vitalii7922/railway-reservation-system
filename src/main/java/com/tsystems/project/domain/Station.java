@@ -3,10 +3,12 @@ package com.tsystems.project.domain;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
-import java.util.Objects;
 
+/**
+ * author Vitalii Nefedov
+ */
 @Entity
-public class Station implements Serializable, Comparable<Station> {
+public class Station implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private long id;
@@ -14,7 +16,7 @@ public class Station implements Serializable, Comparable<Station> {
     @Column(name = "name")
     private String name;
 
-    @OneToMany(mappedBy = "originStation", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "originStation")
     private List<Train> trainsDeparture;
 
     @OneToMany(mappedBy = "destinationStation")
@@ -22,6 +24,13 @@ public class Station implements Serializable, Comparable<Station> {
 
     @OneToMany(mappedBy = "station")
     private List<Schedule> schedules;
+
+    public Station() {
+    }
+
+    public Station(String name) {
+        this.name = name;
+    }
 
     public long getId() {
         return id;
@@ -63,8 +72,4 @@ public class Station implements Serializable, Comparable<Station> {
         this.schedules = schedules;
     }
 
-    @Override
-    public int compareTo(Station o) {
-        return name.compareTo(o.name);
-    }
 }

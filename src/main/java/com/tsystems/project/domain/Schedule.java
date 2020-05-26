@@ -1,12 +1,13 @@
 package com.tsystems.project.domain;
 
 
-
 import javax.persistence.*;
 import java.io.Serializable;
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
+/**
+ * author Vitalii Nefedov
+ */
 @Entity
 public class Schedule implements Serializable {
     @Id
@@ -19,11 +20,11 @@ public class Schedule implements Serializable {
     @Column(name = "departure_time")
     private LocalDateTime departureTime;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne
     @JoinColumn(name = "train_id")
     Train train;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne
     @JoinColumn(name = "station_id")
     Station station;
 

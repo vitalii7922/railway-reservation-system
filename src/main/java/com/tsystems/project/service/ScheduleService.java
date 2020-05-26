@@ -3,110 +3,123 @@ package com.tsystems.project.service;
 import com.tsystems.project.converter.ScheduleConverter;
 import com.tsystems.project.converter.TimeConverter;
 import com.tsystems.project.dao.ScheduleDao;
-import com.tsystems.project.dao.StationDao;
-import com.tsystems.project.dao.TrainDao;
 import com.tsystems.project.domain.Schedule;
 import com.tsystems.project.domain.Train;
 import com.tsystems.project.dto.ScheduleDto;
-import com.tsystems.project.dto.TrainDto;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.modelmapper.ModelMapper;
-import org.modelmapper.TypeToken;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.tsystems.project.sender.ScheduleSender;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 
-import java.lang.reflect.Type;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
+
+/**
+ * author Vitalii Nefedov
+ */
+
 @Service
 public class ScheduleService {
 
-    @Autowired
-    ScheduleDao scheduleDao;
+    private final ScheduleDao scheduleDao;
 
-    @Autowired
-    TrainDao trainDao;
+    private final ScheduleConverter scheduleConverter;
 
-    @Autowired
-    StationDao stationDao;
+    private final TimeConverter timeConverter;
 
-    @Autowired
-    ModelMapper modelMapper;
+    private final ScheduleSender sender;
 
-    @Autowired
-    ScheduleConverter scheduleConverter;
+    public ScheduleService(ScheduleDao scheduleDao, ScheduleConverter scheduleConverter, TimeConverter timeConverter,
+                           ScheduleSender sender) {
+        this.scheduleDao = scheduleDao;
+        this.scheduleConverter = scheduleConverter;
+        this.timeConverter = timeConverter;
+        this.sender = sender;
+    }
 
-
-    private static final Log log = LogFactory.getLog(ScheduleService.class);
-
+    /**
+     * @param train         train model
+     * @param departureTime departure time of a train
+     * @param arrivalTime   arrival time of a train
+     */
     @Transactional
-    public void addSchedule(TrainDto trainDto, LocalDateTime departureTime, LocalDateTime arrivalTime) {
-        Train train = null;
-        train = modelMapper.map(trainDto, Train.class);
-        Schedule scheduleDeparture = null;
-        Schedule scheduleArrival = null;
-
-        try {
-            scheduleDeparture = new Schedule();
-            scheduleDeparture.setTrain(train);
-            scheduleDeparture.setDepartureTime(departureTime);
-            scheduleDeparture.setStation(train.getOriginStation());
-            scheduleDao.create(scheduleDeparture);
-
-            scheduleArrival = new Schedule();
-            scheduleArrival.setTrain(train);
-            scheduleArrival.setArrivalTime(arrivalTime);
-            scheduleArrival.setStation(train.getDestinationStation());
-            scheduleDao.create(scheduleArrival);
-        } catch (Exception e) {
-            log.error(e.getCause());
+    public void addSchedule(Train train, LocalDateTime departureTime, LocalDateTime arrivalTime) {
+        Schedule scheduleDeparture = new Schedule();
+        Schedule scheduleArrival = new Schedule();
+        scheduleDeparture.setTrain(train);
+        scheduleDeparture.setDepartureTime(departureTime);
+        scheduleDeparture.setStation(train.getOriginStation());
+        scheduleDao.create(scheduleDeparture);
+        scheduleArrival.setTrain(train);
+        scheduleArrival.setArrivalTime(arrivalTime);
+        scheduleArrival.setStation(train.getDestinationStation());
+        scheduleDao.create(scheduleArrival);
+        if (departureTime.toLocalDate().equals(LocalDate.now()) || arrivalTime.toLocalDate().equals(LocalDate.now())) {
+            sender.send(String.valueOf(train.getOriginStation().getId()));
+            sender.send(String.valueOf(train.getDestinationStation().getId()));
         }
     }
 
+    /**
+     * @param id identification of a schedule
+     * @return schedule model
+     */
     public Schedule getScheduleByTrainId(long id) {
         return scheduleDao.findByTrainId(id);
     }
 
-
+    /**
+     * @param id identification of a schedule
+     * @return scheduleDtoList on a particular station
+     */
     public List<ScheduleDto> getSchedulesByStationId(long id) {
         List<Schedule> schedules = scheduleDao.findByStationId(id);
-//        Type listType = null;
-        List<ScheduleDto> scheduleDtos = null;
-        try {
-        if (schedules != null) {
-//            listType = new TypeToken<List<ScheduleDto>>() {}.getType();
-//            scheduleDtos = new ModelMapper().map(schedules, listType);
-            scheduleDtos = schedules.stream().map(s -> scheduleConverter.convertToScheduleDto(s))
-                                            .collect(Collectors.toList());
-            List<Long> trainsId = new ArrayList<>();
-
-            for (int i = 0; i < scheduleDtos.size(); i++) {
-                for (int j = i + 1; j < scheduleDtos.size(); j++) {
-                    if (scheduleDtos.get(i).getTrain().getNumber() == scheduleDtos.get(j).getTrain().getNumber()) {
-                        scheduleDtos.get(i).setDepartureTime(scheduleDtos.get(j).getDepartureTime());
-                        trainsId.add(scheduleDtos.get(j).getTrain().getId());
+        List<ScheduleDto> scheduleDtoList;
+        if (!CollectionUtils.isEmpty(schedules)) {
+            scheduleDtoList = schedules.stream().map(scheduleConverter::convertToScheduleDto)
+                    .collect(Collectors.toList());
+            Set<Long> trainsId = new HashSet<>();
+            for (int i = 0; i < scheduleDtoList.size(); i++) {
+                for (int j = i + 1; j < scheduleDtoList.size(); j++) {
+                    if (scheduleDtoList.get(i).getTrainNumber() == scheduleDtoList.get(j).getTrainNumber()) {
+                        scheduleDtoList.get(i).setDepartureTime(scheduleDtoList.get(j).getDepartureTime());
+                        trainsId.add(scheduleDtoList.get(j).getTrainId());
                     }
                 }
             }
-
-            Iterator<ScheduleDto> iterator = scheduleDtos.iterator();
-
+            Iterator<ScheduleDto> iterator = scheduleDtoList.iterator();
             while (iterator.hasNext()) {
-                long trainId = iterator.next().getTrain().getId();
-                if (trainsId.contains(trainId)){
+                long trainId = iterator.next().getTrainId();
+                if (trainsId.contains(trainId)) {
                     iterator.remove();
                 }
             }
-            Collections.sort(scheduleDtos);
+            Collections.sort(scheduleDtoList);
         }
-        } catch (NullPointerException e) {
-            log.error(e.getCause());
-        }
-        return scheduleDtos;
+        return new ArrayList<>();
+    }
+
+
+    /**
+     * delete elements of list of schedules that are not today's
+     *
+     * @param id station id
+     * @return scheduleDtoList at a current day
+     */
+    public List<ScheduleDto> getTodaySchedulesByStationId(long id) {
+        List<ScheduleDto> scheduleDtoList = getSchedulesByStationId(id);
+        scheduleDtoList.removeIf(scheduleDto -> (scheduleDto.getDepartureTime() != null &&
+                !timeConverter.reversedConvertDateTime(scheduleDto.getDepartureTime()).toLocalDate().equals(LocalDate.now()) &&
+                scheduleDto.getArrivalTime() != null &&
+                !timeConverter.reversedConvertDateTime(scheduleDto.getArrivalTime()).toLocalDate().equals(LocalDate.now())) ||
+                (scheduleDto.getDepartureTime() == null && scheduleDto.getArrivalTime() != null &&
+                        !timeConverter.reversedConvertDateTime(scheduleDto.getArrivalTime()).toLocalDate().equals(LocalDate.now())) ||
+                (scheduleDto.getArrivalTime() == null && scheduleDto.getDepartureTime() != null &&
+                        !timeConverter.reversedConvertDateTime(scheduleDto.getDepartureTime()).toLocalDate().equals(LocalDate.now())));
+        return scheduleDtoList;
     }
 }
 

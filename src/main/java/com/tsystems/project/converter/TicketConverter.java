@@ -4,31 +4,40 @@ import com.tsystems.project.domain.Ticket;
 import com.tsystems.project.domain.Train;
 import com.tsystems.project.dto.PassengerDto;
 import com.tsystems.project.dto.TicketDto;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Component;
 
-@Configuration
+/**
+ * author Vitalii Nefedov
+ */
+@Component
 public class TicketConverter {
-    @Bean
-    public TicketConverter transferService() {
-        return new TicketConverter();
+
+    private final TimeConverter timeConverter;
+
+    public TicketConverter(TimeConverter timeConverter) {
+        this.timeConverter = timeConverter;
     }
 
-    @Autowired
-    TimeConverter timeConverter;
-
-    public TicketDto convertToTicketDto(Ticket t, PassengerDto passengerDto, Train trainDeparture, Train trainArrival) {
+    /**
+     * @param ticket         ticket
+     * @param passengerDto   passenger data
+     * @param trainDeparture departure time of a train
+     * @param trainArrival   arrival time of a train
+     * @return ticketDto
+     */
+    public TicketDto convertToTicketDto(Ticket ticket, PassengerDto passengerDto, Train trainDeparture, Train trainArrival) {
         TicketDto ticketDto = new TicketDto();
-        ticketDto.setTrainNumber(trainDeparture.getNumber());
-        ticketDto.setId(t.getId());
-        ticketDto.setFirstName(passengerDto.getFirstName());
-        ticketDto.setLastName(passengerDto.getSecondName());
-        ticketDto.setBirthDate(passengerDto.getBirthDate());
-        ticketDto.setStationOrigin(trainDeparture.getOriginStation().getName());
-        ticketDto.setStationDeparture(trainArrival.getDestinationStation().getName());
-        ticketDto.setDepartureTime(timeConverter.convertDateTime(trainDeparture.getSchedules().get(0).getDepartureTime()));
-        ticketDto.setArrivalTime(timeConverter.convertDateTime(trainArrival.getSchedules().get(1).getArrivalTime()));
+        if (ticket != null && passengerDto != null && trainArrival != null && trainDeparture != null) {
+            ticketDto.setTrainNumber(trainDeparture.getNumber());
+            ticketDto.setId(ticket.getId());
+            ticketDto.setFirstName(passengerDto.getFirstName());
+            ticketDto.setLastName(passengerDto.getSecondName());
+            ticketDto.setBirthDate(passengerDto.getBirthDate());
+            ticketDto.setStationOrigin(trainDeparture.getOriginStation().getName());
+            ticketDto.setStationDeparture(trainArrival.getDestinationStation().getName());
+            ticketDto.setDepartureTime(timeConverter.convertDateTime(trainDeparture.getSchedules().get(0).getDepartureTime()));
+            ticketDto.setArrivalTime(timeConverter.convertDateTime(trainArrival.getSchedules().get(1).getArrivalTime()));
+        }
         return ticketDto;
     }
 }
