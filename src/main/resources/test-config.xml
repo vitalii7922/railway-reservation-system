@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <bean id="stationService" class="com.tsystems.project.service.StationService">
+        <constructor-arg ref="stationDao"/>
+        <constructor-arg ref="stationSender"/>
+    </bean>
+    <bean id="stationDao" class="com.tsystems.project.dao.StationDao"/>
+    <bean id="stationConverter" class="com.tsystems.project.converter.StationConverter"/>
+    <bean id="stationSender" class="com.tsystems.project.sender.StationSender"/>
+    <bean id="hibernateSpring" class="com.tsystems.project.config.SprConfig"/>
+</beans>
