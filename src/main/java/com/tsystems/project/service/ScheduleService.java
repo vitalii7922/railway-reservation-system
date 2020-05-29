@@ -77,7 +77,7 @@ public class ScheduleService {
      */
     public List<ScheduleDto> getSchedulesByStationId(long id) {
         List<Schedule> schedules = scheduleDao.findByStationId(id);
-        List<ScheduleDto> scheduleDtoList;
+        List<ScheduleDto> scheduleDtoList = new ArrayList<>();
         if (!CollectionUtils.isEmpty(schedules)) {
             scheduleDtoList = schedules.stream().map(scheduleConverter::convertToScheduleDto)
                     .collect(Collectors.toList());
@@ -99,7 +99,7 @@ public class ScheduleService {
             }
             Collections.sort(scheduleDtoList);
         }
-        return new ArrayList<>();
+        return scheduleDtoList;
     }
 
 
