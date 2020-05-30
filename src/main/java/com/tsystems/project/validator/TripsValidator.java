@@ -10,7 +10,6 @@ import com.tsystems.project.service.StationService;
 import com.tsystems.project.service.TrainService;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
@@ -41,7 +40,7 @@ public class TripsValidator implements Validator {
     }
 
     @Override
-    public boolean supports(@NotNull Class<?> aClass) {
+    public boolean supports(Class<?> aClass) {
         return Train.class.equals(aClass);
     }
 
@@ -53,7 +52,7 @@ public class TripsValidator implements Validator {
      * @param errors errors
      */
     @Override
-    public void validate(@NotNull Object o, @NotNull Errors errors) {
+    public void validate(Object o, Errors errors) {
         TrainDto trainDto = (TrainDto) o;
         try {
             LocalDateTime timeArrival = LocalDateTime.parse(trainDto.getArrivalTime());

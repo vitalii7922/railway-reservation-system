@@ -1,3 +1,4 @@
+/*
 package com.tsystems.javaschool.test;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -188,3 +189,4 @@ public class TrainServiceTest {
     }
 
 }
+*/

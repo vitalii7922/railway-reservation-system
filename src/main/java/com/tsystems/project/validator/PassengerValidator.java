@@ -9,7 +9,6 @@ import com.tsystems.project.domain.Train;
 import com.tsystems.project.service.PassengerService;
 import com.tsystems.project.service.TicketService;
 import com.tsystems.project.service.TrainService;
-import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
@@ -42,7 +41,7 @@ public class PassengerValidator extends Verification implements Validator {
     }
 
     @Override
-    public boolean supports(@NotNull Class<?> aClass) {
+    public boolean supports(Class<?> aClass) {
         return Passenger.class.equals(aClass);
     }
 
@@ -53,7 +52,7 @@ public class PassengerValidator extends Verification implements Validator {
      * @param errors errors
      */
     @Override
-    public void validate(@NotNull Object o, @NotNull Errors errors) {
+    public void validate(Object o, Errors errors) {
         PassengerTrainDto passengerTrainDto = (PassengerTrainDto) o;
         if (verifyFreeSeats(passengerTrainDto)) {
             errors.rejectValue("seats", "free.seats", "No free seats on train "

@@ -1,5 +1,9 @@
 package com.tsystems.project.domain;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
@@ -7,6 +11,7 @@ import java.util.List;
 /**
  * author Vitalii Nefedov
  */
+@Builder
 @Entity
 public class Station implements Serializable {
     @Id
@@ -24,13 +29,6 @@ public class Station implements Serializable {
 
     @OneToMany(mappedBy = "station")
     private List<Schedule> schedules;
-
-    public Station() {
-    }
-
-    public Station(String name) {
-        this.name = name;
-    }
 
     public long getId() {
         return id;

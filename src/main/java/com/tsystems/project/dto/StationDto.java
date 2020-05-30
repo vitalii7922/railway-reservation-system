@@ -1,6 +1,8 @@
 package com.tsystems.project.dto;
 
-import org.jetbrains.annotations.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -8,6 +10,9 @@ import java.util.Objects;
 /**
  * author Vitalii Nefedov
  */
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class StationDto implements Serializable, Comparable<StationDto> {
 
     private long id;
@@ -45,7 +50,7 @@ public class StationDto implements Serializable, Comparable<StationDto> {
     }
 
     @Override
-    public int compareTo(@NotNull StationDto o) {
+    public int compareTo(StationDto o) {
         return name.compareTo(o.name);
     }
 }
