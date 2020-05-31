@@ -1,7 +1,6 @@
 package com.tsystems.project.dao;
 
 import com.tsystems.project.domain.Train;
-import org.jetbrains.annotations.Nullable;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
@@ -40,7 +39,6 @@ public class TrainDao extends AbstractDao<Train> {
      * @param queryString query
      * @return train
      */
-    @Nullable
     private Train getTrain(int trainNumber, String name, String queryString) {
         Query query = entityManager.createQuery(queryString);
         query.setParameter("name", name);

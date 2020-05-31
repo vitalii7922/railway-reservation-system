@@ -1,11 +1,13 @@
 package com.tsystems.project.dto;
 
+import lombok.Builder;
 import java.io.Serializable;
 import java.util.Objects;
 
 /**
  * author Vitalii Nefedov
  */
+
 public class ScheduleDto implements Serializable, Comparable<ScheduleDto> {
     long id;
 

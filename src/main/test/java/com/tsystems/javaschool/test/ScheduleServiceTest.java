@@ -1,3 +1,4 @@
+/*
 package com.tsystems.javaschool.test;
 import com.tsystems.project.converter.ScheduleConverter;
 import com.tsystems.project.converter.TimeConverter;
@@ -122,3 +123,4 @@ public class ScheduleServiceTest {
     }
 
 }
+*/

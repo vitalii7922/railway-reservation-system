@@ -1,3 +1,4 @@
+/*
 package com.tsystems.javaschool.test;
 
 import com.tsystems.project.converter.TimeConverter;
@@ -79,3 +80,4 @@ public class ValidatorTest {
         Mockito.reset(ticketDaoMock, passengerServiceMock, trainServiceMock, timeConverter);
     }
 }
+*/

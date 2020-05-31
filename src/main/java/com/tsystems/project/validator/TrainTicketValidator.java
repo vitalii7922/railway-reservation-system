@@ -5,7 +5,6 @@ import com.tsystems.project.domain.Ticket;
 import com.tsystems.project.dto.TrainDto;
 import com.tsystems.project.service.TicketService;
 import com.tsystems.project.service.TrainService;
-import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
@@ -25,7 +24,7 @@ public class TrainTicketValidator extends Verification implements Validator {
     }
 
     @Override
-    public boolean supports(@NotNull Class<?> aClass) {
+    public boolean supports(Class<?> aClass) {
         return Ticket.class.equals(aClass);
     }
 
@@ -34,7 +33,7 @@ public class TrainTicketValidator extends Verification implements Validator {
      * @param errors errors
      */
     @Override
-    public void validate(@NotNull Object o, @NotNull Errors errors) {
+    public void validate(Object o, Errors errors) {
         TrainDto trainDto = (TrainDto) o;
 
         if (verifyTimeDeparture(trainDto)) {

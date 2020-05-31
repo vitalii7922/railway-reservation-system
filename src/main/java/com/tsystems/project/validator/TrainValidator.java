@@ -6,7 +6,6 @@ import com.tsystems.project.dto.TrainDto;
 import com.tsystems.project.service.StationService;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
@@ -31,7 +30,7 @@ public class TrainValidator implements Validator {
     }
 
     @Override
-    public boolean supports(@NotNull Class<?> aClass) {
+    public boolean supports(Class<?> aClass) {
         return Train.class.equals(aClass);
     }
 
@@ -43,7 +42,7 @@ public class TrainValidator implements Validator {
      * @param errors errors
      */
     @Override
-    public void validate(@NotNull Object o, @NotNull Errors errors) {
+    public void validate(Object o, Errors errors) {
         TrainDto trainDto = (TrainDto) o;
         Station from = stationService.getStationByName(trainDto.getOriginStation());
         Station to = stationService.getStationByName(trainDto.getDestinationStation());
