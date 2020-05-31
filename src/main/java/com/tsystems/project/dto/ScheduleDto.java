@@ -1,13 +1,18 @@
 package com.tsystems.project.dto;
 
 import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.io.Serializable;
 import java.util.Objects;
 
 /**
  * author Vitalii Nefedov
  */
-
+@Builder
+@Getter
+@Setter
 public class ScheduleDto implements Serializable, Comparable<ScheduleDto> {
     long id;
 
@@ -21,65 +26,22 @@ public class ScheduleDto implements Serializable, Comparable<ScheduleDto> {
 
     private String departureTime;
 
-    public long getTrainId() {
-        return trainId;
-    }
-
-    public void setTrainId(long trainId) {
-        this.trainId = trainId;
-    }
-
-    public int getTrainNumber() {
-        return trainNumber;
-    }
-
-    public void setTrainNumber(int trainNumber) {
-        this.trainNumber = trainNumber;
-    }
-
-    public String getStationName() {
-        return stationName;
-    }
-
-    public void setStationName(String stationName) {
-        this.stationName = stationName;
-    }
-
-    public String getArrivalTime() {
-        return arrivalTime;
-    }
-
-    public void setArrivalTime(String arrivalTime) {
-        this.arrivalTime = arrivalTime;
-    }
-
-    public String getDepartureTime() {
-        return departureTime;
-    }
-
-    public void setDepartureTime(String departureTime) {
-        this.departureTime = departureTime;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof ScheduleDto)) return false;
         ScheduleDto that = (ScheduleDto) o;
-        return getTrainNumber() == that.getTrainNumber();
+        return getId() == that.getId() &&
+                getTrainId() == that.getTrainId() &&
+                getTrainNumber() == that.getTrainNumber() &&
+                getStationName().equals(that.getStationName()) &&
+                Objects.equals(getArrivalTime(), that.getArrivalTime()) &&
+                Objects.equals(getDepartureTime(), that.getDepartureTime());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getTrainNumber());
+        return Objects.hash(getId(), getTrainId(), getTrainNumber(), getStationName(), getArrivalTime(), getDepartureTime());
     }
 
     @Override

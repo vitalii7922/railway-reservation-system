@@ -47,15 +47,17 @@ public class ScheduleService {
      */
     @Transactional
     public void addSchedule(Train train, LocalDateTime departureTime, LocalDateTime arrivalTime) {
-        Schedule scheduleDeparture = new Schedule();
-        Schedule scheduleArrival = new Schedule();
-        scheduleDeparture.setTrain(train);
-        scheduleDeparture.setDepartureTime(departureTime);
-        scheduleDeparture.setStation(train.getOriginStation());
+        Schedule scheduleDeparture = Schedule.builder()
+                .train(train)
+                .departureTime(departureTime)
+                .station(train.getOriginStation())
+                .build();
+        Schedule scheduleArrival = Schedule.builder()
+                .train(train)
+                .arrivalTime(arrivalTime)
+                .station(train.getDestinationStation())
+                .build();
         scheduleDao.create(scheduleDeparture);
-        scheduleArrival.setTrain(train);
-        scheduleArrival.setArrivalTime(arrivalTime);
-        scheduleArrival.setStation(train.getDestinationStation());
         scheduleDao.create(scheduleArrival);
         if (departureTime.toLocalDate().equals(LocalDate.now()) || arrivalTime.toLocalDate().equals(LocalDate.now())) {
             sender.send(String.valueOf(train.getOriginStation().getId()));

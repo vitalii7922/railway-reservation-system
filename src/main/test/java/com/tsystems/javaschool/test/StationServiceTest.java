@@ -10,9 +10,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
 import java.util.Arrays;
-
 import static org.hamcrest.Matchers.is;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
@@ -26,7 +24,6 @@ public class StationServiceTest {
 
     @Autowired
     private StationService stationService;
-
 
     @Test
     public void testAddStation() {
@@ -64,7 +61,7 @@ public class StationServiceTest {
 
         when(stationDaoMock.findAll()).thenReturn(Arrays.asList(stationMoscow, stationPetersburg));
         Assert.assertThat(stationService.getAllStations().size(), is(2));
-        Assert.assertEquals(stationService.getAllStations(), Arrays.asList(stationDtoMoscow, stationDtoPetersburg));
+        Assert.assertEquals(Arrays.asList(stationDtoMoscow, stationDtoPetersburg), stationService.getAllStations());
     }
 
     @Test
@@ -75,7 +72,7 @@ public class StationServiceTest {
                 .build();
 
         when(stationDaoMock.findOne(1)).thenReturn(stationMoscow);
-        Assert.assertEquals(stationService.getStationById(1).getId(), 1);
+        Assert.assertEquals(1, stationService.getStationById(1).getId());
     }
 
     @Test
@@ -86,6 +83,6 @@ public class StationServiceTest {
                 .build();
 
         when(stationDaoMock.findByName("Moscow")).thenReturn(stationMoscow);
-        Assert.assertEquals(stationService.getStationByName("Moscow").getName(), "Moscow");
+        Assert.assertEquals("Moscow", stationService.getStationByName("Moscow").getName());
     }
 }
