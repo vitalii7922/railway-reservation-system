@@ -46,7 +46,7 @@ public class ScheduleService {
      * @param arrivalTime   arrival time of a train
      */
     @Transactional
-    public void addSchedule(Train train, LocalDateTime departureTime, LocalDateTime arrivalTime) {
+    public List<Schedule> addSchedule(Train train, LocalDateTime departureTime, LocalDateTime arrivalTime) {
         Schedule scheduleDeparture = Schedule.builder()
                 .train(train)
                 .departureTime(departureTime)
@@ -57,12 +57,14 @@ public class ScheduleService {
                 .arrivalTime(arrivalTime)
                 .station(train.getDestinationStation())
                 .build();
-        scheduleDao.create(scheduleDeparture);
+        scheduleDeparture = scheduleDao.create(scheduleDeparture);
+        scheduleArrival = scheduleDao.create(scheduleArrival);
         scheduleDao.create(scheduleArrival);
         if (departureTime.toLocalDate().equals(LocalDate.now()) || arrivalTime.toLocalDate().equals(LocalDate.now())) {
             sender.send(String.valueOf(train.getOriginStation().getId()));
             sender.send(String.valueOf(train.getDestinationStation().getId()));
         }
+        return Arrays.asList(scheduleDeparture, scheduleArrival);
     }
 
     /**
@@ -79,7 +81,7 @@ public class ScheduleService {
      */
     public List<ScheduleDto> getSchedulesByStationId(long id) {
         List<Schedule> schedules = scheduleDao.findByStationId(id);
-        List<ScheduleDto> scheduleDtoList = new ArrayList<>();
+        List<ScheduleDto> scheduleDtoList = null;
         if (!CollectionUtils.isEmpty(schedules)) {
             scheduleDtoList = schedules.stream().map(scheduleConverter::convertToScheduleDto)
                     .collect(Collectors.toList());

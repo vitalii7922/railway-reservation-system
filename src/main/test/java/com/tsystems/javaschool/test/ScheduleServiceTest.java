@@ -1,4 +1,5 @@
 package com.tsystems.javaschool.test;
+
 import com.tsystems.javaschool.test.config.TestConfig;
 import com.tsystems.project.dao.ScheduleDao;
 import com.tsystems.project.domain.Schedule;
@@ -13,6 +14,7 @@ import org.mockito.internal.util.collections.ListUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -148,14 +150,14 @@ public class ScheduleServiceTest {
                 .name("Moscow")
                 .build();
 
-        //initialize arrival time train number 1
+        //initialize schedule arrival time train number 1
         Schedule scheduleArrivalTrain1 = Schedule.builder()
                 .id(1)
                 .arrivalTime(LocalDateTime.parse("2020-05-30T15:00"))
                 .station(station)
                 .build();
 
-        //initialize departure time train number 1
+        //initialize schedule departure time train number 1
         Schedule scheduleDepartureTrain1 = Schedule.builder()
                 .id(2)
                 .departureTime(LocalDateTime.parse("2020-05-30T15:10"))
@@ -257,5 +259,73 @@ public class ScheduleServiceTest {
         Assert.assertThat(scheduleService.getTodaySchedulesByStationId(1).size(), is(2));
     }
 
+    @Test
+    public void testGetScheduleByTrainId() {
+        Station station = Station.builder()
+                .id(1)
+                .name("Moscow")
+                .build();
+
+        Schedule scheduleArrivalTrain1 = Schedule.builder()
+                .id(4)
+                .arrivalTime(LocalDateTime.now())
+                .station(station)
+                .build();
+
+        //initialize train number 3 to Moscow
+        Train trainId1 = Train.builder()
+                .id(1)
+                .number(1)
+                .destinationStation(station)
+                .schedules(Collections.singletonList(scheduleArrivalTrain1))
+                .build();
+        //initialize schedule train 3
+        scheduleArrivalTrain1.setTrain(trainId1);
+
+
+        when(scheduleDao.findByTrainId(1)).thenReturn(scheduleArrivalTrain1);
+        Assert.assertEquals(scheduleService.getScheduleByTrainId(1).getTrain().getId(),
+                scheduleArrivalTrain1.getTrain().getId());
+    }
+
+
+    @Test
+    public void testAddSchedule() {
+        Station stationMoscow = Station.builder()
+                .id(1)
+                .name("Moscow")
+                .build();
+
+        Station stationPetersburg = Station.builder()
+                .id(1)
+                .name("Saint-Petersburg")
+                .build();
+
+        Train trainId1 = Train.builder()
+                .id(1)
+                .number(1)
+                .originStation(stationMoscow)
+                .destinationStation(stationPetersburg)
+                .build();
+
+        //initialize schedule departure train 1
+        Schedule scheduleDepartureTrain1 = Schedule.builder()
+                .departureTime(LocalDateTime.parse("2020-05-30T10:00"))
+                .station(stationMoscow)
+                .train(trainId1)
+                .build();
+
+        //initialize schedule arrival train 1
+        Schedule scheduleArrivalTrain1 = Schedule.builder()
+                .arrivalTime(LocalDateTime.parse("2020-05-30T15:00"))
+                .station(stationPetersburg)
+                .train(trainId1)
+                .build();
+
+        when(scheduleDao.create(scheduleDepartureTrain1)).thenReturn(scheduleDepartureTrain1);
+        when(scheduleDao.create(scheduleArrivalTrain1)).thenReturn(scheduleArrivalTrain1);
+        Assert.assertEquals(scheduleService.addSchedule(trainId1, LocalDateTime.parse("2020-05-30T10:00"),
+                LocalDateTime.parse("2020-05-30T15:00")), Arrays.asList(scheduleDepartureTrain1, scheduleArrivalTrain1));
+    }
 
 }
