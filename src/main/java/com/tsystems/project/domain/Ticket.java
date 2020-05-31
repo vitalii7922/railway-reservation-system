@@ -34,7 +34,6 @@ public class Ticket implements Serializable {
         this.passenger = passenger;
     }
 
-
     public Train getTrain() {
         return train;
     }

@@ -1,14 +1,22 @@
 package com.tsystems.project.domain;
 
 
+import lombok.*;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 /**
  * author Vitalii Nefedov
  */
+@Builder
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
 public class Schedule implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,44 +36,20 @@ public class Schedule implements Serializable {
     @JoinColumn(name = "station_id")
     Station station;
 
-    public LocalDateTime getArrivalTime() {
-        return arrivalTime;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Schedule)) return false;
+        Schedule schedule = (Schedule) o;
+        return getId() == schedule.getId() &&
+                Objects.equals(getArrivalTime(), schedule.getArrivalTime()) &&
+                Objects.equals(getDepartureTime(), schedule.getDepartureTime()) &&
+                Objects.equals(getTrain(), schedule.getTrain()) &&
+                Objects.equals(getStation(), schedule.getStation());
     }
 
-    public void setArrivalTime(LocalDateTime arrivalTime) {
-        this.arrivalTime = arrivalTime;
-    }
-
-    public LocalDateTime getDepartureTime() {
-        return departureTime;
-    }
-
-    public void setDepartureTime(LocalDateTime departureTime) {
-        this.departureTime = departureTime;
-    }
-
-    public Train getTrain() {
-        return train;
-    }
-
-    public void setTrain(Train train) {
-        this.train = train;
-    }
-
-    public Station getStation() {
-        return station;
-    }
-
-    public void setStation(Station station) {
-        this.station = station;
-    }
-
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getArrivalTime(), getDepartureTime(), getTrain(), getStation());
     }
 }

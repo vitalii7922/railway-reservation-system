@@ -25,12 +25,14 @@ public class ScheduleConverter {
      * @return scheduleDto
      */
     public ScheduleDto convertToScheduleDto(Schedule schedule) {
-        ScheduleDto scheduleDto = new ScheduleDto();
+        ScheduleDto scheduleDto = null;
         if (schedule != null) {
-            scheduleDto.setId(schedule.getId());
-            scheduleDto.setTrainNumber(schedule.getTrain().getNumber());
-            scheduleDto.setTrainId(schedule.getTrain().getId());
-            scheduleDto.setStationName(schedule.getStation().getName());
+            scheduleDto = ScheduleDto.builder()
+                    .id(schedule.getId())
+                    .trainNumber(schedule.getTrain().getNumber())
+                    .trainId(schedule.getTrain().getId())
+                    .stationName(schedule.getStation().getName())
+                    .build();
             if (schedule.getArrivalTime() != null) {
                 scheduleDto.setArrivalTime(timeConverter.convertDateTime(schedule.getArrivalTime()));
             }

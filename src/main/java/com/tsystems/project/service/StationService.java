@@ -36,8 +36,10 @@ public class StationService {
      */
     @Transactional
     public StationDto addStation(String name) {
-        Station station = new Station();
         if (!name.matches("\\s*") && stationDao.findByName(name) == null) {
+            Station station = Station.builder()
+                    .name(name)
+                    .build();
             station.setName(name.toUpperCase());
             station = stationDao.create(station);
             sender.init();

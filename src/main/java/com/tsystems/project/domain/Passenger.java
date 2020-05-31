@@ -1,5 +1,6 @@
 package com.tsystems.project.domain;
 
+import lombok.Builder;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
