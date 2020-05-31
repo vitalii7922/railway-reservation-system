@@ -903,6 +903,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/test-config.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/main/resources/META-INF/hibernate.cfg.xml">
           <value>
             <set />
@@ -923,6 +928,16 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/main/resources/applicationContext.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/resources/com/tsystems/javaschool/test/src.main.webapp.WEB-INF.applicationContext.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/main/resources/hibernate.cfg.xml">
           <value>
             <set />
@@ -934,6 +949,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/src/main/resources/spring.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/resources/test-config.xml">
           <value>
             <set />
           </value>
@@ -978,6 +998,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/main/webapp/WEB-INF/appConfig.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/main/webapp/WEB-INF/applicationContext.xml">
           <value>
             <set />
@@ -1004,6 +1029,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/src/main/webapp/WEB-INF/spring-security.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/webapp/WEB-INF/test-config.xml">
           <value>
             <set />
           </value>
@@ -1173,37 +1203,12 @@
             <set />
           </value>
         </entry>
-        <entry key="$PROJECT_DIR$/pom.xml">
-          <value>
-            <set />
-          </value>
-        </entry>
-        <entry key="$PROJECT_DIR$/src/main/java/com/tsystems/project/service/ScheduleService.java">
-          <value>
-            <set />
-          </value>
-        </entry>
-        <entry key="$PROJECT_DIR$/src/main/java/com/tsystems/project/service/TrainService.java">
-          <value>
-            <set />
-          </value>
-        </entry>
-        <entry key="$PROJECT_DIR$/src/main/java/test-config.xml">
-          <value>
-            <set />
-          </value>
-        </entry>
-        <entry key="$PROJECT_DIR$/src/main/resources/applicationContext.xml">
-          <value>
-            <set />
-          </value>
-        </entry>
-        <entry key="$PROJECT_DIR$/src/main/resources/com/tsystems/javaschool/test/src.main.webapp.WEB-INF.applicationContext.xml">
-          <value>
-            <set />
-          </value>
-        </entry>
         <entry key="$PROJECT_DIR$/src/main/resources/test-config.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/test/java/com/tsystems/javaschool/test/ScheduleServiceTest.java">
           <value>
             <set />
           </value>
@@ -1213,27 +1218,12 @@
             <set />
           </value>
         </entry>
-        <entry key="$PROJECT_DIR$/src/main/webapp/WEB-INF/appConfig.xml">
+        <entry key="$PROJECT_DIR$/src/main/test/java/com/tsystems/javaschool/test/TrainServiceTest.java">
           <value>
             <set />
           </value>
         </entry>
-        <entry key="$PROJECT_DIR$/src/main/webapp/WEB-INF/applicationContext.xml">
-          <value>
-            <set />
-          </value>
-        </entry>
-        <entry key="$PROJECT_DIR$/src/main/webapp/WEB-INF/dispatcher-servlet.xml">
-          <value>
-            <set />
-          </value>
-        </entry>
-        <entry key="$PROJECT_DIR$/src/main/webapp/WEB-INF/test-config.xml">
-          <value>
-            <set />
-          </value>
-        </entry>
-        <entry key="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml">
+        <entry key="$PROJECT_DIR$/src/main/test/java/com/tsystems/javaschool/test/ValidatorTest.java">
           <value>
             <set />
           </value>
@@ -1414,6 +1404,56 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/../../../spring-security-login-form-database/src/main/webapp/WEB-INF/spring-security.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../../../webApp/pom.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../../../webApp/src/main/java/Calculator/Calculator.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../../../webApp/src/main/java/Calculator/Source.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../../../webApp/src/main/java/calculator/Calculator.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../../../webApp/src/main/java/calculator/Main.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../../../webApp/src/main/java/calculator/Number.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../../../webApp/src/main/java/calculator/Numberification.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../../../webApp/src/main/java/calculator/Source.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../../../webApp/src/main/resources/test-config.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../../../webApp/src/main/test/test/Test.java">
           <value>
             <set />
           </value>
