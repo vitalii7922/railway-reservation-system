@@ -1,6 +1,6 @@
 package com.tsystems.project.service;
 
-import com.tsystems.project.converter.PassengerConverter;
+import com.tsystems.project.converter.PassengerMapper;
 import com.tsystems.project.dao.PassengerDao;
 import com.tsystems.project.domain.Passenger;
 import com.tsystems.project.dto.PassengerDto;
@@ -25,13 +25,13 @@ public class PassengerService {
 
     private final PassengerDao passengerDao;
 
-    private final PassengerConverter passengerConverter;
+    private final PassengerMapper passengerMapper;
 
     private static final Log log = LogFactory.getLog(PassengerService.class);
 
-    public PassengerService(PassengerDao passengerDao, PassengerConverter passengerConverter) {
+    public PassengerService(PassengerDao passengerDao, PassengerMapper passengerMapper) {
         this.passengerDao = passengerDao;
-        this.passengerConverter = passengerConverter;
+        this.passengerMapper = passengerMapper;
     }
 
     /**
@@ -45,7 +45,7 @@ public class PassengerService {
         passenger.setSecondName(passengerTrainDto.getSecondName().toUpperCase());
         passenger.setBirthDate(LocalDate.parse(passengerTrainDto.getBirthDate()));
         log.info("----------passenger has been added-------------");
-        return passengerConverter.convertToPassengerDto(passengerDao.create(passenger));
+        return passengerMapper.convertToPassengerDto(passengerDao.create(passenger));
     }
 
     /**
@@ -57,7 +57,7 @@ public class PassengerService {
         Passenger passenger = passengerDao.findByPersonalData(passengerTrainDto.getFirstName(),
                 passengerTrainDto.getSecondName(), LocalDate.parse(passengerTrainDto.getBirthDate()));
         if (passenger != null) {
-            passengerDto = passengerConverter.convertToPassengerDtoAddDay(passenger);
+            passengerDto = passengerMapper.convertToPassengerDtoAddDay(passenger);
         }
         return passengerDto;
     }
@@ -79,7 +79,7 @@ public class PassengerService {
         List<PassengerDto> passengerDtoList = new ArrayList<>();
         if (!CollectionUtils.isEmpty(passengerSet)) {
             passengerDtoList = passengerSet.stream()
-                    .map(passengerConverter::convertToPassengerDtoAddDay)
+                    .map(passengerMapper::convertToPassengerDtoAddDay)
                     .sorted(new PassengerListOrdered())
                     .collect(Collectors.toList());
         }

@@ -9,12 +9,12 @@ import org.springframework.stereotype.Component;
  * author Vitalii Nefedov
  */
 @Component
-public class ScheduleConverter {
+public class ScheduleMapper {
 
     private final TimeConverter timeConverter;
 
     @Autowired
-    public ScheduleConverter(TimeConverter timeConverter) {
+    public ScheduleMapper(TimeConverter timeConverter) {
         this.timeConverter = timeConverter;
     }
 

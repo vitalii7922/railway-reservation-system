@@ -1,6 +1,6 @@
 package com.tsystems.project.service;
 
-import com.tsystems.project.converter.TrainConverter;
+import com.tsystems.project.converter.TrainMapper;
 import com.tsystems.project.dao.TrainDao;
 import com.tsystems.project.domain.Train;
 import com.tsystems.project.dto.TrainDto;
@@ -19,11 +19,11 @@ public class SeatsService {
 
     private final TrainDao trainDao;
 
-    private final TrainConverter trainConverter;
+    private final TrainMapper trainMapper;
 
-    public SeatsService(TrainDao trainDao, TrainConverter trainConverter) {
+    public SeatsService(TrainDao trainDao, TrainMapper trainMapper) {
         this.trainDao = trainDao;
-        this.trainConverter = trainConverter;
+        this.trainMapper = trainMapper;
     }
 
     /**
@@ -33,6 +33,6 @@ public class SeatsService {
     @Transactional
     public List<TrainDto> getTrainByNumber(int number) {
         List<Train> trains = trainDao.findAllByNumber(number);
-        return trains.stream().map(trainConverter::convertToTrainDto).collect(Collectors.toList());
+        return trains.stream().map(trainMapper::convertToTrainDto).collect(Collectors.toList());
     }
 }

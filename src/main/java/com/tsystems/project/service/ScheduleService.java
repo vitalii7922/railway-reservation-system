@@ -1,6 +1,6 @@
 package com.tsystems.project.service;
 
-import com.tsystems.project.converter.ScheduleConverter;
+import com.tsystems.project.converter.ScheduleMapper;
 import com.tsystems.project.converter.TimeConverter;
 import com.tsystems.project.dao.ScheduleDao;
 import com.tsystems.project.domain.Schedule;
@@ -26,16 +26,16 @@ public class ScheduleService {
 
     private final ScheduleDao scheduleDao;
 
-    private final ScheduleConverter scheduleConverter;
+    private final ScheduleMapper scheduleMapper;
 
     private final TimeConverter timeConverter;
 
     private final ScheduleSender sender;
 
-    public ScheduleService(ScheduleDao scheduleDao, ScheduleConverter scheduleConverter, TimeConverter timeConverter,
+    public ScheduleService(ScheduleDao scheduleDao, ScheduleMapper scheduleMapper, TimeConverter timeConverter,
                            ScheduleSender sender) {
         this.scheduleDao = scheduleDao;
-        this.scheduleConverter = scheduleConverter;
+        this.scheduleMapper = scheduleMapper;
         this.timeConverter = timeConverter;
         this.sender = sender;
     }
@@ -83,7 +83,7 @@ public class ScheduleService {
         List<Schedule> schedules = scheduleDao.findByStationId(id);
         List<ScheduleDto> scheduleDtoList = null;
         if (!CollectionUtils.isEmpty(schedules)) {
-            scheduleDtoList = schedules.stream().map(scheduleConverter::convertToScheduleDto)
+            scheduleDtoList = schedules.stream().map(scheduleMapper::convertToScheduleDto)
                     .collect(Collectors.toList());
             Set<Long> trainsId = new HashSet<>();
             for (int i = 0; i < scheduleDtoList.size(); i++) {
@@ -115,14 +115,14 @@ public class ScheduleService {
      */
     public List<ScheduleDto> getTodaySchedulesByStationId(long id) {
         List<ScheduleDto> scheduleDtoList = getSchedulesByStationId(id);
-        scheduleDtoList.removeIf(scheduleDto -> (scheduleDto.getDepartureTime() != null &&
-                !timeConverter.reversedConvertDateTime(scheduleDto.getDepartureTime()).toLocalDate().equals(LocalDate.now()) &&
-                scheduleDto.getArrivalTime() != null &&
-                !timeConverter.reversedConvertDateTime(scheduleDto.getArrivalTime()).toLocalDate().equals(LocalDate.now())) ||
-                (scheduleDto.getDepartureTime() == null && scheduleDto.getArrivalTime() != null &&
-                        !timeConverter.reversedConvertDateTime(scheduleDto.getArrivalTime()).toLocalDate().equals(LocalDate.now())) ||
-                (scheduleDto.getArrivalTime() == null && scheduleDto.getDepartureTime() != null &&
-                        !timeConverter.reversedConvertDateTime(scheduleDto.getDepartureTime()).toLocalDate().equals(LocalDate.now())));
+        scheduleDtoList.removeIf(scheduleDto -> scheduleDto.getDepartureTime() != null
+                && !timeConverter.isToday(scheduleDto.getDepartureTime())
+                && scheduleDto.getArrivalTime() != null
+                && !timeConverter.isToday(scheduleDto.getArrivalTime())
+                || scheduleDto.getDepartureTime() == null && scheduleDto.getArrivalTime() != null
+                && !timeConverter.isToday(scheduleDto.getArrivalTime())
+                || scheduleDto.getArrivalTime() == null && scheduleDto.getDepartureTime() != null
+                && !timeConverter.isToday(scheduleDto.getDepartureTime()));
         return scheduleDtoList;
     }
 }

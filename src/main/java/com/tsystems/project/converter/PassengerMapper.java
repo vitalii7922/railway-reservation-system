@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
  * author Vitalii Nefedov
  */
 @Component
-public class PassengerConverter {
+public class PassengerMapper {
 
     /**
      * convert passenger model to passenger DTO

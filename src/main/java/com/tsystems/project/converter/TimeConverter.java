@@ -1,7 +1,9 @@
 package com.tsystems.project.converter;
 
+import com.tsystems.project.dto.ScheduleDto;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -38,5 +40,9 @@ public class TimeConverter {
         int minutes = Integer.parseInt(localDateTime.substring(14, 16));
         time = LocalDateTime.of(year, month, day, hours, minutes);
         return time;
+    }
+
+    public boolean isToday(String localDateTime) {
+        return reversedConvertDateTime(localDateTime).toLocalDate().equals(LocalDate.now());
     }
 }

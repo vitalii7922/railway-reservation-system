@@ -1,6 +1,6 @@
 package com.tsystems.project.service;
 
-import com.tsystems.project.converter.TicketConverter;
+import com.tsystems.project.converter.TicketMapper;
 import com.tsystems.project.dao.TicketDao;
 import com.tsystems.project.domain.Passenger;
 import com.tsystems.project.domain.Ticket;
@@ -12,12 +12,8 @@ import com.tsystems.project.dto.TrainDto;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Isolation;
-
 import javax.transaction.Transactional;
 import java.util.List;
-
-import static org.springframework.transaction.annotation.Isolation.*;
 
 /**
  * author Vitalii Nefedov
@@ -31,12 +27,12 @@ public class TicketService {
 
     private final TrainService trainService;
 
-    private final TicketConverter ticketConverter;
+    private final TicketMapper ticketConverter;
 
     private static final Log log = LogFactory.getLog(TicketService.class);
 
     public TicketService(TicketDao ticketDao, PassengerService passengerService, TrainService trainService,
-                         TicketConverter ticketConverter) {
+                         TicketMapper ticketConverter) {
         this.ticketDao = ticketDao;
         this.passengerService = passengerService;
         this.trainService = trainService;
