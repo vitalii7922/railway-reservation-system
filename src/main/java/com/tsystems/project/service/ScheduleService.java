@@ -59,7 +59,6 @@ public class ScheduleService {
                 .build();
         scheduleDeparture = scheduleDao.create(scheduleDeparture);
         scheduleArrival = scheduleDao.create(scheduleArrival);
-        scheduleDao.create(scheduleArrival);
         if (departureTime.toLocalDate().equals(LocalDate.now()) || arrivalTime.toLocalDate().equals(LocalDate.now())) {
             sender.send(String.valueOf(train.getOriginStation().getId()));
             sender.send(String.valueOf(train.getDestinationStation().getId()));
