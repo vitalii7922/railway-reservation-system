@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
  * author Vitalii Nefedov
  */
 @Component
-public class StationConverter {
+public class StationMapper {
 
     /**
      * @param station model

@@ -8,11 +8,11 @@ import org.springframework.stereotype.Component;
  * author Vitalii Nefedov
  */
 @Component
-public class TrainConverter {
+public class TrainMapper {
 
     private final TimeConverter timeConverter;
 
-    public TrainConverter(TimeConverter timeConverter) {
+    public TrainMapper(TimeConverter timeConverter) {
         this.timeConverter = timeConverter;
     }
 

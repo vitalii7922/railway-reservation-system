@@ -1,7 +1,7 @@
 package com.tsystems.project.helper;
 
 import com.tsystems.project.converter.TimeConverter;
-import com.tsystems.project.converter.TrainConverter;
+import com.tsystems.project.converter.TrainMapper;
 import com.tsystems.project.domain.Train;
 import com.tsystems.project.dto.TrainDto;
 import com.tsystems.project.dto.TrainStationDto;
@@ -19,14 +19,14 @@ import java.util.List;
 @Component
 public class TrainHelper {
 
-    private final TrainConverter trainConverter;
+    private final TrainMapper trainMapper;
 
     private final TimeConverter timeConverter;
 
     private static final Log log = LogFactory.getLog(TrainHelper.class);
 
-    public TrainHelper(TrainConverter trainConverter, TimeConverter timeConverter) {
-        this.trainConverter = trainConverter;
+    public TrainHelper(TrainMapper trainMapper, TimeConverter timeConverter) {
+        this.trainMapper = trainMapper;
         this.timeConverter = timeConverter;
     }
 
@@ -41,7 +41,7 @@ public class TrainHelper {
         List<TrainDto> trainDtoList = new ArrayList<>();
         Train lastTrain;
         for (int i = 0; i < trains.size(); i++) {
-            TrainDto trainDto = trainConverter.convertToTrainDto(trains.get(i));
+            TrainDto trainDto = trainMapper.convertToTrainDto(trains.get(i));
             lastTrain = null;
             if (trainDtoList.stream().anyMatch(train -> train.getNumber() == trainDto.getNumber())) {
                 continue;
@@ -72,7 +72,7 @@ public class TrainHelper {
         try {
             for (int i = 0; i < trains.size(); i++) {
                 Train departure = trains.get(i);
-                TrainDto trainDto = trainConverter.convertToTrainDto(departure);
+                TrainDto trainDto = trainMapper.convertToTrainDto(departure);
                 if (trainsDto.stream().anyMatch(train -> train.getNumber() == trainDto.getNumber())) {
                     continue;
                 }

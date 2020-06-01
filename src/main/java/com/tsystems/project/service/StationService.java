@@ -1,6 +1,6 @@
 package com.tsystems.project.service;
 
-import com.tsystems.project.converter.StationConverter;
+import com.tsystems.project.converter.StationMapper;
 import com.tsystems.project.dao.StationDao;
 import com.tsystems.project.dto.StationDto;
 import com.tsystems.project.domain.Station;
@@ -20,11 +20,11 @@ public class StationService {
 
     private final StationDao stationDao;
 
-    private final StationConverter stationConverter;
+    private final StationMapper stationConverter;
 
     private final StationSender sender;
 
-    public StationService(StationDao stationDao, StationConverter stationConverter, StationSender sender) {
+    public StationService(StationDao stationDao, StationMapper stationConverter, StationSender sender) {
         this.stationDao = stationDao;
         this.stationConverter = stationConverter;
         this.sender = sender;

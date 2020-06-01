@@ -998,6 +998,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/main/test/java/com/tsystems/javaschool/test/config/TestConfig.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/main/webapp/WEB-INF/appConfig.xml">
           <value>
             <set />
@@ -1208,42 +1213,32 @@
             <set />
           </value>
         </entry>
-        <entry key="$PROJECT_DIR$/pom.xml">
+        <entry key="$PROJECT_DIR$/src/main/java/com/tsystems/project/converter/ScheduleMapper.java">
           <value>
             <set />
           </value>
         </entry>
-        <entry key="$PROJECT_DIR$/src/main/java/com/tsystems/project/converter/ScheduleConverter.java">
+        <entry key="$PROJECT_DIR$/src/main/java/com/tsystems/project/converter/StationMapper.java">
           <value>
             <set />
           </value>
         </entry>
-        <entry key="$PROJECT_DIR$/src/main/java/com/tsystems/project/domain/Schedule.java">
+        <entry key="$PROJECT_DIR$/src/main/java/com/tsystems/project/converter/TimeConverter.java">
           <value>
             <set />
           </value>
         </entry>
-        <entry key="$PROJECT_DIR$/src/main/java/com/tsystems/project/domain/Station.java">
+        <entry key="$PROJECT_DIR$/src/main/java/com/tsystems/project/dao/AbstractDao.java">
           <value>
             <set />
           </value>
         </entry>
-        <entry key="$PROJECT_DIR$/src/main/java/com/tsystems/project/domain/Ticket.java">
+        <entry key="$PROJECT_DIR$/src/main/java/com/tsystems/project/dto/TrainDto.java">
           <value>
             <set />
           </value>
         </entry>
-        <entry key="$PROJECT_DIR$/src/main/java/com/tsystems/project/domain/Train.java">
-          <value>
-            <set />
-          </value>
-        </entry>
-        <entry key="$PROJECT_DIR$/src/main/java/com/tsystems/project/dto/ScheduleDto.java">
-          <value>
-            <set />
-          </value>
-        </entry>
-        <entry key="$PROJECT_DIR$/src/main/java/com/tsystems/project/rest/ScheduleRestController.java">
+        <entry key="$PROJECT_DIR$/src/main/java/com/tsystems/project/helper/TrainHelper.java">
           <value>
             <set />
           </value>
@@ -1253,27 +1248,32 @@
             <set />
           </value>
         </entry>
-        <entry key="$PROJECT_DIR$/src/main/resources/META-INF/persistence.xml">
+        <entry key="$PROJECT_DIR$/src/main/java/com/tsystems/project/service/StationService.java">
           <value>
             <set />
           </value>
         </entry>
-        <entry key="$PROJECT_DIR$/src/main/test/java/com/tsystems/javaschool/test/ScheduleServiceTest.java">
+        <entry key="$PROJECT_DIR$/src/main/java/com/tsystems/project/service/TicketService.java">
           <value>
             <set />
           </value>
         </entry>
-        <entry key="$PROJECT_DIR$/src/main/test/java/com/tsystems/javaschool/test/StationServiceTest.java">
+        <entry key="$PROJECT_DIR$/src/main/java/com/tsystems/project/service/TrainService.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/test/java/com/tsystems/javaschool/test/Tra.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/test/java/com/tsystems/javaschool/test/TrainServiceTest.java">
           <value>
             <set />
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/src/main/test/java/com/tsystems/javaschool/test/config/TestConfig.java">
-          <value>
-            <set />
-          </value>
-        </entry>
-        <entry key="$PROJECT_DIR$/src/main/webapp/WEB-INF/spring-database.xml">
           <value>
             <set />
           </value>

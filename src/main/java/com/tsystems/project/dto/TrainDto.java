@@ -1,11 +1,18 @@
 package com.tsystems.project.dto;
 
+import lombok.*;
+
 import java.io.Serializable;
 import java.util.Objects;
 
 /**
  * author Vitalii Nefedov
  */
+@Getter
+@Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class TrainDto implements Serializable, Comparable<TrainDto> {
 
     private long id;
@@ -14,110 +21,17 @@ public class TrainDto implements Serializable, Comparable<TrainDto> {
 
     int seats;
 
-    String arrivalTime;
+    private String arrivalTime;
 
-    String departureTime;
-
+    private String departureTime;
 
     private String originStation;
 
-
     private String destinationStation;
 
-    String allTrainsArrivalTime;
+    private String allTrainsArrivalTime;
 
-    String allTrainsDepartureTime;
-
-
-    public TrainDto() {
-    }
-
-    public TrainDto(String originStation, String destinationStation) {
-        this.originStation = originStation;
-        this.destinationStation = destinationStation;
-    }
-
-    public TrainDto(int number, int seats, String departureTime, String arrivalTime, String originStation,
-                    String destinationStation) {
-        this.number = number;
-        this.seats = seats;
-        this.arrivalTime = arrivalTime;
-        this.departureTime = departureTime;
-        this.originStation = originStation;
-        this.destinationStation = destinationStation;
-    }
-
-    public String getAllTrainsArrivalTime() {
-        return allTrainsArrivalTime;
-    }
-
-    public void setAllTrainsArrivalTime(String allTrainsArrivalTime) {
-        this.allTrainsArrivalTime = allTrainsArrivalTime;
-    }
-
-    public String getAllTrainsDepartureTime() {
-        return allTrainsDepartureTime;
-    }
-
-    public void setAllTrainsDepartureTime(String allTrainsDepartureTime) {
-        this.allTrainsDepartureTime = allTrainsDepartureTime;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public int getNumber() {
-        return number;
-    }
-
-    public void setNumber(int number) {
-        this.number = number;
-    }
-
-    public int getSeats() {
-        return seats;
-    }
-
-    public void setSeats(int seats) {
-        this.seats = seats;
-    }
-
-    public String getArrivalTime() {
-        return arrivalTime;
-    }
-
-    public void setArrivalTime(String arrivalTime) {
-        this.arrivalTime = arrivalTime;
-    }
-
-    public String getDepartureTime() {
-        return departureTime;
-    }
-
-    public void setDepartureTime(String departureTime) {
-        this.departureTime = departureTime;
-    }
-
-    public String getOriginStation() {
-        return originStation;
-    }
-
-    public void setOriginStation(String originStation) {
-        this.originStation = originStation;
-    }
-
-    public String getDestinationStation() {
-        return destinationStation;
-    }
-
-    public void setDestinationStation(String destinationStation) {
-        this.destinationStation = destinationStation;
-    }
+    private String allTrainsDepartureTime;
 
     @Override
     public boolean equals(Object o) {

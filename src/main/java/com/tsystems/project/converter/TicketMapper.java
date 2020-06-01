@@ -10,11 +10,11 @@ import org.springframework.stereotype.Component;
  * author Vitalii Nefedov
  */
 @Component
-public class TicketConverter {
+public class TicketMapper {
 
     private final TimeConverter timeConverter;
 
-    public TicketConverter(TimeConverter timeConverter) {
+    public TicketMapper(TimeConverter timeConverter) {
         this.timeConverter = timeConverter;
     }
 

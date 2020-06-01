@@ -1,10 +1,11 @@
 package com.tsystems.project.service;
+
 import com.tsystems.project.converter.TimeConverter;
 import com.tsystems.project.dao.TrainDao;
 import com.tsystems.project.domain.Station;
 import com.tsystems.project.domain.Train;
 import com.tsystems.project.dto.TrainDto;
-import com.tsystems.project.converter.TrainConverter;
+import com.tsystems.project.converter.TrainMapper;
 import com.tsystems.project.dto.TrainStationDto;
 import com.tsystems.project.helper.TrainHelper;
 import org.apache.commons.logging.Log;
@@ -28,7 +29,7 @@ public class TrainService {
 
     private final StationService stationService;
 
-    private final TrainConverter trainConverter;
+    private final TrainMapper trainMapper;
 
     private final ScheduleService scheduleService;
 
@@ -38,11 +39,11 @@ public class TrainService {
 
     private static final Log log = LogFactory.getLog(TrainService.class);
 
-    public TrainService(TrainDao trainDao, StationService stationService, TrainConverter trainConverter,
+    public TrainService(TrainDao trainDao, StationService stationService, TrainMapper trainMapper,
                         ScheduleService scheduleService, TimeConverter timeConverter, TrainHelper trainHelper) {
         this.trainDao = trainDao;
         this.stationService = stationService;
-        this.trainConverter = trainConverter;
+        this.trainMapper = trainMapper;
         this.scheduleService = scheduleService;
         this.timeConverter = timeConverter;
         this.trainHelper = trainHelper;
@@ -54,19 +55,16 @@ public class TrainService {
      */
     @Transactional
     public Train addTrain(TrainDto trainDto) {
-        Train trainDeparture;
-        trainDeparture = new Train();
-        trainDeparture.setNumber(trainDto.getNumber());
-        trainDeparture.setOriginStation(stationService.getStationByName(trainDto.getOriginStation()));
-        trainDeparture.setDestinationStation(stationService.getStationByName(trainDto.getDestinationStation()));
-        trainDeparture.setSeats(trainDto.getSeats());
-        Train train = trainDao.create(trainDeparture);
-        if (train != null) {
-            scheduleService.addSchedule(train, LocalDateTime.parse(trainDto.getDepartureTime()),
-                    LocalDateTime.parse(trainDto.getArrivalTime()));
-            log.info("--------Train number " + trainDto.getNumber() + " has been added--------------");
-        }
-
+        Train train = Train.builder()
+                .number(trainDto.getNumber())
+                .originStation(stationService.getStationByName(trainDto.getOriginStation()))
+                .destinationStation(stationService.getStationByName(trainDto.getDestinationStation()))
+                .seats(trainDto.getSeats())
+                .build();
+        train = trainDao.create(train);
+        scheduleService.addSchedule(train, LocalDateTime.parse(trainDto.getDepartureTime()),
+                LocalDateTime.parse(trainDto.getArrivalTime()));
+        log.info("--------Train number " + trainDto.getNumber() + " has been added--------------");
         return train;
     }
 
@@ -79,7 +77,7 @@ public class TrainService {
         Train train = trainDao.findByNumber(number);
         TrainDto trainDto = null;
         if (train != null) {
-            trainDto = trainConverter.convertToTrainDto(train);
+            trainDto = trainMapper.convertToTrainDto(train);
         }
         return trainDto;
     }
@@ -94,7 +92,7 @@ public class TrainService {
         List<TrainDto> trainListDto = new ArrayList<>();
         if (!CollectionUtils.isEmpty(trains)) {
             trainListDto = trains.stream()
-                    .map(trainConverter::convertToTrainDto).collect(Collectors.toList());
+                    .map(trainMapper::convertToTrainDto).collect(Collectors.toList());
         }
         return trainHelper.getTrainRout(trainListDto);
     }
@@ -172,7 +170,7 @@ public class TrainService {
     public List<TrainDto> getTrainListDtoByTrainsId(Train trainDeparture, Train trainArrival) {
         List<Train> trains = trainDao.findTrainListByTrainDepartureAndArrivalId(trainDeparture.getNumber(),
                 trainDeparture.getId(), trainArrival.getId());
-        return trains.stream().map(trainConverter::convertToTrainDto).collect(Collectors.toList());
+        return trains.stream().map(trainMapper::convertToTrainDto).collect(Collectors.toList());
     }
 
     public List<Train> getTrainListByTrainsId(Train trainDeparture, Train trainArrival) {
