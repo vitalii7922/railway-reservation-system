@@ -41,6 +41,11 @@ public class TestConfig {
     }
 
     @Bean
+    TimeConverter timeConverter() {
+        return new TimeConverter();
+    }
+
+    @Bean
     StationService stationService() {
         return new StationService(stationDao(), new StationMapper(), new StationSender());
     }
@@ -54,7 +59,7 @@ public class TestConfig {
     @Bean
     TrainService trainService() {
         return new TrainService(trainDao(), stationService(), new TrainMapper(new TimeConverter()),
-                Mockito.mock(ScheduleService.class),
+                scheduleService(),
                 new TimeConverter(), new TrainHelper(new TrainMapper(new TimeConverter()), new TimeConverter()));
     }
 

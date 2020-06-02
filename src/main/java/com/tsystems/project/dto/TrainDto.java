@@ -38,12 +38,21 @@ public class TrainDto implements Serializable, Comparable<TrainDto> {
         if (this == o) return true;
         if (!(o instanceof TrainDto)) return false;
         TrainDto trainDto = (TrainDto) o;
-        return getNumber() == trainDto.getNumber();
+        return getId() == trainDto.getId() &&
+                getNumber() == trainDto.getNumber() &&
+                getSeats() == trainDto.getSeats() &&
+                Objects.equals(getArrivalTime(), trainDto.getArrivalTime()) &&
+                Objects.equals(getDepartureTime(), trainDto.getDepartureTime()) &&
+                Objects.equals(getOriginStation(), trainDto.getOriginStation()) &&
+                Objects.equals(getDestinationStation(), trainDto.getDestinationStation()) &&
+                Objects.equals(getAllTrainsArrivalTime(), trainDto.getAllTrainsArrivalTime()) &&
+                Objects.equals(getAllTrainsDepartureTime(), trainDto.getAllTrainsDepartureTime());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getNumber());
+        return Objects.hash(getId(), getNumber(), getSeats(), getArrivalTime(), getDepartureTime(), getOriginStation(),
+                getDestinationStation(), getAllTrainsArrivalTime(), getAllTrainsDepartureTime());
     }
 
     @Override
