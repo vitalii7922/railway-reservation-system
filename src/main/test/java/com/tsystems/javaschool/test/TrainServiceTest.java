@@ -7,7 +7,6 @@ import com.tsystems.project.domain.Schedule;
 import com.tsystems.project.domain.Station;
 import com.tsystems.project.domain.Train;
 import com.tsystems.project.dto.TrainDto;
-import com.tsystems.project.service.ScheduleService;
 import com.tsystems.project.service.TrainService;
 import org.junit.Assert;
 import org.junit.BeforeClass;
@@ -37,15 +36,25 @@ public class TrainServiceTest {
     @Autowired
     ScheduleDao scheduleDao;
 
-    private static Train train1;
+    private static Train train1Id1;
+
+    private static Train train1Id2;
+
+    private static Train train2Id3;
 
     private static Station stationMoscow;
 
     private static Station stationPetersburg;
 
-    private static Schedule scheduleDepartureTrain1;
+    private static Station stationMurmansk;
 
-    private static Schedule scheduleArrivalTrain1;
+    private static Schedule scheduleDepartureTrain1Id1;
+
+    private static Schedule scheduleArrivalTrain1Id1;
+
+    private static Schedule scheduleDepartureTrain1Id2;
+
+    private static Schedule scheduleArrivalTrain1Id2;
 
     private static Station setUpStation(String name, long id) {
         return Station.builder()
@@ -55,15 +64,33 @@ public class TrainServiceTest {
     }
 
     private static void setUpTrain() {
-        train1 = Train.builder()
+        train1Id1 = Train.builder()
                 .id(1)
                 .number(1)
                 .originStation(stationMoscow)
                 .destinationStation(stationPetersburg)
                 .seats(100)
-                .schedules(Arrays.asList(scheduleDepartureTrain1, scheduleArrivalTrain1))
+                .schedules(Arrays.asList(scheduleDepartureTrain1Id1, scheduleArrivalTrain1Id1))
                 .build();
-        train1.setSchedules(Arrays.asList(scheduleDepartureTrain1, scheduleArrivalTrain1));
+        train1Id1.setSchedules(Arrays.asList(scheduleDepartureTrain1Id1, scheduleArrivalTrain1Id1));
+
+        train1Id2 = Train.builder()
+                .id(2)
+                .number(1)
+                .originStation(stationPetersburg)
+                .destinationStation(stationMurmansk)
+                .seats(100)
+                .schedules(Arrays.asList(scheduleDepartureTrain1Id2, scheduleArrivalTrain1Id2))
+                .build();
+
+        train2Id3 = Train.builder()
+                .id(3)
+                .number(2)
+                .originStation(stationMoscow)
+                .destinationStation(stationPetersburg)
+                .seats(100)
+                .schedules(Arrays.asList(scheduleDepartureTrain1Id1, scheduleArrivalTrain1Id1))
+                .build();
     }
 
     private static Schedule setUpScheduleArrival(long id, LocalDateTime time, Station station) {
@@ -86,8 +113,11 @@ public class TrainServiceTest {
     public static void setUp() {
         stationMoscow = setUpStation("Moscow", 1);
         stationPetersburg = setUpStation("Saint-Petersburg", 2);
-        scheduleArrivalTrain1 = setUpScheduleArrival(1, LocalDateTime.parse("2020-05-30T20:00"), stationPetersburg);
-        scheduleDepartureTrain1 = setUpScheduleDeparture(2, LocalDateTime.parse("2020-05-30T15:10"), stationMoscow);
+        stationMurmansk = setUpStation("Murmansk", 3);
+        scheduleDepartureTrain1Id1 = setUpScheduleDeparture(2, LocalDateTime.parse("2020-05-30T15:10"), stationMoscow);
+        scheduleArrivalTrain1Id1 = setUpScheduleArrival(1, LocalDateTime.parse("2020-05-30T20:00"), stationPetersburg);
+        scheduleDepartureTrain1Id2 = setUpScheduleDeparture(3, LocalDateTime.parse("2020-05-30T20:10"), stationPetersburg);
+        scheduleArrivalTrain1Id2 = setUpScheduleArrival(4, LocalDateTime.parse("2020-05-30T23:10"), stationMurmansk);
         setUpTrain();
     }
 
@@ -104,9 +134,9 @@ public class TrainServiceTest {
                 .arrivalTime("2020-05-30T20:00")
                 .build();
 
-        Mockito.when(trainDao.create(any())).thenReturn(train1);
-        when(scheduleDao.create(scheduleDepartureTrain1)).thenReturn(scheduleDepartureTrain1);
-        when(scheduleDao.create(scheduleArrivalTrain1)).thenReturn(scheduleArrivalTrain1);
+        Mockito.when(trainDao.create(any())).thenReturn(train1Id1);
+        when(scheduleDao.create(scheduleDepartureTrain1Id1)).thenReturn(scheduleDepartureTrain1Id1);
+        when(scheduleDao.create(scheduleArrivalTrain1Id1)).thenReturn(scheduleArrivalTrain1Id1);
         Assert.assertNotNull(trainService.addTrain(trainDto));
     }
 
@@ -122,7 +152,33 @@ public class TrainServiceTest {
                 .arrivalTime("30-05-2020 20:00")
                 .build();
 
-        Mockito.when(trainDao.findByNumber(1)).thenReturn(train1);
+        Mockito.when(trainDao.findByNumber(1)).thenReturn(train1Id1);
         Assert.assertEquals(trainService.getTrainByNumber(1), trainDto);
+    }
+
+    @Test
+    public void testGetTrainList() {
+        TrainDto trainDto1 = TrainDto.builder()
+                .id(1)
+                .number(1)
+                .originStation("Moscow")
+                .destinationStation("Murmansk")
+                .seats(100)
+                .departureTime("30-05-2020 15:10")
+                .arrivalTime("30-05-2020 23:10")
+                .build();
+
+        TrainDto trainDto2 = TrainDto.builder()
+                .id(3)
+                .number(2)
+                .originStation("Moscow")
+                .destinationStation("Saint-Petersburg")
+                .seats(100)
+                .departureTime("30-05-2020 15:10")
+                .arrivalTime("30-05-2020 20:00")
+                .build();
+
+        Mockito.when(trainDao.findAll()).thenReturn(Arrays.asList(train1Id1, train1Id2, train2Id3));
+        Assert.assertEquals(trainService.getTrainList(), Arrays.asList(trainDto1, trainDto2));
     }
 }

@@ -103,7 +103,7 @@ public class TrainService {
     @Transactional
     public List<TrainDto> getTrainList() {
         List<Train> trains = trainDao.findAll();
-        List<TrainDto> trainDtoList = new ArrayList<>();
+        List<TrainDto> trainDtoList = null;
         if (!CollectionUtils.isEmpty(trains)) {
             trainDtoList = trainHelper.getTrainListBetweenExtremeStations(trains);
             Collections.sort(trainDtoList);
@@ -133,8 +133,7 @@ public class TrainService {
         Station originStation = stationService.getStationByName(trainDto.getOriginStation());
         Station destinationStation = stationService.getStationByName(trainDto.getDestinationStation());
         if (originStation != null && destinationStation != null) {
-            trains = trainDao.findByStationsIdAtGivenTerm(originStation.getId(),
-                    destinationStation.getId(),
+            trains = trainDao.findByStationsIdAtGivenTerm(originStation.getId(), destinationStation.getId(),
                     departureTime, arrivalTime);
             if (!CollectionUtils.isEmpty(trains)) {
                 trainDtoList = trainHelper.searchTrainsBetweenTwoPoints(trains);

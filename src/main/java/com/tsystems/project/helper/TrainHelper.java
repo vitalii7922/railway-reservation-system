@@ -10,8 +10,11 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
+import javax.naming.ldap.HasControls;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * author Vitalii Nefedov
@@ -39,15 +42,16 @@ public class TrainHelper {
      */
     public List<TrainDto> getTrainListBetweenExtremeStations(List<Train> trains) {
         List<TrainDto> trainDtoList = new ArrayList<>();
+        Set<Integer> trainNumberSet = new HashSet<>();
         Train lastTrain;
         for (int i = 0; i < trains.size(); i++) {
-            TrainDto trainDto = trainMapper.convertToTrainDto(trains.get(i));
             lastTrain = null;
-            if (trainDtoList.stream().anyMatch(train -> train.getNumber() == trainDto.getNumber())) {
+            if (trainNumberSet.contains(trains.get(i).getNumber())) {
                 continue;
             }
+            TrainDto trainDto = trainMapper.convertToTrainDto(trains.get(i));
             for (int j = i + 1; j < trains.size(); j++) { //find train departure and arrival with the same number
-                if (trains.get(i).getNumber() == trains.get(j).getNumber() && trains.get(i).getId() < trains.get(j).getId()) {
+                if (trains.get(i).getNumber() == trains.get(j).getNumber()) {
                     lastTrain = trains.get(j);
                 }
             }
@@ -56,6 +60,7 @@ public class TrainHelper {
                 trainDto.setArrivalTime(timeConverter.convertDateTime(lastTrain.getSchedules().get(1).getArrivalTime()));
             }
             trainDtoList.add(trainDto);
+            trainNumberSet.add(trainDto.getNumber());
         }
         return trainDtoList;
     }
