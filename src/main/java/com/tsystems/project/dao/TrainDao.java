@@ -98,8 +98,8 @@ public class TrainDao extends AbstractDao<Train> {
      * @param arrivalTime   arrival time
      * @return list of trains
      */
-    public List<Train> findByStationsIdAtGivenTerm(long fromId, long toId, LocalDateTime departureTime,
-                                                   LocalDateTime arrivalTime) {
+    public List<Train> findByStationIdAtGivenTerm(long fromId, long toId, LocalDateTime departureTime,
+                                                  LocalDateTime arrivalTime) {
         String queryString1 = "select t from Train t inner join Schedule s on t.id = s.train.id " +
                 "where t.originStation.id = :fromId and s.departureTime >= :departureTime";
         String queryString2 = "select t from Train t inner join Schedule s on t.id = s.train.id " +

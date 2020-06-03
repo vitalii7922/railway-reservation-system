@@ -7,6 +7,7 @@ import com.tsystems.project.domain.Schedule;
 import com.tsystems.project.domain.Station;
 import com.tsystems.project.domain.Train;
 import com.tsystems.project.dto.TrainDto;
+import com.tsystems.project.service.StationService;
 import com.tsystems.project.service.TrainService;
 import org.junit.Assert;
 import org.junit.BeforeClass;
@@ -19,6 +20,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.Collections;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
@@ -32,6 +34,9 @@ public class TrainServiceTest {
 
     @Autowired
     private TrainService trainService;
+
+    @Autowired
+    StationService stationService;
 
     @Autowired
     ScheduleDao scheduleDao;
@@ -180,5 +185,32 @@ public class TrainServiceTest {
 
         Mockito.when(trainDao.findAll()).thenReturn(Arrays.asList(train1Id1, train1Id2, train2Id3));
         Assert.assertEquals(trainService.getTrainList(), Arrays.asList(trainDto1, trainDto2));
+    }
+
+    @Test
+    public void testGetTrainListBetweenTwoPoints() {
+        TrainDto trainDtoOutput = TrainDto.builder()
+                .id(1)
+                .number(1)
+                .originStation("Moscow")
+                .destinationStation("Murmansk")
+                .seats(100)
+                .departureTime("30-05-2020 15:10")
+                .arrivalTime("30-05-2020 23:10")
+                .build();
+
+        TrainDto trainDtoInput = TrainDto.builder()
+                .originStation("Moscow")
+                .destinationStation("Murmansk")
+                .seats(100)
+                .departureTime("2020-05-30T15:00")
+                .arrivalTime("2020-05-30T23:30")
+                .build();
+
+        Mockito.when(stationService.getStationByName("Moscow")).thenReturn(stationMoscow);
+        Mockito.when(stationService.getStationByName("Murmansk")).thenReturn(stationMurmansk);
+        Mockito.when(trainDao.findByStationIdAtGivenTerm (1, 3, LocalDateTime.parse("2020-05-30T15:00"),
+                LocalDateTime.parse("2020-05-30T23:30"))).thenReturn(Arrays.asList(train1Id1, train1Id2));
+        Assert.assertEquals(trainService.getTrainListBetweenTwoPoints(trainDtoInput), Collections.singletonList(trainDtoOutput));
     }
 }

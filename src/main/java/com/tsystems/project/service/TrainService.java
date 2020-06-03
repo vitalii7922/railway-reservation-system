@@ -133,7 +133,7 @@ public class TrainService {
         Station originStation = stationService.getStationByName(trainDto.getOriginStation());
         Station destinationStation = stationService.getStationByName(trainDto.getDestinationStation());
         if (originStation != null && destinationStation != null) {
-            trains = trainDao.findByStationsIdAtGivenTerm(originStation.getId(), destinationStation.getId(),
+            trains = trainDao.findByStationIdAtGivenTerm(originStation.getId(), destinationStation.getId(),
                     departureTime, arrivalTime);
             if (!CollectionUtils.isEmpty(trains)) {
                 trainDtoList = trainHelper.searchTrainsBetweenTwoPoints(trains);
