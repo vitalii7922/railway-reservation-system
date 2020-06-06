@@ -234,8 +234,47 @@ public class TrainServiceTest {
 
         Mockito.when(stationService.getStationByName("Moscow")).thenReturn(stationMoscow);
         Mockito.when(stationService.getStationByName("Murmansk")).thenReturn(stationMurmansk);
-        Mockito.when(trainDao.findByStationIdAtGivenTerm (1, 3, LocalDateTime.parse("2020-05-30T15:00"),
+        Mockito.when(trainDao.findByStationIdAtGivenTerm(1, 3, LocalDateTime.parse("2020-05-30T15:00"),
                 LocalDateTime.parse("2020-05-30T23:30"))).thenReturn(Arrays.asList(train1Id1, train1Id2));
         Assert.assertEquals(trainService.getTrainListBetweenTwoPoints(trainDtoInput), Collections.singletonList(trainDtoOutput));
+    }
+
+    @Test
+    public void testGetTrainByOriginStation() {
+        TrainDto trainDto = TrainDto.builder()
+                .id(1)
+                .number(1)
+                .originStation("Moscow")
+                .destinationStation("Saint-Petersburg")
+                .seats(100)
+                .departureTime("30-05-2020 15:10")
+                .arrivalTime("30-05-2020 23:10")
+                .build();
+
+        Mockito.when(trainDao.findByOriginStation(1, "Moscow")).thenReturn(train1Id1);
+        Assert.assertEquals(trainService.getTrainByOriginStation(trainDto).getOriginStation(), stationMoscow);
+    }
+
+    @Test
+    public void testGetTrainByDestinationStation() {
+        TrainDto trainDto = TrainDto.builder()
+                .id(1)
+                .number(1)
+                .originStation("Saint-Petersburg")
+                .destinationStation("Murmansk")
+                .seats(100)
+                .departureTime("30-05-2020 15:10")
+                .arrivalTime("30-05-2020 23:10")
+                .build();
+
+        Mockito.when(trainDao.findByDestinationStation(1, "Murmansk")).thenReturn(train1Id2);
+        Assert.assertEquals(trainService.getTrainByDestinationStation(trainDto).getDestinationStation(), stationMurmansk);
+    }
+
+    @Test
+    public void testGetTrainListByTrainsId() {
+        Mockito.when(trainDao.findTrainListByTrainDepartureAndArrivalId(1, 1, 2))
+                .thenReturn(Arrays.asList(train1Id1, train1Id2));
+        Assert.assertEquals(trainService.getTrainListByTrainsId(train1Id1, train1Id2), Arrays.asList(train1Id1, train1Id2));
     }
 }

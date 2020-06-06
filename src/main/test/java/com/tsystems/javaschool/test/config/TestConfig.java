@@ -1,18 +1,13 @@
 package com.tsystems.javaschool.test.config;
 
-import com.tsystems.project.converter.ScheduleMapper;
-import com.tsystems.project.converter.StationMapper;
-import com.tsystems.project.converter.TimeConverter;
-import com.tsystems.project.converter.TrainMapper;
-import com.tsystems.project.dao.ScheduleDao;
-import com.tsystems.project.dao.StationDao;
-import com.tsystems.project.dao.TrainDao;
+import com.tsystems.project.converter.*;
+import com.tsystems.project.dao.*;
+import com.tsystems.project.domain.Passenger;
+import com.tsystems.project.domain.Ticket;
 import com.tsystems.project.helper.TrainHelper;
 import com.tsystems.project.sender.ScheduleSender;
 import com.tsystems.project.sender.StationSender;
-import com.tsystems.project.service.ScheduleService;
-import com.tsystems.project.service.StationService;
-import com.tsystems.project.service.TrainService;
+import com.tsystems.project.service.*;
 import org.mockito.Mockito;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -41,6 +36,18 @@ public class TestConfig {
     }
 
     @Bean
+    @Primary
+    public TicketDao ticketDao() {
+        return Mockito.mock(TicketDao.class);
+    }
+
+    @Bean
+    @Primary
+    public PassengerDao passengerDao() {
+        return Mockito.mock(PassengerDao.class);
+    }
+
+    @Bean
     TimeConverter timeConverter() {
         return new TimeConverter();
     }
@@ -61,6 +68,12 @@ public class TestConfig {
         return new TrainService(trainDao(), stationService(), new TrainMapper(new TimeConverter()),
                 scheduleService(),
                 new TimeConverter(), new TrainHelper(new TrainMapper(new TimeConverter()), new TimeConverter()));
+    }
+
+    @Bean
+    TicketService ticketService() {
+        return new TicketService(ticketDao(), new PassengerService(passengerDao(), new PassengerMapper()),
+                trainService(), new TicketMapper(new TimeConverter()));
     }
 
     @Bean

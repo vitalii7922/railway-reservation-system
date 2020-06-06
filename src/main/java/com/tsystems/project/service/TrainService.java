@@ -149,7 +149,7 @@ public class TrainService {
      * @return trainDto
      */
     public Train getTrainByOriginStation(TrainDto trainDto) {
-        return trainDao.findByDepartureStation(trainDto.getNumber(), trainDto.getOriginStation());
+        return trainDao.findByOriginStation(trainDto.getNumber(), trainDto.getOriginStation());
     }
 
     /**
@@ -157,7 +157,7 @@ public class TrainService {
      * @return train
      */
     public Train getTrainByDestinationStation(TrainDto trainDto) {
-        return trainDao.findByArrivalStation(trainDto.getNumber(), trainDto.getDestinationStation());
+        return trainDao.findByDestinationStation(trainDto.getNumber(), trainDto.getDestinationStation());
     }
 
     /**

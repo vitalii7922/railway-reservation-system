@@ -13,7 +13,7 @@ import javax.persistence.Query;
 @Repository
 public class TrainDao extends AbstractDao<Train> {
 
-    String trainNumber = "number";
+    private String trainNumber = "number";
 
     public TrainDao() {
         super(Train.class);
@@ -26,7 +26,7 @@ public class TrainDao extends AbstractDao<Train> {
      * @param name        station name
      * @return train model
      */
-    public Train findByDepartureStation(int trainNumber, String name) {
+    public Train findByOriginStation(int trainNumber, String name) {
         String queryString = "SELECT t FROM Train t WHERE (t.originStation.name) = :name and t.number = :trainNumber";
         return getTrain(trainNumber, name, queryString);
     }
@@ -58,7 +58,7 @@ public class TrainDao extends AbstractDao<Train> {
      * @param name        station name
      * @return train
      */
-    public Train findByArrivalStation(int trainNumber, String name) {
+    public Train findByDestinationStation(int trainNumber, String name) {
         String queryString = "SELECT t FROM Train t WHERE (t.destinationStation.name) = :name and t.number = :trainNumber";
         return getTrain(trainNumber, name, queryString);
     }

@@ -1,5 +1,4 @@
 package com.tsystems.project.service;
-
 import com.tsystems.project.converter.TicketMapper;
 import com.tsystems.project.dao.TicketDao;
 import com.tsystems.project.domain.Passenger;
@@ -58,18 +57,18 @@ public class TicketService {
 
         List<Train> trains = trainService.getTrainListByTrainsId(trainDeparture, trainArrival);
         Passenger passenger = passengerService.getPassengerById(passengerDto.getId());
-        Ticket t = null;
+        Ticket ticket = null;
         for (Train train : trains) {
-            t = new Ticket();
-            t.setTrain(train);
-            t.setPassenger(passenger);
+            ticket = new Ticket();
+            ticket.setTrain(train);
+            ticket.setPassenger(passenger);
+            ticket = ticketDao.create(ticket);
             int seats = train.getSeats();
             seats--;
             train.setSeats(seats);
             trainService.updateTrain(train);
-            t = ticketDao.create(t);
         }
-        ticketDto = ticketConverter.convertToTicketDto(t, passengerDto, trainDeparture, trainArrival);
+        ticketDto = ticketConverter.convertToTicketDto(ticket, passengerDto, trainDeparture, trainArrival);
         log.info("---------ticket has been added--------Passenger data: " +
                 passenger.getFirstName() + " " + passenger.getSecondName() + " " + passenger.getBirthDate());
         return ticketDto;

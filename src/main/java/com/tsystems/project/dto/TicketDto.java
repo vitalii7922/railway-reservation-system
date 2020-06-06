@@ -1,90 +1,58 @@
 package com.tsystems.project.dto;
 
+import lombok.*;
+
 import java.time.LocalDate;
+import java.util.Objects;
 
 /**
  * author Vitalii Nefedov
  */
+
+@Builder
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class TicketDto {
     private long id;
+
     private String firstName;
+
     private String lastName;
+
     private LocalDate birthDate;
+
     private String stationOrigin;
+
     private String stationDeparture;
+
     private String departureTime;
+
     private String arrivalTime;
+
     private int trainNumber;
 
-    public long getId() {
-        return id;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof TicketDto)) return false;
+        TicketDto ticketDto = (TicketDto) o;
+        return getId() == ticketDto.getId() &&
+                getTrainNumber() == ticketDto.getTrainNumber() &&
+                Objects.equals(getFirstName(), ticketDto.getFirstName()) &&
+                Objects.equals(getLastName(), ticketDto.getLastName()) &&
+                Objects.equals(getBirthDate(), ticketDto.getBirthDate()) &&
+                Objects.equals(getStationOrigin(), ticketDto.getStationOrigin()) &&
+                Objects.equals(getStationDeparture(), ticketDto.getStationDeparture()) &&
+                Objects.equals(getDepartureTime(), ticketDto.getDepartureTime()) &&
+                Objects.equals(getArrivalTime(), ticketDto.getArrivalTime());
     }
 
-    public String getArrivalTime() {
-        return arrivalTime;
-    }
-
-    public void setArrivalTime(String arrivalTime) {
-        this.arrivalTime = arrivalTime;
-    }
-
-    public String getDepartureTime() {
-        return departureTime;
-    }
-
-    public void setDepartureTime(String departureTime) {
-        this.departureTime = departureTime;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public LocalDate getBirthDate() {
-        return birthDate;
-    }
-
-    public void setBirthDate(LocalDate birthDate) {
-        this.birthDate = birthDate;
-    }
-
-    public String getStationOrigin() {
-        return stationOrigin;
-    }
-
-    public void setStationOrigin(String stationOrigin) {
-        this.stationOrigin = stationOrigin;
-    }
-
-    public String getStationDeparture() {
-        return stationDeparture;
-    }
-
-    public void setStationDeparture(String stationDeparture) {
-        this.stationDeparture = stationDeparture;
-    }
-
-    public int getTrainNumber() {
-        return trainNumber;
-    }
-
-    public void setTrainNumber(int trainNumber) {
-        this.trainNumber = trainNumber;
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getFirstName(), getLastName(), getBirthDate(), getStationOrigin(),
+                getStationDeparture(), getDepartureTime(), getArrivalTime(), getTrainNumber());
     }
 }
