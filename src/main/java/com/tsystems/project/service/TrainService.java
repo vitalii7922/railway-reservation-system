@@ -89,7 +89,7 @@ public class TrainService {
     @Transactional
     public List<TrainStationDto> getTrainRoutByTrainNumber(int trainNumber) {
         List<Train> trains = trainDao.findTrainListByNumber(trainNumber);
-        List<TrainDto> trainListDto = new ArrayList<>();
+        List<TrainDto> trainListDto = null;
         if (!CollectionUtils.isEmpty(trains)) {
             trainListDto = trains.stream()
                     .map(trainMapper::convertToTrainDto).collect(Collectors.toList());
@@ -103,7 +103,7 @@ public class TrainService {
     @Transactional
     public List<TrainDto> getTrainList() {
         List<Train> trains = trainDao.findAll();
-        List<TrainDto> trainDtoList = new ArrayList<>();
+        List<TrainDto> trainDtoList = null;
         if (!CollectionUtils.isEmpty(trains)) {
             trainDtoList = trainHelper.getTrainListBetweenExtremeStations(trains);
             Collections.sort(trainDtoList);
@@ -133,8 +133,7 @@ public class TrainService {
         Station originStation = stationService.getStationByName(trainDto.getOriginStation());
         Station destinationStation = stationService.getStationByName(trainDto.getDestinationStation());
         if (originStation != null && destinationStation != null) {
-            trains = trainDao.findByStationsIdAtGivenTerm(originStation.getId(),
-                    destinationStation.getId(),
+            trains = trainDao.findByStationIdAtGivenTerm(originStation.getId(), destinationStation.getId(),
                     departureTime, arrivalTime);
             if (!CollectionUtils.isEmpty(trains)) {
                 trainDtoList = trainHelper.searchTrainsBetweenTwoPoints(trains);
@@ -150,7 +149,7 @@ public class TrainService {
      * @return trainDto
      */
     public Train getTrainByOriginStation(TrainDto trainDto) {
-        return trainDao.findByDepartureStation(trainDto.getNumber(), trainDto.getOriginStation());
+        return trainDao.findByOriginStation(trainDto.getNumber(), trainDto.getOriginStation());
     }
 
     /**
@@ -158,7 +157,7 @@ public class TrainService {
      * @return train
      */
     public Train getTrainByDestinationStation(TrainDto trainDto) {
-        return trainDao.findByArrivalStation(trainDto.getNumber(), trainDto.getDestinationStation());
+        return trainDao.findByDestinationStation(trainDto.getNumber(), trainDto.getDestinationStation());
     }
 
     /**

@@ -5,6 +5,7 @@ import lombok.*;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * author Vitalii Nefedov
@@ -37,4 +38,24 @@ public class Train implements Serializable {
 
     @OneToMany(mappedBy = "train")
     private List<Ticket> tickets;
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Train)) return false;
+        Train train = (Train) o;
+        return getId() == train.getId() &&
+                getNumber() == train.getNumber() &&
+                getSeats() == train.getSeats() &&
+                Objects.equals(getSchedules(), train.getSchedules()) &&
+                Objects.equals(getOriginStation(), train.getOriginStation()) &&
+                Objects.equals(getDestinationStation(), train.getDestinationStation()) &&
+                Objects.equals(getTickets(), train.getTickets());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getNumber(), getSeats(), getSchedules(), getOriginStation(), getDestinationStation(), getTickets());
+    }
 }

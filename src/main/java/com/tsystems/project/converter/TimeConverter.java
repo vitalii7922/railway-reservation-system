@@ -1,6 +1,5 @@
 package com.tsystems.project.converter;
 
-import com.tsystems.project.dto.ScheduleDto;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
@@ -43,6 +42,6 @@ public class TimeConverter {
     }
 
     public boolean isToday(String localDateTime) {
-        return reversedConvertDateTime(localDateTime).toLocalDate().equals(LocalDate.now());
+        return !reversedConvertDateTime(localDateTime).toLocalDate().equals(LocalDate.now());
     }
 }

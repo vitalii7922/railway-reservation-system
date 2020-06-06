@@ -115,13 +115,12 @@ public class ScheduleService {
     public List<ScheduleDto> getTodaySchedulesByStationId(long id) {
         List<ScheduleDto> scheduleDtoList = getSchedulesByStationId(id);
         scheduleDtoList.removeIf(scheduleDto -> scheduleDto.getDepartureTime() != null
-                && !timeConverter.isToday(scheduleDto.getDepartureTime())
-                && scheduleDto.getArrivalTime() != null
-                && !timeConverter.isToday(scheduleDto.getArrivalTime())
+                && timeConverter.isToday(scheduleDto.getDepartureTime())
+                && scheduleDto.getArrivalTime() != null && timeConverter.isToday(scheduleDto.getArrivalTime())
                 || scheduleDto.getDepartureTime() == null && scheduleDto.getArrivalTime() != null
-                && !timeConverter.isToday(scheduleDto.getArrivalTime())
+                && timeConverter.isToday(scheduleDto.getArrivalTime())
                 || scheduleDto.getArrivalTime() == null && scheduleDto.getDepartureTime() != null
-                && !timeConverter.isToday(scheduleDto.getDepartureTime()));
+                && timeConverter.isToday(scheduleDto.getDepartureTime()));
         return scheduleDtoList;
     }
 }

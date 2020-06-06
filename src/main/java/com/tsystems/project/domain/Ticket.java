@@ -1,12 +1,20 @@
 package com.tsystems.project.domain;
 
+import lombok.*;
+
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * author Vitalii Nefedov
  */
 @Entity
+@Builder
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Ticket implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -18,27 +26,18 @@ public class Ticket implements Serializable {
     @ManyToOne
     private Passenger passenger;
 
-    public long getId() {
-        return id;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Ticket)) return false;
+        Ticket ticket = (Ticket) o;
+        return getId() == ticket.getId() &&
+                Objects.equals(getTrain(), ticket.getTrain()) &&
+                Objects.equals(getPassenger(), ticket.getPassenger());
     }
 
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public Passenger getPassenger() {
-        return passenger;
-    }
-
-    public void setPassenger(Passenger passenger) {
-        this.passenger = passenger;
-    }
-
-    public Train getTrain() {
-        return train;
-    }
-
-    public void setTrain(Train train) {
-        this.train = train;
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getTrain(), getPassenger());
     }
 }

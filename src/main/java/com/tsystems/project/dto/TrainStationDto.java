@@ -1,36 +1,38 @@
 package com.tsystems.project.dto;
 
+import lombok.*;
+
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * author Vitalii Nefedov
  */
+@Builder
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class TrainStationDto implements Serializable {
+
     private String station;
+
     private String departureTime;
+
     private String arrivalTime;
 
-    public String getStation() {
-        return station;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof TrainStationDto)) return false;
+        TrainStationDto that = (TrainStationDto) o;
+        return Objects.equals(getStation(), that.getStation()) &&
+                Objects.equals(getDepartureTime(), that.getDepartureTime()) &&
+                Objects.equals(getArrivalTime(), that.getArrivalTime());
     }
 
-    public void setStation(String station) {
-        this.station = station;
-    }
-
-    public String getDepartureTime() {
-        return departureTime;
-    }
-
-    public void setDepartureTime(String departureTime) {
-        this.departureTime = departureTime;
-    }
-
-    public String getArrivalTime() {
-        return arrivalTime;
-    }
-
-    public void setArrivalTime(String arrivalTime) {
-        this.arrivalTime = arrivalTime;
+    @Override
+    public int hashCode() {
+        return Objects.hash(getStation(), getDepartureTime(), getArrivalTime());
     }
 }

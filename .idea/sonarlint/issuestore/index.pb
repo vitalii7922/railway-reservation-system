@@ -65,18 +65,12 @@ h
 8src/main/java/com/tsystems/project/config/AppConfig.java,4\3\43c13d88595a6817eefc3d1f372fb971f8eaaa7b
 h
 8src/main/java/com/tsystems/project/config/SprConfig.java,9\e\9e9cc5dfd7313b1d46d8d96f8b3bd09e2092456a
-p
-@src/main/java/com/tsystems/project/converter/TrainConverter.java,a\d\adc48ea689165e30dbd33be4104e5c4dc2178ea9
 l
 <src/main/java/com/tsystems/project/web/TicketController.java,3\e\3eb2cad282e9674e7504b83b48ad965940c07d0e
 o
 ?src/main/java/com/tsystems/project/web/PassengerController.java,c\a\ca89cd7214026766d3c664d2f73b9d54d21d5f49
 M
 src/main/webapp/passenger.jsp,6\8\686cf16c41f705a56afbc029f8cdc8d220bf5b23
-t
-Dsrc/main/java/com/tsystems/project/converter/PassengerConverter.java,3\a\3a16f022c2da446bbd7e5cb3bdf736d5aea67dfa
-q
-Asrc/main/java/com/tsystems/project/converter/TicketConverter.java,e\e\ee481cfe4c4cf18777bca8bbffd5c0ef3136b11b
 e
 5src/main/java/com/tsystems/project/dto/TicketDto.java,a\f\af757040d5d53238bca20484e01fee1ce330ea87
 W
@@ -107,8 +101,6 @@ j
 :src/main/java/com/tsystems/project/helper/TrainHelper.java,5\3\538c0b9d965d4517b940ac045038d64c422b2241
 k
 ;src/main/java/com/tsystems/project/dto/TrainStationDto.java,f\a\fa7cc8096ec1f42d1b3647528efb75437446869d
-s
-Csrc/main/java/com/tsystems/project/converter/ScheduleConverter.java,7\0\70c08cefd79b9a850391a30b4da11295107d18bb
 o
 ?src/main/java/com/tsystems/project/converter/TimeConverter.java,9\9\992b2c36c8ed3161c4a05f7ad195fcd8ac901495
 l
@@ -143,8 +135,6 @@ v
 Fsrc/main/java/com/tsystems/project/validator/TrainTicketValidator.java,b\3\b370c44c3f3a7f79730e7add7ff662b7498266b8
 t
 Dsrc/main/java/com/tsystems/project/validator/PassengerValidator.java,7\c\7c3d7dcbea1fa997cb3883ba3b25e85ae7e35cc2
-r
-Bsrc/main/java/com/tsystems/project/converter/StationConverter.java,6\4\64ddd1a0f190801383c45b153fd8955bac244e07
 s
 Csrc/main/java/com/tsystems/project/rest/ScheduleRestController.java,e\5\e5aae5b8477ab8f545c17ae30c10f63711b811ac
 r
@@ -197,8 +187,6 @@ h
 8src/main/java/com/tsystems/project/domain/Passenger.java,6\6\66cfaac9e0b8a603a5a7e5cc7b84dfc1d904d882
 g
 7src/main/java/com/tsystems/project/domain/Schedule.java,1\7\17aed40a655be31a862b43eea9fa8fd9f749a9fd
-[
-+src/main/resources/META-INF/persistence.xml,3\b\3be4f79b5828b3982f3f6a62bf8fc67b3adedf58
 v
 Fsrc/main/test/java/com/tsystems/javaschool/test/config/TestConfig.java,6\4\64424994d59aa065aeb5735be5e3438f4cdb3cde
 ‚
@@ -207,3 +195,13 @@ Rtarget/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.
 Ptarget/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst,3\d\3da01db98b88a8057c03354880f06dba49d3e795
 T
 $target/maven-archiver/pom.properties,5\a\5acbe6c306dee4498a010b1ca2096853e29e16a4
+q
+Asrc/main/java/com/tsystems/project/converter/PassengerMapper.java,c\4\c43f226914aaf0a11798c1f29ea013489186da44
+p
+@src/main/java/com/tsystems/project/converter/ScheduleMapper.java,7\4\74171ab711027d7203bdc2963a5fd43af63e9b0f
+o
+?src/main/java/com/tsystems/project/converter/StationMapper.java,5\c\5cde6ae60bc957de7884dd921ad9cabd16a85752
+n
+>src/main/java/com/tsystems/project/converter/TicketMapper.java,f\1\f188f2948c61b5e214464fd9ee806d69d28beec6
+m
+=src/main/java/com/tsystems/project/converter/TrainMapper.java,3\b\3b191e0f1f42650bbe211ec95da26b72ea95d1be
