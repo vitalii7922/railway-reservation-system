@@ -89,7 +89,7 @@ public class TrainService {
     @Transactional
     public List<TrainStationDto> getTrainRoutByTrainNumber(int trainNumber) {
         List<Train> trains = trainDao.findTrainListByNumber(trainNumber);
-        List<TrainDto> trainListDto = new ArrayList<>();
+        List<TrainDto> trainListDto = null;
         if (!CollectionUtils.isEmpty(trains)) {
             trainListDto = trains.stream()
                     .map(trainMapper::convertToTrainDto).collect(Collectors.toList());

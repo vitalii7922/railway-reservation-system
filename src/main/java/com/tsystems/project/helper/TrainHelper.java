@@ -107,32 +107,37 @@ public class TrainHelper {
             for (int i = 0; i < trainDtoList.size(); i++) {
                 if (trainDtoList.size() == 1) {
                     //set only departure time and origin station
-                    TrainStationDto trainStationDtoDeparture = new TrainStationDto();
-                    trainStationDtoDeparture.setStation(trainDtoList.get(i).getOriginStation());
-                    trainStationDtoDeparture.setDepartureTime(trainDtoList.get(i).getDepartureTime());
+                    TrainStationDto trainStationDtoDeparture = TrainStationDto.builder()
+                            .station(trainDtoList.get(i).getOriginStation())
+                            .departureTime(trainDtoList.get(i).getDepartureTime())
+                            .build();
                     //set arrival time and destination station
-                    TrainStationDto trainStationDtoArrival = new TrainStationDto();
-                    trainStationDtoArrival.setArrivalTime(trainDtoList.get(i).getArrivalTime());
-                    trainStationDtoArrival.setStation(trainDtoList.get(i).getDestinationStation());
+                    TrainStationDto trainStationDtoArrival = TrainStationDto.builder()
+                            .station(trainDtoList.get(i).getDestinationStation())
+                            .arrivalTime(trainDtoList.get(i).getArrivalTime())
+                            .build();
                     trainStationDtoList.add(trainStationDtoDeparture);
                     trainStationDtoList.add(trainStationDtoArrival);
                 } else if (i == trainDtoList.size() - 1) {
                     //set origin station and departure, arrival time
-                    TrainStationDto trainStationDtoDeparture = new TrainStationDto();
-                    trainStationDtoDeparture.setStation(trainDtoList.get(i).getOriginStation());
-                    trainStationDtoDeparture.setDepartureTime(trainDtoList.get(i).getDepartureTime());
-                    trainStationDtoDeparture.setArrivalTime(arrivalTime);
+                    TrainStationDto trainStationDtoDeparture = TrainStationDto.builder()
+                            .station(trainDtoList.get(i).getOriginStation())
+                            .departureTime(trainDtoList.get(i).getDepartureTime())
+                            .arrivalTime(arrivalTime)
+                            .build();
                     //set destination station and arrival time
-                    TrainStationDto trainStationDtoArrival = new TrainStationDto();
-                    trainStationDtoArrival.setStation(trainDtoList.get(i).getDestinationStation());
-                    trainStationDtoArrival.setArrivalTime(trainDtoList.get(i).getArrivalTime());
+                    TrainStationDto trainStationDtoArrival = TrainStationDto.builder()
+                            .arrivalTime(trainDtoList.get(i).getArrivalTime())
+                            .station(trainDtoList.get(i).getDestinationStation())
+                            .build();
                     trainStationDtoList.add(trainStationDtoDeparture);
                     trainStationDtoList.add(trainStationDtoArrival);
                 } else {
                     //set origin station, departure and arrival time
-                    TrainStationDto trainStationDto = new TrainStationDto();
-                    trainStationDto.setStation(trainDtoList.get(i).getOriginStation());
-                    trainStationDto.setDepartureTime(trainDtoList.get(i).getDepartureTime());
+                    TrainStationDto trainStationDto = TrainStationDto.builder()
+                            .departureTime(trainDtoList.get(i).getDepartureTime())
+                            .station(trainDtoList.get(i).getOriginStation())
+                            .build();
                     if (arrivalTime != null) {
                         trainStationDto.setArrivalTime(arrivalTime);
                     }

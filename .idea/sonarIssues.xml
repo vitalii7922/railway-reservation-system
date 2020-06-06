@@ -1228,12 +1228,17 @@
             <set />
           </value>
         </entry>
-        <entry key="$PROJECT_DIR$/src/main/java/com/tsystems/project/service/TrainService.java">
+        <entry key="$PROJECT_DIR$/src/main/java/com/tsystems/project/dto/TrainStationDto.java">
           <value>
             <set />
           </value>
         </entry>
-        <entry key="$PROJECT_DIR$/src/main/resources/META-INF/persistence.xml">
+        <entry key="$PROJECT_DIR$/src/main/java/com/tsystems/project/helper/TrainHelper.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/com/tsystems/project/service/TrainService.java">
           <value>
             <set />
           </value>

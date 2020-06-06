@@ -7,6 +7,7 @@ import com.tsystems.project.domain.Schedule;
 import com.tsystems.project.domain.Station;
 import com.tsystems.project.domain.Train;
 import com.tsystems.project.dto.TrainDto;
+import com.tsystems.project.dto.TrainStationDto;
 import com.tsystems.project.service.StationService;
 import com.tsystems.project.service.TrainService;
 import org.junit.Assert;
@@ -186,6 +187,30 @@ public class TrainServiceTest {
         Mockito.when(trainDao.findAll()).thenReturn(Arrays.asList(train1Id1, train1Id2, train2Id3));
         Assert.assertEquals(trainService.getTrainList(), Arrays.asList(trainDto1, trainDto2));
     }
+
+    @Test
+    public void testGetTrainRoutByTrainNumber() {
+        TrainStationDto trainStationDtoMoscow = TrainStationDto.builder()
+                .station("Moscow")
+                .departureTime("30-05-2020 15:10")
+                .build();
+
+        TrainStationDto trainStationDtoPetersburg = TrainStationDto.builder()
+                .station("Saint-Petersburg")
+                .arrivalTime("30-05-2020 20:00")
+                .departureTime("30-05-2020 20:10")
+                .build();
+
+        TrainStationDto trainStationDtoMurmansk = TrainStationDto.builder()
+                .station("Murmansk")
+                .arrivalTime("30-05-2020 23:10")
+                .build();
+
+        Mockito.when(trainDao.findTrainListByNumber(1)).thenReturn(Arrays.asList(train1Id1, train1Id2));
+        Assert.assertEquals(trainService.getTrainRoutByTrainNumber(1), Arrays.asList(trainStationDtoMoscow,
+                trainStationDtoPetersburg, trainStationDtoMurmansk));
+    }
+
 
     @Test
     public void testGetTrainListBetweenTwoPoints() {
