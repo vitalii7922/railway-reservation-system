@@ -40,11 +40,11 @@ public class PassengerService {
      */
     @Transactional
     public PassengerDto addPassenger(PassengerTrainDto passengerTrainDto) {
-        Passenger passenger = new Passenger();
-        passenger.setFirstName(passengerTrainDto.getFirstName().toUpperCase());
-        passenger.setSecondName(passengerTrainDto.getSecondName().toUpperCase());
-        passenger.setBirthDate(LocalDate.parse(passengerTrainDto.getBirthDate()));
-        log.info("----------passenger has been added-------------");
+        Passenger passenger = Passenger.builder()
+                .firstName(passengerTrainDto.getFirstName().toUpperCase())
+                .secondName(passengerTrainDto.getSecondName().toUpperCase())
+                .birthDate(LocalDate.parse(passengerTrainDto.getBirthDate()))
+                .build();
         return passengerMapper.convertToPassengerDto(passengerDao.create(passenger));
     }
 
@@ -74,9 +74,9 @@ public class PassengerService {
      * @param trainNumber train number
      * @return passengerDtoList
      */
-    public List<PassengerDto> getPassengers(int trainNumber) {
+    public List<PassengerDto> getPassengerListByTrainNumber(int trainNumber) {
         Set<Passenger> passengerSet = new HashSet<>(passengerDao.findAllPassengersByTrainNumber(trainNumber));
-        List<PassengerDto> passengerDtoList = new ArrayList<>();
+        List<PassengerDto> passengerDtoList = null;
         if (!CollectionUtils.isEmpty(passengerSet)) {
             passengerDtoList = passengerSet.stream()
                     .map(passengerMapper::convertToPassengerDtoAddDay)

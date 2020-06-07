@@ -77,6 +77,11 @@ public class TestConfig {
     }
 
     @Bean
+    PassengerService passengerService() {
+        return new PassengerService(passengerDao(), new PassengerMapper());
+    }
+
+    @Bean
     public LocalEntityManagerFactoryBean entityManagerFactory() {
         LocalEntityManagerFactoryBean localEmfBean =
                 new LocalEntityManagerFactoryBean();

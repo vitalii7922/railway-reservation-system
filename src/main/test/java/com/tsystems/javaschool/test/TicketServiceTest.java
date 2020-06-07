@@ -1,4 +1,5 @@
 package com.tsystems.javaschool.test;
+
 import com.tsystems.javaschool.test.config.TestConfig;
 import com.tsystems.project.dao.PassengerDao;
 import com.tsystems.project.dao.TicketDao;
@@ -7,6 +8,7 @@ import com.tsystems.project.domain.*;
 import com.tsystems.project.dto.PassengerDto;
 import com.tsystems.project.dto.PassengerTrainDto;
 import com.tsystems.project.dto.TicketDto;
+import com.tsystems.project.dto.TrainDto;
 import com.tsystems.project.service.TicketService;
 import com.tsystems.project.service.TrainService;
 import org.junit.Assert;
@@ -17,6 +19,7 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Arrays;
@@ -28,16 +31,16 @@ import static org.mockito.ArgumentMatchers.any;
 public class TicketServiceTest {
 
     @Autowired
-    TicketService ticketService;
+    private TicketService ticketService;
 
     @Autowired
-    TicketDao ticketDao;
+    private TicketDao ticketDao;
 
     @Autowired
-    TrainDao trainDao;
+    private TrainDao trainDao;
 
     @Autowired
-    PassengerDao passengerDao;
+    private PassengerDao passengerDao;
 
     private static Station stationMoscow;
 
@@ -197,5 +200,26 @@ public class TicketServiceTest {
                 .build();
 
         Assert.assertEquals(ticketService.addTicket(passengerTrainDto, passengerDto), ticketDto);
+        Assert.assertEquals(99, train1Id1.getSeats());
+    }
+
+    @Test
+    public void testGetTicketByPassenger() {
+        TrainDto trainDto = TrainDto.builder()
+                .id(1)
+                .seats(100)
+                .originStation("Moscow")
+                .destinationStation("Saint-Petersburg")
+                .departureTime("30-05-2020 10:00")
+                .arrivalTime("30-05-2020 22:00")
+                .build();
+        PassengerDto passengerDto = PassengerDto.builder()
+                .firstName("Ivan")
+                .secondName("Ivanov")
+                .birthDate(LocalDate.parse("2000-01-01"))
+                .build();
+
+        Mockito.when(ticketDao.findByPassenger(trainDto, passengerDto)).thenReturn(ticketFromMoscowToPetersburg);
+        Assert.assertNotNull(ticketService.getTicketByPassenger(trainDto, passengerDto));
     }
 }
