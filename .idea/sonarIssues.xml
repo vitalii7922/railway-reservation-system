@@ -973,6 +973,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/main/test/java/com/tsystems/javaschool/test/PassengerService.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/main/test/java/com/tsystems/javaschool/test/PassengerServiceTest.java">
           <value>
             <set />
@@ -1228,32 +1233,12 @@
             <set />
           </value>
         </entry>
-        <entry key="$PROJECT_DIR$/src/main/java/com/tsystems/project/service/PassengerService.java">
+        <entry key="$PROJECT_DIR$/src/main/webapp/index.jsp">
           <value>
             <set />
           </value>
         </entry>
-        <entry key="$PROJECT_DIR$/src/main/java/com/tsystems/project/service/TicketService.java">
-          <value>
-            <set />
-          </value>
-        </entry>
-        <entry key="$PROJECT_DIR$/src/main/test/java/com/tsystems/javaschool/test/PassengerService.java">
-          <value>
-            <set />
-          </value>
-        </entry>
-        <entry key="$PROJECT_DIR$/src/main/test/java/com/tsystems/javaschool/test/PassengerServiceTest.java">
-          <value>
-            <set />
-          </value>
-        </entry>
-        <entry key="$PROJECT_DIR$/src/main/test/java/com/tsystems/javaschool/test/TicketServiceTest.java">
-          <value>
-            <set />
-          </value>
-        </entry>
-        <entry key="$PROJECT_DIR$/src/main/test/java/com/tsystems/javaschool/test/config/TestConfig.java">
+        <entry key="$PROJECT_DIR$/src/main/webapp/resources/login.css">
           <value>
             <set />
           </value>
