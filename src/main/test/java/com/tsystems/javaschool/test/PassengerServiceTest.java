@@ -31,7 +31,7 @@ public class PassengerServiceTest {
 
     private static void setUpPassenger() {
         passengerAddedToDb = Passenger.builder()
-                .id(1)
+                .id(1L)
                 .firstName("Ivan")
                 .secondName("Ivanov")
                 .birthDate(LocalDate.parse("2000-01-01"))
