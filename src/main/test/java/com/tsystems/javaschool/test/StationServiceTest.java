@@ -57,12 +57,12 @@ public class StationServiceTest {
     @Test
     public void testGetAllStations() {
         StationDto stationDtoMoscow = StationDto.builder()
-                .id(1)
+                .id(1L)
                 .name("Moscow")
                 .build();
 
         StationDto stationDtoPetersburg = StationDto.builder()
-                .id(2)
+                .id(2L)
                 .name("Saint-Petersburg")
                 .build();
 
@@ -73,8 +73,8 @@ public class StationServiceTest {
 
     @Test
     public void testGetStationById() {
-        when(stationDaoMock.findOne(1)).thenReturn(stationMoscow);
-        Assert.assertEquals(1, stationService.getStationById(1).getId());
+        when(stationDaoMock.findOne(1L)).thenReturn(stationMoscow);
+        Assert.assertEquals(1L, stationService.getStationById(1L).getId());
     }
 
     @Test

@@ -72,7 +72,7 @@ public class TicketServiceTest {
 
     private static void setUpPassenger() {
         passenger = Passenger.builder()
-                .id(1)
+                .id(1L)
                 .firstName("Ivan")
                 .secondName("Ivanov")
                 .birthDate(LocalDate.parse("2000-01-01"))
@@ -81,19 +81,19 @@ public class TicketServiceTest {
 
     private static void setUpTrain() {
         Schedule scheduleDepartureTrain1Id1 = Schedule.builder()
-                .id(1)
+                .id(1L)
                 .departureTime(LocalDateTime.parse("2020-05-30T10:00"))
                 .station(stationMoscow)
                 .build();
 
         Schedule scheduleArrivalTrain1Id1 = Schedule.builder()
-                .id(2)
+                .id(2L)
                 .arrivalTime(LocalDateTime.parse("2020-05-30T15:00"))
                 .station(stationPetersburg)
                 .build();
 
         train1Id1 = Train.builder()
-                .id(1)
+                .id(1L)
                 .number(1)
                 .originStation(stationMoscow)
                 .destinationStation(stationPetersburg)
@@ -102,19 +102,19 @@ public class TicketServiceTest {
                 .build();
 
         Schedule scheduleDepartureTrain1Id2 = Schedule.builder()
-                .id(1)
+                .id(1L)
                 .departureTime(LocalDateTime.parse("2020-05-30T15:10"))
                 .station(stationPetersburg)
                 .build();
 
         Schedule scheduleArrivalTrain1Id2 = Schedule.builder()
-                .id(2)
+                .id(2L)
                 .arrivalTime(LocalDateTime.parse("2020-05-30T22:00"))
                 .station(stationMurmansk)
                 .build();
 
         train1Id2 = Train.builder()
-                .id(2)
+                .id(2L)
                 .number(1)
                 .originStation(stationPetersburg)
                 .destinationStation(stationMurmansk)
@@ -125,17 +125,17 @@ public class TicketServiceTest {
 
     private static void setUpStation() {
         stationMoscow = Station.builder()
-                .id(1)
+                .id(1L)
                 .name("Moscow")
                 .build();
 
         stationPetersburg = Station.builder()
-                .id(2)
+                .id(2L)
                 .name("Saint-Petersburg")
                 .build();
 
         stationMurmansk = Station.builder()
-                .id(3)
+                .id(3L)
                 .name("Murmansk")
                 .build();
     }
@@ -151,7 +151,7 @@ public class TicketServiceTest {
     @Test
     public void testAddTicket() {
         PassengerDto passengerDto = PassengerDto.builder()
-                .id(1)
+                .id(1L)
                 .firstName("Ivan")
                 .secondName("Ivanov")
                 .birthDate(LocalDate.parse("2000-01-01"))
@@ -165,13 +165,13 @@ public class TicketServiceTest {
                 .build();
 
         Ticket ticket1 = Ticket.builder()
-                .id(1)
+                .id(1L)
                 .train(train1Id1)
                 .passenger(passenger)
                 .build();
 
         Ticket ticket2 = Ticket.builder()
-                .id(2)
+                .id(2L)
                 .train(train1Id2)
                 .passenger(passenger)
                 .build();
@@ -188,7 +188,7 @@ public class TicketServiceTest {
         Mockito.when(ticketDao.create(ticketFromPetersburgToMurmansk)).thenReturn(ticket2);
 
         TicketDto ticketDto = TicketDto.builder()
-                .id(2)
+                .id(2L)
                 .trainNumber(1)
                 .departureTime("30-05-2020 10:00")
                 .arrivalTime("30-05-2020 22:00")
@@ -206,7 +206,7 @@ public class TicketServiceTest {
     @Test
     public void testGetTicketByPassenger() {
         TrainDto trainDto = TrainDto.builder()
-                .id(1)
+                .id(1L)
                 .seats(100)
                 .originStation("Moscow")
                 .destinationStation("Saint-Petersburg")

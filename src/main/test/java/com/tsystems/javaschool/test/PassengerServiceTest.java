@@ -45,12 +45,6 @@ public class PassengerServiceTest {
 
     @Test
     public void testAddPassenger() {
-        PassengerDto passengerDto = PassengerDto.builder()
-                .firstName("Ivan")
-                .secondName("Ivanov")
-                .birthDate(LocalDate.parse("2000-01-01"))
-                .build();
-
         PassengerTrainDto passengerTrainDto = PassengerTrainDto.builder()
                 .firstName("Ivan")
                 .secondName("Ivanov")
@@ -82,21 +76,21 @@ public class PassengerServiceTest {
 
     @Test
     public void testGetPassengerById() {
-        Mockito.when(passengerDao.findOne(1)).thenReturn(passengerAddedToDb);
-        Assert.assertNotNull(passengerService.getPassengerById(1));
+        Mockito.when(passengerDao.findOne(1L)).thenReturn(passengerAddedToDb);
+        Assert.assertNotNull(passengerService.getPassengerById(1L));
     }
 
     @Test
     public void testGetPassengerListByTrainNumber() {
         Passenger passengerPetrov = Passenger.builder()
-                .id(2)
+                .id(2L)
                 .firstName("Dmitrii")
                 .secondName("Petrov")
                 .birthDate(LocalDate.parse("1995-01-01"))
                 .build();
 
         Passenger passengerIvanov = Passenger.builder()
-                .id(1)
+                .id(1L)
                 .firstName("Ivan")
                 .secondName("Ivanov")
                 .birthDate(LocalDate.parse("2000-01-01"))
