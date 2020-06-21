@@ -47,21 +47,22 @@ public class TicketService {
      */
     @Transactional
     public TicketDto addTicket(PassengerTrainDto passengerTrainDto, PassengerDto passengerDto) {
-        TrainDto trainDto = new TrainDto();
-        trainDto.setNumber(passengerTrainDto.getTrainNumber());
-        trainDto.setOriginStation(passengerTrainDto.getOriginStation());
-        trainDto.setDestinationStation(passengerTrainDto.getDestinationStation());
+        TrainDto trainDto = TrainDto.builder()
+                .originStation(passengerTrainDto.getOriginStation())
+                .destinationStation(passengerTrainDto.getDestinationStation())
+                .number(passengerTrainDto.getTrainNumber())
+                .build();
         Train trainDeparture = trainService.getTrainByOriginStation(trainDto);
         Train trainArrival = trainService.getTrainByDestinationStation(trainDto);
         TicketDto ticketDto;
-
         List<Train> trains = trainService.getTrainListByTrainsId(trainDeparture, trainArrival);
         Passenger passenger = passengerService.getPassengerById(passengerDto.getId());
         Ticket ticket = null;
         for (Train train : trains) {
-            ticket = new Ticket();
-            ticket.setTrain(train);
-            ticket.setPassenger(passenger);
+            ticket = Ticket.builder()
+                    .train(train)
+                    .passenger(passenger)
+                    .build();
             ticket = ticketDao.create(ticket);
             int seats = train.getSeats();
             seats--;

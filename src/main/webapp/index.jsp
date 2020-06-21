@@ -9,6 +9,7 @@
         <%@include file='resources/style.css'%>
         <%@include file='resources/trains.css'%>
     </style>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 </head>
 <body>
 <header>
@@ -49,7 +50,7 @@
                 <td><label>
                     <input type="datetime-local" name=time_arrival required>
                 </label></td>
-                <td><button type="submit">Find</button></td>
+                <td><button type="submit" >Find</button></td>
         </tr>
         <p class="message">${message}</p>
     </table>

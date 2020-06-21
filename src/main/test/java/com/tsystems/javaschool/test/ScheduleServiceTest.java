@@ -44,7 +44,7 @@ public class ScheduleServiceTest {
 
     private static void setUpStation() {
         stationMoscow = Station.builder()
-                .id(1)
+                .id(1L)
                 .name("Moscow")
                 .build();
     }
@@ -52,21 +52,21 @@ public class ScheduleServiceTest {
     private static void setUpTrainAndSchedule() {
         //initialize arrival time train number 1
         scheduleArrivalTrain1 = Schedule.builder()
-                .id(1)
+                .id(1L)
                 .arrivalTime(LocalDateTime.parse("2020-05-31T15:00"))
                 .station(stationMoscow)
                 .build();
 
         //initialize departure time train number 1
         scheduleDepartureTrain1 = Schedule.builder()
-                .id(2)
+                .id(2L)
                 .departureTime(LocalDateTime.parse("2020-05-31T15:10"))
                 .station(stationMoscow)
                 .build();
 
         //initialize train number 1 to Moscow
         Train trainId1 = Train.builder()
-                .id(1)
+                .id(1L)
                 .number(1)
                 .destinationStation(stationMoscow)
                 .schedules(Collections.singletonList(scheduleArrivalTrain1))
@@ -74,7 +74,7 @@ public class ScheduleServiceTest {
 
         //initialize train number 1 from Moscow
         Train trainId2 = Train.builder()
-                .id(2)
+                .id(2L)
                 .number(1)
                 .originStation(stationMoscow)
                 .schedules(Collections.singletonList(scheduleDepartureTrain1))
@@ -87,14 +87,14 @@ public class ScheduleServiceTest {
 
         //initialize departure time train number 2
         scheduleDepartureTrain2 = Schedule.builder()
-                .id(3)
+                .id(3L)
                 .departureTime(LocalDateTime.parse("2020-05-31T15:10"))
                 .station(stationMoscow)
                 .build();
 
         //initialize train number 2 from Moscow
         Train trainId3 = Train.builder()
-                .id(3)
+                .id(3L)
                 .number(2)
                 .originStation(stationMoscow)
                 .schedules(Collections.singletonList(scheduleDepartureTrain2))
@@ -104,14 +104,14 @@ public class ScheduleServiceTest {
 
         //initialize departure time train number 3
         scheduleArrivalTrain3 = Schedule.builder()
-                .id(4)
+                .id(4L)
                 .arrivalTime(LocalDateTime.parse("2020-05-31T15:30"))
                 .station(stationMoscow)
                 .build();
 
         //initialize train number 3 to Moscow
         Train trainId4 = Train.builder()
-                .id(4)
+                .id(4L)
                 .number(3)
                 .destinationStation(stationMoscow)
                 .schedules(Collections.singletonList(scheduleArrivalTrain3))
@@ -138,7 +138,7 @@ public class ScheduleServiceTest {
                 .departureTime("31-05-2020 15:10")
                 .arrivalTime("31-05-2020 15:00")
                 .trainNumber(1)
-                .id(1)
+                .id(1L)
                 .stationName("Moscow")
                 .trainId(1)
                 .build();
@@ -146,7 +146,7 @@ public class ScheduleServiceTest {
         ScheduleDto scheduleDtoMoscowTrain2 = ScheduleDto.builder()
                 .departureTime("31-05-2020 15:10")
                 .trainNumber(2)
-                .id(3)
+                .id(3L)
                 .stationName("Moscow")
                 .trainId(3)
                 .build();
@@ -154,7 +154,7 @@ public class ScheduleServiceTest {
         ScheduleDto scheduleDtoMoscowTrain3 = ScheduleDto.builder()
                 .arrivalTime("31-05-2020 15:30")
                 .trainNumber(3)
-                .id(4)
+                .id(4L)
                 .stationName("Moscow")
                 .trainId(4)
                 .build();
@@ -167,14 +167,14 @@ public class ScheduleServiceTest {
     public void testGetTodaySchedulesByStationId() {
         //initialize departure time train number 2
         Schedule scheduleDepartureTrain2 = Schedule.builder()
-                .id(3)
+                .id(3L)
                 .departureTime(LocalDateTime.now())
                 .station(stationMoscow)
                 .build();
 
         //initialize train number 2 from Moscow
         Train trainId3 = Train.builder()
-                .id(3)
+                .id(3L)
                 .number(2)
                 .originStation(stationMoscow)
                 .schedules(Collections.singletonList(scheduleDepartureTrain2))
@@ -184,14 +184,14 @@ public class ScheduleServiceTest {
         //----------------------------------------
         //initialize departure time train number 3
         Schedule scheduleArrivalTrain3 = Schedule.builder()
-                .id(4)
+                .id(4L)
                 .arrivalTime(LocalDateTime.now())
                 .station(stationMoscow)
                 .build();
 
         //initialize train number 3 to Moscow
         Train trainId4 = Train.builder()
-                .id(4)
+                .id(4L)
                 .number(3)
                 .destinationStation(stationMoscow)
                 .schedules(Collections.singletonList(scheduleArrivalTrain3))
@@ -201,14 +201,14 @@ public class ScheduleServiceTest {
         //----------------------------------------
         //initialize departure time train number 4
         Schedule scheduleArrivalTrain4 = Schedule.builder()
-                .id(5)
+                .id(5L)
                 .arrivalTime(LocalDateTime.parse("2020-05-30T15:10"))
                 .station(stationMoscow)
                 .build();
 
         //initialize train number 4 to Moscow
         Train trainId5 = Train.builder()
-                .id(5)
+                .id(5L)
                 .number(4)
                 .destinationStation(stationMoscow)
                 .schedules(Collections.singletonList(scheduleArrivalTrain3))
@@ -218,14 +218,14 @@ public class ScheduleServiceTest {
         //----------------------------------------
         //initialize departure time train number 5
         Schedule scheduleDepartureTrain5 = Schedule.builder()
-                .id(6)
+                .id(6L)
                 .departureTime(LocalDateTime.parse("2020-05-30T15:00"))
                 .station(stationMoscow)
                 .build();
 
         //initialize train number 5 from Moscow
         Train trainId6 = Train.builder()
-                .id(6)
+                .id(6L)
                 .number(5)
                 .originStation(stationMoscow)
                 .schedules(Collections.singletonList(scheduleDepartureTrain5))
@@ -251,12 +251,12 @@ public class ScheduleServiceTest {
     @Test
     public void testAddSchedule() {
         Station stationPetersburg = Station.builder()
-                .id(1)
+                .id(1L)
                 .name("Saint-Petersburg")
                 .build();
 
         Train trainId1 = Train.builder()
-                .id(1)
+                .id(1L)
                 .number(1)
                 .originStation(stationMoscow)
                 .destinationStation(stationPetersburg)

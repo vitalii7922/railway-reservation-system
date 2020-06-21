@@ -71,7 +71,7 @@ public class TrainServiceTest {
 
     private static void setUpTrain() {
         train1Id1 = Train.builder()
-                .id(1)
+                .id(1L)
                 .number(1)
                 .originStation(stationMoscow)
                 .destinationStation(stationPetersburg)
@@ -81,7 +81,7 @@ public class TrainServiceTest {
         train1Id1.setSchedules(Arrays.asList(scheduleDepartureTrain1Id1, scheduleArrivalTrain1Id1));
 
         train1Id2 = Train.builder()
-                .id(2)
+                .id(2L)
                 .number(1)
                 .originStation(stationPetersburg)
                 .destinationStation(stationMurmansk)
@@ -90,7 +90,7 @@ public class TrainServiceTest {
                 .build();
 
         train2Id3 = Train.builder()
-                .id(3)
+                .id(3L)
                 .number(2)
                 .originStation(stationMoscow)
                 .destinationStation(stationPetersburg)
@@ -131,7 +131,7 @@ public class TrainServiceTest {
     public void testAddTrain() {
         //parameter in add train
         TrainDto trainDto = TrainDto.builder()
-                .id(1)
+                .id(1L)
                 .number(1)
                 .originStation("Moscow")
                 .destinationStation("Saint-Petersburg")
@@ -149,7 +149,7 @@ public class TrainServiceTest {
     @Test
     public void testGetTrainByNumber() {
         TrainDto trainDto = TrainDto.builder()
-                .id(1)
+                .id(1L)
                 .number(1)
                 .originStation("Moscow")
                 .destinationStation("Saint-Petersburg")
@@ -165,7 +165,7 @@ public class TrainServiceTest {
     @Test
     public void testGetTrainList() {
         TrainDto trainDto1 = TrainDto.builder()
-                .id(1)
+                .id(1L)
                 .number(1)
                 .originStation("Moscow")
                 .destinationStation("Murmansk")
@@ -175,7 +175,7 @@ public class TrainServiceTest {
                 .build();
 
         TrainDto trainDto2 = TrainDto.builder()
-                .id(3)
+                .id(3L)
                 .number(2)
                 .originStation("Moscow")
                 .destinationStation("Saint-Petersburg")
@@ -215,7 +215,7 @@ public class TrainServiceTest {
     @Test
     public void testGetTrainListBetweenTwoPoints() {
         TrainDto trainDtoOutput = TrainDto.builder()
-                .id(1)
+                .id(1L)
                 .number(1)
                 .originStation("Moscow")
                 .destinationStation("Murmansk")
@@ -242,7 +242,7 @@ public class TrainServiceTest {
     @Test
     public void testGetTrainByOriginStation() {
         TrainDto trainDto = TrainDto.builder()
-                .id(1)
+                .id(1L)
                 .number(1)
                 .originStation("Moscow")
                 .destinationStation("Saint-Petersburg")
@@ -258,7 +258,7 @@ public class TrainServiceTest {
     @Test
     public void testGetTrainByDestinationStation() {
         TrainDto trainDto = TrainDto.builder()
-                .id(1)
+                .id(1L)
                 .number(1)
                 .originStation("Saint-Petersburg")
                 .destinationStation("Murmansk")

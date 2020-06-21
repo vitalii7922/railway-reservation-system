@@ -76,7 +76,7 @@ public class PassengerController {
     @GetMapping(value = "/employee/passengers")
     public ModelAndView getPassengers(@RequestParam("trainNumber") int trainNumber,
                                       ModelAndView modelAndView) {
-        List<PassengerDto> passengersDto = passengerService.getPassengers(trainNumber);
+        List<PassengerDto> passengersDto = passengerService.getPassengerListByTrainNumber(trainNumber);
         if (!CollectionUtils.isEmpty(passengersDto)) {
             modelAndView.addObject("passengers", passengersDto);
             modelAndView.addObject("train", trainNumber);
